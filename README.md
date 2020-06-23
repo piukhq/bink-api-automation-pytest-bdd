@@ -11,6 +11,7 @@ This project requires an up-to-date version of Python 3 (Currently using Python 
  It also uses [pipenv](https://pipenv.readthedocs.io/) to manage packages.
 
 To set up this project on your local machine:
+
     1. Clone it from this GitLab repository.
     2. Run `pipenv install` from the terminal in the project's root directory.
     3. For Django Web UI tests, install the appropriate browser and WebDriver executable
