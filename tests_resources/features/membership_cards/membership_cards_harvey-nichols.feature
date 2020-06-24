@@ -15,7 +15,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
 
 
   @enrol
-    Scenario: Verify a new Harvey Nichols customer can enrol membership scheme (Join journey)v1.1
+   Scenario: Verify a new Harvey Nichols customer can enrol membership scheme (Join journey)v1.1
     Given I registers with bink service as a new customer
     When I submit POST request to create a "harvey-nichols" membership account with enrol details
 #    And they can perform PUT request to replace information of enrol membership card
