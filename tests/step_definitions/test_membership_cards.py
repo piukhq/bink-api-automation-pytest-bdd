@@ -48,10 +48,14 @@ def add_membership_card(merchant, login_user, context):
 def verify_membership_card_is_added_to_wallet(merchant, context):
     """I submit GET request to verify merchant membership card is added to  wallet."""
     # handle time in inside common functions
-    time.sleep(1)
+    time.sleep(2)
     response = MembershipCards.get_scheme_account(context['token'], context['scheme_account_id'])
     response_json = response.json()
+    logging.info(response_json['status']['state'], 'status********')
+    if response_json['status']['state'] == Endpoint.TEST_DATA.membership_account_states.get('state_pending'):
+        time.sleep(3)
     try:
+
          assert response.status_code == 200 \
            and response_json['id'] == context['scheme_account_id'] \
            and response_json['status']['state'] == Endpoint.TEST_DATA.membership_account_states.get('state_authorised')

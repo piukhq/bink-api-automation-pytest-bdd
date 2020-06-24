@@ -11,7 +11,7 @@ class BKCard:
                     }
                 ]
             },
-            "membership_plan": 279
+            "membership_plan": 314
         }
         return payload
 
