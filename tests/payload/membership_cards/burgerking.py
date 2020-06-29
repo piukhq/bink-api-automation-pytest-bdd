@@ -1,3 +1,6 @@
+from tests.api.base import Endpoint
+
+
 class BKCard:
 
     @staticmethod
@@ -7,11 +10,12 @@ class BKCard:
                 "authorise_fields": [
                     {
                         "column": "Rewards number",
-                        "value": "BK00000035941509"
+                        "value": Endpoint.TEST_DATA.BK_membership_card3.get('card_num')
                     }
                 ]
             },
-            "membership_plan": 314
+            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('BK')
+
         }
         return payload
 

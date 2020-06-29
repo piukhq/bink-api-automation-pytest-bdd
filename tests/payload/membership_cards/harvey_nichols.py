@@ -9,14 +9,16 @@ class HNCard:
             "account": {
                 "authorise_fields": [
                     {
-                        "column": "Email", "value": Endpoint.TEST_DATA.hn_membership_card1.get('id')
+                        "column": "Email",
+                        "value": Endpoint.TEST_DATA.HN_membership_card1.get('id')
                     },
                     {
-                        "column": "Password", "value": Endpoint.TEST_DATA.hn_membership_card1.get('password')
+                        "column": "Password",
+                        "value": Endpoint.TEST_DATA.HN_membership_card1.get('password')
                         # "value": RSACipher.encrypt_field("Password01")
                     }
                 ]
-            }, "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('hn')
+            }, "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('HN')
 
         }
         return payload

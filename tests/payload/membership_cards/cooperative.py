@@ -1,3 +1,6 @@
+from tests.api.base import Endpoint
+
+
 class CoopCard:
     @staticmethod
     def add_membership_card_payload():
@@ -6,21 +9,21 @@ class CoopCard:
                 "add_fields": [
                     {
                         "column": "Membership card number",
-                        "value": "633174912301122335"
+                        "value": Endpoint.TEST_DATA.CooP_membership_card1.get('card_num')
                     }
                 ],
                 "authorise_fields": [
                     {
                         "column": "Date of birth",
-                        "value": "01/01/2000"
+                        "value": Endpoint.TEST_DATA.CooP_membership_card1.get('dob')
                     },
                     {
                         "column": "Postcode",
-                        "value": "qa1 1qa"
+                        "value": Endpoint.TEST_DATA.CooP_membership_card1.get('postcode')
                     }
                 ]
             },
-            "membership_plan": 242
+            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('CooP')
         }
         return payload
 

@@ -13,6 +13,7 @@ selenium = "*"
 logger = "*"
 pytest-metadata = "*"
 pytest-html = "*"
+jsonpath = "*"
 
 [requires]
 python_version = "3.8"

@@ -7,13 +7,13 @@ from pytest_bdd import (
 import time
 import pytest
 import json
+import jsonpath
 import logging
 from requests.exceptions import HTTPError
 from tests.requests.membership_cards import MembershipCards
 from tests.api.base import Endpoint
 
 scenarios('membership_cards/')
-
 
 def customer_can_add_membership_card():
     """Verify a customer can add membership card."""
@@ -23,7 +23,6 @@ def customer_can_add_membership_card():
 @pytest.fixture(scope='function')
 def context():
     return {}
-
 
 @when(parsers.parse('I submit POST request to add "{merchant}" membership card'))
 def add_membership_card(merchant, login_user, context):
@@ -44,18 +43,14 @@ def add_membership_card(merchant, login_user, context):
         logging.error('add journey for ', merchant, 'failed')
 
 
-@when(parsers.parse('I submit GET request to verify "{merchant}" membership card is added to  wallet'))
+@when(parsers.parse('I submit GET request to verify "{merchant}" membership card is added to the wallet'))
 def verify_membership_card_is_added_to_wallet(merchant, context):
     """I submit GET request to verify merchant membership card is added to  wallet."""
-    # handle time in inside common functions
-    time.sleep(2)
+
     response = MembershipCards.get_scheme_account(context['token'], context['scheme_account_id'])
     response_json = response.json()
-    logging.info(response_json['status']['state'], 'status********')
-    if response_json['status']['state'] == Endpoint.TEST_DATA.membership_account_states.get('state_pending'):
-        time.sleep(3)
+    logging.info(response_json['status']['state'])
     try:
-
          assert response.status_code == 200 \
            and response_json['id'] == context['scheme_account_id'] \
            and response_json['status']['state'] == Endpoint.TEST_DATA.membership_account_states.get('state_authorised')
@@ -77,9 +72,6 @@ def enrol_membership_account(merchant, register_user, context, test_email):
         logging.error('Enrol journey for ', merchant, 'failed due to HTTP error: {network_response}')
 
 
-@then('verify membership account Join date, Card Number and Merchant identifier populated in Django')
-def verify_membership_account_join_date_card_number_and_merchant_identifier_populated_in_django():
-    """verify membership account Join date, Card Number and Merchant identifier populated in Django."""
 
 
 @then(parsers.parse('I perform DELETE request to delete the "{merchant}" membership card'))
