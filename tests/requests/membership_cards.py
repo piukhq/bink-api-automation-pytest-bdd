@@ -1,4 +1,8 @@
 import tests.api as api
+import json
+import jsonpath
+import time
+import logging
 from tests.payload.membership_cards.burgerking import BKCard
 from tests.payload.membership_cards.cooperative import CoopCard
 from tests.payload.membership_cards.fatface import FFCard
@@ -50,8 +54,16 @@ class MembershipCards(Endpoint):
     # Get Membership Card
     @staticmethod
     def get_scheme_account(token, scheme_account_id):
-
-        return Endpoint.call(MembershipCards.get_url(scheme_account_id), Endpoint.request_header(token), "GET")
+        """Waiting max up to 30 sec to change status from Pending to Authorized"""
+        for i in range(1, 30):
+            response = Endpoint.call(MembershipCards.get_url(scheme_account_id), Endpoint.request_header(token), "GET")
+            response_json = response.json()
+            if response_json['status']['state'] == Endpoint.TEST_DATA.membership_account_states.get('state_pending'):
+                time.sleep(1)
+            else:
+                break
+        return response
+        # return Endpoint.call(MembershipCards.get_url(scheme_account_id), Endpoint.request_header(token), "GET")
 
     # Delete Membership Card
     @staticmethod

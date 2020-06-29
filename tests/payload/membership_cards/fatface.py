@@ -1,3 +1,6 @@
+from tests.api.base import Endpoint
+
+
 class FFCard:
 
     @staticmethod
@@ -7,11 +10,11 @@ class FFCard:
                 "authorise_fields": [
                     {
                         "column": "Rewards number",
-                        "value": "FF00000059702811"
+                        "value": Endpoint.TEST_DATA.FF_membership_card1.get('card_num')
                     }
                 ]
             },
-            "membership_plan": 281
+            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('FF')
         }
         return payload
 

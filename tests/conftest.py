@@ -1,13 +1,13 @@
 import pytest
 import time
 import logging
-from pytest_bdd import given
+from pytest_bdd import given, then
 from selenium.webdriver import Chrome
 import config
 from tests.requests.service import CustomerAccount
-
 from tests.api.base import Endpoint
 
+# auto_pytest, make sure its from python
 EMAIL_TEMPLATE = "email@bink.com"
 
 
@@ -85,7 +85,7 @@ def driver():
     driver.quit()
 
 
-# Shared Given Steps
+# Shared  Steps
 @given('I registers with bink service as a new customer')
 def register_user(test_email, channel):
     response = CustomerAccount.create_user(test_email, channel)
@@ -97,3 +97,12 @@ def register_user(test_email, channel):
 @given('I am a Bink user')
 def login_user(channel):
     return CustomerAccount.login_user(channel)
+
+
+# Common Django verifications
+@then('verify membership account Join date, Card Number and Merchant identifier populated in Django')
+def verify_membership_account_join_date_card_number_and_merchant_identifier_populated_in_django(driver):
+    """verify membership account Join date, Card Number and Merchant identifier populated in Django."""
+    driver.get(Endpoint.DJANGO_URL)
+    driver.maximize_window()
+

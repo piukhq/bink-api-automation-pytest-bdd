@@ -1,3 +1,6 @@
+from tests.api.base import Endpoint
+
+
 class IcelandCard:
     @staticmethod
     def add_membership_card_payload():
@@ -6,21 +9,21 @@ class IcelandCard:
                 "add_fields": [
                     {
                         "column": "Bonus card number",
-                        "value": "5555555555555555555"
+                        "value":  Endpoint.TEST_DATA.IL_membership_card2.get('card_num')
                     }
                 ],
                 "authorise_fields": [
                     {
                         "column": "Last name",
-                        "value": "five"
+                        "value": Endpoint.TEST_DATA.IL_membership_card2.get('last_name')
                     },
                     {
                         "column": "Postcode",
-                        "value": "rg5 5aa"
+                        "value": Endpoint.TEST_DATA.IL_membership_card2.get('postcode')
                     }
                 ]
             },
-            "membership_plan": 105
+            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('IL')
         }
         return payload
 
