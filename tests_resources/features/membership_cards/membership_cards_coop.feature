@@ -8,6 +8,6 @@ Feature: Merchant CooP- Ensure a customer can add their membership card & view i
     Scenario: Verify CooP customer can add membership card ( Add Journey )
     Given I am a Bink user
     When I submit POST request to add "coop" membership card
-    And I submit GET request to verify "coop" membership card is added to  wallet
+    And I submit GET request to verify "coop" membership card is added to the wallet
     Then I perform DELETE request to delete the "coop" membership card
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
