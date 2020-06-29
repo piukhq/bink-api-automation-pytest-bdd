@@ -3,18 +3,21 @@ from tests_resources.test_data import testdata_staging
 
 
 class EnvironmentDetails:
-    def __init__(self, base_url, test_data):
+    def __init__(self, base_url, test_data, django_url):
         self.base_url = base_url
         self.test_data = test_data
+        self.django_url = django_url
 
 
 DEV = EnvironmentDetails(
     base_url="https://api.dev.gb.bink.com",
-    test_data=testdata_dev
+    test_data=testdata_dev,
+    django_url="https://api.dev.gb.bink.com/admin/"
 )
 STAGING = EnvironmentDetails(
     base_url="https://api.staging.gb.bink.com",
-    test_data=testdata_staging
+    test_data=testdata_staging,
+    django_url="https://staging.dev.gb.bink.com/admin/"
 )
 
 
