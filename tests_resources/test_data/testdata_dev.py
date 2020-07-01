@@ -155,6 +155,12 @@ IL_membership_card4 = {
     "points": "123456.00",
     "transactions": "6"
 }
+
+# Whsmith
+Whsmith_membership_card1 = {
+    "card_num1": "FF00000004827176",
+    "card_num2": "FF00000004827176",
+}
 # ----------------------------------------MEMBERSHIP PLAN IDs   ----------------------------------------------- #
 
 membership_plan_id = {
@@ -163,7 +169,7 @@ membership_plan_id = {
     "FF": "281",
     "HN": "194",
     "IL": "105",
-    "WHS": "",
+    "WHSmith": "316",
     "WAS": ""
 }
 # ----------------------------------------MEMBERSHIP ACCOUNT STATES ------------------------------------------ #
@@ -171,7 +177,8 @@ membership_plan_id = {
 membership_account_states = {
     "state_pending": "pending",
     "state_authorised": "authorised",
-    "state_failed": "failed"
+    "state_failed": "failed",
+    "reason_codes": ['X300']
 }
 
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #

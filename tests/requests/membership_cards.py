@@ -3,6 +3,8 @@ import json
 import jsonpath
 import time
 import logging
+
+from tests.payload.membership_cards.Whsmith import WhsmithCard
 from tests.payload.membership_cards.burgerking import BKCard
 from tests.payload.membership_cards.cooperative import CoopCard
 from tests.payload.membership_cards.fatface import FFCard
@@ -29,6 +31,8 @@ class MembershipCards(Endpoint):
             payload = HNCard.add_membership_card_payload()
         elif merchant == 'iceland':
             payload = IcelandCard.add_membership_card_payload()
+        elif merchant == 'whsmith':
+            payload = WhsmithCard.add_membership_card_payload()
 
         return Endpoint.call(url, header, "POST", payload)
 

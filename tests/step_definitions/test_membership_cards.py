@@ -47,6 +47,7 @@ def add_membership_card(merchant, login_user, context):
 @when(parsers.parse('I perform PATCH request to update "{merchant}" membership card'))
 def patch_request_to_update_membership_card_details(merchant, context):
     response = MembershipCards.patch_membership_card(context['token'], context['scheme_account_id'])
+    response_json = response.json()
     try:
         assert response.status_code == 201 \
                and response_json['status']['state'] == \
@@ -72,6 +73,16 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
         logging.error('{network_response}')
 
 
+@when(parsers.parse('I verify the reasoncode "{merchant}" membership card is added to the wallet'))
+def verify_membership_card_reasoncode(merchant,context):
+    response = MembershipCards.get_scheme_account(context['token'], context['scheme_account_id'])
+    response_json = response.json()
+    Endpoint.TEST_DATA.membership_account_states.get('reason_codes')
+    assert response_json['id'] == context['scheme_account_id'] \
+           and response_json['status']['reason_codes'] == Endpoint.TEST_DATA.membership_account_states. \
+               get('reason_codes')
+
+
 @when(parsers.parse('I submit POST request to create a "{merchant}" membership account with enrol details'))
 def enrol_membership_account(merchant, register_user, context, test_email):
     context['token'] = register_user.json().get('api_key')
@@ -85,7 +96,7 @@ def enrol_membership_account(merchant, register_user, context, test_email):
 
 
 @then(parsers.parse('I perform DELETE request to delete the "{merchant}" membership card'))
-def perform_delete_request_scheme_account(merchant, context):
+def perform_delete_request_scheme_account(context):
     time.sleep(1)
     response_del_schemes = MembershipCards.delete_scheme_account(context['token'], context['scheme_account_id'])
     assert response_del_schemes.status_code == 200
@@ -100,7 +111,7 @@ def verify_membership_account_join_date_card_number_and_merchant_identifier_popu
     driver.find_element_by_name('username').send_keys(Endpoint.TEST_DATA.django_user_accounts.get('django_uid'))
     driver.find_element_by_name('password').send_keys(Endpoint.TEST_DATA.django_user_accounts.get('django_pwd'))
     driver.find_element_by_xpath("//input[@type='submit']").click()
-    # time.sleep(1)
+    time.sleep(1)
     select = Select(driver.find_element_by_name('status'))
     assert select.first_selected_option.text == 'Active'
     link_date = driver.find_element_by_xpath('//form[@id="schemeaccount_form"]/div/fieldset/div[12]/div/div').text
@@ -110,4 +121,3 @@ def verify_membership_account_join_date_card_number_and_merchant_identifier_popu
                      "("+current_date + time.strftime(", %I:%M %p").lower()+")")
     logging.info('Merchant Identifier is: ' + driver.find_element_by_name('schemeaccountcredentialanswer_set-1-answer').
                  get_attribute('value'))
-
