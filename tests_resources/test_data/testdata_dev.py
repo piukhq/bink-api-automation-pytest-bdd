@@ -178,7 +178,9 @@ membership_account_states = {
 
 user_accounts = {
     "bink_uid": "njames@bink.com",
-    "bink_pwd": "Password@200",
+    "bink_pwd": "Password@200"
+}
+django_user_accounts = {
     "django_uid": "njames@bink.com",
     "django_pwd": "Password@200"
 }
