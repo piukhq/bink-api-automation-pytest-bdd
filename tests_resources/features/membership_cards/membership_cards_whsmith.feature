@@ -8,6 +8,6 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     Scenario: Verify WHSmith customer can add membership card ( Add Journey )
     Given I am a Bink user
     When I submit POST request to add "whsmith" membership card
-    And I submit GET request to verify "whsmith" membership card is added to  wallet
+    And I submit GET request to verify "whsmith" membership card is added to the wallet
     Then I perform DELETE request to delete the "whsmith" membership card
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
