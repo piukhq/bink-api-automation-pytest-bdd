@@ -3,12 +3,13 @@ import time
 import logging
 from pytest_bdd import given, then
 from selenium.webdriver import Chrome
+
 import config
 from tests.requests.service import CustomerAccount
 from tests.api.base import Endpoint
 
 # auto_pytest, make sure its from python
-EMAIL_TEMPLATE = "email@bink.com"
+EMAIL_TEMPLATE = "pytest_email@bink.com"
 
 
 # Hooks
@@ -75,6 +76,8 @@ def driver():
     """check to be included if chrome is not there? add another browser safari"""
     if config.BROWSER.browser_name == 'chrome':
         driver = Chrome(executable_path=config.BROWSER.driver_path)
+        driver.maximize_window()
+
     # elif launch in safari
     else:
         raise Exception(f'"{config.BROWSER.browser_name}" is not a supported browser')
@@ -99,10 +102,5 @@ def login_user(channel):
     return CustomerAccount.login_user(channel)
 
 
-# Common Django verifications
-@then('verify membership account Join date, Card Number and Merchant identifier populated in Django')
-def verify_membership_account_join_date_card_number_and_merchant_identifier_populated_in_django(driver):
-    """verify membership account Join date, Card Number and Merchant identifier populated in Django."""
-    driver.get(Endpoint.DJANGO_URL)
-    driver.maximize_window()
+
 
