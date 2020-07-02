@@ -47,7 +47,6 @@ def add_membership_card(merchant, login_user, context):
 @when(parsers.parse('I perform PATCH request to update "{merchant}" membership card'))
 def patch_request_to_update_membership_card_details(merchant, context):
     response = MembershipCards.patch_membership_card(context['token'], context['scheme_account_id'])
-    response_json = response.json()
     try:
         assert response.status_code == 201 \
                and response_json['status']['state'] == \
@@ -92,7 +91,7 @@ def perform_delete_request_scheme_account(merchant, context):
         assert response_del_schemes.status_code == 200
     except HTTPError as network_response:
         assert network_response.response.status_code == 404 or 400
-        logging.error('Delete Merchant ', merchant, 'failed due to HTTP error: {network_response}')
+        logging.error('Delete Scheme Account ', merchant, 'failed due to HTTP error: {network_response}')
 
 
 # Common Django verifications
@@ -104,16 +103,13 @@ def verify_membership_account_join_date_card_number_and_merchant_identifier_popu
     driver.find_element_by_name('username').send_keys(Endpoint.TEST_DATA.django_user_accounts.get('django_uid'))
     driver.find_element_by_name('password').send_keys(Endpoint.TEST_DATA.django_user_accounts.get('django_pwd'))
     driver.find_element_by_xpath("//input[@type='submit']").click()
-    time.sleep(1)
+    # time.sleep(1)
     select = Select(driver.find_element_by_name('status'))
     assert select.first_selected_option.text == 'Active'
     link_date = driver.find_element_by_xpath('//form[@id="schemeaccount_form"]/div/fieldset/div[12]/div/div').text
     current_date = time.strftime("%d %b %Y").lstrip('0')
-    isDeleted = driver.find_element_by_name('is_deleted')
     if str(link_date).__contains__(current_date):
         logging.info("Link date ("+link_date+") is close to current date "
                      "("+current_date + time.strftime(", %I:%M %p").lower()+")")
-        if isDeleted.get_attribute('checked'):
-            return True
     logging.info('Merchant Identifier is: ' + driver.find_element_by_name('schemeaccountcredentialanswer_set-1-answer').
                  get_attribute('value'))
