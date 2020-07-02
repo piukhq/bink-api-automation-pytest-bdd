@@ -177,8 +177,7 @@ membership_plan_id = {
 membership_account_states = {
     "state_pending": "pending",
     "state_authorised": "authorised",
-    "state_failed": "failed",
-    "reason_codes": ['X300']
+    "state_failed": "failed"
 }
 
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
