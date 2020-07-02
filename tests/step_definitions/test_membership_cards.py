@@ -71,7 +71,6 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
         assert network_response.response.status_code == 404 or 400
         logging.error('{network_response}')
 
-
 @when(parsers.parse('I submit POST request to create a "{merchant}" membership account with enrol details'))
 def enrol_membership_account(merchant, register_user, context, test_email):
     context['token'] = register_user.json().get('api_key')
@@ -88,7 +87,11 @@ def enrol_membership_account(merchant, register_user, context, test_email):
 def perform_delete_request_scheme_account(merchant, context):
     time.sleep(1)
     response_del_schemes = MembershipCards.delete_scheme_account(context['token'], context['scheme_account_id'])
-    assert response_del_schemes.status_code == 200
+    try:
+        assert response_del_schemes.status_code == 200
+    except HTTPError as network_response:
+        assert network_response.response.status_code == 404 or 400
+        logging.error('Delete Scheme Account ', merchant, 'failed due to HTTP error: {network_response}')
 
 
 # Common Django verifications
@@ -110,4 +113,3 @@ def verify_membership_account_join_date_card_number_and_merchant_identifier_popu
                      "("+current_date + time.strftime(", %I:%M %p").lower()+")")
     logging.info('Merchant Identifier is: ' + driver.find_element_by_name('schemeaccountcredentialanswer_set-1-answer').
                  get_attribute('value'))
-
