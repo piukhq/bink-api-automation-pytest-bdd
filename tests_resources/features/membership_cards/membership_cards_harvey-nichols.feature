@@ -6,18 +6,45 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
 
  @add
     Scenario: Verify Harvey Nichols customer can add membership card ( Add Journey )
+
+    Given I am a Bink user
+    When I submit the POST request to add "harvey-nichols" membership card
+    And I submit the GET request to verify "harvey-nichols" membership card is added to the wallet
+    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    And I submit the DELETE request to delete the "harvey-nichols" membership card
+
+
+  @add_patch
+  Scenario: Ensure customer can update (PATCH) membership card details
+
+    Given I am a Bink user
+    When I submit the POST request to add "harvey-nichols" membership card with "invalid_data"
+    And I submit the GET request to verify "harvey-nichols" membership card is added to the wallet with invalid data
+    And I submit the PATCH request to update "harvey-nichols" membership card
+    And I submit the GET request to verify "harvey-nichols" membership card details got updated after a successful PATCH
+    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    And I submit the DELETE request to delete the "harvey-nichols" membership card
+
+  @put
+    Scenario: Ensure customer can replace (PUT) information for the Scheme membership card (in Pending State)
+
+    Given I am a Bink user
+    When I submit POST request to add "harvey-nichols" membership card
+    And they can perform PUT request to replace information of the "harvey-nichols" membership card
+    And I submit GET request to verify "harvey-nichols" membership card is added to the wallet
+    And I perform DELETE request to delete the "harvey-nichols" membership card
+
+  @put
+    Scenario: Ensure customer can replace (PUT) information for the Scheme membership card (in Authorised State)
+
     Given I am a Bink user
     When I submit POST request to add "harvey-nichols" membership card
     And I submit GET request to verify "harvey-nichols" membership card is added to the wallet
-    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
+    And they can perform PUT request to replace information of the "harvey-nichols" membership card
+#    Then I will be able to perform POST operation with updated details
+    And I submit GET request to verify "harvey-nichols" membership card is added to the wallet
     And I perform DELETE request to delete the "harvey-nichols" membership card
 
-
-
-#    When they POST request to add & auto link an existing Iceland membership card
-#    Then they perform GET request to verify Iceland membership card is added & linked successfully in their Barclays wallet
-#    And they can make GET request to check balance for recently added membership card
-#    And they can perform Delete operation to delete the membership card
    @addAndLink
   Scenario: Verify a user can add & link their existing HN membership card (ADD & LINK journey)
     Given I am a Bink user
