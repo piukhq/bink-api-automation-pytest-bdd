@@ -1,22 +1,28 @@
 from tests.api.base import Endpoint
+import logging
 
 
 class BKCard:
 
     @staticmethod
-    def add_membership_card_payload():
+    def add_membership_card_payload(invalid_data=None):
+        if invalid_data:
+            value = Endpoint.TEST_DATA.BK_membership_invalid_card.get('card_num')
+            logging.info('Invalid data is: ' + value)
+        else:
+            value = Endpoint.TEST_DATA.BK_membership_card3.get('card_num')
         payload = {
-            "account": {
-                "authorise_fields": [
-                    {
-                        "column": "Rewards number",
-                        "value": Endpoint.TEST_DATA.BK_membership_card3.get('card_num')
-                    }
-                ]
-            },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('BK')
+                "account": {
+                    "authorise_fields": [
+                        {
+                            "column": "Rewards number",
+                            "value": value
+                        }
+                    ]
+                },
+                "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('BK')
 
-        }
+            }
         return payload
 
     @staticmethod
