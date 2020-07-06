@@ -27,7 +27,7 @@ def context():
     return {}
 
 
-@when(parsers.parse('I submit the POST request to add "{merchant}" membership card'))
+@when(parsers.parse('I perform POST request to add "{merchant}" membership card'))
 def add_membership_card(merchant, login_user, context):
     context['token'] = login_user.json().get('api_key')
     response = MembershipCards.add_card(context['token'], merchant)
@@ -44,7 +44,7 @@ def add_membership_card(merchant, login_user, context):
         logging.error('Add Journey for ', merchant, ' failed due to HTTP error: {network_response')
 
 
-@when(parsers.parse('I submit the POST request to add "{merchant}" membership card with "{invalid_data}"'))
+@when(parsers.parse('I perform POST request to add "{merchant}" membership card with "{invalid_data}"'))
 def add_membership_card(merchant, login_user, context, invalid_data):
     context['token'] = login_user.json().get('api_key')
     response = MembershipCards.add_card(context['token'], merchant, invalid_data)
@@ -62,7 +62,7 @@ def add_membership_card(merchant, login_user, context, invalid_data):
                       's with invalid data got failed due to HTTP error: {network_response')
 
 
-@when(parsers.parse('I submit the PATCH request to update "{merchant}" membership card'))
+@when(parsers.parse('I perform PATCH request to update "{merchant}" membership card'))
 def patch_request_to_update_membership_card_details(merchant, context):
     response = MembershipCards.patch_add_card(context['token'], context['scheme_account_id'], merchant)
     response_json = response.json()
@@ -78,8 +78,8 @@ def patch_request_to_update_membership_card_details(merchant, context):
 
 
 @when(parsers.parse(
-    'I submit the GET request to verify "{merchant}" membership card details got updated after a successful PATCH'))
-@when(parsers.parse('I submit the GET request to verify "{merchant}" membership card is added to the wallet'))
+    'I perform GET request to verify "{merchant}" membership card details got updated after a successful PATCH'))
+@when(parsers.parse('I perform GET request to verify "{merchant}" membership card is added to the wallet'))
 def verify_membership_card_is_added_to_wallet(merchant, context):
     response = MembershipCards.get_scheme_account(context['token'], context['scheme_account_id'])
     response_json = response.json()
@@ -96,7 +96,7 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
 
 
 @when(parsers.parse(
-    'I submit the GET request to verify "{merchant}" membership card is added to the wallet with invalid data'))
+    'I perform GET request to verify "{merchant}" membership card is added to the wallet with invalid data'))
 def verify_membership_card_is_added_to_wallet(merchant, context):
     response = MembershipCards.get_scheme_account(context['token'], context['scheme_account_id'])
     response_json = response.json()
@@ -112,7 +112,7 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
         logging.error('Unable to add membership card for', merchant, 'due to HTTP error: {network_response')
 
 
-@when(parsers.parse('I submit the POST request to create a "{merchant}" membership account with enrol details'))
+@when(parsers.parse('I perform POST request to create a "{merchant}" membership account with enrol details'))
 def enrol_membership_account(merchant, register_user, context, test_email):
     context['token'] = register_user.json().get('api_key')
     response = MembershipCards.enrol(context['token'], merchant)
@@ -124,7 +124,7 @@ def enrol_membership_account(merchant, register_user, context, test_email):
         logging.error('Enrol journey for ', merchant, 'failed due to HTTP error: {network_response}')
 
 
-@then(parsers.parse('I submit the DELETE request to delete the "{merchant}" membership card'))
+@then(parsers.parse('I perform DELETE request to delete the "{merchant}" membership card'))
 def perform_delete_request_scheme_account(merchant, context):
     response_del_schemes = MembershipCards.delete_scheme_account(context['token'], context['scheme_account_id'])
     try:

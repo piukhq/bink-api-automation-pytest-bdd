@@ -78,7 +78,6 @@ class MembershipCards(Endpoint):
             else:
                 break
         return response
-        # return Endpoint.call(MembershipCards.get_url(scheme_account_id), Endpoint.request_header(token), "GET")
 
     # Delete Membership Card
     @staticmethod

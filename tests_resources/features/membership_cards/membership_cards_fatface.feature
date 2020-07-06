@@ -9,19 +9,19 @@ Feature: Merchant Fatface - Ensure a customer can add their membership card & vi
     Scenario: Add Journey_Fatface
 
     Given I am a Bink user
-    When I submit the POST request to add "fatface" membership card
-    And I submit the GET request to verify "fatface" membership card is added to the wallet
+    When I perform POST request to add "fatface" membership card
+    And I perform GET request to verify "fatface" membership card is added to the wallet
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
-    And I submit the DELETE request to delete the "fatface" membership card
+    And I perform DELETE request to delete the "fatface" membership card
 
 
   @add_patch
   Scenario:  PATCH membership card details_Fatface
 
     Given I am a Bink user
-    When I submit the POST request to add "fatface" membership card with "invalid_data"
-    And I submit the GET request to verify "fatface" membership card is added to the wallet with invalid data
-    And I submit the PATCH request to update "fatface" membership card
-    And I submit the GET request to verify "fatface" membership card details got updated after a successful PATCH
+    When I perform POST request to add "fatface" membership card with "invalid_data"
+    And I perform GET request to verify "fatface" membership card is added to the wallet with invalid data
+    And I perform PATCH request to update "fatface" membership card
+    And I perform GET request to verify "fatface" membership card details got updated after a successful PATCH
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
-    And I submit the DELETE request to delete the "fatface" membership card
+    And I perform DELETE request to delete the "fatface" membership card
