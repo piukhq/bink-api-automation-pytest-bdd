@@ -173,6 +173,10 @@ IL_membership_card4 = {
     "transactions": "6"
 }
 
+IL_invalid_card = {
+    "invalid_postal_code": "cro il0"
+}
+
 Whsmith_membership_card1 = {
     "card_num1": "FF00000004827176",
     "card_num2": "FF00000004958039",
