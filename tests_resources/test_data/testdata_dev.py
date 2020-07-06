@@ -57,6 +57,9 @@ BK_membership_card2 = {
 BK_membership_card3 = {
     "card_num": "BK00000035941509"
 }
+BK_membership_invalid_card = {
+    "card_num": "BK00000035941500"
+}
 
 # Cooperative(CooP)
 CooP_membership_card1 = {
@@ -97,11 +100,18 @@ CooP_ghost_card = {
     "dob": "01/02/1994",
     "postcode": "cr6 0bg"
 }
+
+CooP_invalid_card = {
+    "invalid_postal_code": "rg5 5aa"
+}
 # Fatface(FF)
 FF_membership_card1 = {
     "card_num": "FF00000059702811"
 }
 
+FF_invalid_card = {
+    "card_num": "FF00000059702810"
+}
 # Harvey-Nichols(HN)
 HN_membership_card1 = {
     "id": "auto_zero@testbink.com",
@@ -123,6 +133,13 @@ HN_membership_card3 = {
     "addEncryptPWD": "tuB/ImXk7PKXAN8GFfWmrc3rv5n2rfiSZj60E4w0eNkWe6mkiTrHThlGk7iIJd0tYEu7IfRh0Tnx7DOcgYOsrKxksJEBySYXzEW4gBwcL/EuKURMvu1HDZlnx89cCGHEQzcijm7lo6yv1X7BL2DPhGkQkYfPIHAtByGxHAeag+1wHP/K9mYv7tmaLNt+Y0kBOrMYeQVFd8Ovf/ar/BqHUpLm5qTG5SAeU4mhUCjk6am4YqwB2YW0vSuQ8eyPqK2ayX/j3INFaY21t9X1VE6n5aViRWeEVFlORSJOyczRJEA0XRMGvMWh7rG46KJC3a1goP3Z8S9TgURmUSj9ZEn8ksZbEjYR6BMmc6U0ZPMx5HPo5e4ML5zVEovbw2yCCvLDlLmhpy+LxBLAY2r9xvivzG48Fuqj4Ysll+YwNdwbjKfsFxqHFkPN6Krpuyu+IX4u1KlDpqired67uVhflMSdpWubWyJhEDVdV5yb++nl/uCpsMkqpQgdeMef4VCbmq+ufwTVxKf2oG61qw4nxEN2Bez5j9LR6tIJyrWcfskWZYBvFNLtSSqQwzYt9rt/oO454hrnRB22UL1/z6VM5cWIXpNR5eeyR4DJG1UxhU6Jeq1w0EiilDrxJMilP3o0fheEREfOOo0IYycKo3IudHwEgl6ZXaCnxqIU6NHOdFuX2SU=",
     "encryptedPWD": "K5nVKoFjBxgssI4cukGhI+cVpzzgtUQb93dljuloHp/qedaj9yDfVnk/X1HeFCJgPHt6W+yfAipNihchhldlMYG1HmhylBMzhMDqpcTpVCJfCmZq/H6bd2dVeBU8u7h8hEny965crlEvlU8HVXz67jMtF3BWkNydjcDkynPq0ADH0TImCOV21EF56i7p/72nB4QVtQWI4WXFAPJlAgqnN73e7IspNge9l5YE0hVWkYenXWN0Li5ALVuF3JjQiaW5KYQC3LSUbLzCQvE3W+W6J3vDaZkji1I9zLEmRvs1dwgMZWVzkezJnXrs8k4I+bMMzXfQIA/S4pcCXNS/fH9vaSYapp/Ko+QGQzZogZ/njuw0Yc1lXR7YdpVV0aGffsuW13IqvrPUYL8t2r/dSwb4WJndqnTDbqsQJnWku1jrFbrz8u+jGrlPXau262QiU6knKacDfZcr9b/GAQSnZm7ftSbO4PYVsU9j+EKYC6SfLAyter1tn1Mp2BS85usQub2NMEl2IqZpn04vKs5qVOHHvuuc/3ddxP9NtK1cokCoBM2h/xtu8VcpxnUb38Ko4T7LUbC7j8fOh76HLCInlVc9X+FLySBuJ0YNH/DYnfws5nP8Tucv/SlttwA5tblWPsvqPC4tl9hCt0G10hcgsIRSET3I9Z6te1xZkLXW6w6h1ZY="
 
+}
+
+HN_membership_invalid_card = {
+    "id": "invalid_email@testbink.com",
+    "password": "Password01",
+    "points": "380",
+    "transactions": "5"
 }
 # Iceland(IL)
 IL_membership_card1 = {
@@ -171,12 +188,17 @@ membership_plan_id = {
     "WHSmith": "316",
     "WAS": ""
 }
-# ----------------------------------------MEMBERSHIP ACCOUNT STATES ------------------------------------------ #
+# ----------------------------------------MEMBERSHIP ACCOUNT STATES & REASON_CODES ---------------------------------- #
 
 membership_account_states = {
     "state_pending": "pending",
     "state_authorised": "authorised",
     "state_failed": "failed"
+}
+reason_codes = {
+    "pending": "[X100]",
+    "authorised": "X300",
+    "failed": "X303"
 }
 
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #

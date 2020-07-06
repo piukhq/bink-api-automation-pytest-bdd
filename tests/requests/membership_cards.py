@@ -14,31 +14,28 @@ from tests.api.base import Endpoint
 
 
 class MembershipCards(Endpoint):
-    # Add Journey
-    @staticmethod
-    def add_card(token, merchant):
 
+    # ---------------------------------------- Add Journey---------------------------------------------------
+    @staticmethod
+    def add_card(token, merchant, invalid_data=None):
         url = MembershipCards.get_url()
         header = Endpoint.request_header(token)
-
-        if merchant == 'burgerking':
-            payload = BKCard.add_membership_card_payload()
-        elif merchant == 'coop':
-            payload = CoopCard.add_membership_card_payload()
-        elif merchant == 'fatface':
-            payload = FFCard.add_membership_card_payload()
-        elif merchant == 'harvey-nichols':
-            payload = HNCard.add_membership_card_payload()
-        elif merchant == 'iceland':
-            payload = IcelandCard.add_membership_card_payload()
-        elif merchant == 'whsmith':
-            payload = WhsmithCard.add_membership_card_payload()
-
+        if not invalid_data:
+            payload = MembershipCards.get_merchant(merchant).add_membership_card_payload()
+        else:
+            payload = MembershipCards.get_merchant(merchant).add_membership_card_payload(invalid_data)
         return Endpoint.call(url, header, "POST", payload)
 
-    # Enrol Journey
     @staticmethod
-    def enrol(token, merchant):
+    def patch_add_card(token, scheme_account_id, merchant):
+        url = MembershipCards.get_url(scheme_account_id)
+        header = Endpoint.request_header(token)
+        payload = MembershipCards.get_merchant(merchant).add_membership_card_payload()
+        return Endpoint.call(url, header, "PATCH", payload)
+
+    # ---------------------------------------- Enrol Journey---------------------------------------------------
+    @staticmethod
+    def enrol_customer(token, merchant):
 
         url = MembershipCards.get_url()
         header = Endpoint.request_header(token)
@@ -55,6 +52,22 @@ class MembershipCards(Endpoint):
 
         return Endpoint.call(MembershipCards.get_url(), Endpoint.request_header(token), "POST", payload)
 
+    @staticmethod
+    def put_enrol_customer(token, merchant):
+
+        url = MembershipCards.get_url()
+
+    # ---------------------------------------- Ghost Card Registration -------------------------------------------
+    @staticmethod
+    def register_ghost_card(token, merchant):
+
+        url = MembershipCards.get_url()
+
+    @staticmethod
+    def patch_ghost_card(token, merchant):
+
+        url = MembershipCards.get_url()
+
     # Get Membership Card
     @staticmethod
     def get_scheme_account(token, scheme_account_id):
@@ -67,7 +80,6 @@ class MembershipCards(Endpoint):
             else:
                 break
         return response
-        # return Endpoint.call(MembershipCards.get_url(scheme_account_id), Endpoint.request_header(token), "GET")
 
     # Delete Membership Card
     @staticmethod
@@ -82,3 +94,16 @@ class MembershipCards(Endpoint):
             return Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS
         else:
             return Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(scheme_account_id)
+
+    @staticmethod
+    def get_merchant(merchant):
+        switcher = {
+            'burgerking': BKCard,
+            'coop': CoopCard,
+            'fatface': FFCard,
+            'harvey-nichols': HNCard,
+            'iceland': IcelandCard,
+            'whsmith': '',
+            'wasabi': ''
+        }
+        return switcher.get(merchant)

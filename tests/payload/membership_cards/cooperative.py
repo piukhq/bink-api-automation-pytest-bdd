@@ -1,9 +1,15 @@
 from tests.api.base import Endpoint
+import logging
 
 
 class CoopCard:
     @staticmethod
-    def add_membership_card_payload():
+    def add_membership_card_payload(invalid_data=None):
+        if invalid_data:
+            value = Endpoint.TEST_DATA.CooP_invalid_card.get('invalid_postal_code')
+            logging.info('Invalid data is: ' + value)
+        else:
+            value = Endpoint.TEST_DATA.CooP_membership_card1.get('postcode')
         payload = {
             "account": {
                 "add_fields": [
@@ -19,7 +25,7 @@ class CoopCard:
                     },
                     {
                         "column": "Postcode",
-                        "value": Endpoint.TEST_DATA.CooP_membership_card1.get('postcode')
+                        "value": value
                     }
                 ]
             },
@@ -27,34 +33,35 @@ class CoopCard:
         }
         return payload
 
-    @staticmethod
-    def enrol_membership_scheme():
-        payload = {
-            # "account": {
-            #     "enrol_fields": [
-            #
-            #         {
-            #             "column": "First name",
-            #             "value": "megan"
-            #         },
-            #         {
-            #             "column": "Last name",
-            #             "value": "Bink"
-            #         },
-            #         {
-            #             "column": "Email",
-            #             "value": "megan_bink@testbink.com"
-            #         },
-            #         {
-            #             "column": "Postcode",
-            #             "value": "SL59FE"
-            #         },
-            #         {
-            #             "column": "Phone",
-            #             "value": "07724678390"
-            #         }
-            #     ]
-            # },
-            "membership_plan": 314
-        }
-        return payload
+
+@staticmethod
+def enrol_membership_scheme():
+    payload = {
+        # "account": {
+        #     "enrol_fields": [
+        #
+        #         {
+        #             "column": "First name",
+        #             "value": "megan"
+        #         },
+        #         {
+        #             "column": "Last name",
+        #             "value": "Bink"
+        #         },
+        #         {
+        #             "column": "Email",
+        #             "value": "megan_bink@testbink.com"
+        #         },
+        #         {
+        #             "column": "Postcode",
+        #             "value": "SL59FE"
+        #         },
+        #         {
+        #             "column": "Phone",
+        #             "value": "07724678390"
+        #         }
+        #     ]
+        # },
+        "membership_plan": 314
+    }
+    return payload
