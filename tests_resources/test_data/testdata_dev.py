@@ -173,8 +173,9 @@ IL_membership_card4 = {
     "transactions": "6"
 }
 
-IL_invalid_card = {
-    "invalid_postal_code": "cro il0"
+Whsmith_membership_card1 = {
+    "card_num1": "FF00000004827176",
+    "card_num2": "FF00000004958039",
 }
 # ----------------------------------------MEMBERSHIP PLAN IDs   ----------------------------------------------- #
 
@@ -184,7 +185,7 @@ membership_plan_id = {
     "FF": "281",
     "HN": "194",
     "IL": "105",
-    "WHS": "",
+    "WHSmith": "316",
     "WAS": ""
 }
 # ----------------------------------------MEMBERSHIP ACCOUNT STATES & REASON_CODES ---------------------------------- #

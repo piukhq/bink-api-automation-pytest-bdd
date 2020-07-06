@@ -3,6 +3,8 @@ import json
 import jsonpath
 import time
 import logging
+
+from tests.payload.membership_cards.whsmith import WhsmithCard
 from tests.payload.membership_cards.burgerking import BKCard
 from tests.payload.membership_cards.cooperative import CoopCard
 from tests.payload.membership_cards.fatface import FFCard
