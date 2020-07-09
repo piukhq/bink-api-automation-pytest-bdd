@@ -4,12 +4,14 @@ import jsonpath
 import time
 import logging
 
-from tests.payload.membership_cards.whsmith import WhsmithCard
-from tests.payload.membership_cards.burgerking import BKCard
+from tests.payload.membership_cards.burgerking import BurgerKingCard
 from tests.payload.membership_cards.cooperative import CoopCard
-from tests.payload.membership_cards.fatface import FFCard
-from tests.payload.membership_cards.harvey_nichols import HNCard
+from tests.payload.membership_cards.fatface import FatFaceCard
+from tests.payload.membership_cards.harvey_nichols import HarveyNicholsCard
 from tests.payload.membership_cards.iceland import IcelandCard
+from tests.payload.membership_cards.whsmith import WHSmithCard
+from tests.payload.membership_cards.wasabi import WasabiCard
+
 from tests.api.base import Endpoint
 
 
@@ -24,6 +26,13 @@ class MembershipCards(Endpoint):
             payload = MembershipCards.get_merchant(merchant).add_membership_card_payload()
         else:
             payload = MembershipCards.get_merchant(merchant).add_membership_card_payload(invalid_data)
+        return Endpoint.call(url, header, "POST", payload)
+
+    @staticmethod
+    def add_card_auto_link(token, merchant):
+        url = Endpoint.BASE_URL + api.ENDPOINT_AUTO_LINK_PAYMENT_AND_MEMBERSHIP_CARD_URL
+        header = Endpoint.request_header(token)
+        payload = MembershipCards.get_merchant(merchant).add_membership_card_payload()
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
@@ -73,9 +82,40 @@ class MembershipCards(Endpoint):
     def get_scheme_account(token, scheme_account_id):
         """Waiting max up to 30 sec to change status from Pending to Authorized"""
         for i in range(1, 30):
-            response = Endpoint.call(MembershipCards.get_url(scheme_account_id), Endpoint.request_header(token), "GET")
+            url = MembershipCards.get_url(scheme_account_id)
+            header = Endpoint.request_header(token)
+            response = Endpoint.call(url, header, "GET")
             response_json = response.json()
             if response_json['status']['state'] == Endpoint.TEST_DATA.membership_account_states.get('state_pending'):
+                time.sleep(1)
+            else:
+                break
+        return response
+        # Get Membership Card
+
+    @staticmethod
+    def get_scheme_account_auto_link(token):
+        """Waiting max up to 30 sec to change status from Pending to Authorized"""
+        for i in range(1, 30):
+            url = Endpoint.BASE_URL + api.ENDPOINT_AUTO_LINK_PAYMENT_AND_MEMBERSHIP_CARD_URL
+            header = Endpoint.request_header(token)
+            response = Endpoint.call(url, header, "GET")
+            response_json = response.json()
+            if response_json[0]['status']['state'] == Endpoint.TEST_DATA.membership_account_states.get('state_pending'):
+                time.sleep(1)
+            else:
+                break
+        return response
+
+    @staticmethod
+    def get_membership_card_balance(token):
+        """Waiting max up to 30 sec to change status from Pending to Authorized"""
+        for i in range(1, 30):
+            url = Endpoint.BASE_URL + api.ENDPOINT_CHECK_MEMBERSHIP_CARDS_BALANCE_URL
+            header = Endpoint.request_header(token)
+            response = Endpoint.call(url, header, "GET")
+            response_json = response.json()
+            if response_json[0]['status']['state'] == Endpoint.TEST_DATA.membership_account_states.get('state_pending'):
                 time.sleep(1)
             else:
                 break
@@ -84,12 +124,13 @@ class MembershipCards(Endpoint):
     # Delete Membership Card
     @staticmethod
     def delete_scheme_account(token, scheme_account_id):
-
-        return Endpoint.call(MembershipCards.get_url(scheme_account_id), Endpoint.request_header(token), "DELETE")
+        url = MembershipCards.get_url(scheme_account_id)
+        header = Endpoint.request_header(token)
+        response = Endpoint.call(url, header, "DELETE")
+        return response
 
     @staticmethod
     def get_url(scheme_account_id=None):
-
         if scheme_account_id is None:
             return Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS
         else:
@@ -98,12 +139,13 @@ class MembershipCards(Endpoint):
     @staticmethod
     def get_merchant(merchant):
         switcher = {
-            'burgerking': BKCard,
-            'coop': CoopCard,
-            'fatface': FFCard,
-            'harvey-nichols': HNCard,
-            'iceland': IcelandCard,
-            'whsmith': '',
-            'wasabi': ''
+            'BurgerKing': BurgerKingCard,
+            'CooP': CoopCard,
+            'FatFace': FatFaceCard,
+            'HarveyNichols': HarveyNicholsCard,
+            'Iceland': IcelandCard,
+            'WHSmith': WHSmithCard,
+            'Wasabi': WasabiCard
         }
+
         return switcher.get(merchant)

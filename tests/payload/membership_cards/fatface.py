@@ -2,15 +2,15 @@ from tests.api.base import Endpoint
 import logging
 
 
-class FFCard:
+class FatFaceCard:
 
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = Endpoint.TEST_DATA.FF_invalid_card.get('card_num')
+            value = Endpoint.TEST_DATA.fat_face_invalid_card.get('card_num')
             logging.info('Invalid data is: ' + value)
         else:
-            value = Endpoint.TEST_DATA.FF_membership_card1.get('card_num')
+            value = Endpoint.TEST_DATA.fat_face_membership_card1.get('card_num')
 
         payload = {
             "account": {
@@ -21,7 +21,7 @@ class FFCard:
                     }
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('FF')
+            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('fat_face')
         }
         return payload
 

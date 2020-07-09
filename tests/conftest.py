@@ -6,14 +6,14 @@ from selenium.webdriver import Chrome
 
 import config
 from tests.requests.service import CustomerAccount
+from tests.requests.payment_cards import PaymentCards
 from tests.api.base import Endpoint
+from tests.helper.test_data_utils import TestDataUtils
 
-# auto_pytest, make sure its from python
 EMAIL_TEMPLATE = "pytest_email@bink.com"
 
 
 # Hooks
-
 def pytest_bdd_step_error(request, feature, scenario, step, step_func, step_func_args, exception):
     print(f'Step failed: {step}')
 
@@ -59,11 +59,11 @@ def env(pytestconfig):
     return pytestconfig.getoption("env")
 
 
-# Autouse Fixtures
 @pytest.fixture(scope="session", autouse=True)
 def set_environment(env):
     Endpoint.set_environment(env)
     logging.info('Environment Setup ready')
+    TestDataUtils.set_test_data(env)
 
 
 @pytest.fixture()
@@ -102,5 +102,42 @@ def login_user(channel):
     return CustomerAccount.login_user(channel)
 
 
+@pytest.fixture(scope='function')
+def context():
+    return {}
 
 
+@given('I perform POST request to add payment card to wallet')
+def add_payment_card(login_user, context):
+    context['token'] = login_user.json().get('api_key')
+    response = PaymentCards.add_payment_card(context['token'])
+    response_json = response.json()
+    context['payment_card_id'] = response_json.get('id')
+    try:
+        assert response.status_code == 201 or 200
+        #  Add status check later
+    except AssertionError as error:
+        raise Exception('Add Journey for ' + merchant + ' failed due to error ' + error.__str__())
+    return context['payment_card_id']
+
+
+@given('I perform the GET request to verify the payment card has been added successfully')
+def verify_payment_card_added(context):
+    response = PaymentCards.get_payment_card(context['token'], context['payment_card_id'])
+    try:
+        assert response.status_code == 200
+        logging.info('Payment card is added successfully : \n'+str(response.content))
+        #  Add status check later
+    except AssertionError as error:
+        raise Exception('Add Journey for ' + merchant + ' failed due to error ' + error.__str__())
+
+
+@then('I perform DELETE request to delete the payment card')
+def delete_payment_card(context):
+    response = PaymentCards.delete_payment_card(context['token'], context['payment_card_id'])
+    try:
+        assert response.status_code == 200
+        logging.info('Payment card is deleted successfully')
+        #  Add status check later
+    except AssertionError as error:
+        raise Exception('Add Journey for ' + merchant + ' failed due to error ' + error.__str__())
