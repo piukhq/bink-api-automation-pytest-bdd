@@ -61,7 +61,7 @@ burger_king_membership_invalid_card = {
     "card_num": "BK00000035941500"
 }
 
-CooP_membership_card1 = {
+coop_membership_card1 = {
     "card_num": "633174912301122335",
     "dob": "01/01/2000",
     "postcode": "qa1 1qa",
@@ -191,12 +191,12 @@ wasabi_membership_card1 = {
 
 membership_plan_id = {
     "burger_king": "314",
-    "CooP": "242",
-    "FatFace": "281",
-    "HarveyNichols": "194",
-    "Iceland": "105",
-    "WHSmith": "316",
-    "Wasabi": ""
+    "coop": "242",
+    "fat_face": "281",
+    "harvey_nichols": "194",
+    "iceland": "105",
+    "whsmith": "316",
+    "wasabi": "315"
 }
 # ----------------------------------------MEMBERSHIP ACCOUNT STATES & REASON_CODES ---------------------------------- #
 

@@ -10,7 +10,7 @@ class HarveyNicholsCard:
             value = Endpoint.TEST_DATA.harvey_nichols_membership_invalid_card.get('id')
             logging.info('Invalid data is: ' + value)
         else:
-            value = Endpoint.TEST_DATA.harvey_nichols_membership_card1.get('id')
+            value = Endpoint.TEST_DATA.harvey_nichols_membership_card2.get('id')
 
         payload = {
             "account": {

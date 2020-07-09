@@ -40,3 +40,4 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the payment card
 
 
+

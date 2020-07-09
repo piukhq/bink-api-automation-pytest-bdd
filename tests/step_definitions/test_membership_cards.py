@@ -62,13 +62,14 @@ def add_membership_card(merchant, login_user, context, invalid_data):
 
     except HTTPError as network_response:
         assert network_response.response.status_code == 404 or 400
-        logging.error('Add journey for', merchant,
+        logging.error('Add journey for' + merchant +
                       's with invalid data got failed due to HTTP error: {network_response')
 
 
 @when(parsers.parse('I perform POST request to add & auto link an existing "{merchant}" membership card'))
 def add_membership_card(merchant, login_user, context):
     context['token'] = login_user.json().get('api_key')
+    print('toen`55'+context['token'])
     response = MembershipCards.add_card_auto_link(login_user.json().get('api_key'), merchant)
     response_json = response.json()
     context['scheme_account_id'] = response_json.get('id')
@@ -79,7 +80,7 @@ def add_membership_card(merchant, login_user, context):
 
     except HTTPError as network_response:
         assert network_response.response.status_code == 404 or 400
-        logging.error(merchant, 's membership card Add Journey failed due to HTTP error: {network_response')
+        logging.error(merchant + ' membership card Add Journey failed due to HTTP error: {network_response')
 
 
 @when(parsers.parse('I perform PATCH request to update "{merchant}" membership card'))
@@ -94,7 +95,7 @@ def patch_request_to_update_membership_card_details(merchant, context):
 
     except HTTPError as network_response:
         assert network_response.response.status_code == 404 or 400
-        logging.error(merchant, 's membership card PATCH failed due to HTTP error: {network_response')
+        logging.error(merchant + ' membership card PATCH failed due to HTTP error: {network_response')
 
 
 @when(parsers.parse('I perform GET request to verify "{merchant}" membership card is added to the wallet'))
@@ -111,11 +112,11 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
         # and str(response_json['membership_plan']) == TestDataUtils.get_membership_plan_id(merchant) \
         # and response_json['status']['state'] == TestDataUtils.membership_account_state_authorised \
 
-        logging.info(merchant, 's membership card is added /updated successfully: \n' + str(response.content))
+        logging.info(merchant, ' membership card is added /updated successfully: \n' + str(response.content))
 
     except HTTPError as network_response:
         assert network_response.response.status_code == 404 or 400
-        logging.error('POST/PATCH on ', merchant, 's membership card failed due to HTTP error: {network_response')
+        logging.error('POST/PATCH on ', merchant + 's membership card failed due to HTTP error: {network_response')
 
 
 @when(parsers.parse(
@@ -128,7 +129,7 @@ def verify_membership_card_is_add_and_linked(merchant, context, add_payment_card
                and response_json[0]['id'] == context['scheme_account_id'] \
                and response_json[0]['status']['state'] == \
                Endpoint.TEST_DATA.membership_account_states.get('state_authorised')
-        logging.info('Membership card is added and auto linked : \n' + str(response.content))
+        logging.info(merchant + ' Membership card is added and auto linked : \n' + str(response.content))
 
     except HTTPError as network_response:
         assert network_response.response.status_code == 404 or 400
@@ -152,6 +153,7 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
         assert network_response.response.status_code == 404 or 400
         logging.error('Unable to add membership card for', merchant, 'due to HTTP error: {network_response')
 
+
 @when(parsers.parse(
     'I perform GET request to view balance for recently added membership card'))
 def verify_membership_card_is_added_to_wallet(context):
@@ -169,6 +171,7 @@ def verify_membership_card_is_added_to_wallet(context):
     except HTTPError as network_response:
         assert network_response.response.status_code == 404 or 400
         logging.error('Unable to add membership card for', merchant, 'due to HTTP error: {network_response')
+
 
 @when(parsers.parse('I perform POST request to create a "{merchant}" membership account with enrol details'))
 def enrol_membership_account(merchant, register_user, context, test_email):
@@ -203,12 +206,11 @@ def verify_membership_account_join_date_card_number_and_merchant_identifier_popu
     driver.find_element_by_xpath("//input[@type='submit']").click()
     select = Select(driver.find_element_by_name('status'))
     assert select.first_selected_option.text == 'Active'
-    link_date = driver.find_element_by_xpath('//form[@id="schemeaccount_form"]/div/fieldset/div[12]/div/div').text
+    link_date = driver.find_element_by_xpath('//form[@id="schemeaccount_form"]/div/fieldset/div[13]/div/div').text
     current_date = time.strftime("%d %b %Y").lstrip('0')
     if str(link_date).__contains__(current_date):
         logging.info("Link date in Django (" + link_date + ") is close to current date "
                                                            "(" + current_date + time.strftime(
             ", %I:%M %p").lower() + ")")
-    logging.info('Merchant Identifier in Django is: ' + driver.find_element_by_name(
-        'schemeaccountcredentialanswer_set-1-answer').
+    logging.info('Merchant Identifier in Django is: ' + driver.find_element_by_name('schemeaccountcredentialanswer_set-1-answer').
                  get_attribute('value'))
