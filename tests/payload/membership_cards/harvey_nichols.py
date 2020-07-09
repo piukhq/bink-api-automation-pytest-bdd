@@ -2,15 +2,15 @@ from tests.api.base import Endpoint
 import logging
 
 
-class HNCard:
+class HarveyNicholsCard:
 
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = Endpoint.TEST_DATA.HN_membership_invalid_card.get('id')
+            value = Endpoint.TEST_DATA.harvey_nichols_membership_invalid_card.get('id')
             logging.info('Invalid data is: ' + value)
         else:
-            value = Endpoint.TEST_DATA.HN_membership_card1.get('id')
+            value = Endpoint.TEST_DATA.harvey_nichols_membership_card1.get('id')
 
         payload = {
             "account": {
@@ -21,11 +21,11 @@ class HNCard:
                     },
                     {
                         "column": "Password",
-                        "value": Endpoint.TEST_DATA.HN_membership_card2.get('password')
+                        "value": Endpoint.TEST_DATA.harvey_nichols_membership_card2.get('password')
                         # "value": RSACipher.encrypt_field("Password01")
                     }
                 ]
-            }, "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('HN')
+            }, "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('harvey_nichols')
 
         }
         return payload

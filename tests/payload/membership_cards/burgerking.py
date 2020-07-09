@@ -1,16 +1,17 @@
 from tests.api.base import Endpoint
+from tests.helper.test_data_utils import TestDataUtils
 import logging
 
 
-class BKCard:
-
+class BurgerKingCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = Endpoint.TEST_DATA.BK_membership_invalid_card.get('card_num')
+            # value = TestDataUtils.burger_king_membership_invalid_card_number
+            value = Endpoint.TEST_DATA.burger_king_membership_invalid_card_number.get('card_num')
             logging.info('Invalid data is: ' + value)
         else:
-            value = Endpoint.TEST_DATA.BK_membership_card3.get('card_num')
+            value = TestDataUtils.get_burger_king_card_num1()
         payload = {
                 "account": {
                     "authorise_fields": [
@@ -20,7 +21,7 @@ class BKCard:
                         }
                     ]
                 },
-                "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('BK')
+                "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('burger_king')
 
             }
         return payload

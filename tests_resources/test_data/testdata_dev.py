@@ -45,23 +45,22 @@ master_payment_card1 = {
 
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #
 
-# BurgerKing(BK)
-BK_membership_card1 = {
-    "card_num": "BK00000034594960"
+burger_king_membership_card1 = {
+    "card_num": "BK00000035941509"
 }
 
-BK_membership_card2 = {
+burger_king_membership_card2 = {
     "card_num": "BK00000031049422"
 }
 
-BK_membership_card3 = {
-    "card_num": "BK00000035941509"
+burger_king_membership_card3 = {
+    "card_num": "BK00000034594960"
 }
-BK_membership_invalid_card = {
+
+burger_king_membership_invalid_card = {
     "card_num": "BK00000035941500"
 }
 
-# Cooperative(CooP)
 CooP_membership_card1 = {
     "card_num": "633174912301122335",
     "dob": "01/01/2000",
@@ -71,7 +70,7 @@ CooP_membership_card1 = {
     "transactions": "5"
 }
 
-CooP_membership_card2 = {
+coop_membership_card2 = {
     "card_num": "633174912301122330",
     "dob": "01/01/2000",
     "postcode": "qa1 1qa",
@@ -79,7 +78,7 @@ CooP_membership_card2 = {
     "transactions": "0"
 }
 
-CooP_membership_card3 = {
+coop_membership_card3 = {
     "card_num": "633174910000000002",
     "dob": "01/01/2000",
     "postcode": "rg5 5aa",
@@ -87,7 +86,7 @@ CooP_membership_card3 = {
     "transactions": "5"
 }
 
-CooP_membership_card4 = {
+coop_membership_card4 = {
     "card_num": "633174910000000003",
     "dob": "01/01/2000",
     "postcode": "mp6 0bb",
@@ -95,37 +94,37 @@ CooP_membership_card4 = {
     "transactions": "5"
 }
 
-CooP_ghost_card = {
+coop_ghost_card = {
     "card_num": "633174921231230004",
     "dob": "01/02/1994",
     "postcode": "cr6 0bg"
 }
 
-CooP_invalid_card = {
+coop_invalid_card = {
     "invalid_postal_code": "rg5 5aa"
 }
-# Fatface(FF)
-FF_membership_card1 = {
+
+fat_face_membership_card1 = {
     "card_num": "FF00000059702811"
 }
 
-FF_invalid_card = {
+fat_face_invalid_card = {
     "card_num": "FF00000059702810"
 }
-# Harvey-Nichols(HN)
-HN_membership_card1 = {
+
+harvey_nichols_membership_card1 = {
     "id": "auto_zero@testbink.com",
     "password": "Password01",
     "points": "0",
     "transactions": "0"
 }
-HN_membership_card2 = {
+harvey_nichols_membership_card2 = {
     "id": "auto_five@testbink.com",
     "password": "Password01",
     "points": "380",
     "transactions": "5"
 }
-HN_membership_card3 = {
+harvey_nichols_membership_card3 = {
     "id": "sixdigitpoints@testbink.com",
     "password": "pa$$w&rd01!",
     "points": "6",
@@ -135,21 +134,21 @@ HN_membership_card3 = {
 
 }
 
-HN_membership_invalid_card = {
+harvey_nichols_membership_invalid_card = {
     "id": "invalid_email@testbink.com",
     "password": "Password01",
     "points": "380",
     "transactions": "5"
 }
-# Iceland(IL)
-IL_membership_card1 = {
+
+iceland_membership_card1 = {
     "card_num": "0000000000000000000",
     "last_name": "zero",
     "postcode": "rg0 0aa",
     "points": "0.00",
     "transactions": ""
 }
-IL_membership_card2 = {
+iceland_membership_card2 = {
     "card_num": "5555555555555555555",
     "last_name": "five",
     "postcode": "rg5 5aa",
@@ -157,7 +156,7 @@ IL_membership_card2 = {
     "points": "380.01",
     "transactions": "5"
 }
-IL_membership_card3 = {
+iceland_membership_card3 = {
     "card_num": "1020304050607086666",
     "last_name": "million",
     "postcode": "mp6 0bb",
@@ -165,7 +164,7 @@ IL_membership_card3 = {
     "transactions": "6"
 }
 
-IL_membership_card4 = {
+iceland_membership_card4 = {
     "card_num": "1020304050607086666",
     "last_name": "million",
     "postcode": "mp6 0bb",
@@ -173,24 +172,31 @@ IL_membership_card4 = {
     "transactions": "6"
 }
 
-IL_invalid_card = {
+iceland_invalid_card = {
     "invalid_postal_code": "cro il0"
 }
 
-Whsmith_membership_card1 = {
-    "card_num1": "FF00000004827176",
-    "card_num2": "FF00000004958039",
+whsmith_membership_card1 = {
+    "card_num": "FF00000004827176",
+}
+
+whsmith_membership_card2 = {
+    "card_num": "FF00000004958039",
+}
+
+wasabi_membership_card1 = {
+    "card_num1": ""
 }
 # ----------------------------------------MEMBERSHIP PLAN IDs   ----------------------------------------------- #
 
 membership_plan_id = {
-    "BK": "314",
+    "burger_king": "314",
     "CooP": "242",
-    "FF": "281",
-    "HN": "194",
-    "IL": "105",
+    "FatFace": "281",
+    "HarveyNichols": "194",
+    "Iceland": "105",
     "WHSmith": "316",
-    "WAS": ""
+    "Wasabi": ""
 }
 # ----------------------------------------MEMBERSHIP ACCOUNT STATES & REASON_CODES ---------------------------------- #
 

@@ -6,22 +6,24 @@ class IcelandCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = Endpoint.TEST_DATA.IL_invalid_card.get('invalid_postal_code')
+            value = Endpoint.TEST_DATA.iceland_invalid_card.get('invalid_postal_code')
             logging.info('Invalid data is: ' + value)
         else:
-            value = Endpoint.TEST_DATA.IL_membership_card2.get('postcode')
+            value = Endpoint.TEST_DATA.iceland_membership_card2.get('postcode')
         payload = {
             "account": {
                 "add_fields": [
                     {
                         "column": "Bonus card number",
-                        "value": Endpoint.TEST_DATA.IL_membership_card2.get('card_num')
+                        "value": Endpoint.TEST_DATA.iceland_membership_card2.get('card_num')
                     }
                 ],
                 "authorise_fields": [
                     {
                         "column": "Last name",
-                        "value": Endpoint.TEST_DATA.IL_membership_card2.get('last_name')
+                        "value": Endpoint.TEST_DATA.iceland_membership_card2.get('last_name')
+                        # "value": iceland_membership_card3_last_name
+
                     },
                     {
                         "column": "Postcode",
@@ -29,7 +31,7 @@ class IcelandCard:
                     }
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('IL')
+            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('iceland')
         }
         return payload
 

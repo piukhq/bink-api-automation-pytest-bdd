@@ -6,22 +6,22 @@ class CoopCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = Endpoint.TEST_DATA.CooP_invalid_card.get('invalid_postal_code')
+            value = Endpoint.TEST_DATA.coop_invalid_card.get('invalid_postal_code')
             logging.info('Invalid data is: ' + value)
         else:
-            value = Endpoint.TEST_DATA.CooP_membership_card1.get('postcode')
+            value = Endpoint.TEST_DATA.coop_membership_card1.get('postcode')
         payload = {
             "account": {
                 "add_fields": [
                     {
                         "column": "Membership card number",
-                        "value": Endpoint.TEST_DATA.CooP_membership_card1.get('card_num')
+                        "value": Endpoint.TEST_DATA.coop_membership_card1.get('card_num')
                     }
                 ],
                 "authorise_fields": [
                     {
                         "column": "Date of birth",
-                        "value": Endpoint.TEST_DATA.CooP_membership_card1.get('dob')
+                        "value": Endpoint.TEST_DATA.coop_membership_card1.get('dob')
                     },
                     {
                         "column": "Postcode",
@@ -29,7 +29,7 @@ class CoopCard:
                     }
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('CooP')
+            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('coop')
         }
         return payload
 
