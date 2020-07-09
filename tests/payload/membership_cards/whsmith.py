@@ -1,7 +1,7 @@
 from tests.api.base import Endpoint
 
 
-class WhsmithCard:
+class WHSmithCard:
     @staticmethod
     def add_membership_card_payload():
         payload = {
@@ -9,12 +9,12 @@ class WhsmithCard:
                 "authorise_fields": [
                     {
                         "column": "Reward number",
-                        "value": Endpoint.TEST_DATA.Whsmith_membership_card1.get('card_num1')
+                        "value": Endpoint.TEST_DATA.whsmith_membership_card1.get('card_num1')
 
                     }
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('WHSmith')
+            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('whsmith')
         }
         return payload
 
