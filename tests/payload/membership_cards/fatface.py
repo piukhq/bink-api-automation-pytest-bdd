@@ -7,7 +7,7 @@ class FatFaceCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = Endpoint.TEST_DATA.fat_face_invalid_card.get('card_num')
+            value = Endpoint.TEST_DATA.fat_face_invalid_data.get('card_num')
             logging.info('Invalid data is: ' + value)
         else:
             value = Endpoint.TEST_DATA.fat_face_membership_card1.get('card_num')

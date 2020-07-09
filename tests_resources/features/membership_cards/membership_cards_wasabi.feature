@@ -26,7 +26,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     And I submit the DELETE request to delete the "Wasabi" membership card
 
 #   @add_and_link
-  Scenario: ADD & LINK Journey_Iceland
+  Scenario: ADD & LINK Journey_Wasabi
 
     Given I am a Bink user
     And I perform POST request to add payment card to wallet

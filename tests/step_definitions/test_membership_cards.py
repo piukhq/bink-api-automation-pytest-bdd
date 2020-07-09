@@ -40,7 +40,7 @@ def add_membership_card(merchant, login_user, context):
         assert response.status_code == 201 \
                and response_json['status']['state'] == \
                Endpoint.TEST_DATA.membership_account_states.get('state_pending')
-        logging.info('Response after POST is:\n ' + str(response.content))
+        # logging.info('Response after POST is:\n ' + str(response.content))
 
     except AssertionError as error:
         # assert network_response.response.status_code == 404 or 400
@@ -69,7 +69,7 @@ def add_membership_card(merchant, login_user, context, invalid_data):
 @when(parsers.parse('I perform POST request to add & auto link an existing "{merchant}" membership card'))
 def add_membership_card(merchant, login_user, context):
     context['token'] = login_user.json().get('api_key')
-    print('toen`55'+context['token'])
+    print('toen`55' + context['token'])
     response = MembershipCards.add_card_auto_link(login_user.json().get('api_key'), merchant)
     response_json = response.json()
     context['scheme_account_id'] = response_json.get('id')
@@ -112,11 +112,11 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
         # and str(response_json['membership_plan']) == TestDataUtils.get_membership_plan_id(merchant) \
         # and response_json['status']['state'] == TestDataUtils.membership_account_state_authorised \
 
-        logging.info(merchant, ' membership card is added /updated successfully: \n' + str(response.content))
+        logging.info(merchant + ' membership card is added /updated successfully: \n' + str(response.content))
 
     except HTTPError as network_response:
         assert network_response.response.status_code == 404 or 400
-        logging.error('POST/PATCH on ', merchant + 's membership card failed due to HTTP error: {network_response')
+        logging.error(merchant + ' membership card add /updated(POST/PATCH) failed due to HTTP error: {network_response')
 
 
 @when(parsers.parse(
@@ -133,7 +133,7 @@ def verify_membership_card_is_add_and_linked(merchant, context, add_payment_card
 
     except HTTPError as network_response:
         assert network_response.response.status_code == 404 or 400
-        logging.error('Add and AutoLink of', merchant, 's Membership card failed due to HTTP error: {network_response')
+        logging.error('Add and AutoLink of' + merchant + ' Membership card failed due to HTTP error: {network_response')
 
 
 @when(parsers.parse(
@@ -145,7 +145,7 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
         assert response.status_code == 200 \
                and response_json['id'] == context['scheme_account_id'] \
                and response_json['status']['state'] == \
-               Endpoint.TEST_DATA.membership_account_states.get('state_authorised')
+               Endpoint.TEST_DATA.membership_account_states.get('state_failed')
 
         logging.info('Response after GET (invalid data) is: \n ' + str(response.content))
 
@@ -212,5 +212,6 @@ def verify_membership_account_join_date_card_number_and_merchant_identifier_popu
         logging.info("Link date in Django (" + link_date + ") is close to current date "
                                                            "(" + current_date + time.strftime(
             ", %I:%M %p").lower() + ")")
-    logging.info('Merchant Identifier in Django is: ' + driver.find_element_by_name('schemeaccountcredentialanswer_set-1-answer').
+    logging.info('Merchant Identifier in Django is: ' + driver.find_element_by_name(
+        'schemeaccountcredentialanswer_set-1-answer').
                  get_attribute('value'))

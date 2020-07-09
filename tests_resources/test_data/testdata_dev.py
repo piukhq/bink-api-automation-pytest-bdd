@@ -57,25 +57,26 @@ burger_king_membership_card3 = {
     "card_num": "BK00000034594960"
 }
 
-burger_king_membership_invalid_card = {
+burger_king_invalid_data = {
     "card_num": "BK00000035941500"
 }
 
+
 coop_membership_card1 = {
+    "card_num": "633174912301122330",
+    "dob": "01/01/2000",
+    "postcode": "qa1 1qa",
+    "points": "0.00p",
+    "transactions": "0"
+}
+
+coop_membership_card2 = {
     "card_num": "633174912301122335",
     "dob": "01/01/2000",
     "postcode": "qa1 1qa",
     "invalidpostalcode": "rg5 5aa",
     "points": "380.01",
     "transactions": "5"
-}
-
-coop_membership_card2 = {
-    "card_num": "633174912301122330",
-    "dob": "01/01/2000",
-    "postcode": "qa1 1qa",
-    "points": "0.00p",
-    "transactions": "0"
 }
 
 coop_membership_card3 = {
@@ -100,7 +101,7 @@ coop_ghost_card = {
     "postcode": "cr6 0bg"
 }
 
-coop_invalid_card = {
+coop_invalid_data = {
     "invalid_postal_code": "rg5 5aa"
 }
 
@@ -108,7 +109,7 @@ fat_face_membership_card1 = {
     "card_num": "FF00000059702811"
 }
 
-fat_face_invalid_card = {
+fat_face_invalid_data = {
     "card_num": "FF00000059702810"
 }
 
@@ -134,7 +135,7 @@ harvey_nichols_membership_card3 = {
 
 }
 
-harvey_nichols_membership_invalid_card = {
+harvey_nichols_invalid_data = {
     "id": "invalid_email@testbink.com",
     "password": "Password01",
     "points": "380",
@@ -142,19 +143,17 @@ harvey_nichols_membership_invalid_card = {
 }
 
 iceland_membership_card1 = {
+    "card_num": "9000000000000000009",
+    "last_name": "perfuser09",
+    "postcode": "rg5 5aa"
+}
+
+iceland_membership_card2 = {
     "card_num": "0000000000000000000",
     "last_name": "zero",
     "postcode": "rg0 0aa",
     "points": "0.00",
     "transactions": ""
-}
-iceland_membership_card2 = {
-    "card_num": "5555555555555555555",
-    "last_name": "five",
-    "postcode": "rg5 5aa",
-    "invalid_postcode": "cro il0",
-    "points": "380.01",
-    "transactions": "5"
 }
 iceland_membership_card3 = {
     "card_num": "1020304050607086666",
@@ -172,7 +171,16 @@ iceland_membership_card4 = {
     "transactions": "6"
 }
 
-iceland_invalid_card = {
+iceland_membership_card5 = {
+    "card_num": "5555555555555555555",
+    "last_name": "five",
+    "postcode": "rg5 5aa",
+    "invalid_postcode": "cro il0",
+    "points": "380.01",
+    "transactions": "5"
+}
+
+iceland_invalid_data = {
     "invalid_postal_code": "cro il0"
 }
 

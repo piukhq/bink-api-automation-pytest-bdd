@@ -6,7 +6,7 @@ class CoopCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = Endpoint.TEST_DATA.coop_invalid_card.get('invalid_postal_code')
+            value = Endpoint.TEST_DATA.coop_invalid_data.get('invalid_postal_code')
             logging.info('Invalid data is: ' + value)
         else:
             value = Endpoint.TEST_DATA.coop_membership_card1.get('postcode')
@@ -31,6 +31,7 @@ class CoopCard:
             },
             "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('coop')
         }
+        print(str(payload)+"testt")
         return payload
 
 

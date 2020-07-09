@@ -4,7 +4,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
   I want to utilise membership_cards endpoint of the Banking API
   So I can add my card, with the scheme provider WHSmith & check its details successfully
 
-  @add 
+#  @add
     Scenario: Add Journey_WHSmith
     Given I am a Bink user
     When I perform POST request to add "WHSmith" membership card

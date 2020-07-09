@@ -7,8 +7,8 @@ class BurgerKingCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            # value = TestDataUtils.burger_king_membership_invalid_card_number
-            value = Endpoint.TEST_DATA.burger_king_membership_invalid_card_number.get('card_num')
+            # value = TestDataUtils.burger_king_invalid_data_number
+            value = Endpoint.TEST_DATA.burger_king_invalid_data.get('card_num')
             logging.info('Invalid data is: ' + value)
         else:
             value = TestDataUtils.get_burger_king_card_num1()

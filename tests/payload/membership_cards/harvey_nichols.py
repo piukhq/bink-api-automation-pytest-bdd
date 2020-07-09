@@ -7,7 +7,7 @@ class HarveyNicholsCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = Endpoint.TEST_DATA.harvey_nichols_membership_invalid_card.get('id')
+            value = Endpoint.TEST_DATA.harvey_nichols_invalid_data.get('id')
             logging.info('Invalid data is: ' + value)
         else:
             value = Endpoint.TEST_DATA.harvey_nichols_membership_card2.get('id')
