@@ -1,13 +1,14 @@
-@whs @bink
+@WHSmith @bink
 Feature: Merchant WHSmith - Ensure a customer can add their membership card & view its details
   As a customer
   I want to utilise membership_cards endpoint of the Banking API
   So I can add my card, with the scheme provider WHSmith & check its details successfully
 
-  @add @whsmith
-    Scenario: Verify WHSmith customer can add membership card ( Add Journey )
+  @add 
+    Scenario: Add Journey_WHSmith
     Given I am a Bink user
-    When I submit POST request to add "whsmith" membership card
-    And I submit GET request to verify "whsmith" membership card is added to the wallet
-    Then I perform DELETE request to delete the "whsmith" membership card
-    And verify membership account Join date, Card Number and Merchant identifier populated in Django
+    When I perform POST request to add "WHSmith" membership card
+    And I perform GET request to verify "WHSmith" membership card is added to the wallet
+    And verify membership account Link date, Card Number and Merchant identifier populated in Django
+    Then I perform DELETE request to delete the "WHSmith" membership card
+
