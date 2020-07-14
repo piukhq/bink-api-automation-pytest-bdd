@@ -1,5 +1,5 @@
 from tests.api.base import Endpoint
-from tests.helper.test_data_utils import TestDataUtils
+from tests.helpers.test_data_utils import TestDataUtils
 import logging
 
 
@@ -27,7 +27,7 @@ class BurgerKingCard:
         return payload
 
     @staticmethod
-    def enrol_membership_scheme():
+    def enrol_membership_scheme_payload():
         payload = {
             "account": {
                 "enrol_fields": [

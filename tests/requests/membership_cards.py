@@ -44,40 +44,21 @@ class MembershipCards(Endpoint):
 
     # ---------------------------------------- Enrol Journey---------------------------------------------------
     @staticmethod
-    def enrol_customer(token, merchant):
-
-        url = MembershipCards.get_url()
-        header = Endpoint.request_header(token)
-        if merchant == 'burgerking':
-            payload = BKCard.enrol_membership_scheme()
-        elif merchant == 'coop':
-            payload = CoopCard.enrol_membership_scheme()
-        elif merchant == 'fatface':
-            payload = FFCard.enrol_membership_scheme()
-        elif merchant == 'harvey-nichols':
-            payload = HNCard.enrol_membership_scheme()
-        elif merchant == 'iceland':
-            payload = IcelandCard.enrol_membership_scheme()
-
-        return Endpoint.call(MembershipCards.get_url(), Endpoint.request_header(token), "POST", payload)
-
-    @staticmethod
     def put_enrol_customer(token, merchant):
 
         url = MembershipCards.get_url()
 
-    # ---------------------------------------- Ghost Card Registration -------------------------------------------
     @staticmethod
     def register_ghost_card(token, merchant):
 
         url = MembershipCards.get_url()
 
+    # ---------------------------------------- Ghost Card Registration -------------------------------------------
     @staticmethod
     def patch_ghost_card(token, merchant):
 
         url = MembershipCards.get_url()
 
-    # Get Membership Card
     @staticmethod
     def get_scheme_account(token, scheme_account_id):
         """Waiting max up to 30 sec to change status from Pending to Authorized"""
@@ -93,6 +74,7 @@ class MembershipCards(Endpoint):
         return response
         # Get Membership Card
 
+    # Get Membership Card
     @staticmethod
     def get_scheme_account_auto_link(token):
         """Waiting max up to 30 sec to change status from Pending to Authorized"""
@@ -120,6 +102,17 @@ class MembershipCards(Endpoint):
             else:
                 break
         return response
+    @staticmethod
+    def enrol_customer(token, merchant, email, invalid_data=None):
+
+        url = MembershipCards.get_url()
+        header = Endpoint.request_header(token)
+        if not invalid_data:
+            payload = MembershipCards.get_merchant(merchant).enrol_membership_scheme_payload(email)
+        else:
+            payload = MembershipCards.get_merchant(merchant).enrol_membership_scheme_payload(email,invalid_data)
+        return Endpoint.call(url, header, "POST", payload)
+
 
     # Delete Membership Card
     @staticmethod

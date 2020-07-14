@@ -36,8 +36,8 @@ BINK = ChannelDetails(
 
 BARCLAYS = ChannelDetails(
     channel_name="barclays",
-    bundle_id="com.barclays.test",
-    client_id="2zXAKlzMwU5mefvs4NtWrQNDNXYrDdLwWeSCoCCrjd8N0VBHoi"
+    bundle_id="com.barclays.bmb",
+    client_id="lwhkGNn5FAXPCCcbIFrgZWk0i7Qolg5WBMFM4UYjZAbaOXQyq6"
 )
 
 

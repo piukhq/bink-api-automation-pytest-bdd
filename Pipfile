@@ -14,6 +14,7 @@ logger = "*"
 pytest-metadata = "*"
 pytest-html = "*"
 jsonpath = "*"
+faker = "*"
 
 [requires]
 python_version = "3.8"

@@ -136,7 +136,7 @@ harvey_nichols_membership_card3 = {
 }
 
 harvey_nichols_invalid_data = {
-    "id": "invalid_email@testbink.com",
+    "id": "fail@unknown.com",
     "password": "Password01",
     "points": "380",
     "transactions": "5"
