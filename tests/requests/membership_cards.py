@@ -44,9 +44,24 @@ class MembershipCards(Endpoint):
 
     # ---------------------------------------- Enrol Journey---------------------------------------------------
     @staticmethod
+    def enrol_customer(token, merchant, email, invalid_data=None):
+
+        url = MembershipCards.get_url()
+        header = Endpoint.request_header(token)
+        if not invalid_data:
+            payload = MembershipCards.get_merchant(merchant).enrol_membership_scheme_payload(email)
+        else:
+            payload = MembershipCards.get_merchant(merchant).enrol_membership_scheme_payload(email, invalid_data)
+        return Endpoint.call(url, header, "POST", payload)
+
+    @staticmethod
     def put_enrol_customer(token, merchant):
 
         url = MembershipCards.get_url()
+        url = MembershipCards.get_url(scheme_account_id)
+        header = Endpoint.request_header(token)
+        payload = MembershipCards.get_merchant(merchant).add_membership_card_payload()
+        return Endpoint.call(url, header, "PUT", payload)
 
     @staticmethod
     def register_ghost_card(token, merchant):
@@ -102,16 +117,6 @@ class MembershipCards(Endpoint):
             else:
                 break
         return response
-    @staticmethod
-    def enrol_customer(token, merchant, email, invalid_data=None):
-
-        url = MembershipCards.get_url()
-        header = Endpoint.request_header(token)
-        if not invalid_data:
-            payload = MembershipCards.get_merchant(merchant).enrol_membership_scheme_payload(email)
-        else:
-            payload = MembershipCards.get_merchant(merchant).enrol_membership_scheme_payload(email,invalid_data)
-        return Endpoint.call(url, header, "POST", payload)
 
 
     # Delete Membership Card

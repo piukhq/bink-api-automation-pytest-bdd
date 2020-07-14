@@ -133,7 +133,7 @@ def enrol_membership_account_invalid_credentials(merchant, register_user, contex
 
 @when(parsers.parse('I perform PUT request to replace information of the enrolled "{merchant}" membership card'))
 def put_request_to_replace_enrolled_membership_card_details(merchant, context):
-    response = MembershipCards.patch_add_card(context['token'], context['scheme_account_id'], merchant)
+    response = MembershipCards.put_enrol_customer(context['token'], context['scheme_account_id'], merchant)
     response_json = response.json()
     try:
         assert response.status_code == 200 \
