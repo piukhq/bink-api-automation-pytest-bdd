@@ -17,3 +17,7 @@ class TestDataUtils:
     @staticmethod
     def get_burger_king_card_num2():
         return TestDataUtils.TEST_DATA.burger_king_membership_card1.get('card_num')
+
+    @staticmethod
+    def get_burger_king_card_num2():
+        return TestDataUtils.TEST_DATA.burger_king_membership_card1.get('card_num')

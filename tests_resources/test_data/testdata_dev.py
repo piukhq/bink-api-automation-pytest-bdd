@@ -58,7 +58,8 @@ burger_king_membership_card3 = {
 }
 
 burger_king_invalid_data = {
-    "card_num": "BK00000035941500"
+    "card_num": "BK00000035941500",
+    "email": "fail@unknown.com"
 }
 
 
@@ -102,7 +103,12 @@ coop_ghost_card = {
 }
 
 coop_invalid_data = {
-    "invalid_postal_code": "rg5 5aa"
+    "postcode": "fail",
+    "email": "fail@unknown.com"
+
+    # column": "Postcode",
+    #         "value": "fa1 1fa"
+
 }
 
 fat_face_membership_card1 = {
@@ -136,7 +142,7 @@ harvey_nichols_membership_card3 = {
 }
 
 harvey_nichols_invalid_data = {
-    "id": "invalid_email@testbink.com",
+    "id": "fail@unknown.com",
     "password": "Password01",
     "points": "380",
     "transactions": "5"

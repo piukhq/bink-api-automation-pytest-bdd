@@ -1,6 +1,7 @@
 import pytest
 import time
 import logging
+from faker import Faker
 from pytest_bdd import given, then
 from selenium.webdriver import Chrome
 
@@ -8,14 +9,16 @@ import config
 from tests.requests.service import CustomerAccount
 from tests.requests.payment_cards import PaymentCards
 from tests.api.base import Endpoint
-from tests.helper.test_data_utils import TestDataUtils
-
-EMAIL_TEMPLATE = "pytest_email@bink.com"
+from tests.helpers.test_data_utils import TestDataUtils
+import tests.helpers.constants as constants
 
 
 # Hooks
 def pytest_bdd_step_error(request, feature, scenario, step, step_func, step_func_args, exception):
     print(f'Step failed: {step}')
+
+
+# def pytest_bdd_after_scenario(request, feature, scenario)
 
 
 def pytest_html_report_title(report):
@@ -68,7 +71,9 @@ def set_environment(env):
 
 @pytest.fixture()
 def test_email():
-    return EMAIL_TEMPLATE.replace("email", str(time.time()))
+    # return constants.EMAIL_TEMPLATE.replace("email", str(time.time()))
+    faker = Faker()
+    return constants.EMAIL_TEMPLATE.replace("email", str(faker.random_int()))
 
 
 @pytest.fixture
@@ -89,11 +94,11 @@ def driver():
 
 
 # Shared  Steps
-@given('I registers with bink service as a new customer')
+@given('I register with bink service as a new customer')
 def register_user(test_email, channel):
     response = CustomerAccount.create_user(test_email, channel)
     CustomerAccount.create_consent(response.json().get('api_key'), test_email)
-    print('Shared given step has executed-------------', response.json().get('api_key'))
+    logging.info('Shared given step has executed-------------' + response.json().get('api_key'))
     return response
 
 
@@ -126,7 +131,7 @@ def verify_payment_card_added(context):
     response = PaymentCards.get_payment_card(context['token'], context['payment_card_id'])
     try:
         assert response.status_code == 200
-        logging.info('Payment card is added successfully : \n'+str(response.content))
+        logging.info('Payment card is added successfully : \n' + str(response.content))
         #  Add status check later
     except AssertionError as error:
         raise Exception('Add Journey for ' + merchant + ' failed due to error ' + error.__str__())
@@ -141,3 +146,8 @@ def delete_payment_card(context):
         #  Add status check later
     except AssertionError as error:
         raise Exception('Add Journey for ' + merchant + ' failed due to error ' + error.__str__())
+
+# def pytest_html_results_table_html(report, data):
+#    if report.failed:
+#        del data[:]
+#        data.append(html.div('No log output captured.', class_='empty log'))
