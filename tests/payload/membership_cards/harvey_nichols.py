@@ -1,7 +1,5 @@
 from tests.api.base import Endpoint
-import tests.helpers.constants as constants
 import logging
-from faker import Faker
 
 
 class HarveyNicholsCard:
@@ -33,19 +31,13 @@ class HarveyNicholsCard:
         return payload
 
     @staticmethod
-    def enrol_membership_scheme_payload(email, invalid_data=None):
-        faker = Faker()
-
-        if invalid_data:
-            value = Endpoint.TEST_DATA.harvey_nichols_invalid_data.get('id')
-        else:
-            value = email
+    def enrol_membership_scheme():
         payload = {
             "account": {
                 "enrol_fields": [
                     {
                         "column": "Email",
-                        "value": value
+                        "value": "test@testbink.com"
                     },
                     {
                         "column": "Password",
@@ -53,28 +45,28 @@ class HarveyNicholsCard:
                     },
                     {
                         "column": "Title",
-                        "value": constants.TITLE
+                        "value": "Mr"
                     },
                     {
                         "column": "First name",
-                        "value": faker.name()
+                        "value": "mer_262"
                     },
                     {
                         "column": "Last name",
-                        "value": faker.name()
+                        "value": "Bink"
                     },
                     {
                         "column": "Mobile number",
-                        "value": faker.phone_number()
+                        "value": "123454567"
                     },
 
                     {
                         "column": "Consent 1",
-                        "value": constants.CONSENT
+                        "value": "true"
                     }
 
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('harvey_nichols')
+            "membership_plan": 194
         }
         return payload
