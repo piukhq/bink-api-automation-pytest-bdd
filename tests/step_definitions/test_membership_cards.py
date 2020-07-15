@@ -39,6 +39,7 @@ def add_membership_card(merchant, login_user, context):
     response = MembershipCards.add_card(context['token'], merchant)
     context['scheme_account_id'] = response.json().get('id')
     response_json = response.json()
+    logging.info('HELLO WORLD')
     try:
         assert response.status_code == 201 \
                and response_json['status']['state'] == \
