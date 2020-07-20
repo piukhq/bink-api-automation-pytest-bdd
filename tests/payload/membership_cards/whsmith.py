@@ -16,10 +16,11 @@ class WHSmithCard:
             },
             "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('whsmith')
         }
+        logging.info('The Request for Add Journey : \n' + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
-    def enrol_membership_scheme():
+    def enrol_membership_scheme_payload():
         payload = {
             "account": {
                 "enrol_fields": [
@@ -64,4 +65,5 @@ class WHSmithCard:
             },
             "membership_plan": 280
         }
+        logging.info('The Request for Enrol Journey : \n' + json.dumps(payload, indent=4))
         return payload

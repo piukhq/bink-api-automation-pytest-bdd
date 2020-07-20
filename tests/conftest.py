@@ -98,7 +98,7 @@ def driver():
 def register_user(test_email, channel):
     response = CustomerAccount.create_user(test_email, channel)
     CustomerAccount.create_consent(response.json().get('api_key'), test_email)
-    logging.info('Shared given step has executed-------------' + response.json().get('api_key'))
+    logging.info('User registration is successful and the token is: \n\n' + response.json().get('api_key')+'\n')
     return response
 
 
@@ -129,6 +129,8 @@ def add_payment_card(login_user, context):
 @given('I perform the GET request to verify the payment card has been added successfully')
 def verify_payment_card_added(context):
     response = PaymentCards.get_payment_card(context['token'], context['payment_card_id'])
+    # logging.info('Payment card is added successfully : \n' + str(response.content))
+    # assert response.status_code == 200, 'Payment card is added successfully : \n' + str(response.content)
     try:
         assert response.status_code == 200
         logging.info('Payment card is added successfully : \n' + str(response.content))
