@@ -1,6 +1,9 @@
 from tests.api.base import Endpoint
+import tests.helpers.constants as constants
+from tests.helpers.test_data_utils import TestDataUtils
+from faker import Faker
 import logging
-
+import json
 
 class HarveyNicholsCard:
 
@@ -28,45 +31,52 @@ class HarveyNicholsCard:
             }, "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('harvey_nichols')
 
         }
+        logging.info('The Request for Add Journey : \n' + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
-    def enrol_membership_scheme():
+    def enrol_membership_scheme_payload(email, invalid_data=None):
+        faker = Faker()
+
+        if invalid_data:
+            value = Endpoint.TEST_DATA.coop_invalid_data.get('email')
+            logging.info('Invalid data is: ' + value)
+        else:
+            value = email
         payload = {
             "account": {
                 "enrol_fields": [
                     {
-                        "column": "Email",
-                        "value": "test@testbink.com"
-                    },
-                    {
-                        "column": "Password",
-                        "value": "Password1"
-                    },
-                    {
                         "column": "Title",
-                        "value": "Mr"
+                        "value": constants.TITLE
                     },
                     {
                         "column": "First name",
-                        "value": "mer_262"
+                        "value": faker.name()
                     },
                     {
                         "column": "Last name",
-                        "value": "Bink"
+                        "value": faker.name()
+                    },
+                    {
+                        "column": "Email",
+                        "value": value
+                    },
+                    {
+                        "column": "Password",
+                        "value": constants.PASSWORD
                     },
                     {
                         "column": "Mobile number",
-                        "value": "123454567"
+                        "value": faker.phone_number()
                     },
-
                     {
                         "column": "Consent 1",
-                        "value": "true"
+                        "value": constants.CONSENT
                     }
-
                 ]
             },
-            "membership_plan": 194
+            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('harvey_nichols')
         }
+        logging.info('The Request for Enrol Journey : \n' + json.dumps(payload, indent=4))
         return payload

@@ -68,5 +68,5 @@ class BurgerKingCard:
             },
             "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('burger_king')
         }
-        logging.info('The Request is: \n'+json.dumps(payload, indent=4))
+        logging.info('The Request for Enrol Journey : \n'+json.dumps(payload, indent=4))
         return payload
