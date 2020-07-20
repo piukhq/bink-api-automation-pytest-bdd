@@ -1,5 +1,9 @@
 from tests.api.base import Endpoint
+import tests.helpers.constants as constants
+from tests.helpers.test_data_utils import TestDataUtils
+from faker import Faker
 import logging
+import json
 
 
 class FatFaceCard:
@@ -23,37 +27,41 @@ class FatFaceCard:
             },
             "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('fat_face')
         }
+        logging.info('The Request for Add Journey : \n' + json.dumps(payload, indent=4))
         return payload
 
+    @staticmethod
+    def enrol_membership_scheme_payload(email, invalid_data=None):
 
-@staticmethod
-def enrol_membership_scheme():
-    payload = {
-        # "account": {
-        #     "enrol_fields": [
-        #
-        #         {
-        #             "column": "First name",
-        #             "value": "megan"
-        #         },
-        #         {
-        #             "column": "Last name",
-        #             "value": "Bink"
-        #         },
-        #         {
-        #             "column": "Email",
-        #             "value": "megan_bink@testbink.com"
-        #         },
-        #         {
-        #             "column": "Postcode",
-        #             "value": "SL59FE"
-        #         },
-        #         {
-        #             "column": "Phone",
-        #             "value": "07724678390"
-        #         }
-        #     ]
-        # },
-        # "membership_plan": 314
-    }
-    return payload
+        faker = Faker()
+
+        if invalid_data:
+            value = Endpoint.TEST_DATA.coop_invalid_data.get('email')
+            logging.info('Invalid data is: ' + value)
+        else:
+            value = email
+        payload = {
+            "account": {
+                "enrol_fields": [
+                    {
+                        "column": "Email",
+                        "value": value
+                    },
+                    {
+                        "column": "First name",
+                        "value": faker.name()
+                    },
+                    {
+                        "column": "Last name",
+                        "value": faker.name()
+                    },
+                    {
+                        "column": "Email Marketing",
+                        "value": constants.EMAIL_MARKETING
+                    }
+                ]
+            },
+            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('fat_face')
+        }
+        logging.info('The Request for Enrol Journey: \n' + json.dumps(payload, indent=4))
+        return payload
