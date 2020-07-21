@@ -34,7 +34,7 @@ class CoopCard:
             },
             "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('coop')
         }
-        logging.info('The Request is: \n' + json.dumps(payload, indent=4))
+        logging.info('The Request for Add Journey : \n' + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
@@ -85,6 +85,7 @@ class CoopCard:
                         "column": "Postcode",
                         "value": faker.postcode()
                     }
+
                 ]
             },
             "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('coop')

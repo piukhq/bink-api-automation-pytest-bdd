@@ -1,0 +1,165 @@
+{
+    "id": 315,
+    "status": "active",
+    "feature_set": {
+        "authorisation_required": true,
+        "transactions_available": true,
+        "digital_only": true,
+        "has_points": true,
+        "card_type": 2,
+        "linking_support": [
+            "ADD",
+            "ENROL"
+        ],
+        "apps": [
+            {
+                "app_type": 0
+            },
+            {
+                "app_type": 1
+            }
+        ],
+        "has_vouchers": true
+    },
+    "card": {
+        "colour": "#bed633",
+        "scan_message": "Scanning not required"
+    },
+    "images": [],
+    "account": {
+        "plan_name": "Wasabi Club",
+        "plan_name_card": "Card",
+        "plan_url": "https://www.wasabi.uk.com",
+        "plan_summary": "Collect 7 stamps for a free meal. One stamp can be earned per customer per day when the qualifying spend in a single transaction for food & drink purchases totals \u00a37 or more in a participating Wasabi store. T\u2019s & C\u2019s apply.",
+        "plan_description": "Collect 7 stamps, so your 8th meal is free. Collect a stamp every time you make a purchase total of \u00a37 or more in a participating Wasabi store. Link your payment card and we will recognise you every time you shop with that card. One stamp can be earned per customer per day when the qualifying spend in a single transaction for food and drink purchases totals \u00a37.00 or more. T\u2019s and C\u2019s apply.\u200b",
+        "plan_documents": [
+            {
+                "name": "Retailer terms & conditions",
+                "description": "I accept the",
+                "url": "https://policies.bink.com/wasabi/tc.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": true
+            },
+            {
+                "name": "Wasabi privacy policy",
+                "description": "I have read the",
+                "url": "https://policies.bink.com/wasabi/pp.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": true
+            },
+            {
+                "name": "Terms & conditions",
+                "url": "https://policies.bink.com/wasabi/tc.html",
+                "display": [
+                    "VOUCHER"
+                ],
+                "checkbox": false
+            }
+        ],
+        "company_name": "Wasabi",
+        "company_url": "https://www.wasabi.uk.com",
+        "category": "Food & Drink",
+        "tiers": [],
+        "add_fields": [
+            {
+                "column": "Membership card number",
+                "validation": "^[0-9]{8}$",
+                "description": "Membership card number",
+                "common_name": "card_number",
+                "type": 0,
+                "choice": []
+            }
+        ],
+        "authorise_fields": [
+            {
+                "column": "Email",
+                "validation": "^.+@([A-Za-z0-9-]+.)+[A-Za-z]{2}[A-Za-z]*$",
+                "description": "Email",
+                "common_name": "email",
+                "type": 0,
+                "choice": []
+            }
+        ],
+        "registration_fields": [],
+        "enrol_fields": [
+            {
+                "column": "First name",
+                "validation": "^(((?=.{1,100}$)[A-Za-z-'])+\\s*){1,4}$",
+                "description": "First name",
+                "common_name": "first_name",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Last name",
+                "validation": "^(((?=.{1,100}$)[A-Za-z-'])+\\s*){1,4}$",
+                "description": "Last name",
+                "common_name": "last_name",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Postcode",
+                "validation": "^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$",
+                "description": "Postcode",
+                "common_name": "postcode",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Phone number",
+                "validation": "^[0-9]{9,11}$",
+                "description": "Phone number",
+                "common_name": "phone",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Email",
+                "validation": "^.+@([A-Za-z0-9-]+.)+[A-Za-z]{2}[A-Za-z]*$",
+                "description": "Email",
+                "common_name": "email",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Consent 1",
+                "description": "Please send me the latest news and offers from Wasabi",
+                "type": 3
+            }
+        ],
+        "fees": []
+    },
+    "balances": [
+        {
+            "currency": "stamps",
+            "suffix": "stamps"
+        }
+    ],
+    "content": [
+        {
+            "column": "Voucher_Issued_Detail",
+            "value": "Simply show the code to the team member at the till to redeem your free hot bento or sushi set."
+        },
+        {
+            "column": "Voucher_Inprogress_Detail",
+            "value": "Spend \u00a36.50 or more to get a stamp. Collect 7 stamps to get a FREE meal."
+        },
+        {
+            "column": "Voucher_Redeemed_Detail",
+            "value": "Your FREE meal voucher was redeemed."
+        },
+        {
+            "column": "Voucher_Expired_Detail",
+            "value": "Your FREE meal voucher has expired."
+        },
+        {
+            "column": "Enrol_Help_Text",
+            "value": "Please enter your details below to register for a new card."
+        }
+    ]
+}

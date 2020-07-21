@@ -28,7 +28,7 @@ class BurgerKingCard:
             "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('burger_king')
 
         }
-        logging.info('The Request is: \n' + json.dumps(payload, indent=4))
+        logging.info('The Request for Add Journey : \n' + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
@@ -45,16 +45,16 @@ class BurgerKingCard:
                 "enrol_fields": [
 
                     {
+                        "column": "Email",
+                        "value": value
+                    },
+                    {
                         "column": "First name",
                         "value": faker.name()
                     },
                     {
                         "column": "Last name",
                         "value": faker.name()
-                    },
-                    {
-                        "column": "Email",
-                        "value": value
                     },
                     {
                         "column": "Postcode",
