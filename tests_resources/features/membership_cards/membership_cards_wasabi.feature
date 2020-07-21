@@ -1,8 +1,8 @@
 @wasabi @bink
-Feature: Merchant Harvey Nichols - Ensure a customer can add their membership card & view its details for merchant Harvey Nichols
+Feature: Merchant Wasabi - Ensure a customer can add their membership card & view its details for merchant Wasabi
   As a customer
   I want to utilise membership_cards endpoint of the Banking API
-  So I can add my card, with the scheme provider Harvey Nichols & check its details successfully
+  So I can add my card, with the scheme provider Wasabi & check its details successfully
 
 
 #  @add
@@ -39,15 +39,15 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then I perform DELETE request to delete the "Wasabi" membership card
     And I perform DELETE request to delete the payment card
 
-#  @enrol
+  @enrol
     Scenario: Join Journey(Enrol)_Wasabi
 
 
     Given I register with bink service as a new customer
     When I perform POST request to create a "Wasabi" membership account with enrol credentials
     And I perform GET request to verify the "Wasabi" membership account is created
-    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
-    Then I perform DELETE request to delete the "Wasabi" membership card
+#    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
+#    Then I perform DELETE request to delete the "Wasabi" membership card
 
 #  @enrol_put
   Scenario: Join Journey(Enrol)_PUT_Wasabi
