@@ -39,18 +39,15 @@ def add_membership_card(merchant, login_user, context):
     response = MembershipCards.add_card(context['token'], merchant)
     context['scheme_account_id'] = response.json().get('id')
     response_json = response.json()
-    logging.info('HELLO WORLD')
     try:
         assert response.status_code == 201 \
                and response_json['status']['state'] == \
                Endpoint.TEST_DATA.membership_account_states.get('state_pending')
 
     except AssertionError as error:
-        # assert network_response.response.status_code == 404 or 400
-        # logging.info('jidhjfhdjfjd')
         logging.error('Add Journey for ', merchant, ' failed due to error')
         raise
-        # raise Exception('Add Journey for ' + merchant + ' failed due to error ' + error.__str__())
+        raise Exception('Add Journey for ' + merchant + ' failed due to error ' + error.__str__())
 
 
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card with "{invalid_data}"'))
@@ -163,11 +160,6 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
                and response_json['id'] == context['scheme_account_id'] \
                and response_json['status']['state'] == Endpoint.TEST_DATA.membership_account_states.get(
             'state_authorised')
-
-        # implement a new test data util class and re-write the following
-        # and str(response_json['membership_plan']) == Endpoint.TEST_DATA.membership_plan_id.get(merchant)
-        # and response_json['card']['membership_id'] == test_data.get_card_number(merchant)
-
         logging.info(merchant + ' membership card is created/ added/ updated successfully: \n' + str(response.content))
 
     except HTTPError as network_response:
@@ -275,13 +267,3 @@ def verify_membership_account_join_date_card_number_and_merchant_identifier_popu
     driver.find_element_by_xpath("//input[@type='submit']").click()
     select = Select(driver.find_element_by_name('status'))
     assert select.first_selected_option.text == 'Active'
-    # join_date = driver.find_element_by_xpath("//input[@name='join_date_0']/div").text
-    # join_time = driver.find_element_by_name('join_date_1').text
-    # current_date = time.strftime("%d/%b/%Y").lstrip('0')
-    # logging.info(join_date+current_date)
-    #
-    # if str(join_date).__contains__(current_date):
-    #     logging.info("Link date in Django (" + join_date + join_time + ") is close to current date ""(" + current_date +
-    #                  time.strftime(", %I:%M %p").lower() + ")")
-    # logging.info('Merchant Identifier in Django is: ' + driver.find_element_by_name
-    # ('schemeaccountcredentialanswer_set-1-answer').get_attribute('value'))
