@@ -1,6 +1,5 @@
-from tests.api.base import Endpoint
-import tests.helpers.constants as constants
 from tests.helpers.test_data_utils import TestDataUtils
+import tests.helpers.constants as constants
 from faker import Faker
 import logging
 import json
@@ -11,10 +10,10 @@ class FatFaceCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = Endpoint.TEST_DATA.fat_face_invalid_data.get('card_num')
+            value = TestDataUtils.TEST_DATA.fat_face_invalid_data.get(constants.CARD_NUM)
             logging.info('Invalid data is: ' + value)
         else:
-            value = Endpoint.TEST_DATA.fat_face_membership_card1.get('card_num')
+            value = TestDataUtils.TEST_DATA.fat_face_membership_card1.get(constants.CARD_NUM)
 
         payload = {
             "account": {
@@ -25,7 +24,7 @@ class FatFaceCard:
                     }
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('fat_face')
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get('fat_face')
         }
         logging.info('The Request for Add Journey : \n' + json.dumps(payload, indent=4))
         return payload
@@ -36,7 +35,7 @@ class FatFaceCard:
         faker = Faker()
 
         if invalid_data:
-            value = Endpoint.TEST_DATA.coop_invalid_data.get('email')
+            value = TestDataUtils.TEST_DATA.coop_invalid_data.get('email')
             logging.info('Invalid data is: ' + value)
         else:
             value = email
@@ -61,7 +60,7 @@ class FatFaceCard:
                     }
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('fat_face')
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get('fat_face')
         }
         logging.info('The Request for Enrol Journey: \n' + json.dumps(payload, indent=4))
         return payload

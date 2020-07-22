@@ -1,6 +1,5 @@
-from tests.api.base import Endpoint
-import tests.helpers.constants as constants
 from tests.helpers.test_data_utils import TestDataUtils
+import tests.helpers.constants as constants
 from faker import Faker
 import logging
 import json
@@ -10,24 +9,22 @@ class IcelandCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = Endpoint.TEST_DATA.iceland_invalid_data.get('invalid_postal_code')
+            value = TestDataUtils.TEST_DATA.iceland_invalid_data.get(constants.POSTCODE)
             logging.info('Invalid data is: ' + value)
         else:
-            value = Endpoint.TEST_DATA.iceland_membership_card1.get('postcode')
+            value = TestDataUtils.TEST_DATA.iceland_membership_card1.get(constants.POSTCODE)
         payload = {
             "account": {
                 "add_fields": [
                     {
                         "column": "Bonus card number",
-                        "value": Endpoint.TEST_DATA.iceland_membership_card1.get('card_num')
+                        "value": TestDataUtils.TEST_DATA.iceland_membership_card1.get(constants.CARD_NUM)
                     }
                 ],
                 "authorise_fields": [
                     {
                         "column": "Last name",
-                        "value": Endpoint.TEST_DATA.iceland_membership_card1.get('last_name')
-                        # "value": iceland_membership_card3_last_name
-
+                        "value": TestDataUtils.TEST_DATA.iceland_membership_card1.get(constants.LAST_NAME)
                     },
                     {
                         "column": "Postcode",
@@ -35,7 +32,7 @@ class IcelandCard:
                     }
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('iceland')
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get('iceland')
         }
         return payload
 
@@ -44,7 +41,7 @@ class IcelandCard:
         faker = Faker()
 
         if invalid_data:
-            value = Endpoint.TEST_DATA.iceland_invalid_data.get('email')
+            value = TestDataUtils.TEST_DATA.iceland_invalid_data.get('email')
             logging.info('Invalid data is: ' + value)
         else:
             value = email
@@ -102,7 +99,7 @@ class IcelandCard:
                     }
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('iceland')
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get('iceland')
         }
         logging.info('The Request for Enrol Journey : \n' + json.dumps(payload, indent=4))
         return payload

@@ -1,19 +1,19 @@
-from tests.api.base import Endpoint
-import tests.helpers.constants as constants
 from tests.helpers.test_data_utils import TestDataUtils
+import tests.helpers.constants as constants
 from faker import Faker
 import logging
 import json
+
 
 class HarveyNicholsCard:
 
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = Endpoint.TEST_DATA.harvey_nichols_invalid_data.get('id')
+            value = TestDataUtils.TEST_DATA.harvey_nichols_invalid_data.get(constants.ID)
             logging.info('Invalid data is: ' + value)
         else:
-            value = Endpoint.TEST_DATA.harvey_nichols_membership_card2.get('id')
+            value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card2.get(constants.ID)
 
         payload = {
             "account": {
@@ -24,11 +24,11 @@ class HarveyNicholsCard:
                     },
                     {
                         "column": "Password",
-                        "value": Endpoint.TEST_DATA.harvey_nichols_membership_card2.get('password')
+                        "value": TestDataUtils.TEST_DATA.harvey_nichols_membership_card2.get(constants.PASSWORD)
                         # "value": RSACipher.encrypt_field("Password01")
                     }
                 ]
-            }, "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('harvey_nichols')
+            }, "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get('harvey_nichols')
 
         }
         logging.info('The Request for Add Journey : \n' + json.dumps(payload, indent=4))
@@ -39,7 +39,7 @@ class HarveyNicholsCard:
         faker = Faker()
 
         if invalid_data:
-            value = Endpoint.TEST_DATA.coop_invalid_data.get('email')
+            value = TestDataUtils.TEST_DATA.coop_invalid_data.get('email')
             logging.info('Invalid data is: ' + value)
         else:
             value = email
@@ -76,7 +76,7 @@ class HarveyNicholsCard:
                     }
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('harvey_nichols')
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get('harvey_nichols')
         }
         logging.info('The Request for Enrol Journey : \n' + json.dumps(payload, indent=4))
         return payload

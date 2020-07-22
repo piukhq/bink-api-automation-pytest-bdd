@@ -75,7 +75,6 @@ coop_membership_card2 = {
     "card_num": "633174912301122335",
     "dob": "01/01/2000",
     "postcode": "qa1 1qa",
-    "invalidpostalcode": "rg5 5aa",
     "points": "380.01",
     "transactions": "5"
 }
@@ -105,9 +104,6 @@ coop_ghost_card = {
 coop_invalid_data = {
     "postcode": "fail",
     "email": "fail@unknown.com"
-
-    # column": "Postcode",
-    #         "value": "fa1 1fa"
 
 }
 
@@ -142,10 +138,8 @@ harvey_nichols_membership_card3 = {
 }
 
 harvey_nichols_invalid_data = {
-    "id": "fail@unknown.com",
-    "password": "Password01",
-    "points": "380",
-    "transactions": "5"
+    "id": "fail@unknown.com"
+    # "id": "auto_fail@testbink.com"
 }
 
 iceland_membership_card1 = {
@@ -181,13 +175,12 @@ iceland_membership_card5 = {
     "card_num": "5555555555555555555",
     "last_name": "five",
     "postcode": "rg5 5aa",
-    "invalid_postcode": "cro il0",
     "points": "380.01",
     "transactions": "5"
 }
 
 iceland_invalid_data = {
-    "invalid_postal_code": "cro il0"
+    "postcode": "fail"
 }
 
 whsmith_membership_card1 = {

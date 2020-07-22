@@ -1,4 +1,8 @@
-from tests.api.base import Endpoint
+from tests.helpers.test_data_utils import TestDataUtils
+import tests.helpers.constants as constants
+from faker import Faker
+import logging
+import json
 
 
 class WHSmithCard:
@@ -9,7 +13,7 @@ class WHSmithCard:
                 "authorise_fields": [
                     {
                         "column": "Reward number",
-                        "value": Endpoint.TEST_DATA.whsmith_membership_card1.get('card_num1')
+                        "value": Endpoint.TEST_DATA.whsmith_membership_card1.get(constants.CARD_NUM)
 
                     }
                 ]

@@ -1,3 +1,4 @@
+@iceland
 Feature: Merchant Harvey Nichols - Ensure a customer can add their membership card & view its details for merchant Harvey Nichols
   As a customer
   I want to utilise membership_cards endpoint of the Banking API
