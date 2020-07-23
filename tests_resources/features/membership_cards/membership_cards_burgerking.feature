@@ -3,8 +3,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
   As a customer
   I want to utilise membership_cards endpoint of the Banking API
   So I can add my card, with the scheme provider BurgerKing & check its details successfully
-
-   @add
+  @add
     Scenario: Add Journey_BurgerKing
 
     Given I am a Bink user
