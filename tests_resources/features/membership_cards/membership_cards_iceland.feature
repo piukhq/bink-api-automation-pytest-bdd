@@ -1,8 +1,8 @@
-@iceland
-Feature: Merchant Harvey Nichols - Ensure a customer can add their membership card & view its details for merchant Harvey Nichols
+@iceland @bink
+Feature: Merchant Iceland - Ensure a customer can add their membership card & view its details for merchant Iceland
   As a customer
   I want to utilise membership_cards endpoint of the Banking API
-  So I can add my card, with the scheme provider Harvey Nichols & check its details successfully
+  So I can add my card, with the scheme provider Iceland & check its details successfully
 
 
   @add
