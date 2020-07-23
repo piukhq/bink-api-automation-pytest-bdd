@@ -10,7 +10,7 @@ import logging
 from json_diff import Comparator
 
 from tests.requests.membership_plans import MembershipPlans
-from tests.helpers.test_helpers import TestHelpers
+from tests.helpers.test_helpers import TestData
 import tests.helpers.constants as constants
 
 scenarios('membership_plans/')
@@ -37,7 +37,7 @@ def ensure_the_merchants_plan_details_match_with_expected_data(merchant, registe
     token = register_user.json().get('api_key')
     response = MembershipPlans.get_membership_plan(token, merchant)
     logging.info('The Membership plan for ' + merchant + ' is: \n' + json.dumps(response.json(), indent=4))
-    with open(TestHelpers.get_expected_membership_plan_json(merchant)) as json_file:
+    with open(TestData.get_expected_membership_plan_json(merchant)) as json_file:
         json_data = json.load(json_file)
     stored_json = json.dumps(json_data)
     expected_membership_plan = json.loads(stored_json)

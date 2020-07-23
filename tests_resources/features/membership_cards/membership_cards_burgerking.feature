@@ -33,7 +33,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     And I perform the GET request to verify the payment card has been added successfully
     When I perform POST request to add & auto link an existing "BurgerKing" membership card
     And I perform GET request to verify the "BurgerKing" membership card is added & linked successfully in the wallet
-    And I perform GET request to view balance for recently added membership card
+    And I perform GET request to view balance for recently added "BurgerKing" membership card
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "BurgerKing" membership card
     And I perform DELETE request to delete the payment card
@@ -59,3 +59,11 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "BurgerKing" membership card
 
+  @membership_cards_response
+    Scenario: Add Journey_BurgerKing
+
+    Given I am a Bink user
+    When I perform POST request to add "BurgerKing" membership card
+    And I perform GET request to verify the "BurgerKing" membership card is added to the wallet
+    Then I verify the GET membership_cards response for "BurgerKing" matches with expected data
+    And I perform DELETE request to delete the "BurgerKing" membership card

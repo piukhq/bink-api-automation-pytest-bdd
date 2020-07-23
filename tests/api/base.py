@@ -5,18 +5,16 @@ import config
 
 class Endpoint:
     BASE_URL = ''
-    TEST_DATA = ''
     DJANGO_URL = ''
 
+    @staticmethod
     def set_environment(env):
         if env == 'dev':
             Endpoint.BASE_URL = config.DEV.base_url
-            Endpoint.TEST_DATA = config.DEV.test_data
             Endpoint.DJANGO_URL = config.DEV.django_url
 
         elif env == 'staging':
             Endpoint.BASE_URL = config.STAGING.base_url
-            Endpoint.TEST_DATA = config.STAGING.test_data
             Endpoint.DJANGO_URL = config.STAGING.django_url
 
 

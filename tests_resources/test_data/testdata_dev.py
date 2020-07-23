@@ -116,16 +116,18 @@ fat_face_invalid_data = {
 }
 
 harvey_nichols_membership_card1 = {
+    "id": "auto_five@testbink.com",
+    "password": "Password01",
+    "points": "380",
+    "transactions": "5",
+    "card_num": "9123001122335"
+
+}
+harvey_nichols_membership_card2 = {
     "id": "auto_zero@testbink.com",
     "password": "Password01",
     "points": "0",
     "transactions": "0"
-}
-harvey_nichols_membership_card2 = {
-    "id": "auto_five@testbink.com",
-    "password": "Password01",
-    "points": "380",
-    "transactions": "5"
 }
 harvey_nichols_membership_card3 = {
     "id": "sixdigitpoints@testbink.com",
@@ -197,17 +199,17 @@ wasabi_membership_card1 = {
 # ----------------------------------------MEMBERSHIP PLAN IDs   ----------------------------------------------- #
 
 membership_plan_id = {
-    "burger_king": "314",
-    "coop": "242",
-    "fat_face": "281",
-    "harvey_nichols": "194",
-    "iceland": "105",
-    "whsmith": "316",
-    "wasabi": "315"
+    "burger_king": 314,
+    "coop": 242,
+    "fat_face": 281,
+    "harvey_nichols": 194,
+    "iceland": 105,
+    "whsmith": 316,
+    "wasabi": 315
 }
 # ----------------------------------------MEMBERSHIP ACCOUNT STATES & REASON_CODES ---------------------------------- #
 
-membership_account_states = {
+membership_card_status_states = {
     "state_pending": "pending",
     "state_authorised": "authorised",
     "state_failed": "failed"

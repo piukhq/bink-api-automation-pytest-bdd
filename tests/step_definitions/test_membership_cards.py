@@ -12,18 +12,15 @@ import logging
 from requests.exceptions import HTTPError
 from tests.requests.membership_cards import MembershipCards
 from tests.api.base import Endpoint
-from tests.helpers.test_helpers import TestHelpers
+from tests.helpers.test_data_utils import TestDataUtils
+from tests.helpers.test_helpers import TestData
 from selenium.webdriver.support.ui import Select
-
-# from tests.helpers.test_data_utils import TestDataUtils
-# import tests.helpers.test_data_utils as test_data
 
 scenarios('membership_cards/')
 
 
 def customer_can_add_membership_card():
     """Verify a customer can add membership card."""
-    perform_delete_request_scheme_account(context)
     pass
 
 
@@ -37,7 +34,6 @@ def context():
 
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card'))
 def add_membership_card(merchant, login_user, context):
-    logging.info(TestHelpers.get_membership_card_number(merchant))
     context['token'] = login_user.json().get('api_key')
     response = MembershipCards.add_card(context['token'], merchant)
     response_json = response.json()
@@ -51,8 +47,7 @@ def add_membership_card(merchant, login_user, context):
             context['scheme_account_id'] = response.json().get('id')
         else:
             assert response.status_code == 201 \
-                   and response_json['status']['state'] == \
-                   Endpoint.TEST_DATA.membership_account_states.get('state_pending')
+                   and response_json['status']['state'] == TestData.get_membership_card_status_state_pending()
 
     except AssertionError as error:
         raise Exception('Add Journey for ' + merchant + ' failed due to error ' + error.__str__())
@@ -67,8 +62,7 @@ def add_membership_card(merchant, login_user, context, invalid_data):
     logging.info('The response of Add Journey (POST) is:\n ' + json.dumps(response_json, indent=4))
 
     assert response.status_code == 201 \
-           and response_json['status']['state'] == \
-           Endpoint.TEST_DATA.membership_account_states.get('state_pending'), \
+           and response_json['status']['state'] == TestData.get_membership_card_status_state_pending(), \
         'Add Journey with invalid details for ' + merchant + ' failed'
 
 
@@ -79,10 +73,18 @@ def add_membership_card(merchant, login_user, context):
     response = MembershipCards.add_card_auto_link(login_user.json().get('api_key'), merchant)
     response_json = response.json()
     context['scheme_account_id'] = response_json.get('id')
-    assert response.status_code == 201 \
-           and response_json['status']['state'] == \
-           Endpoint.TEST_DATA.membership_account_states.get('state_pending'), \
-        'Add and Auto Link for ' + merchant + ' failed'
+    try:
+        if response.status_code == 200:
+            """Temporary solution till get scheme account id from Data Base"""
+            perform_delete_request_scheme_account(context)
+            response = MembershipCards.add_card(context['token'], merchant)
+            context['scheme_account_id'] = response.json().get('id')
+        else:
+            assert response.status_code == 201 \
+                   and response_json['status']['state'] == TestData.get_membership_card_status_state_pending()
+
+    except AssertionError as error:
+        raise Exception('Add Journey for ' + merchant + ' failed due to error ' + error.__str__())
 
 
 @when(parsers.parse('I perform PATCH request to update "{merchant}" membership card'))
@@ -92,8 +94,8 @@ def patch_request_to_update_membership_card_details(merchant, context):
     response_json = response.json()
     logging.info('The response of Add Journey (PATCH) is:\n ' + json.dumps(response.json(), indent=4))
     assert response.status_code == 200 \
-           and response_json['status']['state'] == \
-           Endpoint.TEST_DATA.membership_account_states.get('state_pending'), 'Add-PATCH for ' + merchant + ' failed'
+           and response_json['status']['state'] == TestData.get_membership_card_status_state_pending(), \
+        'Add Journey -PATCH Request for ' + merchant + ' failed'
 
 
 """Step definitions - Enrol Journey """
@@ -105,7 +107,9 @@ def enrol_membership_account(merchant, register_user, context, test_email):
     response = MembershipCards.enrol_customer(context['token'], merchant, test_email)
     context['scheme_account_id'] = response.json().get('id')
     logging.info('The response of Enrol Journey (POST) is:\n ' + json.dumps(response.json(), indent=4))
-    assert response.status_code == 201, 'Enrol journey for ' + merchant + ' failed'
+    assert response.status_code == 201 \
+           and response_json['status']['state'] == TestData.get_membership_card_status_state_pending(), \
+        'Enrol journey for ' + merchant + ' failed'
 
 
 @when(parsers.parse('I perform POST request to create a "{merchant}" membership account with "{invalid}" enrol '
@@ -117,23 +121,17 @@ def enrol_membership_account_invalid_credentials(merchant, register_user, contex
     response_json = response.json()
 
     assert response.status_code == 201 \
-           and response_json['status']['state'] == \
-           Endpoint.TEST_DATA.membership_account_states.get('state_pending')
+           and response_json['status']['state'] == TestData.get_membership_card_status_state_pending(), \
+        'Enrol Journey with invalid details for ' + merchant + ' failed'
 
 
 @when(parsers.parse('I perform PUT request to replace information of the enrolled "{merchant}" membership card'))
 def put_request_to_replace_enrolled_membership_card_details(merchant, context, test_email):
     response = MembershipCards.put_enrol_customer(context['token'], context['scheme_account_id'], merchant, test_email)
     response_json = response.json()
-    try:
-        assert response.status_code == 200 \
-               and response_json['status']['state'] == \
-               Endpoint.TEST_DATA.membership_account_states.get('state_pending')
-        logging.info('Successfully performed PATCH on ' + merchant + 's membership card ')
-
-    except HTTPError as network_response:
-        assert network_response.response.status_code == 404 or 400
-        logging.error(merchant + ' membership card PATCH failed due to HTTP error: {network_response')
+    assert response.status_code == 200 \
+           and response_json['status']['state'] == TestData.get_membership_card_status_state_pending(), \
+        'Enrol Journey PUT Request for ' + merchant + 'failed'
 
 
 """Step definitions - GET Scheme Account """
@@ -151,23 +149,25 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
     logging.info('The response of GET/MembershipCard :\n ' + json.dumps(response_json, indent=4))
     assert response.status_code == 200 \
            and response_json['id'] == context['scheme_account_id'] \
-           and response_json['status']['state'] == Endpoint.TEST_DATA.membership_account_states.get(
-        'state_authorised'), \
-        'Enrol journey for ' + merchant + ' failed'
+           and response_json['membership_plan'] == TestData.get_membership_plan_id(merchant) \
+           and response_json['status']['state'] == TestData.get_membership_card_status_state_authorized() \
+           and response_json['card']['membership_id'] == TestData.get_membership_card_number(merchant), \
+        'Validations in GET/membership_cards for ' + merchant + ' failed'
 
 
 @when(parsers.parse('I perform GET request to verify the "{merchant}" membership card is added & linked successfully '
                     'in the wallet'))
 def verify_membership_card_is_add_and_linked(merchant, context, add_payment_card):
-    response = MembershipCards.get_scheme_account_auto_link(context['token'])
+    response = MembershipCards.get_scheme_account_auto_link(context['token'], context['scheme_account_id'])
     response_json = response.json()
     logging.info('The response of GET/MembershipCard after Membership card Add & AutoLink :\n ' +
                  json.dumps(response_json, indent=4))
     assert response.status_code == 200 \
            and response_json['id'] == context['scheme_account_id'] \
-           and response_json['status']['state'] == Endpoint.TEST_DATA.membership_account_states.get(
-        'state_authorised'), \
-        'Membership card Add & AutoLink for ' + merchant + ' failed'
+           and response_json['membership_plan'] == TestData.get_membership_plan_id(merchant) \
+           and response_json['status']['state'] == TestData.get_membership_card_status_state_authorized() \
+           and response_json['card']['membership_id'] == TestData.get_membership_card_number(merchant), \
+        'Validations in GET/membership_cards after AutoLink for ' + merchant + ' failed'
 
 
 @when(parsers.parse('I perform GET request to verify the "{merchant}" membership card is added to the wallet with '
@@ -180,29 +180,24 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
                  json.dumps(response_json, indent=4))
     assert response.status_code == 200 \
            and response_json['id'] == context['scheme_account_id'] \
-           and response_json['status']['state'] == Endpoint.TEST_DATA.membership_account_states.get('state_failed'), \
-        'Membership card Addition with invalid data for  ' + merchant + ' failed'
+           and response_json['status']['state'] == TestData.get_membership_card_status_state_failed(), \
+        'Validations in GET/membership_cards with invalid data for  ' + merchant + ' failed'
 
 
-
-@when(parsers.parse('I perform GET request to view balance for recently added membership card'))
-def verify_membership_card_is_added_to_wallet(context):
+@when(parsers.parse('I perform GET request to view balance for recently added "{merchant}" membership card'))
+def verify_membership_card_is_added_to_wallet(context, merchant):
     response = MembershipCards.get_membership_card_balance(context['token'])
     response_json = response.json()
     logging.info('The response of GET/MembershipCard?balances:\n ' +
                  json.dumps(response_json, indent=4))
-    logging.info(' GET request to view balance for recently added membership card: \n ' + str(response.content))
+    # Assert other balance realted field checks
 
-    try:
-        # Assert other balance realted field checks
-        assert response.status_code == 200 \
-               and response_json[0]['id'] == context['scheme_account_id'] \
-               and response_json[0]['status']['state'] == \
-               Endpoint.TEST_DATA.membership_account_states.get('state_authorised')
-
-    except HTTPError as network_response:
-        assert network_response.response.status_code == 404 or 400
-        logging.error('Unable to add membership card for', merchant, 'due to HTTP error: {network_response')
+    assert response.status_code == 200 \
+           and response_json[0]['id'] == context['scheme_account_id'] \
+           and response_json[0]['membership_plan'] == TestData.get_membership_plan_id(merchant) \
+           and response_json[0]['status']['state'] == TestData.get_membership_card_status_state_authorized() \
+           and response_json[0]['card']['membership_id'] == TestData.get_membership_card_number(merchant), \
+        'Validations in GET/membership_cards?balances for '+merchant + ' failed'
 
 
 """Step definitions - DELETE Scheme Account """
@@ -229,8 +224,8 @@ def perform_delete_request_scheme_account(context, merchant=None):
 def verify_membership_account_link_date_card_number_and_merchant_identifier_populated_in_django(driver, context):
     scheme_account_id = str(context['scheme_account_id'])
     driver.get(Endpoint.DJANGO_URL + 'scheme/schemeaccount/' + scheme_account_id + '/change/')
-    driver.find_element_by_name('username').send_keys(Endpoint.TEST_DATA.django_user_accounts.get('django_uid'))
-    driver.find_element_by_name('password').send_keys(Endpoint.TEST_DATA.django_user_accounts.get('django_pwd'))
+    driver.find_element_by_name('username').send_keys(TestDataUtils.TEST_DATA.django_user_accounts.get('django_uid'))
+    driver.find_element_by_name('password').send_keys(TestDataUtils.TEST_DATA.django_user_accounts.get('django_pwd'))
     driver.find_element_by_xpath("//input[@type='submit']").click()
     select = Select(driver.find_element_by_name('status'))
     assert select.first_selected_option.text == 'Active'
@@ -247,8 +242,8 @@ def verify_membership_account_link_date_card_number_and_merchant_identifier_popu
 def verify_membership_account_join_date_card_number_and_merchant_identifier_populated_in_django(driver, context):
     scheme_account_id = str(context['scheme_account_id'])
     driver.get(Endpoint.DJANGO_URL + 'scheme/schemeaccount/' + scheme_account_id + '/change/')
-    driver.find_element_by_name('username').send_keys(Endpoint.TEST_DATA.django_user_accounts.get('django_uid'))
-    driver.find_element_by_name('password').send_keys(Endpoint.TEST_DATA.django_user_accounts.get('django_pwd'))
+    driver.find_element_by_name('username').send_keys(TestDataUtils.TEST_DATA.django_user_accounts.get('django_uid'))
+    driver.find_element_by_name('password').send_keys(TestDataUtils.TEST_DATA.undjango_user_accounts.get('django_pwd'))
     driver.find_element_by_xpath("//input[@type='submit']").click()
     select = Select(driver.find_element_by_name('status'))
     assert select.first_selected_option.text == 'Active'

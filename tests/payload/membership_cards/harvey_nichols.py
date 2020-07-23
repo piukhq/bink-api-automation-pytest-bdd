@@ -1,8 +1,9 @@
-from tests.helpers.test_data_utils import TestDataUtils
-import tests.helpers.constants as constants
-from faker import Faker
 import logging
 import json
+from faker import Faker
+
+from tests.helpers.test_data_utils import TestDataUtils
+import tests.helpers.constants as constants
 
 
 class HarveyNicholsCard:
@@ -13,7 +14,7 @@ class HarveyNicholsCard:
             value = TestDataUtils.TEST_DATA.harvey_nichols_invalid_data.get(constants.ID)
             logging.info('Invalid data is: ' + value)
         else:
-            value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card2.get(constants.ID)
+            value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card1.get(constants.ID)
 
         payload = {
             "account": {
