@@ -1,21 +1,19 @@
-from tests.api.base import Endpoint
-import tests.helpers.constants as constants
-from tests.helpers.test_data_utils import TestDataUtils
-from faker import Faker
 import logging
 import json
+from faker import Faker
 
+from tests.helpers.test_data_utils import TestDataUtils
+import tests.helpers.constants as constants
 
 
 class BurgerKingCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            # value = TestDataUtils.burger_king_invalid_data_number
-            value = Endpoint.TEST_DATA.burger_king_invalid_data.get('card_num')
+            value = TestDataUtils.TEST_DATA.burger_king_invalid_data.get(constants.CARD_NUM)
             logging.info('Invalid data is: ' + value)
         else:
-            value = TestDataUtils.get_burger_king_card_num1()
+            value = TestDataUtils.TEST_DATA.burger_king_membership_card1.get(constants.CARD_NUM)
         payload = {
             "account": {
                 "authorise_fields": [
@@ -25,7 +23,7 @@ class BurgerKingCard:
                     }
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('burger_king')
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get('burger_king')
 
         }
         logging.info('The Request for Add Journey : \n' + json.dumps(payload, indent=4))
@@ -36,7 +34,7 @@ class BurgerKingCard:
         faker = Faker()
 
         if invalid_data:
-            value = Endpoint.TEST_DATA.burger_king_invalid_data.get('email')
+            value = TestDataUtils.TEST_DATA.burger_king_invalid_data.get(constants.EMAIL)
             logging.info('Invalid data is: ' + value)
         else:
             value = email
@@ -68,5 +66,5 @@ class BurgerKingCard:
             },
             "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('burger_king')
         }
-        logging.info('The Request for Enrol Journey : \n'+json.dumps(payload, indent=4))
+        logging.info('The Request for Enrol Journey:  \n' + json.dumps(payload, indent=4))
         return payload

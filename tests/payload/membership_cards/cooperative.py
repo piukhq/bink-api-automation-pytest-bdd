@@ -1,30 +1,31 @@
-from tests.api.base import Endpoint
-import tests.helpers.constants as constants
-from faker import Faker
 import logging
 import json
+from faker import Faker
+
+from tests.helpers.test_data_utils import TestDataUtils
+import tests.helpers.constants as constants
 
 
 class CoopCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = Endpoint.TEST_DATA.coop_invalid_data.get('postcode')
+            value = TestDataUtils.TEST_DATA.coop_invalid_data.get(constants.POSTCODE)
             logging.info('Invalid data is: ' + value)
         else:
-            value = Endpoint.TEST_DATA.coop_membership_card1.get('postcode')
+            value = TestDataUtils.TEST_DATA.coop_membership_card1.get(constants.POSTCODE)
         payload = {
             "account": {
                 "add_fields": [
                     {
                         "column": "Membership card number",
-                        "value": Endpoint.TEST_DATA.coop_membership_card1.get('card_num')
+                        "value": TestDataUtils.TEST_DATA.coop_membership_card1.get(constants.CARD_NUM)
                     }
                 ],
                 "authorise_fields": [
                     {
                         "column": "Date of birth",
-                        "value": Endpoint.TEST_DATA.coop_membership_card1.get('dob')
+                        "value": TestDataUtils.TEST_DATA.coop_membership_card1.get(constants.DOB)
                     },
                     {
                         "column": "Postcode",
@@ -32,7 +33,7 @@ class CoopCard:
                     }
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('coop')
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get('coop')
         }
         logging.info('The Request for Add Journey : \n' + json.dumps(payload, indent=4))
         return payload
@@ -42,7 +43,7 @@ class CoopCard:
         faker = Faker()
 
         if invalid_data:
-            value = Endpoint.TEST_DATA.coop_invalid_data.get('email')
+            value = TestDataUtils.TEST_DATA.coop_invalid_data.get('email')
             logging.info('Invalid data is: ' + value)
         else:
             value = email
@@ -88,7 +89,7 @@ class CoopCard:
 
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('coop')
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get('coop')
         }
         logging.info('The Request for Enrol Journey: \n' + json.dumps(payload, indent=4))
         return payload

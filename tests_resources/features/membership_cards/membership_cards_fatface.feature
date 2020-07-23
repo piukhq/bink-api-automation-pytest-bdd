@@ -35,7 +35,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     And I perform the GET request to verify the payment card has been added successfully
     When I perform POST request to add & auto link an existing "FatFace" membership card
     And I perform GET request to verify the "FatFace" membership card is added & linked successfully in the wallet
-    And I perform GET request to view balance for recently added membership card
+    And I perform GET request to view balance for recently added "FatFace" membership card
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "FatFace" membership card
     And I perform DELETE request to delete the payment card

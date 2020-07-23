@@ -15,6 +15,7 @@ pytest-metadata = "*"
 pytest-html = "*"
 jsonpath = "*"
 faker = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.8"

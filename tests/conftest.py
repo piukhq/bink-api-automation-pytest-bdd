@@ -1,6 +1,6 @@
 import pytest
-import time
 import logging
+import json
 from faker import Faker
 from pytest_bdd import given, then
 from selenium.webdriver import Chrome
@@ -117,26 +117,24 @@ def add_payment_card(login_user, context):
     context['token'] = login_user.json().get('api_key')
     response = PaymentCards.add_payment_card(context['token'])
     response_json = response.json()
+    logging.info('The response of POST/PaymentCards :\n ' + json.dumps(response_json, indent=4))
     context['payment_card_id'] = response_json.get('id')
-    try:
-        assert response.status_code == 201 or 200
-        #  Add status check later
-    except AssertionError as error:
-        raise Exception('Add Journey for ' + merchant + ' failed due to error ' + error.__str__())
+    assert response.status_code == 201 or 200, 'Payment card addition is not successful'
     return context['payment_card_id']
 
 
 @given('I perform the GET request to verify the payment card has been added successfully')
 def verify_payment_card_added(context):
     response = PaymentCards.get_payment_card(context['token'], context['payment_card_id'])
-    # logging.info('Payment card is added successfully : \n' + str(response.content))
-    # assert response.status_code == 200, 'Payment card is added successfully : \n' + str(response.content)
-    try:
-        assert response.status_code == 200
-        logging.info('Payment card is added successfully : \n' + str(response.content))
-        #  Add status check later
-    except AssertionError as error:
-        raise Exception('Add Journey for ' + merchant + ' failed due to error ' + error.__str__())
+    response_json = response.json()
+    logging.info('The response of GET/PaymentCards : \n' + json.dumps(response_json, indent=4))
+    assert response.status_code == 200
+    # try:
+    #     assert response.status_code == 200
+    #     logging.info('Payment card is added successfully : \n' + str(response.content))
+    #     #  Add status check later
+    # except AssertionError as error:
+    #     raise Exception('Add Journey for ' + merchant + ' failed due to error ' + error.__str__())
 
 
 @then('I perform DELETE request to delete the payment card')

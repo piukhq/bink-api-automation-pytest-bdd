@@ -1,33 +1,35 @@
-from tests.api.base import Endpoint
-import tests.helpers.constants as constants
-from faker import Faker
 import logging
 import json
+from faker import Faker
+
+from tests.helpers.test_data_utils import TestDataUtils
+import tests.helpers.constants as constants
 
 
 class WasabiCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
+        if invalid_data:
+            value = TestDataUtils.TEST_DATA.wasabi_invalid_data.get(constants.EMAIL)
+            logging.info('Invalid data is: ' + value)
+        else:
+            value = TestDataUtils.TEST_DATA.wasabi_membership_card1.get(constants.EMAIL)
         payload = {
             "account": {
                 "add_fields": [
                     {
-                        "column": "Bonus card number",
-                        "value": Endpoint.TEST_DATA.IL_membership_card2.get('card_num')
+                        "column": "Membership card number",
+                        "value": TestDataUtils.TEST_DATA.wasabi_membership_card1.get(constants.CARD_NUM)
                     }
                 ],
                 "authorise_fields": [
                     {
-                        "column": "Last name",
-                        "value": Endpoint.TEST_DATA.IL_membership_card2.get('last_name')
-                    },
-                    {
-                        "column": "Postcode",
-                        "value": Endpoint.TEST_DATA.IL_membership_card2.get('postcode')
+                        "column": "Email",
+                        "value": value
                     }
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('IL')
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get('wasabi')
         }
         logging.info('The Request for Add Journey : \n' + json.dumps(payload, indent=4))
         return payload

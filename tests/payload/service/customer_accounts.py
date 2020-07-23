@@ -1,4 +1,4 @@
-from tests.api.base import Endpoint
+from tests.helpers.test_data_utils import TestDataUtils
 import time
 
 
@@ -27,8 +27,8 @@ class UserDetails:
     @staticmethod
     def login_user_payload(client_id, bundle_id):
         payload = {
-            "email": Endpoint.TEST_DATA.user_accounts.get('bink_uid'),
-            "password": Endpoint.TEST_DATA.user_accounts.get('bink_pwd'),
+            "email": TestDataUtils.TEST_DATA.user_accounts.get('bink_uid'),
+            "password": TestDataUtils.TEST_DATA.user_accounts.get('bink_pwd'),
             "client_id": client_id,
             "bundle_id": bundle_id
         }

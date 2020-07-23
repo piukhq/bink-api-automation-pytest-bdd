@@ -75,7 +75,6 @@ coop_membership_card2 = {
     "card_num": "633174912301122335",
     "dob": "01/01/2000",
     "postcode": "qa1 1qa",
-    "invalidpostalcode": "rg5 5aa",
     "points": "380.01",
     "transactions": "5"
 }
@@ -106,9 +105,6 @@ coop_invalid_data = {
     "postcode": "fail",
     "email": "fail@unknown.com"
 
-    # column": "Postcode",
-    #         "value": "fa1 1fa"
-
 }
 
 fat_face_membership_card1 = {
@@ -120,16 +116,18 @@ fat_face_invalid_data = {
 }
 
 harvey_nichols_membership_card1 = {
+    "id": "auto_five@testbink.com",
+    "password": "Password01",
+    "points": "380",
+    "transactions": "5",
+    "card_num": "9123001122335"
+
+}
+harvey_nichols_membership_card2 = {
     "id": "auto_zero@testbink.com",
     "password": "Password01",
     "points": "0",
     "transactions": "0"
-}
-harvey_nichols_membership_card2 = {
-    "id": "auto_five@testbink.com",
-    "password": "Password01",
-    "points": "380",
-    "transactions": "5"
 }
 harvey_nichols_membership_card3 = {
     "id": "sixdigitpoints@testbink.com",
@@ -142,10 +140,8 @@ harvey_nichols_membership_card3 = {
 }
 
 harvey_nichols_invalid_data = {
-    "id": "fail@unknown.com",
-    "password": "Password01",
-    "points": "380",
-    "transactions": "5"
+    "id": "fail@unknown.com"
+    # "id": "auto_fail@testbink.com"
 }
 
 iceland_membership_card1 = {
@@ -181,13 +177,12 @@ iceland_membership_card5 = {
     "card_num": "5555555555555555555",
     "last_name": "five",
     "postcode": "rg5 5aa",
-    "invalid_postcode": "cro il0",
     "points": "380.01",
     "transactions": "5"
 }
 
 iceland_invalid_data = {
-    "invalid_postal_code": "cro il0"
+    "postcode": "fail"
 }
 
 whsmith_membership_card1 = {
@@ -204,17 +199,17 @@ wasabi_membership_card1 = {
 # ----------------------------------------MEMBERSHIP PLAN IDs   ----------------------------------------------- #
 
 membership_plan_id = {
-    "burger_king": "314",
-    "coop": "242",
-    "fat_face": "281",
-    "harvey_nichols": "194",
-    "iceland": "105",
-    "whsmith": "316",
-    "wasabi": "315"
+    "burger_king": 314,
+    "coop": 242,
+    "fat_face": 281,
+    "harvey_nichols": 194,
+    "iceland": 105,
+    "whsmith": 316,
+    "wasabi": 315
 }
 # ----------------------------------------MEMBERSHIP ACCOUNT STATES & REASON_CODES ---------------------------------- #
 
-membership_account_states = {
+membership_card_status_states = {
     "state_pending": "pending",
     "state_authorised": "authorised",
     "state_failed": "failed"
