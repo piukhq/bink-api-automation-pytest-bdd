@@ -3,7 +3,8 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
   As a customer
   I want to utilise membership_cards endpoint of the Banking API
   So I can add my card, with the scheme provider BurgerKing & check its details successfully
-  @add
+
+@add
     Scenario: Add Journey_BurgerKing
 
     Given I am a Bink user
@@ -13,7 +14,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     And I perform DELETE request to delete the "BurgerKing" membership card
 
 
-  @add_patch
+@add_patch
   Scenario: PATCH membership card details_BurgerKing
 
     Given I am a Bink user
@@ -25,7 +26,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     And I perform DELETE request to delete the "BurgerKing" membership card
 
 
- @add_and_link
+@add_and_link
   Scenario: ADD & LINK Journey_BurgerKing
     Given I am a Bink user
     And I perform POST request to add payment card to wallet
@@ -46,7 +47,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "BurgerKing" membership card
 
-  @enrol_put
+@enrol_put
   Scenario: Join Journey(Enrol)_PUT_BurgerKing
 
 
@@ -58,11 +59,3 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "BurgerKing" membership card
 
-  @membership_cards_response
-    Scenario: Add Journey_BurgerKing
-
-    Given I am a Bink user
-    When I perform POST request to add "BurgerKing" membership card
-    And I perform GET request to verify the "BurgerKing" membership card is added to the wallet
-    Then I verify the GET membership_cards response for "BurgerKing" matches with expected data
-    And I perform DELETE request to delete the "BurgerKing" membership card
