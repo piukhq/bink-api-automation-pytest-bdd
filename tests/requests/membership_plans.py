@@ -18,7 +18,7 @@ class MembershipPlans(Endpoint):
 
     @staticmethod
     def get_membership_plan(token, merchant):
-        url = Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_PLAN.format(Merchant.get_membership_plan_id(merchant))
+        url = Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_PLAN.format(TestData.get_membership_plan_id(merchant))
         header = Endpoint.request_header(token, "1.2")
         response = Endpoint.call(url, header, "GET")
         return response

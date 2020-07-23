@@ -14,12 +14,12 @@ class WHSmithCard:
                 "authorise_fields": [
                     {
                         "column": "Reward number",
-                        "value": Endpoint.TEST_DATA.whsmith_membership_card1.get(constants.CARD_NUM)
+                        "value": TestDataUtils.TEST_DATA.whsmith_membership_card1.get(constants.CARD_NUM)
 
                     }
                 ]
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('whsmith')
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get('whsmith')
         }
         logging.info('The Request for Add Journey : \n' + json.dumps(payload, indent=4))
         return payload

@@ -105,6 +105,7 @@ def patch_request_to_update_membership_card_details(merchant, context):
 def enrol_membership_account(merchant, register_user, context, test_email):
     context['token'] = register_user.json().get('api_key')
     response = MembershipCards.enrol_customer(context['token'], merchant, test_email)
+    response_json = response.json()
     context['scheme_account_id'] = response.json().get('id')
     logging.info('The response of Enrol Journey (POST) is:\n ' + json.dumps(response.json(), indent=4))
     assert response.status_code == 201 \
@@ -140,7 +141,6 @@ def put_request_to_replace_enrolled_membership_card_details(merchant, context, t
 @when(parsers.parse('I perform GET request to verify the "{merchant}" membership card is added to the wallet'))
 @when(parsers.parse('I perform GET request to verify the "{merchant}" membership card details got updated after a '
                     'successful PATCH'))
-@when(parsers.parse('I perform GET request to verify the "{merchant}" membership account is created'))
 @when(parsers.parse('I perform GET request to verify the enrolled "{merchant}" membership card details got '
                     'replaced after a successful PUT'))
 def verify_membership_card_is_added_to_wallet(merchant, context):
@@ -152,6 +152,17 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
            and response_json['membership_plan'] == TestData.get_membership_plan_id(merchant) \
            and response_json['status']['state'] == TestData.get_membership_card_status_state_authorized() \
            and response_json['card']['membership_id'] == TestData.get_membership_card_number(merchant), \
+        'Validations in GET/membership_cards for ' + merchant + ' failed'
+
+@when(parsers.parse('I perform GET request to verify the "{merchant}" membership account is created'))
+def verify_membership_card_is_created(merchant, context):
+    response = MembershipCards.get_scheme_account(context['token'], context['scheme_account_id'])
+    response_json = response.json()
+    logging.info('The response of GET/MembershipCard :\n ' + json.dumps(response_json, indent=4))
+    assert response.status_code == 200 \
+           and response_json['id'] == context['scheme_account_id'] \
+           and response_json['membership_plan'] == TestData.get_membership_plan_id(merchant) \
+           and response_json['status']['state'] == TestData.get_membership_card_status_state_authorized(), \
         'Validations in GET/membership_cards for ' + merchant + ' failed'
 
 

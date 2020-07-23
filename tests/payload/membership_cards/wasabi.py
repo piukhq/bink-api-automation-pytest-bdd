@@ -39,7 +39,7 @@ class WasabiCard:
         faker = Faker()
 
         if invalid_data:
-            value = Endpoint.TEST_DATA.wasabi_invalid_data.get('email')
+            value = TestDataUtils.TEST_DATA.wasabi_invalid_data.get('email')
             logging.info('Invalid data is: ' + value)
         else:
             value = email
@@ -73,7 +73,7 @@ class WasabiCard:
                 ]
 
             },
-            "membership_plan": Endpoint.TEST_DATA.membership_plan_id.get('wasabi')
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get('wasabi')
         }
 
         logging.info('The Request for Enrol Journey : \n' + json.dumps(payload, indent=4))
