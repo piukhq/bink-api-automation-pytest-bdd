@@ -30,6 +30,7 @@ class Merchant:
 
 
 class TestData:
+    """The Test Data functions used to supply expected data to pytest test_ classes"""
 
     @staticmethod
     def get_membership_plan_id(merchant):

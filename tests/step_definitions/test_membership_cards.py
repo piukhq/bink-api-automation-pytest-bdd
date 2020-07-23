@@ -247,13 +247,4 @@ def verify_membership_account_join_date_card_number_and_merchant_identifier_popu
     driver.find_element_by_xpath("//input[@type='submit']").click()
     select = Select(driver.find_element_by_name('status'))
     assert select.first_selected_option.text == 'Active'
-    # join_date = driver.find_element_by_xpath("//input[@name='join_date_0']/div").text
-    # join_time = driver.find_element_by_name('join_date_1').text
-    # current_date = time.strftime("%d/%b/%Y").lstrip('0')
-    # logging.info(join_date+current_date)
-    #
-    # if str(join_date).__contains__(current_date):
-    #     logging.info("Link date in Django (" + join_date + join_time + ") is close to current date ""(" + current_date +
-    #                  time.strftime(", %I:%M %p").lower() + ")")
-    # logging.info('Merchant Identifier in Django is: ' + driver.find_element_by_name
-    # ('schemeaccountcredentialanswer_set-1-answer').get_attribute('value'))
+
