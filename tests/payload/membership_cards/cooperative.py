@@ -52,7 +52,7 @@ class CoopCard:
                 "enrol_fields": [
                     {
                         "column": "Date of birth",
-                        "value": constants.DOB
+                        "value": constants.DATE_OF_BIRTH
                     },
                     {
                         "column": "Title",
