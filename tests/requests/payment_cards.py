@@ -8,7 +8,6 @@ from tests.api.base import Endpoint
 
 
 class PaymentCards(Endpoint):
-
     @staticmethod
     def add_payment_card(token):
         url = PaymentCards.get_url()

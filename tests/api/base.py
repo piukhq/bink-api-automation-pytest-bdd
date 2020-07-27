@@ -4,35 +4,34 @@ import config
 
 
 class Endpoint:
-    BASE_URL = ''
-    DJANGO_URL = ''
+    BASE_URL = ""
+    DJANGO_URL = ""
 
     @staticmethod
     def set_environment(env):
-        if env == 'dev':
+        if env == "dev":
             Endpoint.BASE_URL = config.DEV.base_url
             Endpoint.DJANGO_URL = config.DEV.django_url
 
-        elif env == 'staging':
+        elif env == "staging":
             Endpoint.BASE_URL = config.STAGING.base_url
             Endpoint.DJANGO_URL = config.STAGING.django_url
 
-
     @staticmethod
     # def request_header(token=None, version='1.2'):
-    def request_header(token=None, version='1.1'):
+    def request_header(token=None, version="1.1"):
         if version:
-            accept = 'application/json;v={}'.format(version)
+            accept = "application/json;v={}".format(version)
         else:
-            accept = 'application/json'
+            accept = "application/json"
 
         headers = {
-            'Accept': accept,
-            'Content-Type': 'application/json',
+            "Accept": accept,
+            "Content-Type": "application/json",
         }
 
         if token:
-            headers['Authorization'] = 'token ' + token
+            headers["Authorization"] = "token " + token
 
         return headers
 

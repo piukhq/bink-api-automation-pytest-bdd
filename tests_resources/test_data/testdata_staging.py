@@ -31,12 +31,7 @@
 # visaExpMonth=jrTyXbs3BEBjYoQaa2wm6CrzkUX23bUqcU8rb6HGAASnCZm+4kbHhtE0HFfKnuOorPOTmL5DMhmLVNNpCu87G37k+lH9ncf3yH4Vp8ukFZvtcLoQUAd32dHjOWsNNBbM5KAoo9+wOH/rQ1qtXUa6G2CDapZGEzCFuAKKN/QL16R3RfsXxtId37Ah0ZoAGsZYRq2flDc6iBALxemfQVZpRa2ERHvvYsS1/i0K7NA9HF2FlWr+ew4EJAvXLd2i5rf9gm6ivHQUmql7QLHH2i2epvt4SKVySj3EpMr73ymucZapJYcTLHyaBgarrufxqTPd02vRpacz3u5r7bHvqFSi5w23Le6g4nPfzJ43BlKjLm5lCLbRM5InDSAwgett3zXUoRVCJrPQ2VJlJ/mbYkkUFyxIZ9FuJJHdzSJXPN5BjKTiusqwkay4LtykZV0VHwf1yXmkBuPIFCj1x7GSwl2mvAn0HSfFoToWG7sj+bwVG3823ZrTJ1JkUdbQuGAFtnXC6Qjy5UO85M57fHmjaTBM1hR1n/5whY8oWcBf/qKXYHzKgs0DEqIitlo5T3EnGdz41gl6gOiZuztPnbSsX09OMn2o8RP+8LYtiJcPIJNsuW3KB63MM21Q3/0nrGIVDEnzVQjURihtndf/jbmv1lcJwvzUnC9ObImdRz+3om1d3kI=
 # visaExpYear=aaViK9mmtSGkViaP8oexhMTtzpjFlyPycG9EaCT6p2Bky9idtN8sN4mSgHjb4lrfuzRM2y4Sdpko1b+2eXNuj/mOvLH/AIYOD01L3+ilA8wRYU/+p1kw4EoNLjbh7nqH4kmJTIyUCB+e49IITJ2mtIVzID2quXUw8fHaG+MGpPCNrr0nW/acDNoZ1EEH/mGlx51luaqeATX6StfjzPdvzpaYO2X5naABTZARPGhwYzExsVcamhjMSzxWA9HATwcMRM0CRvNI4MVqE/px0dhBZITFqjpShj5KwfWy/C+5NtShYybeExAB33A/ce+6xth5wz0jIpyyzJLt+SZFloaHp0fGo7wRrS+gWV5EwRNMkTod5YC87f5sc4I84KcYTT+iYh0yE0FCwRRBypCz3Isik2A3fsqxQNhX+NDmncLUoMVUSzDijy1iIJPtDzYunB99xWzskK+P1KKS6rmLVidTlDRWUlNE/cQkbUcooTN6DzTtmTQjfjd3kJ4oqKjOQ+AwIbpp4MCizF6Kq+BnQodDDijsiKA5T+JKM8lVlsA+FfrmGOvFq+DFxl5x95t/4LLWCbqB02jzfCRPm8PneydESlwnX7FxzqD+xir7/Jhx0lTy3YcyvgJJ3vviZgqhvntQiBzrn+jBN7kEfvanHk9LeFgvHcKyOqJXeTyA2VCaQkA=
 
-hn_membership_card1 = {
-    "id": "bv@gmail.com",
-    "password": "1234567",
-    "points": "0",
-    "transactions": "0"
-}
+hn_membership_card1 = {"id": "bv@gmail.com", "password": "1234567", "points": "0", "transactions": "0"}
 # hn_membership_card2 = {
 #     "id": "auto_five@testbink.com",
 #     "password": "Password01",
@@ -60,18 +55,11 @@ hn_membership_card1 = {
 # }
 
 membership_plan_id = {
-
     "bk": "",
     "coop": "",
     "ff": "",
     "hn": "194",
     "il": "",
-
 }
 
-membership_account_states = {
-    "state_pending": "pending",
-    "state_authorised": "authorised",
-    "state_failed": "failed"
-
-}
+membership_account_states = {"state_pending": "pending", "state_authorised": "authorised", "state_failed": "failed"}

@@ -8,7 +8,6 @@ from tests.helpers.test_helpers import TestData
 
 
 class MembershipPlans(Endpoint):
-
     @staticmethod
     def get_all_membership_plans(token):
         url = Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_PLANS
