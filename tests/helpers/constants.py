@@ -25,8 +25,7 @@ AUTHORIZED = "state_authorised"
 PENDING = "state_pending"
 FAILED = "state_failed"
 
-"""Base Path of expected membership plans and 
-membership plans used for comparison in json_diff"""
+"""Base Path of expected membership plans and membership plans used for comparison in json_diff"""
 EXPECTED_MEMBERSHIP_PLANS_PATH = "tests_resources/test_data/membership_plan"
 JSON_DIFF_EXPECTED_JSON = "tests_resources/test_data/membership_plan/json_diff_comparator/expected_membership_plan.json"
 JSON_DIFF_ACTUAL_JSON = "tests_resources/test_data/membership_plan/json_diff_comparator/actual_membership_plan.json"

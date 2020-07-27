@@ -4,7 +4,6 @@ from pytest_bdd import (
     when,
     parsers,
 )
-import pytest
 import json
 import logging
 from json_diff import Comparator

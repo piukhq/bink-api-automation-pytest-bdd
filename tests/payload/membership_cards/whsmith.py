@@ -1,6 +1,5 @@
 import logging
 import json
-from faker import Faker
 
 from tests.helpers.test_data_utils import TestDataUtils
 import tests.helpers.constants as constants

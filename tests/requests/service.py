@@ -1,5 +1,4 @@
 import config
-import time
 import tests.api as api
 from tests.api.base import Endpoint
 from tests.payload.service.customer_accounts import UserDetails

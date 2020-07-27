@@ -7,7 +7,6 @@ from pytest_bdd import (
 import time
 import pytest
 import json
-import jsonpath
 import logging
 from requests.exceptions import HTTPError
 from tests.requests.membership_cards import MembershipCards
@@ -56,7 +55,7 @@ def add_membership_card(merchant, login_user, context):
 
 
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card with "{invalid_data}"'))
-def add_membership_card(merchant, login_user, context, invalid_data):
+def add_invalid_membership_card(merchant, login_user, context, invalid_data):
     context["token"] = login_user.json().get("api_key")
     response = MembershipCards.add_card(context["token"], merchant, invalid_data)
     response_json = response.json()
@@ -70,7 +69,7 @@ def add_membership_card(merchant, login_user, context, invalid_data):
 
 
 @when(parsers.parse('I perform POST request to add & auto link an existing "{merchant}" membership card'))
-def add_membership_card(merchant, login_user, context):
+def add_existing_membership_card(merchant, login_user, context):
     context["token"] = login_user.json().get("api_key")
     print("toen`55" + context["token"])
     response = MembershipCards.add_card_auto_link(login_user.json().get("api_key"), merchant)
@@ -217,7 +216,7 @@ def verify_membership_card_is_add_and_linked(merchant, context, add_payment_card
     )
 )
 @when(parsers.parse('I perform GET request to verify the "{merchant}" membership account is created with invalid data'))
-def verify_membership_card_is_added_to_wallet(merchant, context):
+def verify_invalid_membership_card_is_added_to_wallet(merchant, context):
     response = MembershipCards.get_scheme_account(context["token"], context["scheme_account_id"])
     response_json = response.json()
     logging.info(
@@ -231,7 +230,7 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
 
 
 @when(parsers.parse('I perform GET request to view balance for recently added "{merchant}" membership card'))
-def verify_membership_card_is_added_to_wallet(context, merchant):
+def verify_membership_card_balance(context, merchant):
     response = MembershipCards.get_membership_card_balance(context["token"])
     response_json = response.json()
     logging.info("The response of GET/MembershipCard?balances:\n " + json.dumps(response_json, indent=4))

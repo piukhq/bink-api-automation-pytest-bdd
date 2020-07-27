@@ -1,11 +1,7 @@
 import tests.api as api
-import json
-import jsonpath
 import time
-import logging
 
 from tests.helpers.test_helpers import Merchant
-from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_helpers import TestData
 from tests.api.base import Endpoint
 
@@ -59,14 +55,14 @@ class MembershipCards(Endpoint):
 
     @staticmethod
     def register_ghost_card(token, merchant):
-
-        url = MembershipCards.get_url()
+        # url = MembershipCards.get_url()
+        pass
 
     # ---------------------------------------- Ghost Card Registration -------------------------------------------
     @staticmethod
     def patch_ghost_card(token, merchant):
-
-        url = MembershipCards.get_url()
+        # url = MembershipCards.get_url()
+        pass
 
     @staticmethod
     def get_scheme_account(token, scheme_account_id):

@@ -1,7 +1,3 @@
-from tests.api.base import Endpoint
-import logging
-
-
 class PaymentCardDetails:
     @staticmethod
     def add_payment_card_payload():

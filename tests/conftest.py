@@ -135,7 +135,7 @@ def verify_payment_card_added(context):
 
 
 @then("I perform DELETE request to delete the payment card")
-def delete_payment_card(context):
+def delete_payment_card(context, merchant):
     response = PaymentCards.delete_payment_card(context["token"], context["payment_card_id"])
     try:
         assert response.status_code == 200

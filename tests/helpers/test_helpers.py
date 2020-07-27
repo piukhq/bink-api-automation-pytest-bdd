@@ -1,4 +1,3 @@
-import config
 import tests.helpers.constants as constants
 from tests.helpers.test_data_utils import TestDataUtils
 from tests.payload.membership_cards.burgerking import BurgerKingCard
