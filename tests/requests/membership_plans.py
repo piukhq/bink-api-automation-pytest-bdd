@@ -1,14 +1,9 @@
 import tests.api as api
-import json
-import jsonpath
-import time
-import logging
 from tests.api.base import Endpoint
 from tests.helpers.test_helpers import TestData
 
 
 class MembershipPlans(Endpoint):
-
     @staticmethod
     def get_all_membership_plans(token):
         url = Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_PLANS

@@ -1,11 +1,7 @@
 import tests.api as api
-import json
-import jsonpath
 import time
-import logging
 
 from tests.helpers.test_helpers import Merchant
-from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_helpers import TestData
 from tests.api.base import Endpoint
 
@@ -57,18 +53,16 @@ class MembershipCards(Endpoint):
         payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email)
         return Endpoint.call(url, header, "PUT", payload)
 
-
-
     @staticmethod
     def register_ghost_card(token, merchant):
-
-        url = MembershipCards.get_url()
+        # url = MembershipCards.get_url()
+        pass
 
     # ---------------------------------------- Ghost Card Registration -------------------------------------------
     @staticmethod
     def patch_ghost_card(token, merchant):
-
-        url = MembershipCards.get_url()
+        # url = MembershipCards.get_url()
+        pass
 
     @staticmethod
     def get_scheme_account(token, scheme_account_id):
@@ -79,7 +73,7 @@ class MembershipCards(Endpoint):
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
             response_json = response.json()
-            if response_json['status']['state'] == TestData.get_membership_card_status_state_pending():
+            if response_json["status"]["state"] == TestData.get_membership_card_status_state_pending():
                 time.sleep(1)
             else:
                 break
@@ -96,7 +90,7 @@ class MembershipCards(Endpoint):
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
             response_json = response.json()
-            if response_json['status']['state'] == TestData.get_membership_card_status_state_pending():
+            if response_json["status"]["state"] == TestData.get_membership_card_status_state_pending():
                 time.sleep(1)
             else:
                 break
@@ -110,12 +104,11 @@ class MembershipCards(Endpoint):
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
             response_json = response.json()
-            if response_json[0]['status']['state'] == TestData.get_membership_card_status_state_pending():
+            if response_json[0]["status"]["state"] == TestData.get_membership_card_status_state_pending():
                 time.sleep(1)
             else:
                 break
         return response
-
 
     # Delete Membership Card
     @staticmethod
@@ -133,5 +126,3 @@ class MembershipCards(Endpoint):
             return Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS
         else:
             return Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(scheme_account_id)
-
-

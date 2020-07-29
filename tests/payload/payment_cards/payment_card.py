@@ -1,9 +1,4 @@
-from tests.api.base import Endpoint
-import logging
-
-
 class PaymentCardDetails:
-
     @staticmethod
     def add_payment_card_payload():
         payload = {
@@ -14,17 +9,10 @@ class PaymentCardDetails:
                 "name_on_card": "auto1093448038331testbinkcom",
                 "month": 1,
                 "year": 2044,
-                "fingerprint": "auto1093448038331testbinkcom"
+                "fingerprint": "auto1093448038331testbinkcom",
             },
             "account": {
-                "consents": [
-                    {
-                        "latitude": 51.405372,
-                        "longitude": -0.678357,
-                        "timestamp": 1541720805,
-                        "type": 1
-                    }
-                ]
-            }
+                "consents": [{"latitude": 51.405372, "longitude": -0.678357, "timestamp": 1541720805, "type": 1}]
+            },
         }
         return payload

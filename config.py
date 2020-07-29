@@ -10,14 +10,12 @@ class EnvironmentDetails:
 
 
 DEV = EnvironmentDetails(
-    base_url="https://api.dev.gb.bink.com",
-    test_data=testdata_dev,
-    django_url="https://api.dev.gb.bink.com/admin/"
+    base_url="https://api.dev.gb.bink.com", test_data=testdata_dev, django_url="https://api.dev.gb.bink.com/admin/"
 )
 STAGING = EnvironmentDetails(
     base_url="https://api.staging.gb.bink.com",
     test_data=testdata_staging,
-    django_url="https://staging.dev.gb.bink.com/admin/"
+    django_url="https://staging.dev.gb.bink.com/admin/",
 )
 
 
@@ -29,15 +27,13 @@ class ChannelDetails:
 
 
 BINK = ChannelDetails(
-    channel_name="bink",
-    bundle_id="com.bink.wallet",
-    client_id="MKd3FfDGBi1CIUQwtahmPap64lneCa2R6GvVWKg6dNg4w9Jnpd"
+    channel_name="bink", bundle_id="com.bink.wallet", client_id="MKd3FfDGBi1CIUQwtahmPap64lneCa2R6GvVWKg6dNg4w9Jnpd"
 )
 
 BARCLAYS = ChannelDetails(
     channel_name="barclays",
     bundle_id="com.barclays.bmb",
-    client_id="lwhkGNn5FAXPCCcbIFrgZWk0i7Qolg5WBMFM4UYjZAbaOXQyq6"
+    client_id="lwhkGNn5FAXPCCcbIFrgZWk0i7Qolg5WBMFM4UYjZAbaOXQyq6",
 )
 
 
@@ -48,8 +44,4 @@ class BrowserDetails:
         self.wait_time = wait_time
 
 
-BROWSER = BrowserDetails(
-    browser_name="chrome",
-    driver_path="tests_resources/drivers/chromedriver",
-    wait_time=10
-)
+BROWSER = BrowserDetails(browser_name="chrome", driver_path="tests_resources/drivers/chromedriver", wait_time=10)
