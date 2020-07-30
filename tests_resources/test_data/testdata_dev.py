@@ -155,6 +155,12 @@ whsmith_membership_card2 = {
     "card_num": "FF00000004958039",
 }
 
+whsmith_invalid_data = {
+    "card_num": "WHSmithInvalid_Card",
+    "email": "fail@unknown.com"
+}
+
+
 wasabi_membership_card1 = {"card_num1": ""}
 # ----------------------------------------MEMBERSHIP PLAN IDs   ----------------------------------------------- #
 
