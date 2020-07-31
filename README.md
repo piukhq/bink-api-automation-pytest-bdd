@@ -20,11 +20,16 @@ To set up this project on your local machine:
        
 # Running Tests
     * Run tests simply using the `pytest` command.
-    * Using `pipenv`, run tests as `pipenv run python -m pytest`.
-    * Use the "-m" option to filter tests by bdd tags.
-    * Use --channel to pass 'barclays' /  'bink' channels. Default is bink
-        eg: pytest -s --channel barclays -m "add"
-    * Use --env to execute the tests in 'dev' / 'staging'. Default is dev
-        eg: pytest -s --env staging -m "add"
+    
+    * Use the "-m" option to filter tests by bdd tags. 
+        eg1: pytest -m "enrol" : Execute Enrol Journey for all merchants
+        eg2: pytest -m "enrol and iceland" :  Execute Enrol Journey for Iceland only
+        eg3: pytest -m "enrol or add" : Execute Enrol, Add Journey for all merchants
         
-#####   For further details, the confluence link will be provided once migration started.
+    * Pass '--channel' argument in execution command to pass 'barclays' /  'bink' channels. Default is bink
+        eg: pytest -m "enrol" --channel barclays
+        
+    * Pass '--env' argument in execution command to determine the test environment as 'dev' / 'staging'. Default is dev
+        eg: pytest -m "enrol" --env staging --channel barclays
+        
+Check 
