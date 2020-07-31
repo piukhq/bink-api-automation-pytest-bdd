@@ -145,7 +145,7 @@ iceland_membership_card5 = {
     "transactions": "5",
 }
 
-iceland_invalid_data = {"postcode": "fail"}
+iceland_invalid_data = {"email": "fail@unknown.com"}
 
 whsmith_membership_card1 = {
     "card_num": "FF00000004827176",

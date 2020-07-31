@@ -129,7 +129,6 @@ def enrol_membership_account_invalid_credentials(merchant, register_user, contex
     response = MembershipCards.enrol_customer(context["token"], merchant, test_email, invalid)
     context["scheme_account_id"] = response.json().get("id")
     response_json = response.json()
-
     assert (
         response.status_code == 201
         and response_json["status"]["state"] == TestData.get_membership_card_status_state_pending()
@@ -156,12 +155,6 @@ def put_request_to_replace_enrolled_membership_card_details(merchant, context, t
         "successful PATCH"
     )
 )
-@when(
-    parsers.parse(
-        'I perform GET request to verify the enrolled "{merchant}" membership card details got '
-        "replaced after a successful PUT"
-    )
-)
 def verify_membership_card_is_added_to_wallet(merchant, context):
     response = MembershipCards.get_scheme_account(context["token"], context["scheme_account_id"])
     response_json = response.json()
@@ -171,9 +164,15 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
         and response_json["id"] == context["scheme_account_id"]
         and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
         and response_json["status"]["state"] == TestData.get_membership_card_status_state_authorized()
+        and response_json["card"]["membership_id"] == TestData.get_membership_card_number(merchant)
     ), ("Validations in GET/membership_cards for " + merchant + " failed")
 
-
+@when(
+    parsers.parse(
+        'I perform GET request to verify the enrolled "{merchant}" membership card details got '
+        "replaced after a successful PUT"
+    )
+)
 @when(parsers.parse('I perform GET request to verify the "{merchant}" membership account is created'))
 def verify_membership_card_is_created(merchant, context):
     response = MembershipCards.get_scheme_account(context["token"], context["scheme_account_id"])

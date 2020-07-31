@@ -44,17 +44,17 @@ class WHSmithCard:
             "account": {
                 "enrol_fields": [
                     {"column": "Email", "value": value},
-                    {"column": "Title", "value": "Mr"},
+                    {"column": "Title", "value": constants.TITLE},
                     {"column": "First name", "value": faker.name()},
                     {"column": "Last name", "value": faker.name()},
                     {"column": "Mobile number", "value": faker.phone_number()},
-                    {"column": "Address line 1", "value": "29"},
+                    {"column": "Address line 1", "value": faker.building_number()},
                     {"column": "City", "value": faker.city()},
                     {"column": "Postcode", "value": faker.postcode()},
-                    {"column": "Consent 1", "value": "true"},
+                    {"column": "Consent 1", "value": constants.CONSENT},
                 ]
             },
-            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("whsmith")
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("whsmith"),
         }
         logging.info("The Request for Enrol Journey : \n" + json.dumps(payload, indent=4))
         return payload

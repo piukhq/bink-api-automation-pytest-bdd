@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Test Report</title>
+    <link href="assets/style.css" rel="stylesheet" type="text/css"/></head>
+  <body onLoad="init()">
+    <script>/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+
+function toArray(iter) {
+    if (iter === null) {
+        return null;
+    }
+    return Array.prototype.slice.call(iter);
+}
+
+function find(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return elem.querySelector(selector);
+}
+
+function find_all(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return toArray(elem.querySelectorAll(selector));
+}
+
+function sort_column(elem) {
+    toggle_sort_states(elem);
+    var colIndex = toArray(elem.parentNode.childNodes).indexOf(elem);
+    var key;
+    if (elem.classList.contains('numeric')) {
+        key = key_num;
+    } else if (elem.classList.contains('result')) {
+        key = key_result;
+    } else {
+        key = key_alpha;
+    }
+    sort_table(elem, key(colIndex));
+}
+
+function show_all_extras() {
+    find_all('.col-result').forEach(show_extras);
+}
+
+function hide_all_extras() {
+    find_all('.col-result').forEach(hide_extras);
+}
+
+function show_extras(colresult_elem) {
+    var extras = colresult_elem.parentNode.nextElementSibling;
+    var expandcollapse = colresult_elem.firstElementChild;
+    extras.classList.remove("collapsed");
+    expandcollapse.classList.remove("expander");
+    expandcollapse.classList.add("collapser");
+}
+
+function hide_extras(colresult_elem) {
+    var extras = colresult_elem.parentNode.nextElementSibling;
+    var expandcollapse = colresult_elem.firstElementChild;
+    extras.classList.add("collapsed");
+    expandcollapse.classList.remove("collapser");
+    expandcollapse.classList.add("expander");
+}
+
+function show_filters() {
+    var filter_items = document.getElementsByClassName('filter');
+    for (var i = 0; i < filter_items.length; i++)
+        filter_items[i].hidden = false;
+}
+
+function add_collapse() {
+    // Add links for show/hide all
+    var resulttable = find('table#results-table');
+    var showhideall = document.createElement("p");
+    showhideall.innerHTML = '<a href="javascript:show_all_extras()">Show all details</a> / ' +
+                            '<a href="javascript:hide_all_extras()">Hide all details</a>';
+    resulttable.parentElement.insertBefore(showhideall, resulttable);
+
+    // Add show/hide link to each result
+    find_all('.col-result').forEach(function(elem) {
+        var collapsed = get_query_parameter('collapsed') || 'Passed';
+        var extras = elem.parentNode.nextElementSibling;
+        var expandcollapse = document.createElement("span");
+        if (extras.classList.contains("collapsed")) {
+            expandcollapse.classList.add("expander")
+        } else if (collapsed.includes(elem.innerHTML)) {
+            extras.classList.add("collapsed");
+            expandcollapse.classList.add("expander");
+        } else {
+            expandcollapse.classList.add("collapser");
+        }
+        elem.appendChild(expandcollapse);
+
+        elem.addEventListener("click", function(event) {
+            if (event.currentTarget.parentNode.nextElementSibling.classList.contains("collapsed")) {
+                show_extras(event.currentTarget);
+            } else {
+                hide_extras(event.currentTarget);
+            }
+        });
+    })
+}
+
+function get_query_parameter(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+function init () {
+    reset_sort_headers();
+
+    add_collapse();
+
+    show_filters();
+
+    sort_column(find('.initial-sort'));
+
+    find_all('.sortable').forEach(function(elem) {
+        elem.addEventListener("click",
+                              function(event) {
+                                  sort_column(elem);
+                              }, false)
+    });
+
+};
+
+function sort_table(clicked, key_func) {
+    var rows = find_all('.results-table-row');
+    var reversed = !clicked.classList.contains('asc');
+    var sorted_rows = sort(rows, key_func, reversed);
+    /* Whole table is removed here because browsers acts much slower
+     * when appending existing elements.
+     */
+    var thead = document.getElementById("results-table-head");
+    document.getElementById('results-table').remove();
+    var parent = document.createElement("table");
+    parent.id = "results-table";
+    parent.appendChild(thead);
+    sorted_rows.forEach(function(elem) {
+        parent.appendChild(elem);
+    });
+    document.getElementsByTagName("BODY")[0].appendChild(parent);
+}
+
+function sort(items, key_func, reversed) {
+    var sort_array = items.map(function(item, i) {
+        return [key_func(item), i];
+    });
+
+    sort_array.sort(function(a, b) {
+        var key_a = a[0];
+        var key_b = b[0];
+
+        if (key_a == key_b) return 0;
+
+        if (reversed) {
+            return (key_a < key_b ? 1 : -1);
+        } else {
+            return (key_a > key_b ? 1 : -1);
+        }
+    });
+
+    return sort_array.map(function(item) {
+        var index = item[1];
+        return items[index];
+    });
+}
+
+function key_alpha(col_index) {
+    return function(elem) {
+        return elem.childNodes[1].childNodes[col_index].firstChild.data.toLowerCase();
+    };
+}
+
+function key_num(col_index) {
+    return function(elem) {
+        return parseFloat(elem.childNodes[1].childNodes[col_index].firstChild.data);
+    };
+}
+
+function key_result(col_index) {
+    return function(elem) {
+        var strings = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed',
+                       'Skipped', 'Passed'];
+        return strings.indexOf(elem.childNodes[1].childNodes[col_index].firstChild.data);
+    };
+}
+
+function reset_sort_headers() {
+    find_all('.sort-icon').forEach(function(elem) {
+        elem.parentNode.removeChild(elem);
+    });
+    find_all('.sortable').forEach(function(elem) {
+        var icon = document.createElement("div");
+        icon.className = "sort-icon";
+        icon.textContent = "vvv";
+        elem.insertBefore(icon, elem.firstChild);
+        elem.classList.remove("desc", "active");
+        elem.classList.add("asc", "inactive");
+    });
+}
+
+function toggle_sort_states(elem) {
+    //if active, toggle between asc and desc
+    if (elem.classList.contains('active')) {
+        elem.classList.toggle('asc');
+        elem.classList.toggle('desc');
+    }
+
+    //if inactive, reset all other functions and add ascending active
+    if (elem.classList.contains('inactive')) {
+        reset_sort_headers();
+        elem.classList.remove('inactive');
+        elem.classList.add('active');
+    }
+}
+
+function is_all_rows_hidden(value) {
+  return value.hidden == false;
+}
+
+function filter_table(elem) {
+    var outcome_att = "data-test-result";
+    var outcome = elem.getAttribute(outcome_att);
+    class_outcome = outcome + " results-table-row";
+    var outcome_rows = document.getElementsByClassName(class_outcome);
+
+    for(var i = 0; i < outcome_rows.length; i++){
+        outcome_rows[i].hidden = !elem.checked;
+    }
+
+    var rows = find_all('.results-table-row').filter(is_all_rows_hidden);
+    var all_rows_hidden = rows.length == 0 ? true : false;
+    var not_found_message = document.getElementById("not-found-message");
+    not_found_message.hidden = !all_rows_hidden;
+}
+</script>
+    <h1>Bink Test Automation Result_PytestBDD</h1>
+    <p>Report generated on 31-Jul-2020 at 09:43:05 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v2.1.1</p>
+    <h2>Environment</h2>
+    <table id="environment">
+      <tr>
+        <td>Channel</td>
+        <td>bink</td></tr>
+      <tr>
+        <td>Test Environment</td>
+        <td>dev</td></tr></table>
+    <h2>Summary</h2>
+    <p>1 tests ran in 6.87 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">0 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">1 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <h2>Results</h2>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable result initial-sort" col="result">Result</th>
+          <th class="sortable" col="name">Test</th>
+          <th class="sortable numeric" col="duration">Duration</th>
+          <th>Links</th></tr>
+        <tr hidden="true" id="not-found-message">
+          <th colspan="4">No results found. Try to check the filters</th></tr></thead>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">tests/step_definitions/test_membership_cards.py::test_join_journeyenrol_put_whsmith</td>
+          <td class="col-duration">6.47</td>
+          <td class="col-links"></td></tr>
+        <tr class="collapsed">
+          <td class="extra" colspan="4">
+            <div class="log">request = &lt;FixtureRequest for &lt;Function test_join_journeyenrol_put_whsmith&gt;&gt;<br/><br/>    @pytest.mark.usefixtures(*function_args)<br/>    def scenario_wrapper(request):<br/>&gt;       _execute_scenario(feature, scenario, request, encoding)<br/><br/>../../../.local/share/virtualenvs/bink-api-automation-pytest-bdd-nIKFhtBV/lib/python3.8/site-packages/pytest_bdd/scenario.py:200: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>../../../.local/share/virtualenvs/bink-api-automation-pytest-bdd-nIKFhtBV/lib/python3.8/site-packages/pytest_bdd/scenario.py:166: in _execute_scenario<br/>    _execute_step_function(request, scenario, step, step_func)<br/>../../../.local/share/virtualenvs/bink-api-automation-pytest-bdd-nIKFhtBV/lib/python3.8/site-packages/pytest_bdd/scenario.py:115: in _execute_step_function<br/>    step_func(**kwargs)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>merchant = &#x27;WHSmith&#x27;<br/>context = {&#x27;scheme_account_id&#x27;: 32495, &#x27;token&#x27;: &#x27;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJidW5kbGVfaWQiOiJjb20uYmluay53YWxsZXQiLC...kIjoicHl0ZXN0Xzc5NjBAYmluay5jb20iLCJzdWIiOjM2NjM5LCJpYXQiOjE1OTYxODQ5Nzl9.1HzbxCp7tDx63r9mxZ8wQPtQTTg0MdBlhsWj041Dd0Y&#x27;}<br/><br/>    @when(parsers.parse(&#x27;I perform GET request to verify the &quot;{merchant}&quot; membership card is added to the wallet&#x27;))<br/>    @when(<br/>        parsers.parse(<br/>            &#x27;I perform GET request to verify the &quot;{merchant}&quot; membership card details got updated after a &#x27;<br/>            &quot;successful PATCH&quot;<br/>        )<br/>    )<br/>    @when(<br/>        parsers.parse(<br/>            &#x27;I perform GET request to verify the enrolled &quot;{merchant}&quot; membership card details got &#x27;<br/>            &quot;replaced after a successful PUT&quot;<br/>        )<br/>    )<br/>    def verify_membership_card_is_added_to_wallet(merchant, context):<br/>        response = MembershipCards.get_scheme_account(context[&quot;token&quot;], context[&quot;scheme_account_id&quot;])<br/>        response_json = response.json()<br/>        logging.info(&quot;The response of GET/MembershipCard :\n &quot; + json.dumps(response_json, indent=4))<br/>&gt;       assert (<br/>            response.status_code == 200<br/>            and response_json[&quot;id&quot;] == context[&quot;scheme_account_id&quot;]<br/>            and response_json[&quot;membership_plan&quot;] == TestData.get_membership_plan_id(merchant)<br/>            and response_json[&quot;status&quot;][&quot;state&quot;] == TestData.get_membership_card_status_state_authorized()<br/>            and response_json[&quot;card&quot;][&quot;membership_id&quot;] == TestData.get_membership_card_number(merchant)<br/>        ), (&quot;Validations in GET/membership_cards for &quot; + merchant + &quot; failed&quot;)<br/><span class="error">E       AssertionError: Validations in GET/membership_cards for WHSmith failed</span><br/><span class="error">E       assert (200 == 200</span><br/><span class="error">E         +200</span><br/><span class="error">E         -200 and 32495 == 32495</span><br/><span class="error">E         +32495</span><br/><span class="error">E         -32495 and 316 == 316</span><br/><span class="error">E         +316</span><br/><span class="error">E         -316 and &#x27;authorised&#x27; == &#x27;authorised&#x27;</span><br/><span class="error">E           authorised and &#x27;FF00000015788730&#x27; == &#x27;FF00000004827176&#x27;</span><br/><span class="error">E         - FF00000004827176</span><br/><span class="error">E         + FF00000015788730)</span><br/><br/>tests/step_definitions/test_membership_cards.py:169: AssertionError<br/> -------------------------------Captured log setup------------------------------- <br/>[32mINFO    [0m root:conftest.py:65 Environment Setup ready<br/> ------------------------------Captured stdout call------------------------------ <br/>{&#x27;id&#x27;: 32495, &#x27;membership_plan&#x27;: 316, &#x27;payment_cards&#x27;: [], &#x27;status&#x27;: {&#x27;state&#x27;: &#x27;pending&#x27;, &#x27;reason_codes&#x27;: [&#x27;X200&#x27;]}, &#x27;card&#x27;: {&#x27;colour&#x27;: &#x27;#003087&#x27;}, &#x27;images&#x27;: [{&#x27;id&#x27;: 627, &#x27;url&#x27;: &#x27;https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/WHSmith_Logo_Block_PMS_287_2aBgzmT.png&#x27;, &#x27;type&#x27;: 3, &#x27;encoding&#x27;: &#x27;png&#x27;, &#x27;description&#x27;: &#x27;WHSmith Icon&#x27;}], &#x27;account&#x27;: {&#x27;tier&#x27;: 0}, &#x27;balances&#x27;: []}
+Step failed: When &quot;I perform GET request to verify the enrolled &quot;WHSmith&quot; membership card details got replaced after a successful PUT&quot;
+<br/> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m root:conftest.py:98 User registration is successful and the token is: 
+
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJidW5kbGVfaWQiOiJjb20uYmluay53YWxsZXQiLCJ1c2VyX2lkIjoicHl0ZXN0Xzc5NjBAYmluay5jb20iLCJzdWIiOjM2NjM5LCJpYXQiOjE1OTYxODQ5Nzl9.1HzbxCp7tDx63r9mxZ8wQPtQTTg0MdBlhsWj041Dd0Y
+
+[32mINFO    [0m root:whsmith.py:39 Invalid data is: WhsmithInvalid@bink.com
+[32mINFO    [0m root:whsmith.py:59 The Request for Enrol Journey : 
+{
+    &quot;account&quot;: {
+        &quot;enrol_fields&quot;: [
+            {
+                &quot;column&quot;: &quot;Email&quot;,
+                &quot;value&quot;: &quot;WhsmithInvalid@bink.com&quot;
+            },
+            {
+                &quot;column&quot;: &quot;Title&quot;,
+                &quot;value&quot;: &quot;Mr&quot;
+            },
+            {
+                &quot;column&quot;: &quot;First name&quot;,
+                &quot;value&quot;: &quot;Daniel Bell&quot;
+            },
+            {
+                &quot;column&quot;: &quot;Last name&quot;,
+                &quot;value&quot;: &quot;Gene Reynolds&quot;
+            },
+            {
+                &quot;column&quot;: &quot;Mobile number&quot;,
+                &quot;value&quot;: &quot;(701)089-5001x062&quot;
+            },
+            {
+                &quot;column&quot;: &quot;Address line 1&quot;,
+                &quot;value&quot;: &quot;29&quot;
+            },
+            {
+                &quot;column&quot;: &quot;City&quot;,
+                &quot;value&quot;: &quot;Leetown&quot;
+            },
+            {
+                &quot;column&quot;: &quot;Postcode&quot;,
+                &quot;value&quot;: &quot;02804&quot;
+            },
+            {
+                &quot;column&quot;: &quot;Consent 1&quot;,
+                &quot;value&quot;: &quot;true&quot;
+            }
+        ]
+    },
+    &quot;membership_plan&quot;: 316
+}
+[32mINFO    [0m root:test_membership_cards.py:222 The response of GET/MembershipCard with invalid data in request :
+ {
+    &quot;id&quot;: 32495,
+    &quot;membership_plan&quot;: 316,
+    &quot;payment_cards&quot;: [],
+    &quot;status&quot;: {
+        &quot;state&quot;: &quot;failed&quot;,
+        &quot;reason_codes&quot;: [
+            &quot;X202&quot;
+        ]
+    },
+    &quot;card&quot;: {
+        &quot;colour&quot;: &quot;#003087&quot;
+    },
+    &quot;images&quot;: [
+        {
+            &quot;id&quot;: 627,
+            &quot;url&quot;: &quot;https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/WHSmith_Logo_Block_PMS_287_2aBgzmT.png&quot;,
+            &quot;type&quot;: 3,
+            &quot;encoding&quot;: &quot;png&quot;,
+            &quot;description&quot;: &quot;WHSmith Icon&quot;
+        }
+    ],
+    &quot;account&quot;: {
+        &quot;tier&quot;: 0
+    },
+    &quot;balances&quot;: []
+}
+[32mINFO    [0m root:whsmith.py:59 The Request for Enrol Journey : 
+{
+    &quot;account&quot;: {
+        &quot;enrol_fields&quot;: [
+            {
+                &quot;column&quot;: &quot;Email&quot;,
+                &quot;value&quot;: &quot;pytest_7960@bink.com&quot;
+            },
+            {
+                &quot;column&quot;: &quot;Title&quot;,
+                &quot;value&quot;: &quot;Mr&quot;
+            },
+            {
+                &quot;column&quot;: &quot;First name&quot;,
+                &quot;value&quot;: &quot;Shari Kim&quot;
+            },
+            {
+                &quot;column&quot;: &quot;Last name&quot;,
+                &quot;value&quot;: &quot;Jennifer Mcmillan&quot;
+            },
+            {
+                &quot;column&quot;: &quot;Mobile number&quot;,
+                &quot;value&quot;: &quot;(482)884-0466&quot;
+            },
+            {
+                &quot;column&quot;: &quot;Address line 1&quot;,
+                &quot;value&quot;: &quot;29&quot;
+            },
+            {
+                &quot;column&quot;: &quot;City&quot;,
+                &quot;value&quot;: &quot;Davidhaven&quot;
+            },
+            {
+                &quot;column&quot;: &quot;Postcode&quot;,
+                &quot;value&quot;: &quot;58201&quot;
+            },
+            {
+                &quot;column&quot;: &quot;Consent 1&quot;,
+                &quot;value&quot;: &quot;true&quot;
+            }
+        ]
+    },
+    &quot;membership_plan&quot;: 316
+}
+[32mINFO    [0m root:test_membership_cards.py:168 The response of GET/MembershipCard :
+ {
+    &quot;id&quot;: 32495,
+    &quot;membership_plan&quot;: 316,
+    &quot;payment_cards&quot;: [],
+    &quot;status&quot;: {
+        &quot;state&quot;: &quot;authorised&quot;,
+        &quot;reason_codes&quot;: [
+            &quot;X300&quot;
+        ]
+    },
+    &quot;card&quot;: {
+        &quot;membership_id&quot;: &quot;FF00000015788730&quot;,
+        &quot;colour&quot;: &quot;#003087&quot;
+    },
+    &quot;images&quot;: [
+        {
+            &quot;id&quot;: 627,
+            &quot;url&quot;: &quot;https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/WHSmith_Logo_Block_PMS_287_2aBgzmT.png&quot;,
+            &quot;type&quot;: 3,
+            &quot;encoding&quot;: &quot;png&quot;,
+            &quot;description&quot;: &quot;WHSmith Icon&quot;
+        }
+    ],
+    &quot;account&quot;: {
+        &quot;tier&quot;: 0
+    },
+    &quot;balances&quot;: [
+        {
+            &quot;value&quot;: 0,
+            &quot;suffix&quot;: &quot;stamps&quot;,
+            &quot;currency&quot;: &quot;stamps&quot;,
+            &quot;updated_at&quot;: 1596184984,
+            &quot;description&quot;: &quot;Customer earns one stamp for every valid transaction.&quot;
+        }
+    ],
+    &quot;vouchers&quot;: [
+        {
+            &quot;burn&quot;: {
+                &quot;type&quot;: &quot;voucher&quot;,
+                &quot;value&quot;: 2.5,
+                &quot;prefix&quot;: &quot;\u00a3&quot;,
+                &quot;suffix&quot;: &quot;Reward&quot;
+            },
+            &quot;earn&quot;: {
+                &quot;type&quot;: &quot;stamps&quot;,
+                &quot;value&quot;: 0.0,
+                &quot;suffix&quot;: &quot;stamps&quot;,
+                &quot;target_value&quot;: 5.0
+            },
+            &quot;state&quot;: &quot;inprogress&quot;,
+            &quot;headline&quot;: &quot;5.0 left to go!&quot;,
+            &quot;barcode_type&quot;: 0
+        }
+    ]
+}<br/></div></td></tr></tbody></table></body></html>
