@@ -39,7 +39,7 @@ class IcelandCard:
         faker = Faker()
 
         if invalid_data:
-            value = TestDataUtils.TEST_DATA.iceland_invalid_data.get("email")
+            value = TestDataUtils.TEST_DATA.iceland_invalid_data.get(constants.EMAIL)
             logging.info("Invalid data is: " + value)
         else:
             value = email

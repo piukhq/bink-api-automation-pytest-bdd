@@ -145,7 +145,7 @@ iceland_membership_card5 = {
     "transactions": "5",
 }
 
-iceland_invalid_data = {"postcode": "fail"}
+iceland_invalid_data = {"email": "fail@unknown.com"}
 
 whsmith_membership_card1 = {
     "card_num": "FF00000004827176",
@@ -154,6 +154,12 @@ whsmith_membership_card1 = {
 whsmith_membership_card2 = {
     "card_num": "FF00000004958039",
 }
+
+whsmith_invalid_data = {
+    "card_num": "WHSmithInvalid_Card",
+    "email": "fail@unknown.com"
+}
+
 
 wasabi_membership_card1 = {"card_num1": ""}
 # ----------------------------------------MEMBERSHIP PLAN IDs   ----------------------------------------------- #
