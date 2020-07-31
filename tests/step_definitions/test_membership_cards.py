@@ -167,6 +167,7 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
         and response_json["card"]["membership_id"] == TestData.get_membership_card_number(merchant)
     ), ("Validations in GET/membership_cards for " + merchant + " failed")
 
+
 @when(
     parsers.parse(
         'I perform GET request to verify the enrolled "{merchant}" membership card details got '
