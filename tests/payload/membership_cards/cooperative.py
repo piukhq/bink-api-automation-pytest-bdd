@@ -12,8 +12,10 @@ class CoopCard:
         if invalid_data:
             value = TestDataUtils.TEST_DATA.coop_invalid_data.get(constants.POSTCODE)
             logging.info("Invalid data is: " + value)
+            data_type = "Invalid data"
         else:
             value = TestDataUtils.TEST_DATA.coop_membership_card1.get(constants.POSTCODE)
+            data_type = "Valid data"
         payload = {
             "account": {
                 "add_fields": [
@@ -32,7 +34,8 @@ class CoopCard:
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("coop"),
         }
-        logging.info("The Request for Add Journey : \n" + json.dumps(payload, indent=4))
+        logging.info("The Request for Add Journey with " + data_type + " :\n\n"
+                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
@@ -60,5 +63,6 @@ class CoopCard:
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("coop"),
         }
-        logging.info("The Request for Enrol Journey: \n" + json.dumps(payload, indent=4))
+        logging.info("The Request for Enrol Journey with " + data_type + " :\n\n"
+                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload

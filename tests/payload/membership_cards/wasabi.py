@@ -12,8 +12,10 @@ class WasabiCard:
         if invalid_data:
             value = TestDataUtils.TEST_DATA.wasabi_invalid_data.get(constants.EMAIL)
             logging.info("Invalid data is: " + value)
+            data_type = "Invalid data"
         else:
             value = TestDataUtils.TEST_DATA.wasabi_membership_card1.get(constants.EMAIL)
+            data_type = "Valid data"
         payload = {
             "account": {
                 "add_fields": [
@@ -26,7 +28,8 @@ class WasabiCard:
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("wasabi"),
         }
-        logging.info("The Request for Add Journey : \n" + json.dumps(payload, indent=4))
+        logging.info("The Request for Add Journey with " + data_type + " :\n\n"
+                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
@@ -36,8 +39,10 @@ class WasabiCard:
         if invalid_data:
             value = TestDataUtils.TEST_DATA.wasabi_invalid_data.get("email")
             logging.info("Invalid data is: " + value)
+            data_type = "Invalid data"
         else:
             value = email
+            data_type = "Valid data"
         payload = {
             "account": {
                 "enrol_fields": [
@@ -52,5 +57,6 @@ class WasabiCard:
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("wasabi"),
         }
 
-        logging.info("The Request for Enrol Journey : \n" + json.dumps(payload, indent=4))
+        logging.info("The Request for Enrol Journey with " + data_type + " :\n\n"
+                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
