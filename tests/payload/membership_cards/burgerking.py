@@ -2,6 +2,8 @@ import logging
 import json
 from faker import Faker
 
+from tests.api.base import Endpoint
+import tests.api as api
 from tests.helpers.test_data_utils import TestDataUtils
 import tests.helpers.constants as constants
 
@@ -12,13 +14,24 @@ class BurgerKingCard:
         if invalid_data:
             value = TestDataUtils.TEST_DATA.burger_king_invalid_data.get(constants.CARD_NUM)
             logging.info("Invalid data is: " + value)
+            data_type = "Invalid data"
         else:
-            value = TestDataUtils.TEST_DATA.burger_king_membership_card1.get(constants.CARD_NUM)
+            value = TestDataUtils.TEST_DATA.burger_king_membership_card.get(constants.CARD_NUM)
+            data_type = "Valid data"
+
         payload = {
-            "account": {"authorise_fields": [{"column": "Rewards number", "value": value}]},
+            "account": {
+                "authorise_fields": [
+                    {"column": "Rewards number",
+                        "value": value
+                     }
+                ]
+            },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("burger_king"),
         }
-        logging.info("The Request for Add Journey : \n" + json.dumps(payload, indent=4))
+
+        logging.info("The Request for Add Journey with " + data_type + " :\n\n"
+                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
@@ -28,8 +41,10 @@ class BurgerKingCard:
         if invalid_data:
             value = TestDataUtils.TEST_DATA.burger_king_invalid_data.get(constants.EMAIL)
             logging.info("Invalid data is: " + value)
+            data_type = "Invalid data"
         else:
             value = email
+            data_type = "Valid data"
         payload = {
             "account": {
                 "enrol_fields": [
@@ -42,5 +57,6 @@ class BurgerKingCard:
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("burger_king"),
         }
-        logging.info("The Request for Enrol Journey:  \n" + json.dumps(payload, indent=4))
+        logging.info("The Request for Enrol Journey with " + data_type + " :\n\n"
+                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload

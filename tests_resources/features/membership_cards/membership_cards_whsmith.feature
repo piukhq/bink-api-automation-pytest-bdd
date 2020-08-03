@@ -4,7 +4,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
   I want to utilise membership_cards endpoint of the Banking API
   So I can add my card, with the scheme provider WHSmith & check its details successfully
 
-  @add
+#  @add
   Scenario: Add Journey_WHSmith
     Given I am a Bink user
     When I perform POST request to add "WHSmith" membership card
@@ -12,7 +12,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     And I perform DELETE request to delete the "WHSmith" membership card
 
-  @add_patch
+#  @add_patch
   Scenario:  PATCH membership card details_WHSmith
 
     Given I am a Bink user
@@ -23,7 +23,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     And I perform DELETE request to delete the "WHSmith" membership card
 
-  @add_and_link
+#  @add_and_link
   Scenario: ADD & LINK Journey_WHSmith
 
     Given I am a Bink user
@@ -36,8 +36,8 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "WHSmith" membership card
     And I perform DELETE request to delete the payment card
 
-    @enrol
-    Scenario: Join Journey(Enrol)_WHSmith
+#    @enrol
+    Scenario: Join Journey_WHSmith
 
     Given I register with bink service as a new customer
     When I perform POST request to create a "WHSmith" membership account with enrol credentials
@@ -45,8 +45,8 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "WHSmith" membership card
 
-    @enrol_put
-    Scenario: Join Journey(Enrol)_PUT_WHSmith
+#    @enrol_put
+    Scenario: Join Journey_PUT_WHSmith
     Given I register with bink service as a new customer
     When I perform POST request to create a "WHSmith" membership account with "invalid" enrol credentials
     And I perform GET request to verify the "WHSmith" membership account is created with invalid data

@@ -1,4 +1,4 @@
-@fat_face @bink
+@fatface @bink
 Feature: Merchant FatFace - Ensure a customer can add their membership card & view its details
   As a customer
   I want to utilise membership_cards endpoint of the Banking API
@@ -41,7 +41,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the payment card
 
 @enrol
-    Scenario: Join Journey(Enrol)_FatFace
+    Scenario: Join Journey_FatFace
 
     Given I register with bink service as a new customer
     When I perform POST request to create a "FatFace" membership account with enrol credentials
@@ -50,7 +50,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "FatFace" membership card
 
   @enrol_put
-  Scenario: Join Journey(Enrol)_PUT_FatFace
+  Scenario: Join Journey_PUT_FatFace
 
 
     Given I register with bink service as a new customer

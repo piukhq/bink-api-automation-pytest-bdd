@@ -101,7 +101,9 @@ def register_user(test_email, channel):
 
 @given("I am a Bink user")
 def login_user(channel):
-    return CustomerAccount.login_user(channel)
+    response = CustomerAccount.login_user(channel)
+    logging.info("User Login is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
+    return response
 
 
 @pytest.fixture(scope="function")

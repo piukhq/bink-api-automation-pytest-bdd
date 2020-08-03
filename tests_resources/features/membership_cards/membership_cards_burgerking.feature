@@ -39,7 +39,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     And I perform DELETE request to delete the payment card
 
 @enrol
-    Scenario: Join Journey(Enrol)_BurgerKing
+    Scenario: Join Journey_BurgerKing
 
     Given I register with bink service as a new customer
     When I perform POST request to create a "BurgerKing" membership account with enrol credentials
@@ -48,7 +48,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then I perform DELETE request to delete the "BurgerKing" membership card
 
 @enrol_put
-  Scenario: Join Journey(Enrol)_PUT_BurgerKing
+  Scenario: Join Journey_PUT_BurgerKing
 
 
     Given I register with bink service as a new customer

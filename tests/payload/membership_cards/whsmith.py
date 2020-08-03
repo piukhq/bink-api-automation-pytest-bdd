@@ -14,7 +14,7 @@ class WHSmithCard:
             value = TestDataUtils.TEST_DATA.whsmith_invalid_data.get(constants.CARD_NUM)
             logging.info("Invalid data is: " + value)
         else:
-            value = TestDataUtils.TEST_DATA.whsmith_membership_card1.get(constants.CARD_NUM)
+            value = TestDataUtils.TEST_DATA.whsmith_membership_card.get(constants.CARD_NUM)
 
         payload = {
             "account": {
