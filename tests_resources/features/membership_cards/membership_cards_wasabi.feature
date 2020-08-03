@@ -39,8 +39,8 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then I perform DELETE request to delete the "Wasabi" membership card
     And I perform DELETE request to delete the payment card
 
-  @enrol
-    Scenario: Join Journey(Enrol)_Wasabi
+#  @enrol
+    Scenario: Join Journey_Wasabi
 
 
     Given I register with bink service as a new customer
@@ -50,7 +50,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
 #    Then I perform DELETE request to delete the "Wasabi" membership card
 
 #  @enrol_put
-  Scenario: Join Journey(Enrol)_PUT_Wasabi
+  Scenario: Join Journey_PUT_Wasabi
 
 
     Given I register with bink service as a new customer

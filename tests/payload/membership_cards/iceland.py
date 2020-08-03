@@ -2,6 +2,8 @@ import logging
 import json
 from faker import Faker
 
+from tests.api.base import Endpoint
+import tests.api as api
 from tests.helpers.test_data_utils import TestDataUtils
 import tests.helpers.constants as constants
 
@@ -14,26 +16,31 @@ class IcelandCard:
             logging.info("Invalid data is: " + value)
             data_type = "Invalid data"
         else:
-            value = TestDataUtils.TEST_DATA.iceland_membership_card1.get(constants.POSTCODE)
+            value = TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
             data_type = "Valid data"
+
         payload = {
             "account": {
                 "add_fields": [
                     {
                         "column": "Bonus card number",
-                        "value": TestDataUtils.TEST_DATA.iceland_membership_card1.get(constants.CARD_NUM),
+                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CARD_NUM),
                     }
                 ],
                 "authorise_fields": [
                     {
                         "column": "Last name",
-                        "value": TestDataUtils.TEST_DATA.iceland_membership_card1.get(constants.LAST_NAME),
+                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
                     },
-                    {"column": "Postcode", "value": value},
-                ],
+                    {
+                        "column": "Postcode",
+                        "value": value
+                    }
+                ]
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
         }
+
         logging.info("The Request for Add Journey with " + data_type + " :\n\n"
                      + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload

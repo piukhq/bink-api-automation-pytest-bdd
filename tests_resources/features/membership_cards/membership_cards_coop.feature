@@ -39,7 +39,7 @@ Feature: Merchant CooP- Ensure a customer can add their membership card & view i
     And I perform DELETE request to delete the payment card
 
 @enrol
-    Scenario: Join Journey(Enrol)_CooP
+    Scenario: Join Journey_CooP
 
     Given I register with bink service as a new customer
     When I perform POST request to create a "CooP" membership account with enrol credentials
@@ -48,7 +48,7 @@ Feature: Merchant CooP- Ensure a customer can add their membership card & view i
     Then I perform DELETE request to delete the "CooP" membership card
 
   @enrol_put
-  Scenario: Join Journey(Enrol)_PUT_CooP
+  Scenario: Join Journey_PUT_CooP
 
 
     Given I register with bink service as a new customer

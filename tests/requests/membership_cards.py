@@ -4,6 +4,7 @@ import time
 from tests.helpers.test_helpers import Merchant
 from tests.helpers.test_helpers import TestData
 from tests.api.base import Endpoint
+import tests.helpers.constants as constants
 
 
 class MembershipCards(Endpoint):
@@ -73,7 +74,7 @@ class MembershipCards(Endpoint):
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
             response_json = response.json()
-            if response_json["status"]["state"] == TestData.get_membership_card_status_state_pending():
+            if response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING):
                 time.sleep(1)
             else:
                 break
@@ -90,7 +91,7 @@ class MembershipCards(Endpoint):
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
             response_json = response.json()
-            if response_json["status"]["state"] == TestData.get_membership_card_status_state_pending():
+            if response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING):
                 time.sleep(1)
             else:
                 break
@@ -104,7 +105,8 @@ class MembershipCards(Endpoint):
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
             response_json = response.json()
-            if response_json[0]["status"]["state"] == TestData.get_membership_card_status_state_pending():
+            if response_json[0]["status"]["state"] == \
+                    TestData.get_membership_card_status_states().get(constants.PENDING):
                 time.sleep(1)
             else:
                 break

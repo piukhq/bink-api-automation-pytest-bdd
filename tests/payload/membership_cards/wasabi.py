@@ -2,6 +2,8 @@ import logging
 import json
 from faker import Faker
 
+from tests.api.base import Endpoint
+import tests.api as api
 from tests.helpers.test_data_utils import TestDataUtils
 import tests.helpers.constants as constants
 
@@ -14,14 +16,14 @@ class WasabiCard:
             logging.info("Invalid data is: " + value)
             data_type = "Invalid data"
         else:
-            value = TestDataUtils.TEST_DATA.wasabi_membership_card1.get(constants.EMAIL)
+            value = TestDataUtils.TEST_DATA.wasabi_membership_card.get(constants.EMAIL)
             data_type = "Valid data"
         payload = {
             "account": {
                 "add_fields": [
                     {
                         "column": "Membership card number",
-                        "value": TestDataUtils.TEST_DATA.wasabi_membership_card1.get(constants.CARD_NUM),
+                        "value": TestDataUtils.TEST_DATA.wasabi_membership_card.get(constants.CARD_NUM),
                     }
                 ],
                 "authorise_fields": [{"column": "Email", "value": value}],

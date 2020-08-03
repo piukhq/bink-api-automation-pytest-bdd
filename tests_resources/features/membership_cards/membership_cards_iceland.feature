@@ -40,7 +40,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the payment card
 
   @enrol
-    Scenario: Join Journey(Enrol)_Iceland
+    Scenario: Join Journey_Iceland
 
 
     Given I register with bink service as a new customer
@@ -50,7 +50,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "Iceland" membership card
 
   @enrol_put
-  Scenario: Join Journey(Enrol)_PUT_Iceland
+  Scenario: Join Journey_PUT_Iceland
 
 
     Given I register with bink service as a new customer
