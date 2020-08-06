@@ -12,6 +12,7 @@ from requests.exceptions import HTTPError
 from selenium.webdriver.support.ui import Select
 
 from tests.requests.membership_cards import MembershipCards
+from tests.requests.membership_transactions import MembershipTransactions
 from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_helpers import TestData
 from tests.api.base import Endpoint
@@ -83,7 +84,7 @@ def add_existing_membership_card(merchant, login_user, context):
     context["scheme_account_id"] = response_json.get("id")
     logging.info(
         "The response of Add&Link Journey (POST) is:\n\n" +
-        Endpoint.BASE_URL + api.ENDPOINT_AUTO_LINK_PAYMENT_AND_MEMBERSHIP_CARD_URL + "\n\n"
+        Endpoint.BASE_URL + api.ENDPOINT_AUTO_LINK_PAYMENT_AND_MEMBERSHIP_CARD + "\n\n"
         + json.dumps(response_json, indent=4))
     try:
         if response.status_code == 200:
@@ -223,7 +224,7 @@ def verify_membership_card_is_created(merchant, context):
         "in the wallet"
     )
 )
-def verify_membership_card_is_add_and_linked(merchant, context, add_payment_card):
+def verify_membership_card_is_add_and_linked(merchant, context):
     response = MembershipCards.get_scheme_account_auto_link(context["token"], context["scheme_account_id"])
     response_json = response.json()
     logging.info(
@@ -237,6 +238,10 @@ def verify_membership_card_is_add_and_linked(merchant, context, add_payment_card
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().
             get(constants.AUTHORIZED)
             and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
+            and response_json["payment_cards"][0]["active_link"] ==
+            TestDataUtils.TEST_DATA.payment_card.get(constants.ACTIVE_LINK)
+            and response_json["payment_cards"][0]["id"] == context["payment_card_id"]
+
     ), ("Validations in GET/membership_cards after AutoLink for " + merchant + " failed")
 
 
@@ -262,19 +267,25 @@ def verify_invalid_membership_card_is_added_to_wallet(merchant, context):
 
 @when(parsers.parse('I perform GET request to view balance for recently added "{merchant}" membership card'))
 def verify_membership_card_balance(context, merchant):
-    response = MembershipCards.get_membership_card_balance(context["token"])
-    response_json = response.json()
+    current_membership_card_response_array = MembershipCards.get_membership_card_balance \
+        (context["token"], context["scheme_account_id"])
     logging.info(
-        "The response of GET/MembershipCardBalances:\n\n"
-        + Endpoint.BASE_URL + api.ENDPOINT_CHECK_MEMBERSHIP_CARDS_BALANCE_URL + "\n\n"
-        + json.dumps(response_json, indent=4))
+        "The response of GET/MembershipCardBalances for the current membership card is : \n\n"
+        + Endpoint.BASE_URL + api.ENDPOINT_CHECK_MEMBERSHIP_CARDS_BALANCE + "\n\n"
+        + json.dumps(current_membership_card_response_array, indent=4))
+    print("current_membership_card_response_array" + str(current_membership_card_response_array["id"]))
     assert (
-            response.status_code == 200
-            and response_json[0]["id"] == context["scheme_account_id"]
-            and response_json[0]["membership_plan"] == TestData.get_membership_plan_id(merchant)
-            and response_json[0]["status"]["state"] == TestData.membership_card_status_states.get(constants.AUTHORIZED)
-            and response_json[0]["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
-            and response_json[0]["balances"]["value"] == TestData.get_data(merchant).get(constants.POINTS)
+            current_membership_card_response_array["id"] == context["scheme_account_id"]
+            and current_membership_card_response_array["status"]["state"] ==
+            TestData.get_membership_card_status_states().get(constants.AUTHORIZED)
+            and current_membership_card_response_array["card"]["membership_id"] ==
+            TestData.get_data(merchant).get(constants.CARD_NUM)
+            and current_membership_card_response_array["balances"][0]["value"] ==
+            TestData.get_data(merchant).get(constants.POINTS)
+            and current_membership_card_response_array["balances"][0]["currency"] ==
+            TestData.get_data(merchant).get(constants.CURRENCY)
+            and current_membership_card_response_array["balances"][0]["description"] ==
+            TestData.get_data(merchant).get(constants.DESCRIPTION)
     ), ("Validations in GET/membership_cards?balances for " + merchant + " failed")
 
 

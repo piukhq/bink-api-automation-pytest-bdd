@@ -21,19 +21,20 @@ def customer_can_view_membership_plan():
 
 
 @when("I perform GET request to view all available membership plans")
-def view_all_available_membership_plans(register_user):
-    token = register_user.json().get("api_key")
+def view_all_available_membership_plans(login_user):
+    token = login_user.json().get("api_key")
     response = MembershipPlans.get_all_membership_plans(token)
+    logging.info("Membership_Plans response is \n\n" + json.dumps(response.json(), indent=4))
     if response is not None:
         logging.info("GET/Membership_plans is working as expected")
 
 
 @then(parsers.parse('I can ensure the "{merchant}" plan details match with expected data'))
-def ensure_the_merchants_plan_details_match_with_expected_data(merchant, register_user):
+def ensure_the_merchants_plan_details_match_with_expected_data(merchant, login_user):
     """GET a merchant's membership plan and compare with
      expected membership plan of that merchant"""
 
-    token = register_user.json().get("api_key")
+    token = login_user.json().get("api_key")
     response = MembershipPlans.get_membership_plan(token, merchant)
     logging.info("The Membership plan for " + merchant + " is: \n" + json.dumps(response.json(), indent=4))
     with open(TestData.get_expected_membership_plan_json(merchant)) as json_file:

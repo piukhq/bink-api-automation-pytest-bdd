@@ -6,11 +6,12 @@ from pytest_bdd import given, then
 from selenium.webdriver import Chrome
 
 import config
+import tests.api as api
+import tests.helpers.constants as constants
 from tests.requests.service import CustomerAccount
 from tests.requests.payment_cards import PaymentCards
 from tests.api.base import Endpoint
 from tests.helpers.test_data_utils import TestDataUtils
-import tests.helpers.constants as constants
 
 
 # Hooks
@@ -35,18 +36,17 @@ def configure_html_report_env(request, env, channel):
     request.config._metadata.update({"Test Environment": env, "Channel": channel})
 
 
-# To delete the individual details on Environment section in report
-# def pytest_metadata(metadata):
-#     metadata.pop("Packages", None)
+"""Reading inputs from terminal"""
 
 
-# Reading inputs from terminal
 def pytest_addoption(parser):
     parser.addoption("--channel", action="store", default="bink", help="Channel names like Bink,Barclays should pass")
     parser.addoption("--env", action="store", default="dev", help="env : can be staging or dev")
 
 
-# Terminal parameter Fixtures
+"""Terminal parameter Fixtures"""
+
+
 @pytest.fixture(scope="session")
 def channel(pytestconfig):
     """Returns current channel"""
@@ -90,18 +90,20 @@ def driver():
     driver.quit()
 
 
-# Shared  Steps
+"""Shared  Steps"""
+
+
 @given("I register with bink service as a new customer")
-def register_user(test_email, channel):
-    response = CustomerAccount.create_user(test_email, channel)
+def register_user(test_email, channel, env):
+    response = CustomerAccount.create_user(test_email, channel, env)
     CustomerAccount.create_consent(response.json().get("api_key"), test_email)
     logging.info("User registration is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
     return response
 
 
 @given("I am a Bink user")
-def login_user(channel):
-    response = CustomerAccount.login_user(channel)
+def login_user(channel, env):
+    response = CustomerAccount.login_user(channel, env)
     logging.info("User Login is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
     return response
 
@@ -116,7 +118,9 @@ def add_payment_card(login_user, context):
     context["token"] = login_user.json().get("api_key")
     response = PaymentCards.add_payment_card(context["token"])
     response_json = response.json()
-    logging.info("The response of POST/PaymentCards :\n " + json.dumps(response_json, indent=4))
+    logging.info("The response of POST/PaymentCard is: \n\n"
+                 + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n"
+                 + json.dumps(response_json, indent=4))
     context["payment_card_id"] = response_json.get("id")
     assert response.status_code == 201 or 200, "Payment card addition is not successful"
     return context["payment_card_id"]
@@ -126,28 +130,17 @@ def add_payment_card(login_user, context):
 def verify_payment_card_added(context):
     response = PaymentCards.get_payment_card(context["token"], context["payment_card_id"])
     response_json = response.json()
-    logging.info("The response of GET/PaymentCards : \n" + json.dumps(response_json, indent=4))
-    assert response.status_code == 200
-    # try:
-    #     assert response.status_code == 200
-    #     logging.info('Payment card is added successfully : \n' + str(response.content))
-    #     #  Add status check later
-    # except AssertionError as error:
-    #     raise Exception('Add Journey for ' + merchant + ' failed due to error ' + error.__str__())
+    logging.info("The response of GET/PaymentCards is: \n\n"
+                 + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARD.format(context["payment_card_id"]) + "\n\n"
+                 + json.dumps(response_json, indent=4))
+    assert (
+            response.status_code == 200
+            and response_json["id"] == context["payment_card_id"]
+            and response_json["status"] == TestDataUtils.TEST_DATA.payment_card.get(constants.PAYMENT_CARD_STATUS)
+    ), "Payment card has been added successfully"
 
 
 @then("I perform DELETE request to delete the payment card")
 def delete_payment_card(context, merchant):
     response = PaymentCards.delete_payment_card(context["token"], context["payment_card_id"])
-    try:
-        assert response.status_code == 200
-        logging.info("Payment card is deleted successfully")
-        #  Add status check later
-    except AssertionError as error:
-        raise Exception("Add Journey for " + merchant + " failed due to error " + error.__str__())
-
-
-# def pytest_html_results_table_html(report, data):
-#    if report.failed:
-#        del data[:]
-#        data.append(html.div('No log output captured.', class_='empty log'))
+    assert response.status_code == 200, "Payment card is deleted successfully"

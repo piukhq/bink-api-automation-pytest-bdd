@@ -22,7 +22,7 @@ class MembershipCards(Endpoint):
 
     @staticmethod
     def add_card_auto_link(token, merchant):
-        url = Endpoint.BASE_URL + api.ENDPOINT_AUTO_LINK_PAYMENT_AND_MEMBERSHIP_CARD_URL
+        url = Endpoint.BASE_URL + api.ENDPOINT_AUTO_LINK_PAYMENT_AND_MEMBERSHIP_CARD
         header = Endpoint.request_header(token)
         payload = Merchant.get_merchant(merchant).add_membership_card_payload()
         return Endpoint.call(url, header, "POST", payload)
@@ -98,19 +98,30 @@ class MembershipCards(Endpoint):
         return response
 
     @staticmethod
-    def get_membership_card_balance(token):
+    def get_membership_card_balance(token, scheme_account_id):
         """Waiting max up to 30 sec to change status from Pending to Authorized"""
         for i in range(1, 30):
-            url = Endpoint.BASE_URL + api.ENDPOINT_CHECK_MEMBERSHIP_CARDS_BALANCE_URL
+            ele_present = "no"
+            current_membership_card_response = ""
+            url = Endpoint.BASE_URL + api.ENDPOINT_CHECK_MEMBERSHIP_CARDS_BALANCE
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
+            assert response.status_code == 200, "Validations in GET/membership_cards?balances failed"
             response_json = response.json()
-            if response_json[0]["status"]["state"] == \
-                    TestData.get_membership_card_status_states().get(constants.PENDING):
-                time.sleep(1)
-            else:
+            for current_membership_card in response_json:
+                if current_membership_card["id"] == scheme_account_id:
+                    if current_membership_card["status"]["state"] == TestData.get_membership_card_status_states(). \
+                            get(constants.PENDING):
+                        time.sleep(1)
+                        break
+                    else:
+                        ele_present = "yes"
+                        current_membership_card_response = current_membership_card
+                        break
+            if ele_present == "yes":
                 break
-        return response
+        print("balance_current_membership_card", current_membership_card_response)
+        return current_membership_card_response
 
     # Delete Membership Card
     @staticmethod
