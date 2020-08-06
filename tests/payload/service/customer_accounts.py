@@ -27,10 +27,20 @@ class UserDetails:
         return payload
 
     @staticmethod
-    def login_user_payload(client_id, bundle_id):
+    def bink_login_user_payload(client_id, bundle_id):
         payload = {
             "email": TestDataUtils.TEST_DATA.bink_user_accounts.get(constants.USER_ID),
             "password": TestDataUtils.TEST_DATA.bink_user_accounts.get(constants.PWD),
+            "client_id": client_id,
+            "bundle_id": bundle_id,
+        }
+        return payload
+
+    @staticmethod
+    def barclays_login_user_payload(client_id, bundle_id):
+        payload = {
+            "email": TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.USER_ID),
+            "password": TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.PWD),
             "client_id": client_id,
             "bundle_id": bundle_id,
         }

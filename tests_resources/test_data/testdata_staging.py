@@ -55,12 +55,22 @@ harvey_nichols_invalid_data = {
     "id": "fail@unknown.com"
 }
 
+# iceland_membership_card = {
+#     "card_num": "6332040030473324721",
+#     "last_name": "Bransden",
+#     "postcode": "BN16 4HE",
+#     "points": 380.01
+# }
 iceland_membership_card = {
-    "card_num": "6332040030473324721",
-    "last_name": "Bransden",
-    "postcode": "BN16 4HE",
-    "points": 380.01
+    "card_num": "5555555555555555555",
+    "last_name": "five",
+    "postcode": "rg5 5aa",
+    "points": 380.01,
+    "currency": "GBP",
+    "description": "Placeholder Balance Description",
+    "transactions": "5",
 }
+
 
 coop_ghost_card = {
     "card_num": "6332040030522672674",
@@ -112,10 +122,16 @@ reason_codes = {
 
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
 
-user_accounts = {
-    "bink_uid": "njames@bink.com",
-    "bink_pwd": "Password@200",
+bink_user_accounts = {
+    "uid": "njames@bink.com",
+    "pwd": "Password@200",
 }
+
+barclays_user_accounts = {
+    "uid": "pytest_automation_barclays@testbink.com",
+    "pwd": "Password01",
+}
+
 django_user_accounts = {
     "django_uid": "njames@bink.com",
     "django_pwd": "Password@200",

@@ -6,15 +6,14 @@ from tests.payload.service.customer_accounts import UserDetails
 
 class CustomerAccount:
     @staticmethod
-    def create_user(test_email, channel):
+    def create_user(test_email, channel, env):
         url = Endpoint.BASE_URL + api.ENDPOINT_REGISTER
         headers = Endpoint.request_header()
+        client_id = CustomerAccount.get_client_id(channel, env)
         if channel == config.BINK.channel_name:
-            payload = UserDetails.register_user_payload(test_email, config.BINK.client_id, config.BINK.bundle_id)
+            payload = UserDetails.register_user_payload(test_email, client_id, config.BINK.bundle_id)
         elif channel == config.BARCLAYS.channel_name:
-            payload = UserDetails.register_user_payload(
-                test_email, config.BARCLAYS.client_id, config.BARCLAYS.bundle_id
-            )
+            payload = UserDetails.register_user_payload(test_email, client_id, config.BARCLAYS.bundle_id)
         return Endpoint.call(url, headers, "POST", payload)
 
     @staticmethod
@@ -25,12 +24,26 @@ class CustomerAccount:
         return Endpoint.call(url, headers, "POST", payload)
 
     @staticmethod
-    def login_user(channel):
+    def login_user(channel, env):
 
         url = Endpoint.BASE_URL + api.ENDPOINT_LOGIN
         headers = Endpoint.request_header()
+        client_id = CustomerAccount.get_client_id(channel, env)
         if channel == config.BINK.channel_name:
-            payload = UserDetails.login_user_payload(config.BINK.client_id, config.BINK.bundle_id)
+            payload = UserDetails.bink_login_user_payload(client_id, config.BINK.bundle_id)
         elif channel == config.BARCLAYS.channel_name:
-            payload = UserDetails.login_user_payload(config.BARCLAYS.client_id, config.BARCLAYS.bundle_id)
+            payload = UserDetails.barclays_login_user_payload(client_id, config.BARCLAYS.bundle_id)
         return Endpoint.call(url, headers, "POST", payload)
+
+    @staticmethod
+    def get_client_id(channel, env):
+        if channel == config.BINK.channel_name:
+            channel = config.BINK
+        elif channel == config.BARCLAYS.channel_name:
+            channel = config.BARCLAYS
+        if env == "dev":
+            return channel.client_id_dev
+        elif env == "staging":
+            return channel.client_id_staging
+        elif env == "prod":
+            return channel.client_id_prod
