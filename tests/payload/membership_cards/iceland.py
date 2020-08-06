@@ -71,7 +71,7 @@ class IcelandCard:
                     {"column": "City", "value": faker.city()},
                     {"column": "County", "value": faker.country()},
                     {"column": "Postcode", "value": faker.postcode()},
-                    {"column": "Consent 1", "value": constants.CONSENT},
+                    {"column": "Enrol Consent 1", "value": constants.CONSENT},
                 ]
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
