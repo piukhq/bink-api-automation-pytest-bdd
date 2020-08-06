@@ -12,7 +12,6 @@ from requests.exceptions import HTTPError
 from selenium.webdriver.support.ui import Select
 
 from tests.requests.membership_cards import MembershipCards
-from tests.requests.membership_transactions import MembershipTransactions
 from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_helpers import TestData
 from tests.api.base import Endpoint
@@ -267,8 +266,8 @@ def verify_invalid_membership_card_is_added_to_wallet(merchant, context):
 
 @when(parsers.parse('I perform GET request to view balance for recently added "{merchant}" membership card'))
 def verify_membership_card_balance(context, merchant):
-    current_membership_card_response_array = MembershipCards.get_membership_card_balance \
-        (context["token"], context["scheme_account_id"])
+    current_membership_card_response_array = MembershipCards.get_membership_card_balance(context["token"],
+                                                                                         context["scheme_account_id"])
     logging.info(
         "The response of GET/MembershipCardBalances for the current membership card is : \n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_CHECK_MEMBERSHIP_CARDS_BALANCE + "\n\n"
