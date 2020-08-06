@@ -106,7 +106,7 @@ harvey_nichols_membership_card = {
     "description": "Placeholder Balance Description",
     "transactions": "5",
     "transaction_status": "active",
-    "transaction_currency": "GBP",
+    "transaction_currency": "Points",
 
 }
 
@@ -122,8 +122,8 @@ iceland_membership_card = {
     "currency": "GBP",
     "description": "Placeholder Balance Description",
     "transactions": "5",
-    "transaction_status": "",
-    "transaction_currency": "",
+    "transaction_status": "active",
+    "transaction_currency": "GBP",
 }
 
 iceland_invalid_data = {

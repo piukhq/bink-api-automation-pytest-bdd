@@ -12,6 +12,8 @@ from requests.exceptions import HTTPError
 from selenium.webdriver.support.ui import Select
 
 from tests.requests.membership_cards import MembershipCards
+from tests.requests.membership_transactions import MembershipTransactions
+
 from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_helpers import TestData
 from tests.api.base import Endpoint
@@ -85,22 +87,28 @@ def add_existing_membership_card(merchant, login_user, context):
         "The response of Add&Link Journey (POST) is:\n\n" +
         Endpoint.BASE_URL + api.ENDPOINT_AUTO_LINK_PAYMENT_AND_MEMBERSHIP_CARD + "\n\n"
         + json.dumps(response_json, indent=4))
-    try:
-        if response.status_code == 200:
-            """Temporary solution till get scheme account id from Data Base"""
-            perform_delete_request_scheme_account(context)
-            response = MembershipCards.add_card(context["token"], merchant)
-            context["scheme_account_id"] = response.json().get("id")
-        else:
-            assert (
-                    response.status_code == 201
-                    and response_json["status"]["state"] == TestData.get_membership_card_status_states().
-                    get(constants.PENDING)
-            )
+    assert (
+            response.status_code == 201
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states().
+            get(constants.PENDING)
+    ), "The membership card is already added to the wallet"
 
-    except AssertionError as error:
-        raise Exception("Add Journey for " + merchant + " failed due to error " + error.__str__())
-
+    # try:
+    #     if response.status_code == 200:
+    #         """Temporary solution till get scheme account id from Data Base"""
+    #         perform_delete_request_scheme_account(context)
+    #         response = MembershipCards.add_card(context["token"], merchant)
+    #         context["scheme_account_id"] = response.json().get("id")
+    #     else:
+    #         assert (
+    #                 response.status_code == 201
+    #                 and response_json["status"]["state"] == TestData.get_membership_card_status_states().
+    #                 get(constants.PENDING)
+    #         )
+    #
+    # except AssertionError as error:
+    #     raise Exception("Add Journey for " + merchant + " failed due to error " + error.__str__())
+    #
 
 @when(parsers.parse('I perform PATCH request to update "{merchant}" membership card'))
 def patch_request_to_update_membership_card_details(merchant, context):
@@ -288,46 +296,106 @@ def verify_membership_card_balance(context, merchant):
     ), ("Validations in GET/membership_cards?balances for " + merchant + " failed")
 
 
-"""Step definitions - DELETE Scheme Account """
+""""Step definitions for Membership_Transactions"""
 
 
-@then(parsers.parse('I perform DELETE request to delete the "{merchant}" membership card'))
-def perform_delete_request_scheme_account(context, merchant=None):
-    response_del_schemes = MembershipCards.delete_scheme_account(context["token"], context["scheme_account_id"])
+@when(
+    parsers.parse(
+        'I perform GET request to view all transactions made using the recently added "{merchant}" membership card'
+    )
+)
+def verify_membership_card_transactions(context, merchant):
+    # response = MembershipTransactions.get_all_membership_transactions(context["token"])
+    # assert (
+    #         response.status_code == 200
+    # ), ("Response code in GET/MembershipTransaction for " + merchant + " is " + str(response.status_code))
+    response = MembershipTransactions.get_membership_transactions(context["token"], context["scheme_account_id"])
+    response_json = response.json()
+    logging.info(
+        "The response of GET/MembershipTransactions:\n\n"
+        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]) + "\n\n"
+        + json.dumps(response_json, indent=4))
     try:
-        if response_del_schemes.status_code == 200 or 404:
-            logging.info("Scheme account is deleted successfully")
-        elif response_del_schemes.status_code == 404:
-            logging.info("Scheme account is not exist ")
+         context["transaction_id"] = response_json[0].get("id")
+    except IndexError:
+        logging.info("The transactions are missing for current membership card")
+    # max 5
+    logging.info("transaction_id*" + str(context["transaction_id"]))
+    assert (
+            response.status_code == 200
+        # and len(response_json["membership_transactions"]) == TestData.get_data(merchant).get(constants.TRANSACTIONS)
+    ), ("Validations in GET/membership_cards?balances for " + merchant + " failed")
 
-    except HTTPError as network_response:
-        assert network_response.response.status_code == 404 or 400
-        logging.error("Scheme account deletion for ", merchant, "failed due to HTTP error: {network_response}")
+
+@then(
+    parsers.parse(
+        'I perform GET request to view a specific transaction made using the recently added "{merchant}"'
+        ' membership card'
+    )
+)
+def verify_membership_card_single_transaction_detail(context, merchant):
+    response = MembershipTransactions.get_membership_card_single_transaction_detail(
+        context["token"], context["transaction_id"])
+    response_json = response.json()
+    logging.info(
+        "The response of GET/MembershipTransaction:\n\n"
+        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD_SINGLE_TRANSACTION.format(context["transaction_id"]) +
+        "\n\n"
+        + json.dumps(response_json, indent=4))
+    assert (
+            response.status_code == 200
+            and response_json["id"] == context["transaction_id"]
+            and response_json["status"] == TestData.get_data(merchant).get(constants.TRANSACTIONS_STATUS)
+            and response_json["amounts"][0]["currency"] == TestData.get_data(merchant).
+            get(constants.TRANSACTIONS_CURRENCY)
+    ), ("Validations in GET/MembershipTransaction " + merchant + " failed")
+
+
+# """Step definitions - DELETE Scheme Account """
+#
+#
+# @then(parsers.parse('I perform DELETE request to delete the "{merchant}" membership card'))
+# def perform_delete_request_scheme_account(context, merchant=None):
+#     response_del_schemes = MembershipCards.delete_scheme_account(context["token"], context["scheme_account_id"])
+#     try:
+#         if response_del_schemes.status_code == 200 or 404:
+#             logging.info("Scheme account is deleted successfully")
+#         elif response_del_schemes.status_code == 404:
+#             logging.info("Scheme account is not exist ")
+#
+#     except HTTPError as network_response:
+#         assert network_response.response.status_code == 404 or 400
+#         logging.error("Scheme account deletion for ", merchant, "failed due to HTTP error: {network_response}")
 
 
 """Step definitions - Django Verifications"""
 
 
 @then("verify membership account Link date, Card Number and Merchant identifier populated in Django")
-def verify_membership_account_link_date_card_number_and_merchant_identifier_populated_in_django(driver, context):
-    scheme_account_id = str(context["scheme_account_id"])
-    driver.get(Endpoint.DJANGO_URL + "scheme/schemeaccount/" + scheme_account_id + "/change/")
-    driver.find_element_by_name("username").send_keys(TestDataUtils.TEST_DATA.django_user_accounts.get("django_uid"))
-    driver.find_element_by_name("password").send_keys(TestDataUtils.TEST_DATA.django_user_accounts.get("django_pwd"))
-    driver.find_element_by_xpath("//input[@type='submit']").click()
-    select = Select(driver.find_element_by_name("status"))
-    assert select.first_selected_option.text == "Active"
-    link_date = driver.find_element_by_xpath('//form[@id="schemeaccount_form"]/div/fieldset/div[13]/div/div').text
-    current_date = time.strftime("%d %b %Y").lstrip("0")
-    if str(link_date).__contains__(current_date):
-        logging.info(
-            "Link date in Django (" + link_date + ") is close to current date "
-                                                  "(" + current_date + time.strftime(", %I:%M %p").lower() + ")"
-        )
-    logging.info(
-        "Merchant Identifier in Django is: "
-        + driver.find_element_by_name("schemeaccountcredentialanswer_set-1-answer").get_attribute("value")
-    )
+def verify_membership_account_link_date_card_number_and_merchant_identifier_populated_in_django(driver, context, env):
+    if env == 'dev' or 'staging':
+        pass
+    else:
+        scheme_account_id = str(context["scheme_account_id"])
+        driver.get(Endpoint.DJANGO_URL + "scheme/schemeaccount/" + scheme_account_id + "/change/")
+        driver.find_element_by_name("username").send_keys(
+            TestDataUtils.TEST_DATA.django_user_accounts.get("django_uid"))
+        driver.find_element_by_name("password").send_keys(
+            TestDataUtils.TEST_DATA.django_user_accounts.get("django_pwd"))
+        driver.find_element_by_xpath("//input[@type='submit']").click()
+        select = Select(driver.find_element_by_name("status"))
+        assert select.first_selected_option.text == "Active"
+        link_date = driver.find_element_by_xpath('//form[@id="schemeaccount_form"]/div/fieldset/div[13]/div/div').text
+        current_date = time.strftime("%d %b %Y").lstrip("0")
+        if str(link_date).__contains__(current_date):
+            logging.info(
+                "Link date in Django (" + link_date + ") is close to current date "
+                                                      "(" + current_date + time.strftime(", %I:%M %p").lower() + ")"
+            )
+            logging.info(
+                "Merchant Identifier in Django is: "
+                + driver.find_element_by_name("schemeaccountcredentialanswer_set-1-answer").get_attribute("value")
+            )
 
 
 @then("verify membership account Join date, Card Number and Merchant identifier populated in Django")
