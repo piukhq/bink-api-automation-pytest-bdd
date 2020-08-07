@@ -26,18 +26,20 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     And I perform DELETE request to delete the "BurgerKing" membership card
 
 
-@add_and_link
+ @add_and_link
   Scenario: ADD & LINK Journey_BurgerKing
+
     Given I am a Bink user
     And I perform POST request to add payment card to wallet
     And I perform the GET request to verify the payment card has been added successfully
     When I perform POST request to add & auto link an existing "BurgerKing" membership card
     And I perform GET request to verify the "BurgerKing" membership card is added & linked successfully in the wallet
     And I perform GET request to view balance for recently added "BurgerKing" membership card
+    When I perform GET request to view all transactions made using the recently added "BurgerKing" membership card
+    Then I perform GET request to view a specific transaction made using the recently added "BurgerKing" membership card
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "BurgerKing" membership card
     And I perform DELETE request to delete the payment card
-
 @enrol
     Scenario: Join Journey_BurgerKing
 

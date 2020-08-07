@@ -6,7 +6,7 @@ class MembershipTransactions(Endpoint):
 
     @staticmethod
     def get_all_membership_transactions(token):
-        url = Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS
+        url = Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_TRANSACTIONS
         header = Endpoint.request_header(token)
         response = Endpoint.call(url, header, "GET")
         return response

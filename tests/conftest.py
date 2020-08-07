@@ -4,22 +4,30 @@ import json
 from faker import Faker
 from pytest_bdd import given, then
 from selenium.webdriver import Chrome
+from requests.exceptions import HTTPError
 
 import config
 import tests.api as api
 import tests.helpers.constants as constants
 from tests.requests.service import CustomerAccount
 from tests.requests.payment_cards import PaymentCards
+from tests.requests.membership_cards import MembershipCards
 from tests.api.base import Endpoint
 from tests.helpers.test_data_utils import TestDataUtils
+from tests.helpers.test_context import TestContext
 
 
 # Hooks
 def pytest_bdd_step_error(request, feature, scenario, step, step_func, step_func_args, exception):
-    print(f"Step failed: {step}")
+    """This function will log the failed BDD-Step at the end of logs"""
+    logging.info(f"Step failed: {step}")
 
 
-# def pytest_bdd_after_scenario(request, feature, scenario)
+def pytest_bdd_after_scenario(request, feature, scenario):
+    """Called after scenario is executed (even if one of steps has failed)
+    So the scheme_account will be deleted always and make sure the test data is ready"""
+    if not TestContext.get_scheme_account_id() == "":
+        delete_scheme_account(TestContext.get_token(), TestContext.get_scheme_account_id())
 
 
 def pytest_html_report_title(report):
@@ -41,7 +49,7 @@ def configure_html_report_env(request, env, channel):
 
 def pytest_addoption(parser):
     parser.addoption("--channel", action="store", default="bink", help="Channel names like Bink,Barclays should pass")
-    parser.addoption("--env", action="store", default="dev", help="env : can be staging or dev")
+    parser.addoption("--env", action="store", default="dev", help="env : can be dev or staging or prod")
 
 
 """Terminal parameter Fixtures"""
@@ -75,19 +83,21 @@ def test_email():
 
 @pytest.fixture
 def driver():
-    """check to be included if chrome is not there? add another browser safari"""
-    if config.BROWSER.browser_name == "chrome":
-        driver = Chrome(executable_path=config.BROWSER.driver_path)
-        driver.maximize_window()
-
-    # elif launch in safari
+    if env == 'dev' or 'staging':
+        yield None
     else:
-        raise Exception(f'"{config.BROWSER.browser_name}" is not a supported browser')
-    driver.implicitly_wait(config.BROWSER.wait_time)
-    """Return driver object after set up """
-    yield driver
-    """Quit driver for cleanup """
-    driver.quit()
+        if config.BROWSER.browser_name == "chrome":
+            driver = Chrome(executable_path=config.BROWSER.driver_path)
+            driver.maximize_window()
+        # elif launch in safari
+        else:
+            raise Exception(f'"{config.BROWSER.browser_name}" is not a supported browser')
+            driver.implicitly_wait(config.BROWSER.wait_time)
+
+        """Return driver object after set up """
+        yield driver
+        """Quit driver for cleanup """
+        driver.quit()
 
 
 """Shared  Steps"""
@@ -96,6 +106,7 @@ def driver():
 @given("I register with bink service as a new customer")
 def register_user(test_email, channel, env):
     response = CustomerAccount.create_user(test_email, channel, env)
+    TestContext.set_token(response.json().get("api_key"))
     CustomerAccount.create_consent(response.json().get("api_key"), test_email)
     logging.info("User registration is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
     return response
@@ -104,6 +115,7 @@ def register_user(test_email, channel, env):
 @given("I am a Bink user")
 def login_user(channel, env):
     response = CustomerAccount.login_user(channel, env)
+    TestContext.set_token(response.json().get("api_key"))
     logging.info("User Login is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
     return response
 
@@ -137,10 +149,24 @@ def verify_payment_card_added(context):
             response.status_code == 200
             and response_json["id"] == context["payment_card_id"]
             and response_json["status"] == TestDataUtils.TEST_DATA.payment_card.get(constants.PAYMENT_CARD_STATUS)
-    ), "Payment card has been added successfully"
+    ), "Payment card addition is not successful"
 
 
 @then("I perform DELETE request to delete the payment card")
-def delete_payment_card(context, merchant):
+def delete_payment_card(context):
     response = PaymentCards.delete_payment_card(context["token"], context["payment_card_id"])
-    assert response.status_code == 200, "Payment card is deleted successfully"
+    logging.info("Payment card is deleted successfully")
+    assert response.status_code == 200, "Payment card deletion is not successful"
+
+
+def delete_scheme_account(token, scheme_account):
+    """ To make sure the scheme_account is deleted successfully,even if the add/enrol journey failed """
+    response_del_schemes = MembershipCards.delete_scheme_account(token, scheme_account)
+    try:
+        if response_del_schemes.status_code == 200:
+            logging.info("Scheme account is deleted successfully, even the scenario has failed")
+        elif response_del_schemes.status_code == 404:
+            logging.info("Scheme account is already  deleted ")
+
+    except HTTPError as network_response:
+        assert network_response.response.status_code == 404 or 400

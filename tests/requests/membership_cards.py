@@ -120,7 +120,6 @@ class MembershipCards(Endpoint):
                         break
             if ele_present == "yes":
                 break
-        print("balance_current_membership_card", current_membership_card_response)
         return current_membership_card_response
 
     # Delete Membership Card

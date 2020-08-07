@@ -27,8 +27,8 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     And I perform DELETE request to delete the "Wasabi" membership card
 
 #  @add_and_link
+ @add_and_link
   Scenario: ADD & LINK Journey_Wasabi
-
     Given I am a Bink user
     And I perform POST request to add payment card to wallet
     And I perform the GET request to verify the payment card has been added successfully
@@ -38,7 +38,6 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "Wasabi" membership card
     And I perform DELETE request to delete the payment card
-
 #  @enrol
     Scenario: Join Journey_Wasabi
 

@@ -35,6 +35,8 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     When I perform POST request to add & auto link an existing "HarveyNichols" membership card
     And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
     And I perform GET request to view balance for recently added "HarveyNichols" membership card
+    When I perform GET request to view all transactions made using the recently added "HarveyNichols" membership card
+    Then I perform GET request to view a specific transaction made using the recently added "HarveyNichols" membership card
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the payment card
