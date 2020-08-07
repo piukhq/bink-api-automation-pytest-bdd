@@ -4,6 +4,7 @@ import json
 from faker import Faker
 from pytest_bdd import given, then
 from selenium.webdriver import Chrome
+from requests.exceptions import HTTPError
 
 import config
 import tests.api as api
