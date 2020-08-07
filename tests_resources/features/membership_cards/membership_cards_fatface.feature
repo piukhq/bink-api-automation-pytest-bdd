@@ -39,7 +39,6 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "FatFace" membership card
     And I perform DELETE request to delete the payment card
-
 @enrol
     Scenario: Join Journey_FatFace
 

@@ -25,7 +25,8 @@ def pytest_bdd_step_error(request, feature, scenario, step, step_func, step_func
 def pytest_bdd_after_scenario(request, feature, scenario):
     """Called after scenario is executed (even if one of steps has failed)
     So the scheme_account will be deleted always and make sure the test data is ready"""
-    delete_scheme_account(TestContext.get_token(), TestContext.get_scheme_account_id())
+    if not TestContext.get_scheme_account_id() == "":
+        delete_scheme_account(TestContext.get_token(), TestContext.get_scheme_account_id())
 
 
 def pytest_html_report_title(report):
@@ -81,21 +82,21 @@ def test_email():
 
 @pytest.fixture
 def driver():
-    # if env == 'dev' or 'staging':
-    #     pass
-    # else:
-    if config.BROWSER.browser_name == "chrome":
-        driver = Chrome(executable_path=config.BROWSER.driver_path)
-        driver.maximize_window()
-    # elif launch in safari
+    if env == 'dev' or 'staging':
+        yield None
     else:
-        raise Exception(f'"{config.BROWSER.browser_name}" is not a supported browser')
-    driver.implicitly_wait(config.BROWSER.wait_time)
+        if config.BROWSER.browser_name == "chrome":
+            driver = Chrome(executable_path=config.BROWSER.driver_path)
+            driver.maximize_window()
+        # elif launch in safari
+        else:
+            raise Exception(f'"{config.BROWSER.browser_name}" is not a supported browser')
+            driver.implicitly_wait(config.BROWSER.wait_time)
 
-    """Return driver object after set up """
-    yield driver
-    """Quit driver for cleanup """
-    driver.quit()
+        """Return driver object after set up """
+        yield driver
+        """Quit driver for cleanup """
+        driver.quit()
 
 
 """Shared  Steps"""
