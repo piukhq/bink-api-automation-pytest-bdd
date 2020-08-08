@@ -1,6 +1,7 @@
 stages:
   - tests
   - build
+  - test
 
 flake8:
   stage: tests
@@ -21,3 +22,8 @@ build:
     - docker push "$CI_REGISTRY/pyqa:master-$CI_COMMIT_SHORT_SHA"
   only:
     - master
+
+job1:
+  stage: test
+  timeout: 1h
+  script: pytest -m "add and harvey_nichols"
