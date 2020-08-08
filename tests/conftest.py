@@ -1,7 +1,6 @@
 import pytest
 import logging
 import json
-from faker import Faker
 from pytest_bdd import given, then
 from selenium.webdriver import Chrome
 from requests.exceptions import HTTPError
@@ -15,6 +14,7 @@ from tests.requests.membership_cards import MembershipCards
 from tests.api.base import Endpoint
 from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_context import TestContext
+from faker import Faker
 
 
 # Hooks
