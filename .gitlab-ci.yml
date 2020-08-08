@@ -26,6 +26,7 @@ build:
 job1:
   stage: test
   timeout: 1h
+  image: binkhq/python:3.8
   script:
     - pipenv install --ignore-pipfile
     - pytest -m "add and harvey_nichols"
