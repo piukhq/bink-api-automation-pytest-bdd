@@ -26,4 +26,6 @@ build:
 job1:
   stage: test
   timeout: 1h
-  script: pytest -m "add and harvey_nichols"
+  script:
+    - pipenv install --ignore-pipfile
+    - pytest -m "add and harvey_nichols"
