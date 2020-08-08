@@ -30,4 +30,5 @@ job1:
   script:
     - pip install pipenv
     - pipenv install --ignore-pipfile
+    - pip install pytest
     - pytest -m "add and harvey_nichols"
