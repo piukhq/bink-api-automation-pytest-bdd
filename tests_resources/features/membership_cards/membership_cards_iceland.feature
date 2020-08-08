@@ -50,6 +50,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform GET request to verify the "Iceland" membership account is created
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "Iceland" membership card
+    And Delete the new customer
 
   @enrol_put
   Scenario: Join Journey_PUT_Iceland

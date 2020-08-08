@@ -5,6 +5,10 @@ from tests.payload.service.customer_accounts import UserDetails
 
 
 class CustomerAccount:
+    """Functions used to Create a new user, Service consent and Delete a user
+    and
+    Login using an existing user(User Login credentials are kept in test_data_sheet based in environment)"""
+
     @staticmethod
     def create_user(test_email, channel, env):
         url = Endpoint.BASE_URL + api.ENDPOINT_REGISTER
@@ -22,6 +26,12 @@ class CustomerAccount:
         headers = Endpoint.request_header(token)
         payload = UserDetails.consent_user_payload(test_email)
         return Endpoint.call(url, headers, "POST", payload)
+
+    @staticmethod
+    def delete_new_user(token):
+        url = Endpoint.BASE_URL + api.ENDPOINT_SERVICE
+        headers = Endpoint.request_header(token)
+        return Endpoint.call(url, headers, "DELETE")
 
     @staticmethod
     def login_user(channel, env):

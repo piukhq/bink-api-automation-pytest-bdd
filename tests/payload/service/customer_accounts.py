@@ -13,16 +13,17 @@ class UserDetails:
             "client_id": client_id,
             "bundle_id": bundle_id,
         }
-        print('payload', payload)
         return payload
 
     @staticmethod
     def consent_user_payload(test_email):
         payload = {
-            "email": test_email,
-            "timestamp": int(time.time()),
-            "latitude": 0.0,
-            "longitude": 12.345
+            "consent": {
+                "email": test_email,
+                "timestamp": int(time.time()),
+                "latitude": 0.0,
+                "longitude": 12.345
+            }
         }
         return payload
 

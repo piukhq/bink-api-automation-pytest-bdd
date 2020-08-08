@@ -107,7 +107,8 @@ def driver():
 def register_user(test_email, channel, env):
     response = CustomerAccount.create_user(test_email, channel, env)
     TestContext.set_token(response.json().get("api_key"))
-    CustomerAccount.create_consent(response.json().get("api_key"), test_email)
+    response_consent = CustomerAccount.create_consent(TestContext.get_token(), test_email)
+    assert response_consent.status_code == 201, "User Registration _ service consent is not successful"
     logging.info("User registration is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
     return response
 
@@ -118,6 +119,13 @@ def login_user(channel, env):
     TestContext.set_token(response.json().get("api_key"))
     logging.info("User Login is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
     return response
+
+
+@then("Delete the new customer")
+def delete_user():
+    response = CustomerAccount.delete_new_user(TestContext.get_token())
+    assert response.status_code == 200, "Te user deletion is not successful"
+    logging.info("User is deleted successfully from the system")
 
 
 @pytest.fixture(scope="function")

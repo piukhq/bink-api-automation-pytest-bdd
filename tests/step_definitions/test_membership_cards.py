@@ -395,11 +395,16 @@ def verify_membership_account_link_date_card_number_and_merchant_identifier_popu
 
 
 @then("verify membership account Join date, Card Number and Merchant identifier populated in Django")
-def verify_membership_account_join_date_card_number_and_merchant_identifier_populated_in_django(driver, context):
-    scheme_account_id = str(context["scheme_account_id"])
-    driver.get(Endpoint.DJANGO_URL + "scheme/schemeaccount/" + scheme_account_id + "/change/")
-    driver.find_element_by_name("username").send_keys(TestDataUtils.TEST_DATA.django_user_accounts.get("django_uid"))
-    driver.find_element_by_name("password").send_keys(TestDataUtils.TEST_DATA.django_user_accounts.get("django_pwd"))
-    driver.find_element_by_xpath("//input[@type='submit']").click()
-    select = Select(driver.find_element_by_name("status"))
-    assert select.first_selected_option.text == "Active"
+def verify_membership_account_join_date_card_number_and_merchant_identifier_populated_in_django(driver, context, env):
+    if env == 'dev' or 'staging':
+        pass
+    else:
+        scheme_account_id = str(context["scheme_account_id"])
+        driver.get(Endpoint.DJANGO_URL + "scheme/schemeaccount/" + scheme_account_id + "/change/")
+        driver.find_element_by_name("username").send_keys(TestDataUtils.
+                                                          TEST_DATA.django_user_accounts.get("django_uid"))
+        driver.find_element_by_name("password").send_keys(TestDataUtils.
+                                                          TEST_DATA.django_user_accounts.get("django_pwd"))
+        driver.find_element_by_xpath("//input[@type='submit']").click()
+        select = Select(driver.find_element_by_name("status"))
+        assert select.first_selected_option.text == "Active"
