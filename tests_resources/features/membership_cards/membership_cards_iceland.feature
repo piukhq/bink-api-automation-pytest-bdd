@@ -5,7 +5,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
   So I can add my card, with the scheme provider Iceland & check its details successfully
 
 
-  @add
+  @add @staging @prod
   Scenario: Add Journey_Iceland
 
     Given I am a Bink user
@@ -15,8 +15,8 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the "Iceland" membership card
 
 
-  @add_patch
-  Scenario:  PATCH membership card details_Iceland
+  @add_patch @staging @prod
+  Scenario: Add Journey_PATCH_Iceland
 
     Given I am a Bink user
     When I perform POST request to add "Iceland" membership card with "invalid_data"
@@ -26,7 +26,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     And I perform DELETE request to delete the "Iceland" membership card
 
-  @add_and_link
+  @add_and_link @staging @prod
   Scenario: ADD & LINK Journey_Iceland
 
     Given I am a Bink user
@@ -41,27 +41,52 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "Iceland" membership card
     And I perform DELETE request to delete the payment card
 
-  @enrol
+    """In Iceland Enrol payload "column": "Enrol Consent 1" has different values for Bink & Barclays users"""
+  @enrol @staging @prod @enrol_iceland
     Scenario: Join Journey_Iceland
 
 
     Given I register with bink service as a new customer
-    When I perform POST request to create a "Iceland" membership account with enrol credentials
+    When I perform POST request to create a "Iceland" membership account with enrol credentials for "Barclays"
     And I perform GET request to verify the "Iceland" membership account is created
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "Iceland" membership card
     And Delete the new customer
+
+     @enrol
+    Scenario: Join Journey_Iceland_Bink
+
+
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "Iceland" membership account with enrol credentials for "Bink"
+    And I perform GET request to verify the "Iceland" membership account is created
+    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
+    Then I perform DELETE request to delete the "Iceland" membership card
+    And I perform DELETE request to delete the customer
 
   @enrol_put
   Scenario: Join Journey_PUT_Iceland
 
 
     Given I register with bink service as a new customer
-    When I perform POST request to create a "Iceland" membership account with "invalid" enrol credentials
+    When I perform POST request to create a "Iceland" membership account with "invalid" enrol credentials for "Barclays"
     And I perform GET request to verify the "Iceland" membership account is created with invalid data
     And I perform PUT request to replace information of the enrolled "Iceland" membership card
     And I perform GET request to verify the enrolled "Iceland" membership card details got replaced after a successful PUT
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "Iceland" membership card
+    And I perform DELETE request to delete the customer
 
 
+
+  @enrol_put
+  Scenario: Join Journey_PUT_Iceland_Bink
+
+
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "Iceland" membership account with "invalid" enrol credentials for "Bink"
+    And I perform GET request to verify the "Iceland" membership account is created with invalid data
+    And I perform PUT request to replace information of the enrolled "Iceland" membership card
+    And I perform GET request to verify the enrolled "Iceland" membership card details got replaced after a successful PUT
+    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
+    Then I perform DELETE request to delete the "Iceland" membership card

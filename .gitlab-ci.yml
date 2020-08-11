@@ -1,7 +1,6 @@
 stages:
   - tests
   - build
-  - test
 
 flake8:
   stage: tests
@@ -23,7 +22,3 @@ build:
   only:
     - master
 
-job1:
-  stage: test
-  timeout: 1h
-  script: pytest -m "add and harvey_nichols"

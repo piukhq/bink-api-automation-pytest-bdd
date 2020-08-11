@@ -48,6 +48,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     And I perform GET request to verify the "BurgerKing" membership account is created
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "BurgerKing" membership card
+    And I perform DELETE request to delete the customer
 
 @enrol_put
   Scenario: Join Journey_PUT_BurgerKing
@@ -60,4 +61,5 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     And I perform GET request to verify the enrolled "BurgerKing" membership card details got replaced after a successful PUT
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "BurgerKing" membership card
+    And I perform DELETE request to delete the customer
 

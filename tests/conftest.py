@@ -1,7 +1,6 @@
 import pytest
 import logging
 import json
-from faker import Faker
 from pytest_bdd import given, then
 from selenium.webdriver import Chrome
 from requests.exceptions import HTTPError
@@ -15,6 +14,7 @@ from tests.requests.membership_cards import MembershipCards
 from tests.api.base import Endpoint
 from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_context import TestContext
+from faker import Faker
 
 
 # Hooks
@@ -121,7 +121,7 @@ def login_user(channel, env):
     return response
 
 
-@then("Delete the new customer")
+@then("I perform DELETE request to delete the customer")
 def delete_user():
     response = CustomerAccount.delete_new_user(TestContext.get_token())
     assert response.status_code == 200, "Te user deletion is not successful"

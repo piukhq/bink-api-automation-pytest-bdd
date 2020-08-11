@@ -6,7 +6,7 @@ Feature: Merchant WHSmith - Ensure a customer can view Scheme plan details
 
   Verify a customer can use Banking API to view available WHSmith membership plans v1.2
 
-  @membership_plan
+#  @membership_plan
   Scenario: Membership plans v1.2_WHSmith
     Given I am a Bink user
     When I perform GET request to view all available membership plans

@@ -6,7 +6,7 @@ Feature: Merchant CooP - Ensure a customer can view Scheme plan details
 
   Verify a customer can use Banking API to view available CooP membership plans v1.2
 
-  @membership_plan
+"""CooP is not in use for current launch. So removed the execution tags"""
   Scenario: Membership plans v1.2_CooP
     Given I am a Bink user
     When I perform GET request to view all available membership plans
