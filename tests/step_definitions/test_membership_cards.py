@@ -122,14 +122,10 @@ def patch_request_to_update_membership_card_details(merchant, context):
 """Step definitions - Enrol Journey """
 
 
-@when(parsers.parse(
-    'I perform POST request to create a "{merchant}" membership account with enrol credentials for "{channel}"'
-)
-)
 @when(parsers.parse('I perform POST request to create a "{merchant}" membership account with enrol credentials'))
-def enrol_membership_account(merchant, register_user, context, test_email, channel=None):
+def enrol_membership_account(merchant, register_user, context, test_email, env, channel):
     context["token"] = register_user.json().get("api_key")
-    response = MembershipCards.enrol_customer(context["token"], merchant, test_email, channel)
+    response = MembershipCards.enrol_customer(context["token"], merchant, test_email, env, channel)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
     TestContext.set_scheme_account(context["scheme_account_id"])
@@ -143,19 +139,13 @@ def enrol_membership_account(merchant, register_user, context, test_email, chann
     ), ("Enrol journey for " + merchant + " failed")
 
 
-@when(
-    parsers.parse(
-        'I perform POST request to create a "{merchant}" membership account with "{invalid}" enrol credentials'
-        ' for "{channel}"'
-    )
-)
 @when(parsers.parse(
     'I perform POST request to create a "{merchant}" membership account with "{invalid}" enrol credentials'
 )
-    )
-def enrol_membership_account_invalid_credentials(merchant, channel, register_user, context, test_email, invalid):
+)
+def enrol_membership_account_invalid_credentials(merchant, register_user, context, test_email, env, channel, invalid):
     context["token"] = register_user.json().get("api_key")
-    response = MembershipCards.enrol_customer(context["token"], merchant, test_email, channel, invalid)
+    response = MembershipCards.enrol_customer(context["token"], merchant, test_email, env, channel, invalid)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
     TestContext.set_scheme_account(context["scheme_account_id"])

@@ -1,10 +1,11 @@
 import tests.api as api
 import time
-
+import logging
 from tests.helpers.test_helpers import Merchant
 from tests.helpers.test_helpers import TestData
 from tests.api.base import Endpoint
 import tests.helpers.constants as constants
+from tests.helpers.test_data_utils import TestDataUtils
 
 
 class MembershipCards(Endpoint):
@@ -36,24 +37,24 @@ class MembershipCards(Endpoint):
 
     # ---------------------------------------- Enrol Journey---------------------------------------------------
     @staticmethod
-    def enrol_customer(token, merchant, email, channel=None, invalid_data=None):
+    def enrol_customer(token, merchant, email, env=None, channel=None, invalid_data=None):
         """"Including channel as an input as for iceland the enrol is different for
         Bink & Barclays"""
 
         url = MembershipCards.get_url()
         header = Endpoint.request_header(token)
         if not invalid_data:
-            payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email, channel)
+            payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email, env, channel)
         else:
-            payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email, channel, invalid_data)
+            payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email, env, channel, invalid_data)
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
-    def put_enrol_customer(token, scheme_account_id, merchant, email, channel=None):
+    def put_enrol_customer(token, scheme_account_id, merchant, email, env=None, channel=None):
 
         url = MembershipCards.get_url(scheme_account_id)
         header = Endpoint.request_header(token)
-        payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email, channel)
+        payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email, env, channel)
         return Endpoint.call(url, header, "PUT", payload)
 
     @staticmethod
@@ -88,15 +89,18 @@ class MembershipCards(Endpoint):
     def get_scheme_account_auto_link(token, scheme_account_id):
         """Waiting max up to 30 sec to change status from Pending to Authorized"""
         for i in range(1, 30):
-            # url = Endpoint.BASE_URL + api.ENDPOINT_AUTO_LINK_PAYMENT_AND_MEMBERSHIP_CARD_URL
             url = MembershipCards.get_url(scheme_account_id)
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
             response_json = response.json()
-            if response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING):
+            try:
+                if not response_json["payment_cards"][0]["active_link"]:
+                    time.sleep(1)
+                else:
+                    break
+            except IndexError:
                 time.sleep(1)
-            else:
-                break
+                logging.info("Wait for payment card array to populate")
         return response
 
     @staticmethod
