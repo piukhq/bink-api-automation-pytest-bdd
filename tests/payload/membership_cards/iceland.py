@@ -46,9 +46,9 @@ class IcelandCard:
         return payload
 
     @staticmethod
-    def enrol_membership_scheme_payload(email, invalid_data=None):
+    def enrol_membership_scheme_payload(email, channel=None, invalid_data=None):
         faker = Faker()
-
+        enrol_consent = "Consent 1"
         if invalid_data:
             value = TestDataUtils.TEST_DATA.iceland_invalid_data.get(constants.EMAIL)
             logging.info("Invalid data is: " + value)
@@ -56,6 +56,12 @@ class IcelandCard:
         else:
             value = email
             data_type = "Valid data"
+
+        if channel == "Barclays":
+            logging.info("here inside Barclays")
+            enrol_consent = "Consent 1"
+        elif channel == "Bink":
+            enrol_consent = "Enrol Consent 1"
 
         payload = {
             "account": {
@@ -71,7 +77,7 @@ class IcelandCard:
                     {"column": "City", "value": faker.city()},
                     {"column": "County", "value": faker.country()},
                     {"column": "Postcode", "value": faker.postcode()},
-                    {"column": "Enrol Consent 1", "value": constants.CONSENT},
+                    {"column": enrol_consent, "value": constants.CONSENT},
                 ]
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),

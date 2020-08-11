@@ -36,22 +36,24 @@ class MembershipCards(Endpoint):
 
     # ---------------------------------------- Enrol Journey---------------------------------------------------
     @staticmethod
-    def enrol_customer(token, merchant, email, invalid_data=None):
+    def enrol_customer(token, merchant, email, channel=None, invalid_data=None):
+        """"Including channel as an input as for iceland the enrol is different for
+        Bink & Barclays"""
 
         url = MembershipCards.get_url()
         header = Endpoint.request_header(token)
         if not invalid_data:
-            payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email)
+            payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email, channel)
         else:
-            payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email, invalid_data)
+            payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email, channel, invalid_data)
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
-    def put_enrol_customer(token, scheme_account_id, merchant, email):
+    def put_enrol_customer(token, scheme_account_id, merchant, email, channel=None):
 
         url = MembershipCards.get_url(scheme_account_id)
         header = Endpoint.request_header(token)
-        payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email)
+        payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email, channel)
         return Endpoint.call(url, header, "PUT", payload)
 
     @staticmethod

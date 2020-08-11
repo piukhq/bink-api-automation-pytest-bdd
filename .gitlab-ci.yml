@@ -1,7 +1,6 @@
 stages:
   - tests
   - build
-  - test
 
 flake8:
   stage: tests
@@ -20,15 +19,6 @@ build:
   script:
     - docker build --pull -t "$CI_REGISTRY/pyqa:master-$CI_COMMIT_SHORT_SHA" .
     - docker push "$CI_REGISTRY/pyqa:master-$CI_COMMIT_SHORT_SHA"
-#  only:
-#    - master
+  only:
+    - master
 
-job1:
-  stage: test
-  timeout: 1h
-  image: binkhq/python:3.8
-  script:
-    - pip install pipenv
-    - pipenv install --ignore-pipfile
-    - pip install pytest
-    - pytest -m "add and harvey_nichols"

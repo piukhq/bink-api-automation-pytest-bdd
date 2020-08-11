@@ -69,6 +69,25 @@ def add_invalid_membership_card(merchant, login_user, context, invalid_data):
     ), ("Add Journey with invalid details for " + merchant + " failed")
 
 
+@when(parsers.parse(
+    'I perform POST request to add "{merchant}" membership card with invalid "{email_address} and "{password}"'
+)
+)
+def add_membership_card_invalid_credentials(merchant, login_user, context, email_address, password):
+    context["token"] = login_user.json().get("api_key")
+    response = MembershipCards.add_card(context["token"], merchant, invalid_data)
+    response_json = response.json()
+    context["scheme_account_id"] = response_json.get("id")
+    TestContext.set_scheme_account(context["scheme_account_id"])
+    logging.info("The response of Add Journey (POST) with Invalid data is:\n \n"
+                 + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n"
+                 + json.dumps(response_json, indent=4))
+    assert (
+            response.status_code == 201
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
+    ), ("Add Journey with invalid details for " + merchant + " failed")
+
+
 @when(parsers.parse('I perform POST request to add & auto link an existing "{merchant}" membership card'))
 def add_existing_membership_card(merchant, login_user, context):
     context["token"] = login_user.json().get("api_key")
@@ -103,10 +122,14 @@ def patch_request_to_update_membership_card_details(merchant, context):
 """Step definitions - Enrol Journey """
 
 
+@when(parsers.parse(
+    'I perform POST request to create a "{merchant}" membership account with enrol credentials for "{channel}"'
+)
+)
 @when(parsers.parse('I perform POST request to create a "{merchant}" membership account with enrol credentials'))
-def enrol_membership_account(merchant, register_user, context, test_email):
+def enrol_membership_account(merchant, register_user, context, test_email, channel=None):
     context["token"] = register_user.json().get("api_key")
-    response = MembershipCards.enrol_customer(context["token"], merchant, test_email)
+    response = MembershipCards.enrol_customer(context["token"], merchant, test_email, channel)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
     TestContext.set_scheme_account(context["scheme_account_id"])
@@ -122,12 +145,17 @@ def enrol_membership_account(merchant, register_user, context, test_email):
 
 @when(
     parsers.parse(
-        'I perform POST request to create a "{merchant}" membership account with "{invalid}" enrol ' "credentials"
+        'I perform POST request to create a "{merchant}" membership account with "{invalid}" enrol credentials'
+        ' for "{channel}"'
     )
 )
-def enrol_membership_account_invalid_credentials(merchant, register_user, context, test_email, invalid):
+@when(parsers.parse(
+    'I perform POST request to create a "{merchant}" membership account with "{invalid}" enrol credentials'
+)
+    )
+def enrol_membership_account_invalid_credentials(merchant, channel, register_user, context, test_email, invalid):
     context["token"] = register_user.json().get("api_key")
-    response = MembershipCards.enrol_customer(context["token"], merchant, test_email, invalid)
+    response = MembershipCards.enrol_customer(context["token"], merchant, test_email, channel, invalid)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
     TestContext.set_scheme_account(context["scheme_account_id"])

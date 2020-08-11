@@ -58,9 +58,24 @@ class TestData:
         return TestDataUtils.TEST_DATA.membership_plan_id.get(merchant_key)
 
     @staticmethod
-    def get_expected_membership_plan_json(merchant):
+    def get_expected_membership_plan_json(merchant, env, channel=None):
         merchant_key = TestData.get_merchant_key(merchant)
-        return constants.EXPECTED_MEMBERSHIP_PLANS_PATH + "/" + merchant_key + "_membership_plan.json"
+        """Temporary solution as Iceland has different membership plan id for Bink & Barclays"""
+        if env == "dev":
+            if merchant == "Iceland" and channel == "Barclays":
+                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_DEV + "/iceland_membership_plan_bmb.json"
+            else:
+                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_DEV + "/" + merchant_key + "_membership_plan.json"
+        elif env == "staging":
+            if merchant == "Iceland" and channel == "Barclays":
+                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_STAGING + "/iceland_membership_plan_bmb.json"
+            else:
+                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_STAGING + "/" + merchant_key + "_membership_plan.json"
+        elif env == "prod":
+            if merchant == "Iceland" and channel == "Barclays":
+                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD + "/iceland_membership_plan_bmb.json"
+            else:
+                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD + "/" + merchant_key + "_membership_plan.json"
 
     @staticmethod
     def get_merchant_key(merchant):
@@ -80,6 +95,7 @@ class TestData:
 
 class PaymentCardTestData:
     """This function is for future use - when more testing in payment cards"""
+
     @staticmethod
     def get_data(payment_card_provider):
         switcher = {
