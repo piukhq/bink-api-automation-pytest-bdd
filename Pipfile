@@ -18,6 +18,7 @@ pytest-html = "*"
 jsonpath = "*"
 faker = "*"
 psycopg2-binary = "*"
+json-diff = "*"
 
 [requires]
 python_version = "3.8"
