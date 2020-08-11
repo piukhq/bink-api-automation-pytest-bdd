@@ -121,7 +121,7 @@ def login_user(channel, env):
     return response
 
 
-@then("Delete the new customer")
+@then("I perform DELETE request to delete the customer")
 def delete_user():
     response = CustomerAccount.delete_new_user(TestContext.get_token())
     assert response.status_code == 200, "Te user deletion is not successful"

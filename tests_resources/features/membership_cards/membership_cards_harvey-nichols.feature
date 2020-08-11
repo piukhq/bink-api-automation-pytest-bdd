@@ -50,6 +50,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     And I perform GET request to verify the "HarveyNichols" membership account is created
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "HarveyNichols" membership card
+    And I perform DELETE request to delete the customer
 
   @enrol_put
   Scenario: Join Journey_PUT_HarveyNichols
@@ -62,6 +63,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     And I perform GET request to verify the enrolled "HarveyNichols" membership card details got replaced after a successful PUT
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "HarveyNichols" membership card
+    And I perform DELETE request to delete the customer
 
 
   Scenario Outline:  Add_Journey_Invalid data_Error code checks
