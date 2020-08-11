@@ -75,7 +75,7 @@ def add_invalid_membership_card(merchant, login_user, context, invalid_data):
 )
 def add_membership_card_invalid_credentials(merchant, login_user, context, email_address, password):
     context["token"] = login_user.json().get("api_key")
-    response = MembershipCards.add_card(context["token"], merchant, invalid_data)
+    response = MembershipCards.add_card(context["token"], merchant)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
     TestContext.set_scheme_account(context["scheme_account_id"])
