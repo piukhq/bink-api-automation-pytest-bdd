@@ -27,7 +27,7 @@ class HarveyNicholsCard:
                      },
                     {
                         "column": "Password",
-                        "value": TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.PASSWORD)
+                        "value": TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.PASSWORD_ENCRYPTED)
 
                     }
                 ]
