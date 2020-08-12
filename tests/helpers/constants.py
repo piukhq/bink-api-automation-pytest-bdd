@@ -37,6 +37,7 @@ NAME_ON_CARD = "name_on_card"
 MONTH = "month"
 YEAR = "year"
 FINGERPRINT = "fingerprint"
+HASH = "hash"
 PAYMENT_CARD_STATUS = "status"
 ACTIVE_LINK = "active_link"
 

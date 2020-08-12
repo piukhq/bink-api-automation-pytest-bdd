@@ -88,6 +88,7 @@ class MembershipCards(Endpoint):
     @staticmethod
     def get_scheme_account_auto_link(token, scheme_account_id):
         """Waiting max up to 30 sec to change status from Pending to Authorized"""
+        time.sleep(5)
         for i in range(1, 30):
             url = MembershipCards.get_url(scheme_account_id)
             header = Endpoint.request_header(token)

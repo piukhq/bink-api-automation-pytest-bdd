@@ -237,7 +237,12 @@ def verify_membership_card_is_add_and_linked(merchant, context):
         "The response of GET/MembershipCard after Membership card Add & AutoLink is:\n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(context["scheme_account_id"]) + "\n\n"
         + json.dumps(response_json, indent=4))
+
     try:
+        payment_card_present = "no"
+        for current_payment_card in response_json["payment_cards"]:
+            if current_payment_card["id"] == context["payment_card_id"]:
+                payment_card_present = "yes"
         assert (
                 response.status_code == 200
                 and response_json["id"] == context["scheme_account_id"]
@@ -247,13 +252,18 @@ def verify_membership_card_is_add_and_linked(merchant, context):
                 and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
                 and response_json["payment_cards"][0]["active_link"] ==
                 TestDataUtils.TEST_DATA.payment_card.get(constants.ACTIVE_LINK)
-                and response_json["payment_cards"][0]["id"] == context["payment_card_id"]
+                and payment_card_present == "yes"
+
+                # and response_json["payment_cards"][0]["id"] == context["payment_card_id"]
 
         ), ("Validations in GET/membership_cards after AutoLink for " + merchant + " failed")
+
+
+
     except IndexError:
         raise Exception("PLL link for " + merchant + " failed and the payment array in the response is empty")
     except AssertionError as error:
-        raise Exception("Add&Link Journey for " + merchant + " failed due to" + error.__str__())
+        raise Exception("Add&Link Journey for " + merchant + " failed due to " + error.__str__())
 
 
 @when(

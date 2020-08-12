@@ -134,9 +134,9 @@ def context():
 
 
 @given("I perform POST request to add payment card to wallet")
-def add_payment_card(login_user, context):
+def add_payment_card(login_user, context, test_email):
     context["token"] = login_user.json().get("api_key")
-    response = PaymentCards.add_payment_card(context["token"])
+    response = PaymentCards.add_payment_card(context["token"], test_email)
     response_json = response.json()
     logging.info("The response of POST/PaymentCard is: \n\n"
                  + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n"

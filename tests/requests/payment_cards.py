@@ -10,10 +10,11 @@ from tests.helpers.test_data_utils import TestDataUtils
 
 class PaymentCards(Endpoint):
     @staticmethod
-    def add_payment_card(token):
+    def add_payment_card(token, test_email):
         url = PaymentCards.get_url()
         header = Endpoint.request_header(token)
-        payload = PaymentCardDetails.add_payment_card_payload()
+        payload = PaymentCardDetails.add_payment_card_payload(test_email)
+        # payload = PaymentCardDetails.add_payment_card_payload_encrypted(test_email)
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod

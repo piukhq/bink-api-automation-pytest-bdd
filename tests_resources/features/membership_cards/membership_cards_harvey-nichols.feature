@@ -49,7 +49,8 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
 #    Then Verify the card status as "Invalid Credentials" in Django
     Then I perform DELETE request to delete the "HarveyNichols" membership card
 
-  @enrol @dev @staging @prod
+  @enrol
+#  @dev @staging @prod
     Scenario: Join Journey_HarveyNichols
 
     Given I register with bink service as a new customer
@@ -59,7 +60,8 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the customer
 
-  @enrol_put @dev @staging @prod
+  @enrol_put
+#  @dev @staging @prod
   Scenario: Join Journey_PUT_HarveyNichols
 
     Given I register with bink service as a new customer
