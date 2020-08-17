@@ -178,10 +178,10 @@ membership_card_status_states = {
     "state_authorised": "authorised",
     "state_failed": "failed",
 }
-reason_codes = {
-    "pending": "[X100]",
-    "authorised": "X300",
-    "failed": "X303",
+membership_card_status_reason_codes = {
+    "reason_code_pending": "X100",
+    "reason_code_authorised": "X300",
+    "reason_code_failed": "X303",
 }
 
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #

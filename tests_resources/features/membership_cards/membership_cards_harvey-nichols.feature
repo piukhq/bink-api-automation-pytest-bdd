@@ -1,21 +1,23 @@
-@harvey_nichols @bink
+@harvey_nichols
 Feature: Merchant Harvey Nichols - Ensure a customer can add their membership card & view its details for merchant Harvey Nichols
   As a customer
-  I want to utilise membership_cards endpoint of the Banking API
+  I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider Harvey Nichols & check its details successfully
 
 
-  @add  @dev @staging @prod
+  @add @dev @staging @prod
   Scenario: Add Journey_HarveyNichols
 
     Given I am a Bink user
     When I perform POST request to add "HarveyNichols" membership card
     And I perform GET request to verify the "HarveyNichols" membership card is added to the wallet
+    And I perform GET request to view balance for recently added "HarveyNichols" membership card
+    When I perform GET request to view all transactions made using the recently added "HarveyNichols" membership card
+    Then I perform GET request to view a specific transaction made using the recently added "HarveyNichols" membership card
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     And I perform DELETE request to delete the "HarveyNichols" membership card
 
-
-  @add_patch  @dev @staging @prod
+  @add_patch @dev @staging @prod
   Scenario:  Add Journey_PATCH_HarveyNichols
 
     Given I am a Bink user
@@ -26,7 +28,8 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     And I perform DELETE request to delete the "HarveyNichols" membership card
 
-  @add_and_link  @dev @staging @prod
+  @add_and_link
+#  @dev @staging @prod
   Scenario: ADD & LINK Journey_HarveyNichols
 
     Given I am a Bink user
@@ -41,9 +44,18 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the payment card
 
-  @enrol
-    Scenario: Join Journey_HarveyNichols
+    @dev @staging @prod
+    Scenario:  Add_Journey with Invalid Credentials_Harvey Nichols
 
+    Given I am a Bink user
+    When I perform POST request to add "HarveyNichols" membership card with "invalid_data"
+    And I perform GET request to verify the "HarveyNichols" membership card is added to the wallet with invalid data
+#    Then Verify the card status as "Invalid Credentials" in Django
+    Then I perform DELETE request to delete the "HarveyNichols" membership card
+
+  @enrol
+#  @dev @staging @prod
+    Scenario: Join Journey_HarveyNichols
 
     Given I register with bink service as a new customer
     When I perform POST request to create a "HarveyNichols" membership account with enrol credentials
@@ -53,8 +65,8 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     And I perform DELETE request to delete the customer
 
   @enrol_put
+#  @dev @staging @prod
   Scenario: Join Journey_PUT_HarveyNichols
-
 
     Given I register with bink service as a new customer
     When I perform POST request to create a "HarveyNichols" membership account with "invalid" enrol credentials
@@ -65,21 +77,21 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the customer
 
-
-  Scenario Outline:  Add_Journey_Invalid data_Error code checks
-
-    Given I am a Bink user
-    When I perform POST request to add "HarveyNichols" membership card with invalid "<email_address>" and "<password>"
-    And I perform GET request to verify the "HarveyNichols" membership card fails to add & link in their wallet with "<state>"
-    Then I can see relevant "<reason code>" is present in the response
-    Then they can perform Delete operation to delete the membership card
-
-
-    Examples:
-      | email_address             | password    | state  |reason code |
-      |auto_zer@testbink.com      | BinkT       | failed |  X303      |
-      |auto_zero@testbink.web     | BinkTesting | failed |  X303      |
-      |auto_zero@testbink.com     | BinkT       | failed |  X303      |
+#
+#  Scenario Outline:  Add_Journey_Invalid data_Error code checks
+#
+#    Given I am a Bink user
+#    When I perform POST request to add "HarveyNichols" membership card with invalid "<email_address>" and "<password>"
+#    And I perform GET request to verify the "HarveyNichols" membership card fails to add & link in their wallet with "<state>"
+#    Then I can see relevant "<reason code>" is present in the response
+#    Then they can perform Delete operation to delete the membership card
+#
+#
+#    Examples:
+#      | email_address             | password    | state  |reason code |
+#      |auto_zer@testbink.com      | BinkT       | failed |  X303      |
+#      |auto_zero@testbink.web     | BinkTesting | failed |  X303      |
+#      |auto_zero@testbink.com     | BinkT       | failed |  X303      |
 
 
 #  Scenario: Delete membership card to a payment card, then verify PLL link is automatically deleted

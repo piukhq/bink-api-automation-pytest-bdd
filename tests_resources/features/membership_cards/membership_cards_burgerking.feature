@@ -1,7 +1,7 @@
-@burger_king @bink
+@burger_king
 Feature: Merchant BurgerKing - Ensure a customer can add & link their membership card and enrol for a new membership card & view its details
   As a customer
-  I want to utilise membership_cards endpoint of the Banking API
+  I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider BurgerKing & check its details successfully
 
 @add

@@ -50,7 +50,9 @@ def add_membership_card(merchant, login_user, context):
     assert (
             response.status_code == 201
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
-    ), ("Add Journey with invalid details for " + merchant + " failed")
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING)
+    ), ("Add Journey for " + merchant + " failed")
 
 
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card with "{invalid_data}"'))
@@ -66,6 +68,8 @@ def add_invalid_membership_card(merchant, login_user, context, invalid_data):
     assert (
             response.status_code == 201
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING)
     ), ("Add Journey with invalid details for " + merchant + " failed")
 
 
@@ -85,6 +89,8 @@ def add_membership_card_invalid_credentials(merchant, login_user, context, email
     assert (
             response.status_code == 201
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING)
     ), ("Add Journey with invalid details for " + merchant + " failed")
 
 
@@ -102,6 +108,8 @@ def add_existing_membership_card(merchant, login_user, context):
     assert (
             response.status_code == 201
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING)
     ), ("Add & Link Journey for " + merchant + " failed")
 
 
@@ -116,20 +124,18 @@ def patch_request_to_update_membership_card_details(merchant, context):
     assert (
             response.status_code == 200
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING)
     ), ("Add Journey -PATCH Request for " + merchant + " failed")
 
 
 """Step definitions - Enrol Journey """
 
 
-@when(parsers.parse(
-    'I perform POST request to create a "{merchant}" membership account with enrol credentials for "{channel}"'
-)
-)
 @when(parsers.parse('I perform POST request to create a "{merchant}" membership account with enrol credentials'))
-def enrol_membership_account(merchant, register_user, context, test_email, channel=None):
+def enrol_membership_account(merchant, register_user, context, test_email, env, channel):
     context["token"] = register_user.json().get("api_key")
-    response = MembershipCards.enrol_customer(context["token"], merchant, test_email, channel)
+    response = MembershipCards.enrol_customer(context["token"], merchant, test_email, env, channel)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
     TestContext.set_scheme_account(context["scheme_account_id"])
@@ -140,22 +146,18 @@ def enrol_membership_account(merchant, register_user, context, test_email, chann
     assert (
             response.status_code == 201
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING)
     ), ("Enrol journey for " + merchant + " failed")
 
 
-@when(
-    parsers.parse(
-        'I perform POST request to create a "{merchant}" membership account with "{invalid}" enrol credentials'
-        ' for "{channel}"'
-    )
-)
 @when(parsers.parse(
     'I perform POST request to create a "{merchant}" membership account with "{invalid}" enrol credentials'
 )
-    )
-def enrol_membership_account_invalid_credentials(merchant, channel, register_user, context, test_email, invalid):
+)
+def enrol_membership_account_invalid_credentials(merchant, register_user, context, test_email, env, channel, invalid):
     context["token"] = register_user.json().get("api_key")
-    response = MembershipCards.enrol_customer(context["token"], merchant, test_email, channel, invalid)
+    response = MembershipCards.enrol_customer(context["token"], merchant, test_email, env, channel, invalid)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
     TestContext.set_scheme_account(context["scheme_account_id"])
@@ -166,6 +168,8 @@ def enrol_membership_account_invalid_credentials(merchant, channel, register_use
     assert (
             response.status_code == 201
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING)
     ), ("Enrol Journey with invalid details for " + merchant + " failed")
 
 
@@ -181,6 +185,8 @@ def put_request_to_replace_enrolled_membership_card_details(merchant, context, t
     assert (
             response.status_code == 200
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING)
     ), ("Enrol Journey PUT Request for " + merchant + "failed")
 
 
@@ -205,9 +211,11 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
             response.status_code == 200
             and response_json["id"] == context["scheme_account_id"]
             and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
+            and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().
             get(constants.AUTHORIZED)
-            and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_AUTHORIZED)
     ), ("Validations in GET/membership_cards for " + merchant + " failed")
 
 
@@ -231,6 +239,8 @@ def verify_membership_card_is_created(merchant, context):
             and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().
             get(constants.AUTHORIZED)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_AUTHORIZED)
     ), ("Validations in GET/membership_cards for " + merchant + " failed")
 
 
@@ -247,23 +257,31 @@ def verify_membership_card_is_add_and_linked(merchant, context):
         "The response of GET/MembershipCard after Membership card Add & AutoLink is:\n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(context["scheme_account_id"]) + "\n\n"
         + json.dumps(response_json, indent=4))
+
     try:
+        payment_card_present = "no"
+        for current_payment_card in response_json["payment_cards"]:
+            if current_payment_card["id"] == context["payment_card_id"]:
+                payment_card_present = "yes"
         assert (
                 response.status_code == 200
                 and response_json["id"] == context["scheme_account_id"]
                 and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
                 and response_json["status"]["state"] == TestData.get_membership_card_status_states().
                 get(constants.AUTHORIZED)
+                and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+                get(constants.REASON_CODE_AUTHORIZED)
                 and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
                 and response_json["payment_cards"][0]["active_link"] ==
                 TestDataUtils.TEST_DATA.payment_card.get(constants.ACTIVE_LINK)
-                and response_json["payment_cards"][0]["id"] == context["payment_card_id"]
+                and payment_card_present == "yes"
+                # and response_json["payment_cards"][0]["id"] == context["payment_card_id"]
 
         ), ("Validations in GET/membership_cards after AutoLink for " + merchant + " failed")
     except IndexError:
         raise Exception("PLL link for " + merchant + " failed and the payment array in the response is empty")
     except AssertionError as error:
-        raise Exception("Add&Link Journey for " + merchant + " failed due to" + error.__str__())
+        raise Exception("Add&Link Journey for " + merchant + " failed due to " + error.__str__())
 
 
 @when(
@@ -283,6 +301,8 @@ def verify_invalid_membership_card_is_added_to_wallet(merchant, context):
             response.status_code == 200
             and response_json["id"] == context["scheme_account_id"]
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.FAILED)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_FAILED)
     ), ("Validations in GET/membership_cards with invalid data for  " + merchant + " failed")
 
 
@@ -298,6 +318,8 @@ def verify_membership_card_balance(context, merchant):
             current_membership_card_response_array["id"] == context["scheme_account_id"]
             and current_membership_card_response_array["status"]["state"] ==
             TestData.get_membership_card_status_states().get(constants.AUTHORIZED)
+            and current_membership_card_response_array["status"]["reason_codes"][0] ==
+            TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_AUTHORIZED)
             and current_membership_card_response_array["card"]["membership_id"] ==
             TestData.get_data(merchant).get(constants.CARD_NUM)
             and current_membership_card_response_array["balances"][0]["value"] ==
@@ -319,36 +341,42 @@ def verify_membership_card_balance(context, merchant):
 )
 def verify_membership_card_transactions(context, merchant):
     response = MembershipTransactions.get_all_membership_transactions(context["token"])
+    response_json = response.json()
     assert (
             response.status_code == 200
     ), "GET/ubiquity/membership_transactions is not working as expected"
-
+    if response_json[0] == "[]":
+        logging.info("There are no matched transactions ")
     response = MembershipTransactions.get_membership_transactions(context["token"], context["scheme_account_id"])
     response_json = response.json()
     logging.info(
         "The response of GET/MembershipTransactions:\n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]) + "\n\n"
         + json.dumps(response_json, indent=4))
-    try:
-        assert response.status_code == 200
-        context["transaction_id"] = response_json[0].get("id")
-
-    except IndexError:
-        logging.info("Existing transactions for " + merchant + " in card " +
-                     TestData.get_data(merchant).get(constants.CARD_NUM) + " are not populated the response of"
-                     + Endpoint.BASE_URL +
-                     api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]))
-        raise Exception("Existing transactions for " + merchant + " in card " +
-                        TestData.get_data(merchant).get(constants.CARD_NUM) + " are not populated the response of"
-                        + Endpoint.BASE_URL +
-                        api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]))
-    except AssertionError as error:
-        logging.info("The response of " + Endpoint.BASE_URL +
-                     api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]) +
-                     "is not as expected")
-        raise Exception("The response of " + Endpoint.BASE_URL +
-                        api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]) +
-                        "is not as expected. Error is " + error.__str__())
+    if response_json[0] == "[]":
+        logging.info("There are no matched transactions associated with " + merchant + " membership card: " +
+                     TestData.get_data(merchant).get(constants.CARD_NUM))
+    else:
+        try:
+            assert response.status_code == 200
+            context["transaction_id"] = response_json[0].get("id")
+        except IndexError:
+            logging.info("Existing transactions associated with " + merchant + " membership card: " +
+                         TestData.get_data(merchant).get(constants.CARD_NUM) + " are not populated the response of \n"
+                         + Endpoint.BASE_URL +
+                         api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]))
+            raise Exception("Existing transactions associated with " + merchant + " membership card: " +
+                            TestData.get_data(merchant).get(
+                                constants.CARD_NUM) + " are not populated the response of \n"
+                            + Endpoint.BASE_URL +
+                            api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]))
+        except AssertionError as error:
+            logging.info("The response of " + Endpoint.BASE_URL +
+                         api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]) +
+                         " is not as expected")
+            raise Exception("The response of " + Endpoint.BASE_URL +
+                            api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]) +
+                            " is not as expected. Error is " + error.__str__())
 
 
 @then(
@@ -362,17 +390,21 @@ def verify_membership_card_single_transaction_detail(context, merchant):
         context["token"], context["transaction_id"])
     response_json = response.json()
     logging.info(
-        "The response of GET/MembershipTransaction:\n\n"
+        "hgjgdjgfhThe response of GET/MembershipTransaction:\n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD_SINGLE_TRANSACTION.format(context["transaction_id"]) +
         "\n\n"
         + json.dumps(response_json, indent=4))
-    assert (
-            response.status_code == 200
-            and response_json["id"] == context["transaction_id"]
-            and response_json["status"] == TestData.get_data(merchant).get(constants.TRANSACTIONS_STATUS)
-            and response_json["amounts"][0]["currency"] == TestData.get_data(merchant).
-            get(constants.TRANSACTIONS_CURRENCY)
-    ), ("Validations in GET/MembershipTransaction " + merchant + " failed")
+    if response_json == "[]":
+        logging.info("There are no matched transactions associated with " + merchant + " membership card: " +
+                     TestData.get_data(merchant).get(constants.CARD_NUM))
+    else:
+        assert (
+                response.status_code == 200
+                and response_json["id"] == context["transaction_id"]
+                and response_json["status"] == TestData.get_data(merchant).get(constants.TRANSACTIONS_STATUS)
+                and response_json["amounts"][0]["currency"] == TestData.get_data(merchant).
+                get(constants.TRANSACTIONS_CURRENCY)
+        ), ("Validations in GET/MembershipTransaction " + merchant + " failed")
 
 
 """Step definitions - DELETE Scheme Account """
@@ -397,7 +429,7 @@ def perform_delete_request_scheme_account(context, merchant=None):
 
 @then("verify membership account Link date, Card Number and Merchant identifier populated in Django")
 def verify_membership_account_link_date_card_number_and_merchant_identifier_populated_in_django(driver, context, env):
-    if env == 'dev' or 'staging':
+    if env == 'prod':
         pass
     else:
         scheme_account_id = str(context["scheme_account_id"])
@@ -424,7 +456,7 @@ def verify_membership_account_link_date_card_number_and_merchant_identifier_popu
 
 @then("verify membership account Join date, Card Number and Merchant identifier populated in Django")
 def verify_membership_account_join_date_card_number_and_merchant_identifier_populated_in_django(driver, context, env):
-    if env == 'dev' or 'staging':
+    if env == 'prod':
         pass
     else:
         scheme_account_id = str(context["scheme_account_id"])

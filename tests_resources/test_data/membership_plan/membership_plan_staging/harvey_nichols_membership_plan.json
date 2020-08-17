@@ -1,5 +1,5 @@
 {
-    "id": 194,
+    "id": 124,
     "status": "active",
     "feature_set": {
         "authorisation_required": true,
@@ -31,101 +31,101 @@
     },
     "images": [
         {
-            "id": 629,
+            "id": 1293,
             "type": 9,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_jlFfemh.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_ESHACSv.png",
             "description": "Harvey Nichols Alternative Hero",
             "encoding": "png"
         },
         {
-            "id": 524,
-            "type": 0,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN_aeOFrx6.png",
-            "description": "Harvey Nichols Default Hero",
-            "encoding": "png"
-        },
-        {
-            "id": 528,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Offer_tile_1.png",
-            "description": "Offer tile 1",
-            "encoding": "png"
-        },
-        {
-            "id": 527,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_instructional_tile.png",
-            "description": "Harvey Nichols Instructional tile",
-            "encoding": "png"
-        },
-        {
-            "id": 529,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Offer_tile_1_kr830d9.png",
-            "description": "Offer tile 2",
-            "encoding": "png"
-        },
-        {
-            "id": 530,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Offer_tile_3.png",
-            "description": "Offer tile 3",
-            "encoding": "png"
-        },
-        {
-            "id": 531,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Offer_tile_4.png",
-            "description": "Offer tile 4",
-            "encoding": "png"
-        },
-        {
-            "id": 532,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Offer_tile_5.png",
-            "description": "Offer tile 5",
-            "encoding": "png"
-        },
-        {
-            "id": 533,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Offer_tile_6.png",
-            "description": "Offer tile 6",
-            "encoding": "png"
-        },
-        {
-            "id": 494,
+            "id": 1184,
             "type": 8,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_1_Silver_FlKOCRU.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_1_Silver.png",
             "description": "Silver Tier",
             "encoding": "png"
         },
         {
-            "id": 495,
-            "type": 8,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_2_Gold_Rjrhi6B.png",
-            "description": "Gold Tier",
+            "id": 1180,
+            "type": 2,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Offer_tile_4.png",
+            "description": "Offer tile 4 - Shop Beauty",
             "encoding": "png"
         },
         {
-            "id": 497,
-            "type": 8,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_4_Black_r4vKKA7.png",
-            "description": "Black Tier",
+            "id": 575,
+            "type": 0,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN.png",
+            "description": "Harvey Nichols Hero",
             "encoding": "png"
         },
         {
-            "id": 496,
+            "id": 765,
+            "type": 2,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_instructional_tile.png",
+            "description": "Harvey Nichols Instructional tile",
+            "encoding": "png"
+        },
+        {
+            "id": 1178,
+            "type": 2,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Offer_tile_1.png",
+            "description": "Offer tile 1 - Open Rewards by Harvey Nichols",
+            "encoding": "png"
+        },
+        {
+            "id": 1179,
+            "type": 2,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Offer_tile_3.png",
+            "description": "Offer tile 3 - Shop Men",
+            "encoding": "png"
+        },
+        {
+            "id": 1181,
+            "type": 2,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Offer_tile_5.png",
+            "description": "Offer tile 5 - Shop Food & Wine",
+            "encoding": "png"
+        },
+        {
+            "id": 1182,
+            "type": 2,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Offer_tile_6.png",
+            "description": "Offer tile 6 - Find your Nearest Store",
+            "encoding": "png"
+        },
+        {
+            "id": 1186,
             "type": 8,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_3_Platinum_IdtXCBn.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_3_Platinum.png",
             "description": "Platinum Tier",
             "encoding": "png"
         },
         {
-            "id": 537,
+            "id": 1185,
+            "type": 8,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_2_Gold.png",
+            "description": "Gold Tier",
+            "encoding": "png"
+        },
+        {
+            "id": 1187,
+            "type": 8,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_4_Black.png",
+            "description": "Black Tier",
+            "encoding": "png"
+        },
+        {
+            "id": 1183,
+            "type": 2,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Offer_tile_2_copy.png",
+            "description": "Offer tile 2 - Shop Women",
+            "encoding": "png"
+        },
+        {
+            "id": 660,
             "type": 3,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Logo_oLW0lxD.png",
-            "description": "Harvey nichols Icon",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Logo.png",
+            "description": "Harvey Nichols Icon",
             "encoding": "png"
         }
     ],
@@ -137,15 +137,6 @@
         "plan_description": "As your purchases inch you up the points ladder, you will unlock ever-increasingly spectacular rewards \u2013 think cases of premium wine or a private canape party hosted at the OXO Tower Restaurant. Our programme is the only one of its kind to offer a choice of rewards every 3 months, rather than once a year. The hardest part will be choosing which to redeem. Please note, Payment Linked Loyalty is currently not available in Harvey Nichols restaurants and online.",
         "plan_documents": [
             {
-                "name": "Retailer terms and conditions",
-                "description": "I agree to the",
-                "url": "https://policies.bink.com/hn/tc.html",
-                "display": [
-                    "ENROL"
-                ],
-                "checkbox": true
-            },
-            {
                 "name": "Harvey Nichols privacy policy",
                 "description": "I agree to the",
                 "url": "https://policies.bink.com/hn/pp.html",
@@ -153,9 +144,18 @@
                     "ENROL"
                 ],
                 "checkbox": false
+            },
+            {
+                "name": "Retailer terms and conditions",
+                "description": "I agree to the",
+                "url": "https://policies.bink.com/hn/tc.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": true
             }
         ],
-        "barcode_redeem_instructions": "Present the barcode below to the cashier or use the card number below to still earn points, if you are paying with cash or an unlinked payment card",
+        "barcode_redeem_instructions": "Present the barcode below to the cashier or use the card number below to still earn points, if you are paying with cash or an unlinked payment card.",
         "plan_register_info": "Registrations typically processed in 24hrs",
         "company_name": "Harvey Nichols",
         "company_url": "https://goo.gl/8H1IsU",
@@ -275,14 +275,6 @@
         }
     ],
     "content": [
-        {
-            "column": "Login_helper1",
-            "value": "Harvey Nichols login content"
-        },
-        {
-            "column": "Login_helper2",
-            "value": "Harvey Nichols login content1"
-        },
         {
             "column": "Enrol_Help_Text",
             "value": "Please enter your details below to join the scheme."

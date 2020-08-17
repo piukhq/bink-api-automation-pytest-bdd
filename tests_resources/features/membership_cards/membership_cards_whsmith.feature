@@ -1,7 +1,7 @@
-@WHSmith @bink
+@whsmith
 Feature: Merchant WHSmith - Ensure a customer can add their membership card & view its details
   As a customer
-  I want to utilise membership_cards endpoint of the Banking API
+  I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider WHSmith & check its details successfully
 
 #  @add
