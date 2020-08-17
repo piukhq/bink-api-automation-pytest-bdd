@@ -30,6 +30,11 @@ AUTHORIZED = "state_authorised"
 PENDING = "state_pending"
 FAILED = "state_failed"
 
+""" Membership Card's Status.Reason_Code"""
+REASON_CODE_PENDING = "reason_code_pending"
+REASON_CODE_AUTHORIZED = "reason_code_authorised"
+REASON_CODE_FAILED = "reason_code_failed"
+
 """ Payment Cards Constant"""
 FIRST_SIX_DIGITS = "first_six_digits"
 LAST_FOUR_DIGITS = "last_four_digits"

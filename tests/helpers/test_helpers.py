@@ -37,6 +37,10 @@ class TestData:
         return TestDataUtils.TEST_DATA.membership_card_status_states
 
     @staticmethod
+    def get_membership_card_status_reason_codes():
+        return TestDataUtils.TEST_DATA.membership_card_status_reason_codes
+
+    @staticmethod
     def get_data(merchant):
         switcher = {
             "BurgerKing": TestDataUtils.TEST_DATA.burger_king_membership_card,
