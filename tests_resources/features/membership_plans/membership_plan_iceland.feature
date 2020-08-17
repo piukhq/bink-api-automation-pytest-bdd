@@ -13,7 +13,7 @@ Feature: Merchant Iceland - Ensure a customer can view Scheme plan details
     Then I can ensure the "Iceland" plan details match with expected data
 
 
-  @membership_plan_iceland_barclays  @dev @staging @prod
+  @membership_plan @dev @staging @prod
    Scenario: Verify membership plan of Iceland for Barclays
     Given I am a Bink user
     When I perform GET request to view all available membership plans

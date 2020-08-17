@@ -1,4 +1,4 @@
-@fatface @bink
+@fatface
 Feature: Merchant FatFace - Ensure a customer can add their membership card & view its details
   As a customer
   I want to utilise membership_cards endpoint of the Banking API
