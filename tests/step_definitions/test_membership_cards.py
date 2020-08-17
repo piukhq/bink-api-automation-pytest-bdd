@@ -51,7 +51,7 @@ def add_membership_card(merchant, login_user, context):
             response.status_code == 201
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-            get(constants.REASON_CODE_PENDING)
+            get(constants.REASON_CODE_PENDING_ADD)
     ), ("Add Journey for " + merchant + " failed")
 
 
@@ -69,7 +69,7 @@ def add_invalid_membership_card(merchant, login_user, context, invalid_data):
             response.status_code == 201
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-            get(constants.REASON_CODE_PENDING)
+            get(constants.REASON_CODE_PENDING_ADD)
     ), ("Add Journey with invalid details for " + merchant + " failed")
 
 
@@ -90,7 +90,7 @@ def add_membership_card_invalid_credentials(merchant, login_user, context, email
             response.status_code == 201
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-            get(constants.REASON_CODE_PENDING)
+            get(constants.REASON_CODE_PENDING_ADD)
     ), ("Add Journey with invalid details for " + merchant + " failed")
 
 
@@ -109,7 +109,7 @@ def add_existing_membership_card(merchant, login_user, context):
             response.status_code == 201
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-            get(constants.REASON_CODE_PENDING)
+            get(constants.REASON_CODE_PENDING_ADD)
     ), ("Add & Link Journey for " + merchant + " failed")
 
 
@@ -125,7 +125,7 @@ def patch_request_to_update_membership_card_details(merchant, context):
             response.status_code == 200
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-            get(constants.REASON_CODE_PENDING)
+            get(constants.REASON_CODE_PENDING_ADD)
     ), ("Add Journey -PATCH Request for " + merchant + " failed")
 
 
@@ -147,7 +147,7 @@ def enrol_membership_account(merchant, register_user, context, test_email, env, 
             response.status_code == 201
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-            get(constants.REASON_CODE_PENDING)
+            get(constants.REASON_CODE_PENDING_ENROL)
     ), ("Enrol journey for " + merchant + " failed")
 
 
@@ -169,7 +169,7 @@ def enrol_membership_account_invalid_credentials(merchant, register_user, contex
             response.status_code == 201
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-            get(constants.REASON_CODE_PENDING)
+            get(constants.REASON_CODE_PENDING_ENROL)
     ), ("Enrol Journey with invalid details for " + merchant + " failed")
 
 
@@ -186,7 +186,7 @@ def put_request_to_replace_enrolled_membership_card_details(merchant, context, t
             response.status_code == 200
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-            get(constants.REASON_CODE_PENDING)
+            get(constants.REASON_CODE_PENDING_ENROL)
     ), ("Enrol Journey PUT Request for " + merchant + "failed")
 
 

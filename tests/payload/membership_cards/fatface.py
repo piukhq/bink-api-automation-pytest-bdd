@@ -35,7 +35,7 @@ class FatFaceCard:
         return payload
 
     @staticmethod
-    def enrol_membership_scheme_payload(email, invalid_data=None):
+    def enrol_membership_scheme_payload(email, env=None, channel=None, invalid_data=None):
 
         faker = Faker()
 
