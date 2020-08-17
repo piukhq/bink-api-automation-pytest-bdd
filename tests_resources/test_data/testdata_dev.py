@@ -179,7 +179,8 @@ membership_card_status_states = {
     "state_failed": "failed",
 }
 membership_card_status_reason_codes = {
-    "reason_code_pending": "X100",
+    "reason_code_pending_add": "X100",
+    "reason_code_pending_enrol": "X200",
     "reason_code_authorised": "X300",
     "reason_code_failed": "X303",
 }

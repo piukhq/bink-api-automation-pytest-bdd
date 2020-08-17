@@ -31,7 +31,8 @@ PENDING = "state_pending"
 FAILED = "state_failed"
 
 """ Membership Card's Status.Reason_Code"""
-REASON_CODE_PENDING = "reason_code_pending"
+REASON_CODE_PENDING_ADD = "reason_code_pending_add"
+REASON_CODE_PENDING_ENROL = "reason_code_pending_enrol"
 REASON_CODE_AUTHORIZED = "reason_code_authorised"
 REASON_CODE_FAILED = "reason_code_failed"
 
