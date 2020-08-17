@@ -5,7 +5,6 @@ from tests.helpers.test_helpers import Merchant
 from tests.helpers.test_helpers import TestData
 from tests.api.base import Endpoint
 import tests.helpers.constants as constants
-from tests.helpers.test_data_utils import TestDataUtils
 
 
 class MembershipCards(Endpoint):
@@ -70,7 +69,7 @@ class MembershipCards(Endpoint):
 
     @staticmethod
     def get_scheme_account(token, scheme_account_id):
-
+        time.sleep(10)
         """Waiting max up to 30 sec to change status from Pending to Authorized"""
         for i in range(1, 30):
             url = MembershipCards.get_url(scheme_account_id)

@@ -48,4 +48,3 @@ class PaymentCardDetails:
         logging.info("The Request to add encrypted payment card is : \n\n"
                      + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
-

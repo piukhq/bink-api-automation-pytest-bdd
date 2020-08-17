@@ -12,3 +12,5 @@ class TestDataUtils:
             TestDataUtils.TEST_DATA = config.DEV.test_data
         elif env == "staging":
             TestDataUtils.TEST_DATA = config.STAGING.test_data
+        elif env == "prod":
+            TestDataUtils.TEST_DATA = config.PROD.test_data

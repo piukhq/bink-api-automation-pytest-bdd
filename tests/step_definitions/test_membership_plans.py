@@ -77,7 +77,7 @@ def ensure_the_merchants_plan_details_barclays_match_with_expected_data(merchant
         )
         raise Exception("The expected and actual membership plan of " + merchant + " is not the same")
     else:
-        logging.info("The expected and actual membership plan of " + merchant + "is same")
+        logging.info("The expected and actual membership plan of " + merchant + " is the same")
 
 
 def json_compare(actual_membership_plan, expected_membership_plan):

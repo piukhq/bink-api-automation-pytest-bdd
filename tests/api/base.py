@@ -17,9 +17,12 @@ class Endpoint:
             Endpoint.BASE_URL = config.STAGING.base_url
             Endpoint.DJANGO_URL = config.STAGING.django_url
 
+        elif env == "prod":
+            Endpoint.BASE_URL = config.PROD.base_url
+
     @staticmethod
-    def request_header(token=None, version='1.2'):
-    # def request_header(token=None, version="1.1"):
+    # def request_header(token=None, version='1.2'):
+    def request_header(token=None, version="1.1"):
         if version:
             accept = "application/json;v={}".format(version)
         else:
