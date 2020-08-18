@@ -32,9 +32,11 @@ class Endpoint:
             "Accept": accept,
             "Content-Type": "application/json",
         }
-
         if token:
-            headers["Authorization"] = "token " + token
+            if "bearer" in token:
+                headers["Authorization"] = token
+            else:
+                headers["Authorization"] = "token " + token
 
         return headers
 

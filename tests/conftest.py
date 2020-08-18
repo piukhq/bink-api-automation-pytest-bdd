@@ -105,12 +105,20 @@ def driver(env):
 
 @given("I register with bink service as a new customer")
 def register_user(test_email, channel, env):
-    response = CustomerAccount.create_user(test_email, channel, env)
-    TestContext.set_token(response.json().get("api_key"))
-    response_consent = CustomerAccount.create_consent(TestContext.get_token(), test_email)
-    assert response_consent.status_code == 201, "User Registration _ service consent is not successful"
-    logging.info("User registration is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
-    return response
+    if channel == config.BINK.channel_name:
+        response = CustomerAccount.create_user(test_email, channel, env)
+        token = response.json().get("api_key")
+        TestContext.set_token(token)
+        response_consent = CustomerAccount.create_consent(TestContext.get_token(), test_email)
+        assert response_consent.status_code == 201, "User Registration _ service consent is not successful"
+        logging.info("User registration is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
+        return token
+    elif channel == config.BARCLAYS.channel_name:
+        bearer_token = CustomerAccount.return_jwt_token(test_email, env)
+        TestContext.set_token(bearer_token)
+        response = CustomerAccount.register_bearer_user(bearer_token, test_email)
+        assert response.status_code == 201, "User Registration in Barclays Channel is not successful"
+        return bearer_token
 
 
 @given("I am a Bink user")

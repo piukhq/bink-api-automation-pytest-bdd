@@ -19,6 +19,7 @@ jsonpath = "*"
 faker = "*"
 psycopg2-binary = "*"
 json-diff = "*"
+pyjwt = "*"
 
 [requires]
 python_version = "3.8"

@@ -2,6 +2,7 @@ import config
 import tests.api as api
 from tests.api.base import Endpoint
 from tests.payload.service.customer_accounts import UserDetails
+import logging
 
 
 class CustomerAccount:
@@ -46,7 +47,24 @@ class CustomerAccount:
         return Endpoint.call(url, headers, "POST", payload)
 
     @staticmethod
+    def return_jwt_token(test_email, env):
+        """Generate JWT token for External channel"""
+        return UserDetails.generate_jwt_token(test_email, "unused", config.BARCLAYS.bundle_id,
+                                              config.BARCLAYS.organisation_id, CustomerAccount.get_secret_key(env))
+
+    @staticmethod
+    def register_bearer_user(jwt_token, test_email):
+        """Register user using Service endpoint & bearer token"""
+        url = Endpoint.BASE_URL + api.ENDPOINT_SERVICE
+        headers = Endpoint.request_header(jwt_token)
+        logging.info(headers)
+        payload = UserDetails.register_bearer_user_payload(test_email)
+        logging.info(payload)
+        return Endpoint.call(url, headers, "POST", payload)
+
+    @staticmethod
     def get_client_id(channel, env):
+        """Get the client_ids based on channel & environment"""
         if channel == config.BINK.channel_name:
             channel = config.BINK
         elif channel == config.BARCLAYS.channel_name:
@@ -57,3 +75,12 @@ class CustomerAccount:
             return channel.client_id_staging
         elif env == "prod":
             return channel.client_id_prod
+
+    @staticmethod
+    def get_secret_key(env):
+        """Temporary function to get secret keys (dev& staging) from config
+        till the secret keys are taken from Vault"""
+        if env == "dev":
+            return config.BARCLAYS.secret_key_dev
+        elif env == "staging":
+            return config.BARCLAYS.secret_key_staging
