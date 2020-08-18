@@ -59,7 +59,6 @@ burger_king_invalid_data = {
     "email": "fail@unknown.com",
 }
 
-
 coop_membership_card = {
     "card_num": "633174912301122330",
     "dob": "01/01/2000",
@@ -200,6 +199,16 @@ barclays_user_accounts = {
 django_user_accounts = {
     "django_uid": "njames@bink.com",
     "django_pwd": "Password@200",
+}
+
+# ------------------------------------------ DB DETAILS ---------------------------------------------------- #
+
+db_details = {
+    "user": "laadmin@bink-dev-uksouth",
+    "password": "",
+    "host": "127.0.0.1",
+    "port": "5432",
+    "database": "hermes",
 }
 
 # ------------------------------------------ Encrypted Fields ---------------------------------------------------- #
