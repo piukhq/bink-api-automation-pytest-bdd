@@ -131,18 +131,19 @@ iceland_invalid_data = {
     "postcode": "fail",
 }
 wasabi_membership_card = {
-    "card_num": "",
-    "points": "",
-    "currency": "",
+    "card_num": "1048172852",
+    "email": "binktestuser14@wasabi.com",
+    "points": 6,
+    "currency": "stamps",
     "description": "",
     "transactions": "",
-    "transaction_status": "",
-    "transaction_currency": "",
+    "transaction_status": "active",
+    "transaction_currency": "stamps",
 }
 
 wasabi_invalid_data = {
     "card_num": "",
-    "email": "",
+    "email": "fail@unknown.com",
 }
 
 whsmith_membership_card = {
@@ -183,6 +184,7 @@ membership_card_status_reason_codes = {
     "reason_code_pending_enrol": "X200",
     "reason_code_authorised": "X300",
     "reason_code_failed": "X303",
+    "reason_code_failed_invalid_data": "X201",
 }
 
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #

@@ -35,6 +35,8 @@ REASON_CODE_PENDING_ADD = "reason_code_pending_add"
 REASON_CODE_PENDING_ENROL = "reason_code_pending_enrol"
 REASON_CODE_AUTHORIZED = "reason_code_authorised"
 REASON_CODE_FAILED = "reason_code_failed"
+REASON_CODE_FAILED_INVALID_DATA = "reason_code_failed_invalid_data"
+
 
 """ Payment Cards Constant"""
 FIRST_SIX_DIGITS = "first_six_digits"

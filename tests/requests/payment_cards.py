@@ -1,5 +1,4 @@
 import time
-import logging
 import tests.api as api
 import tests.helpers.constants as constants
 
@@ -13,8 +12,8 @@ class PaymentCards(Endpoint):
     def add_payment_card(token, test_email):
         url = PaymentCards.get_url()
         header = Endpoint.request_header(token)
-        # payload = PaymentCardDetails.add_payment_card_payload(test_email)
-        payload = PaymentCardDetails.add_payment_card_payload_encrypted(test_email)
+        payload = PaymentCardDetails.add_payment_card_payload(test_email)
+        # payload = PaymentCardDetails.add_payment_card_payload_encrypted(test_email)
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
@@ -26,8 +25,6 @@ class PaymentCards(Endpoint):
             response_json = response.json()
             if not response_json["status"] == TestDataUtils.TEST_DATA.payment_card.get(constants.PAYMENT_CARD_STATUS):
                 time.sleep(1)
-                logging.info("In time" + str(i))
-
             else:
                 break
 
