@@ -11,14 +11,24 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Given I am a Bink user
     When I perform POST request to add "Iceland" membership card
     And I perform GET request to verify the "Iceland" membership card is added to the wallet
+    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    And I perform DELETE request to delete the "Iceland" membership card
+
+#   Use below for production execution once iceland test data with balances is ready
+  @balances_transactions @dev @staging
+  Scenario: Balances and Transactions_Iceland
+
+    Given I am a Bink user
+    When I perform POST request to add "Iceland" membership card
+    And I perform GET request to verify the "Iceland" membership card is added to the wallet
     And I perform GET request to view balance for recently added "Iceland" membership card
-#    When I perform GET request to view all transactions made using the recently added "Iceland" membership card
-#    Then I perform GET request to view a specific transaction made using the recently added "Iceland" membership card
+    When I perform GET request to view all transactions made using the recently added "Iceland" membership card
+    Then I perform GET request to view a specific transaction made using the recently added "Iceland" membership card
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     And I perform DELETE request to delete the "Iceland" membership card
 
 
-  @add_patch @staging @prod
+  @add_patch @dev @staging @prod
   Scenario: Add Journey_PATCH_Iceland
 
     Given I am a Bink user
@@ -29,8 +39,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     And I perform DELETE request to delete the "Iceland" membership card
 
-  @add_and_link
-#  @staging @prod
+  @add_and_link @dev @staging
   Scenario: ADD & LINK Journey_Iceland
 
     Given I am a Bink user
@@ -38,9 +47,6 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform the GET request to verify the payment card has been added successfully
     When I perform POST request to add & auto link an existing "Iceland" membership card
     And I perform GET request to verify the "Iceland" membership card is added & linked successfully in the wallet
-    And I perform GET request to view balance for recently added "Iceland" membership card
-    When I perform GET request to view all transactions made using the recently added "Iceland" membership card
-    Then I perform GET request to view a specific transaction made using the recently added "Iceland" membership card
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "Iceland" membership card
     And I perform DELETE request to delete the payment card
@@ -55,8 +61,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "HarveyNichols" membership card
 
 
-   @enrol
-#   @dev @staging @prod
+   @enrol @dev
     Scenario: Join Journey_Iceland
 
     Given I register with bink service as a new customer
@@ -67,8 +72,8 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the customer
 
 
-  @enrol_put
-#  @dev @staging @prod
+  @enrol_put @dev
+
   Scenario: Join Journey_PUT_Iceland
 
 

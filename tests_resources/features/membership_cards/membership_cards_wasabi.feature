@@ -5,7 +5,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
   So I can add my card, with the scheme provider Wasabi & check its details successfully
 
 
-#  @add
+  @add
   Scenario: Add Journey_Wasabi
 
     Given I am a Bink user
@@ -15,7 +15,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     And I perform DELETE request to delete the "Wasabi" membership card
 
 
-#  @add_patch
+  @add_patch
   Scenario:  PATCH membership card details_Wasabi
 
     Given I am a Bink user
@@ -26,7 +26,6 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     And I perform DELETE request to delete the "Wasabi" membership card
 
-#  @add_and_link
  @add_and_link
   Scenario: ADD & LINK Journey_Wasabi
     Given I am a Bink user
@@ -54,16 +53,16 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
       |104817410                  | binktestuser16@wasabi.com | failed |  X102      |
       |1048173057                 |binktestuser16@wasabi.com  | failed |  X303      |
 
-#  @enrol
+  @enrol
     Scenario: Join Journey_Wasabi
 
     Given I register with bink service as a new customer
     When I perform POST request to create a "Wasabi" membership account with enrol credentials
     And I perform GET request to verify the "Wasabi" membership account is created
-#    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
-#    Then I perform DELETE request to delete the "Wasabi" membership card
+    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
+    Then I perform DELETE request to delete the "Wasabi" membership card
 
-#  @enrol_put
+  @enrol_put
   Scenario: Join Journey_PUT_Wasabi
 
 

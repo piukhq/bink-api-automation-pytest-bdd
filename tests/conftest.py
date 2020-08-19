@@ -83,7 +83,7 @@ def test_email():
 
 @pytest.fixture
 def driver(env):
-    if env == 'prod':
+    if env == 'prod' or 'dev' or 'staging':
         yield None
     else:
         if config.BROWSER.browser_name == "chrome":

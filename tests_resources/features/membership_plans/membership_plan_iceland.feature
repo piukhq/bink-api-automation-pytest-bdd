@@ -14,7 +14,7 @@ Feature: Merchant Iceland - Ensure a customer can view Scheme plan details
 
 
   @membership_plan @dev @staging @prod
-   Scenario: Verify membership plan of Iceland for Barclays
+   Scenario: Membership plan_Iceland
     Given I am a Bink user
     When I perform GET request to view all available membership plans
     Then I can ensure the "Iceland" plan details for "Barclays" match with expected data
