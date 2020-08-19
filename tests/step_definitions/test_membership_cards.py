@@ -20,8 +20,6 @@ from tests.helpers.test_data_utils import TestDataUtils
 from tests.requests.membership_cards import MembershipCards
 from tests.requests.membership_transactions import MembershipTransactions
 
-from tests.helpers.connect_hermes import ConnectHermes
-
 scenarios("membership_cards/")
 
 
@@ -430,29 +428,23 @@ def perform_delete_request_scheme_account(context, merchant=None):
 
 @then("verify membership account Link date, Card Number and Merchant identifier populated in Django")
 def verify_membership_account_link_date_card_number_and_merchant_identifier_populated_in_django(driver, context, env):
-    # if env == 'prod':
-    #     pass
-    # if env == 'dev' or 'staging':
-    #     if verification_mode == "DB"
-    #     elif verification_mode == "UI"
-    record = ConnectHermes.fetch_data(str(context["scheme_account_id"]))
-    logging.info(record)
-    scheme_account_id = str(context["scheme_account_id"])
-    driver.get(Endpoint.DJANGO_URL + "scheme/schemeaccount/" + scheme_account_id + "/change/")
-    driver.find_element_by_name("username").send_keys(
-        TestDataUtils.TEST_DATA.django_user_accounts.get("django_uid"))
-    driver.find_element_by_name("password").send_keys(
-        TestDataUtils.TEST_DATA.django_user_accounts.get("django_pwd"))
-    driver.find_element_by_xpath("//input[@type='submit']").click()
-    select = Select(driver.find_element_by_name("status"))
-    assert select.first_selected_option.text == "Active"
-    link_date = driver.find_element_by_xpath('//form[@id="schemeaccount_form"]/div/fieldset/div[13]/div/div').text
-    current_date = time.strftime("%d %b %Y").lstrip("0")
-    if str(link_date).__contains__(current_date):
-        logging.info(
-            "Link date in Django (" + link_date + ") is close to current date "
-                                                  "(" + current_date + time.strftime(", %I:%M %p").lower() + ")"
-        )
+    if env == "prod" or "dev" or "staging":
+        scheme_account_id = str(context["scheme_account_id"])
+        driver.get(Endpoint.DJANGO_URL + "scheme/schemeaccount/" + scheme_account_id + "/change/")
+        driver.find_element_by_name("username").send_keys(
+            TestDataUtils.TEST_DATA.django_user_accounts.get("django_uid"))
+        driver.find_element_by_name("password").send_keys(
+            TestDataUtils.TEST_DATA.django_user_accounts.get("django_pwd"))
+        driver.find_element_by_xpath("//input[@type='submit']").click()
+        select = Select(driver.find_element_by_name("status"))
+        assert select.first_selected_option.text == "Active"
+        link_date = driver.find_element_by_xpath('//form[@id="schemeaccount_form"]/div/fieldset/div[13]/div/div').text
+        current_date = time.strftime("%d %b %Y").lstrip("0")
+        if str(link_date).__contains__(current_date):
+            logging.info(
+                "Link date in Django (" + link_date + ") is close to current date "
+                                                      "(" + current_date + time.strftime(", %I:%M %p").lower() + ")"
+            )
         logging.info(
             "Merchant Identifier in Django is: "
             + driver.find_element_by_name("schemeaccountcredentialanswer_set-1-answer").get_attribute("value")
@@ -461,7 +453,7 @@ def verify_membership_account_link_date_card_number_and_merchant_identifier_popu
 
 @then("verify membership account Join date, Card Number and Merchant identifier populated in Django")
 def verify_membership_account_join_date_card_number_and_merchant_identifier_populated_in_django(driver, context, env):
-    if env == 'prod':
+    if env == "prod" or "dev" or "staging":
         pass
     else:
         scheme_account_id = str(context["scheme_account_id"])
