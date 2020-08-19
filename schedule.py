@@ -17,16 +17,16 @@ env_config = {
         "command": ["pytest", "--md", "report.md", "-m", "staging", "--env", "staging", "--channel", "barclays"],
         "cron": "* 2 * * *",
     },
-    "preprod": {
-        "confluence": "1456832788",
-        "command": ["pytest", "--md", "report.md", "-m", "preprod", "--env", "preprod", "--channel", "barclays"],
-        "cron": "*/10 * * * *",
-    },
-    "prod": {
-        "confluence": "1456636188",
-        "command": ["pytest", "--md", "report.md", "-m", "prod", "--env", "prod", "--channel", "barclays"],
-        "cron": "*/10 * * * *",
-    },
+    # "preprod": {
+    #     "confluence": "1456832788",
+    #     "command": ["pytest", "--md", "report.md", "-m", "preprod", "--env", "preprod", "--channel", "barclays"],
+    #     "cron": "*/10 * * * *",
+    # },
+    # "prod": {
+    #     "confluence": "1456636188",
+    #     "command": ["pytest", "--md", "report.md", "-m", "prod", "--env", "prod", "--channel", "barclays"],
+    #     "cron": "*/10 * * * *",
+    # },
 }
 
 
