@@ -277,7 +277,6 @@ def verify_membership_card_is_add_and_linked(merchant, context):
                 and response_json["payment_cards"][0]["active_link"] ==
                 TestDataUtils.TEST_DATA.payment_card.get(constants.ACTIVE_LINK)
                 and payment_card_present == "yes"
-            # and response_json["payment_cards"][0]["id"] == context["payment_card_id"]
 
         ), ("Validations in GET/membership_cards after AutoLink for " + merchant + " failed")
     except IndexError:
