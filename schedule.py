@@ -10,23 +10,23 @@ env_config = {
     "dev": {
         "confluence": "1456865503",
         "command": ["pytest", "--md", "report.md", "-m", "dev", "--channel", "barclays"],
-        "cron": "* 2 * * *",
+        "cron": "0 2 * * *",
     },
     "staging": {
         "confluence": "1456701609",
         "command": ["pytest", "--md", "report.md", "-m", "staging", "--env", "staging", "--channel", "barclays"],
-        "cron": "* 2 * * *",
+        "cron": "0 2 * * *",
     },
-    # "preprod": {
-    #     "confluence": "1456832788",
-    #     "command": ["pytest", "--md", "report.md", "-m", "preprod", "--env", "preprod", "--channel", "barclays"],
-    #     "cron": "*/10 * * * *",
-    # },
-    # "prod": {
-    #     "confluence": "1456636188",
-    #     "command": ["pytest", "--md", "report.md", "-m", "prod", "--env", "prod", "--channel", "barclays"],
-    #     "cron": "*/10 * * * *",
-    # },
+    "preprod": {
+        "confluence": "1456832788",
+        "command": ["pytest", "--md", "report.md", "-m", "preprod", "--env", "preprod", "--channel", "barclays"],
+        "cron": "*/10 * * * *",
+    },
+    "prod": {
+        "confluence": "1456636188",
+        "command": ["pytest", "--md", "report.md", "-m", "prod", "--env", "prod", "--channel", "barclays"],
+        "cron": "*/10 * * * *",
+    },
 }
 
 
