@@ -81,9 +81,7 @@ class MembershipCards(Endpoint):
             else:
                 break
         return response
-        # Get Membership Card
 
-    # Get Membership Card
     @staticmethod
     def get_scheme_account_auto_link(token, scheme_account_id):
         """Waiting max up to 30 sec to change status from Pending to Authorized"""

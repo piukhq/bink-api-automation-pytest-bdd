@@ -1,5 +1,5 @@
 {
-    "id": 315,
+    "id": 281,
     "status": "active",
     "feature_set": {
         "authorisation_required": true,
@@ -9,8 +9,7 @@
         "card_type": 2,
         "linking_support": [
             "ADD",
-            "ENROL",
-            "VOUCHER"
+            "ENROL"
         ],
         "apps": [
             {
@@ -23,28 +22,28 @@
         "has_vouchers": true
     },
     "card": {
-        "colour": "#bed633",
+        "colour": "#ccd400",
         "scan_message": "Scanning not required"
     },
     "images": [
         {
-            "id": 634,
+            "id": 1298,
             "type": 9,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Wasabi_Alternate_Hero.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Alternate_Hero.png",
             "description": "Wasabi Alternative Hero",
             "encoding": "png"
         },
         {
-            "id": 633,
+            "id": 1297,
             "type": 3,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Wasabi_Logo.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Logo.png",
             "description": "Wasabi Icon",
             "encoding": "png"
         },
         {
-            "id": 632,
+            "id": 1296,
             "type": 0,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Wasabi_Card.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Card.png",
             "description": "Wasabi Hero",
             "encoding": "png"
         }
@@ -54,17 +53,8 @@
         "plan_name_card": "Card",
         "plan_url": "https://www.wasabi.uk.com",
         "plan_summary": "Collect 7 stamps for a free meal. One stamp can be earned per customer per day when the qualifying spend in a single transaction for food & drink purchases totals \u00a37 or more in a participating Wasabi store. T\u2019s & C\u2019s apply.",
-        "plan_description": "Collect 7 stamps, so your 8th meal is free. Collect a stamp every time you make a purchase total of \u00a37 or more in a participating Wasabi store. Link your payment card and we will recognise you every time you shop with that card. One stamp can be earned per customer per day when the qualifying spend in a single transaction for food and drink purchases totals \u00a37.00 or more. T\u2019s and C\u2019s apply.\u200b",
+        "plan_description": "Collect 7 stamps for a free meal. Collect a stamp every time you make a purchase total of \u00a36.50 or more in a participating Wasabi store. Link your payment card and we will recognise you every time you shop with that card. One stamp can be earned per customer per day when the qualifying spend in a single transaction for food and drink purchases totals \u00a36.50 or more. T\u2019s and C\u2019s apply.",
         "plan_documents": [
-            {
-                "name": "Retailer terms & conditions",
-                "description": "I accept the",
-                "url": "https://policies.bink.com/wasabi/tc.html",
-                "display": [
-                    "ENROL"
-                ],
-                "checkbox": true
-            },
             {
                 "name": "Wasabi privacy policy",
                 "description": "I have read the",
@@ -72,7 +62,7 @@
                 "display": [
                     "ENROL"
                 ],
-                "checkbox": true
+                "checkbox": false
             },
             {
                 "name": "Terms & conditions",
@@ -81,6 +71,15 @@
                     "VOUCHER"
                 ],
                 "checkbox": false
+            },
+            {
+                "name": "Terms & conditions",
+                "description": "I accept the",
+                "url": "https://policies.bink.com/wasabi/tc.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": true
             }
         ],
         "company_name": "Wasabi",

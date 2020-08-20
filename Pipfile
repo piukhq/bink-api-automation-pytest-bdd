@@ -27,6 +27,8 @@ json-diff = "*"
 arrow = "*"
 shared-config-storage = "*"
 pyjwt = "*"
+apscheduler = "*"
+pytest-md = "*"
 
 [requires]
 python_version = "3.8"
