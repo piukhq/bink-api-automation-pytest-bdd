@@ -31,21 +31,27 @@ env_config = {
 
 
 def run_basic_test():
-    process = subprocess.Popen(
+    print('--------------')
+    print(f"Executing Test for {env}")
+    print('--------------')
+    process = subprocess.run(
         env_config[env]["command"], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
     )
-    process.wait()
+    print(process.stdout.decode())
 
     if os.path.exists("report.md"):
+        print('--------------')
+        print('Executing upload')
+        print('--------------')
         with open("report.md", "r") as report_fp, open("report2.md", "w") as report2_fp:
             title = "API Test " + datetime.datetime.now().strftime("%d %b %Y")
             report2_fp.write(f'---\npage_title: "{title}"\n---\n')
             while (data := report_fp.read(4096)) != "":
                 report2_fp.write(data)
 
-        process = subprocess.Popen(
+        process = subprocess.run(
             (
-                "markdown2confluence",
+                "/usr/local/bin/markdown2confluence",
                 "--base-url",
                 "https://hellobink.atlassian.net",
                 "--default-space",
@@ -58,10 +64,10 @@ def run_basic_test():
                 os.environ["CONFLUENCE_APITOKEN"],
                 "report2.md",
             ),
-            stdout=subprocess.STDOUT,
-            stderr=subprocess.STDOUT,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
         )
-        process.wait()
+        print(process.stdout.decode())
 
 
 def main():
