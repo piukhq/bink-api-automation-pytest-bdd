@@ -12,6 +12,10 @@ from tests.requests.membership_plans import MembershipPlans
 from tests.helpers.test_helpers import TestData
 import tests.helpers.constants as constants
 
+import config
+from vault import channel_vault
+from property_token import GenerateJWToken
+
 scenarios("membership_plans/")
 
 
@@ -90,3 +94,10 @@ def json_compare(actual_membership_plan, expected_membership_plan):
     expected_membership_plan = open(constants.JSON_DIFF_EXPECTED_JSON, "r")
     engine = Comparator(actual_membership_plan, expected_membership_plan)
     return engine.compare_dicts()
+
+@then("I perform VAULT CONNECT")
+def vault_connect(context):
+    jwt_secret = channel_vault.get_jwt_secret(config.BARCLAYS.bundle_id)
+    logging.info(jwt_secret)
+    token = GenerateJWToken("Barclays", jwt_secret, config.BARCLAYS.bundle_id, "test@mail.com").get_token()
+    logging.info(token)

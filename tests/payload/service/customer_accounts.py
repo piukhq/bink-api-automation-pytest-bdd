@@ -50,17 +50,17 @@ class UserDetails:
         }
         return payload
 
-    @staticmethod
-    def generate_jwt_token(user_id, property_id, bundle_id, organisation_id, client_secret):
-        claims = {
-            "user_id": user_id,
-            "property_id": property_id,
-            "bundle_id": bundle_id,
-            "organisation_id": organisation_id,
-            "iat": 1581112213
-        }
-        token = 'bearer {}'.format(jwt.encode(claims, client_secret, algorithm="HS512").decode("UTF-8"))
-        return token
+    # @staticmethod
+    # def generate_jwt_token(user_id, property_id, bundle_id, organisation_id, client_secret):
+    #     claims = {
+    #         "user_id": user_id,
+    #         "property_id": property_id,
+    #         "bundle_id": bundle_id,
+    #         "organisation_id": organisation_id,
+    #         "iat": 1581112213
+    #     }
+    #     token = 'bearer {}'.format(jwt.encode(claims, client_secret, algorithm="HS512").decode("UTF-8"))
+    #     return token
 
     @staticmethod
     def register_bearer_user_payload(email, latitude=0.0, longitude=12.345):

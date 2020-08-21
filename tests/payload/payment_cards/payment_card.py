@@ -13,11 +13,11 @@ class PaymentCardDetails:
         payload = {
             "card": {
                 "token": test_email.split("@")[0],
-                "last_four_digits": TestDataUtils.TEST_DATA.payment_card_encrypted_amex.get(constants.LAST_FOUR_DIGITS),
-                "first_six_digits": TestDataUtils.TEST_DATA.payment_card_encrypted_amex.get(constants.FIRST_SIX_DIGITS),
+                "last_four_digits": TestDataUtils.TEST_DATA.payment_card.get(constants.LAST_FOUR_DIGITS),
+                "first_six_digits": TestDataUtils.TEST_DATA.payment_card.get(constants.FIRST_SIX_DIGITS),
                 "name_on_card": test_email.split("@")[0],
-                "month": TestDataUtils.TEST_DATA.payment_card_encrypted_amex.get(constants.MONTH),
-                "year": TestDataUtils.TEST_DATA.payment_card_encrypted_amex.get(constants.YEAR),
+                "month": TestDataUtils.TEST_DATA.payment_card.get(constants.MONTH),
+                "year": TestDataUtils.TEST_DATA.payment_card.get(constants.YEAR),
                 "fingerprint": test_email.split("@")[0],
             },
             "account": {

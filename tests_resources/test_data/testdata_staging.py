@@ -148,8 +148,21 @@ iceland_invalid_data = {
 }
 
 wasabi_membership_card = {
-    "card_num": "",
+    "card_num": "1048172852",
+    "email": "binktestuser14@wasabi.com",
+    "points": 6,
+    "currency": "stamps",
+    "description": "",
+    "transactions": "",
+    "transaction_status": "active",
+    "transaction_currency": "stamps",
 }
+
+wasabi_invalid_data = {
+    "card_num": "",
+    "email": "fail@unknown.com",
+}
+
 whsmith_membership_card = {
     "card_num": "FF00000004827176",
 }

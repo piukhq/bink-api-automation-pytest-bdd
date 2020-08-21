@@ -428,7 +428,9 @@ def perform_delete_request_scheme_account(context, merchant=None):
 
 @then("verify membership account Link date, Card Number and Merchant identifier populated in Django")
 def verify_membership_account_link_date_card_number_and_merchant_identifier_populated_in_django(driver, context, env):
-    if env == "prod" or "dev" or "staging":
+    if env == 'prod' or 'dev' or 'staging':
+        pass
+    else:
         scheme_account_id = str(context["scheme_account_id"])
         driver.get(Endpoint.DJANGO_URL + "scheme/schemeaccount/" + scheme_account_id + "/change/")
         driver.find_element_by_name("username").send_keys(
