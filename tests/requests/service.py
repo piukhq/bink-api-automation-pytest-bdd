@@ -2,7 +2,6 @@ import config
 import tests.api as api
 from tests.api.base import Endpoint
 from tests.payload.service.customer_accounts import UserDetails
-from tests.helpers.test_data_utils import TestDataUtils
 from tests.payload.service.jwt_token import GenerateJWToken
 from tests.helpers.vault import channel_vault
 from tests.helpers.test_context import TestContext

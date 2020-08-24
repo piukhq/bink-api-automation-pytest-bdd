@@ -1,7 +1,6 @@
 import json
 import requests
 import config
-import logging
 
 
 class Endpoint:
