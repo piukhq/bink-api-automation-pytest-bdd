@@ -1,6 +1,7 @@
 import json
 import requests
 import config
+import logging
 
 
 class Endpoint:
@@ -32,6 +33,7 @@ class Endpoint:
             "Accept": accept,
             "Content-Type": "application/json",
         }
+
         if token:
             if "bearer" in token:
                 headers["Authorization"] = token

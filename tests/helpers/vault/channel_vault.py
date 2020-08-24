@@ -51,7 +51,6 @@ def load_secrets():
         logger.info("Tried to load the vault secrets more than once, ignoring the request.")
 
     elif LOCAL_CHANNELS:
-        logger.info(f"Bundle secrets - from local file {LOCAL_SECRETS_PATH}")
         with open(LOCAL_SECRETS_PATH) as fp:
             all_secrets = json.load(fp)
 

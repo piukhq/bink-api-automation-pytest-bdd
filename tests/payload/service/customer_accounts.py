@@ -40,15 +40,15 @@ class UserDetails:
         }
         return payload
 
-    @staticmethod
-    def barclays_login_user_payload(client_id, bundle_id):
-        payload = {
-            "email": TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.USER_ID),
-            "password": TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.PWD),
-            "client_id": client_id,
-            "bundle_id": bundle_id,
-        }
-        return payload
+    # @staticmethod
+    # def barclays_login_user_payload(client_id, bundle_id):
+    #     payload = {
+    #         "email": TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.USER_ID),
+    #         "password": TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.PWD),
+    #         "client_id": client_id,
+    #         "bundle_id": bundle_id,
+    #     }
+    #     return payload
 
     # @staticmethod
     # def generate_jwt_token(user_id, property_id, bundle_id, organisation_id, client_secret):
