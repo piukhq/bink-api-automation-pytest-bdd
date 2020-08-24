@@ -122,6 +122,7 @@ membership_card_status_reason_codes = {
     "reason_code_pending_enrol": "X200",
     "reason_code_authorised": "X300",
     "reason_code_failed": "X303",
+    "reason_code_failed_enrol": "X201",
 }
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
 

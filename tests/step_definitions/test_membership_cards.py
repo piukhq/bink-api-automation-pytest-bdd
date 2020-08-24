@@ -38,7 +38,7 @@ def context():
 
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card'))
 def add_membership_card(merchant, login_user, context):
-    context["token"] = login_user.json().get("api_key")
+    context["token"] = login_user
     response = MembershipCards.add_card(context["token"], merchant)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
@@ -57,7 +57,7 @@ def add_membership_card(merchant, login_user, context):
 
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card with "{invalid_data}"'))
 def add_invalid_membership_card(merchant, login_user, context, invalid_data):
-    context["token"] = login_user.json().get("api_key")
+    context["token"] = login_user
     response = MembershipCards.add_card(context["token"], merchant, invalid_data)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
@@ -78,7 +78,7 @@ def add_invalid_membership_card(merchant, login_user, context, invalid_data):
 )
 )
 def add_membership_card_invalid_credentials(merchant, login_user, context, email_address, password):
-    context["token"] = login_user.json().get("api_key")
+    context["token"] = login_user
     response = MembershipCards.add_card(context["token"], merchant)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
@@ -96,8 +96,8 @@ def add_membership_card_invalid_credentials(merchant, login_user, context, email
 
 @when(parsers.parse('I perform POST request to add & auto link an existing "{merchant}" membership card'))
 def add_existing_membership_card(merchant, login_user, context):
-    context["token"] = login_user.json().get("api_key")
-    response = MembershipCards.add_card_auto_link(login_user.json().get("api_key"), merchant)
+    context["token"] = login_user
+    response = MembershipCards.add_card_auto_link(context["token"], merchant)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
     TestContext.set_scheme_account(context["scheme_account_id"])
@@ -288,7 +288,6 @@ def verify_membership_card_is_add_and_linked(merchant, context):
         'I perform GET request to verify the "{merchant}" membership card is added to the wallet with ' "invalid data"
     )
 )
-@when(parsers.parse('I perform GET request to verify the "{merchant}" membership account is created with invalid data'))
 def verify_invalid_membership_card_is_added_to_wallet(merchant, context):
     response = MembershipCards.get_scheme_account(context["token"], context["scheme_account_id"])
     response_json = response.json()
@@ -302,6 +301,23 @@ def verify_invalid_membership_card_is_added_to_wallet(merchant, context):
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.FAILED)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
             get(constants.REASON_CODE_FAILED)
+    ), ("Validations in GET/membership_cards with invalid data for  " + merchant + " failed")
+
+
+@when(parsers.parse('I perform GET request to verify the "{merchant}" membership account is created with invalid data'))
+def verify_invalid_membership_card_is_created(merchant, context):
+    response = MembershipCards.get_scheme_account(context["token"], context["scheme_account_id"])
+    response_json = response.json()
+    logging.info(
+        "The response of GET/MembershipCard with invalid data in the request is:\n\n"
+        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(context["scheme_account_id"]) + "\n\n"
+        + json.dumps(response_json, indent=4))
+    assert (
+            response.status_code == 200
+            and response_json["id"] == context["scheme_account_id"]
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.FAILED)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_FAILED_ENROL)
     ), ("Validations in GET/membership_cards with invalid data for  " + merchant + " failed")
 
 
