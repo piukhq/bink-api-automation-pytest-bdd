@@ -14,6 +14,7 @@ from tests.requests.membership_cards import MembershipCards
 from tests.api.base import Endpoint
 from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_context import TestContext
+
 from faker import Faker
 
 
@@ -83,7 +84,7 @@ def test_email():
 
 @pytest.fixture
 def driver(env):
-    if env == 'prod' or 'dev' or 'staging':
+    if env == "dev" or "staging" or "prod":
         yield None
     else:
         if config.BROWSER.browser_name == "chrome":
@@ -105,20 +106,36 @@ def driver(env):
 
 @given("I register with bink service as a new customer")
 def register_user(test_email, channel, env):
-    response = CustomerAccount.create_user(test_email, channel, env)
-    TestContext.set_token(response.json().get("api_key"))
-    response_consent = CustomerAccount.create_consent(TestContext.get_token(), test_email)
-    assert response_consent.status_code == 201, "User Registration _ service consent is not successful"
-    logging.info("User registration is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
-    return response
+    if channel == config.BINK.channel_name:
+        response = CustomerAccount.create_user(test_email, channel, env)
+        token = response.json().get("api_key")
+        TestContext.set_token(token)
+        response_consent = CustomerAccount.create_consent(TestContext.get_token(), test_email)
+        assert response_consent.status_code == 201, "User Registration _ service consent is not successful"
+        logging.info("User registration is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
+        return token
+    elif channel == config.BARCLAYS.channel_name:
+        response = CustomerAccount.service_consent_banking_user(test_email)
+        logging.info("Banking user subscription to Bink is successful and the token is: \n\n" +
+                     TestContext.get_token() + "\n")
+        assert response.status_code == 201, "Banking user subscription to Bink is not successful"
+        return TestContext.get_token()
 
 
 @given("I am a Bink user")
 def login_user(channel, env):
-    response = CustomerAccount.login_user(channel, env)
-    TestContext.set_token(response.json().get("api_key"))
-    logging.info("User Login is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
-    return response
+    if channel == config.BINK.channel_name:
+        response = CustomerAccount.login_bink_user(channel, env)
+        logging.info("Token is: \n\n" + TestContext.get_token() + "\n")
+        assert response.status_code == 200, "User login in Bink Channel is not successful"
+        return TestContext.get_token()
+    elif channel == config.BARCLAYS.channel_name:
+        response = CustomerAccount.service_consent_banking_user(
+            TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.USER_ID))
+        logging.info("The JWT Token is: \n\n" +
+                     TestContext.get_token() + "\n")
+        assert response.status_code == 200, "Banking user subscription to Bink is not successful"
+        return TestContext.get_token()
 
 
 @then("I perform DELETE request to delete the customer")
@@ -135,7 +152,7 @@ def context():
 
 @given("I perform POST request to add payment card to wallet")
 def add_payment_card(login_user, context, test_email):
-    context["token"] = login_user.json().get("api_key")
+    context["token"] = login_user
     response = PaymentCards.add_payment_card(context["token"], test_email)
     response_json = response.json()
     logging.info("The response of POST/PaymentCard is: \n\n"

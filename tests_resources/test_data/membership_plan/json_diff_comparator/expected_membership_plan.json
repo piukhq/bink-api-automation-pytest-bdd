@@ -243,11 +243,6 @@
                 "common_name": "postcode",
                 "type": 0,
                 "choice": []
-            },
-            {
-                "column": "Consent 1",
-                "description": "I agree to receive promotions, offers & news",
-                "type": 3
             }
         ],
         "enrol_fields": [
@@ -329,7 +324,7 @@
                 "choice": []
             },
             {
-                "column": "Consent 1",
+                "column": "Enrol Consent 1",
                 "description": "I agree to receive promotions, offers & news",
                 "type": 3
             }

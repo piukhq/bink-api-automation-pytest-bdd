@@ -12,6 +12,7 @@ from tests.requests.membership_plans import MembershipPlans
 from tests.helpers.test_helpers import TestData
 import tests.helpers.constants as constants
 
+
 scenarios("membership_plans/")
 
 
@@ -22,7 +23,7 @@ def customer_can_view_membership_plan():
 
 @when("I perform GET request to view all available membership plans")
 def view_all_available_membership_plans(login_user):
-    token = login_user.json().get("api_key")
+    token = login_user
     response = MembershipPlans.get_all_membership_plans(token)
     logging.info("Membership_Plans response is \n\n" + json.dumps(response.json(), indent=4))
     if response is not None:
@@ -34,7 +35,7 @@ def ensure_the_merchants_plan_details_match_with_expected_data(merchant, env, lo
     """GET a merchant's membership plan and compare with
      expected membership plan of that merchant"""
 
-    token = login_user.json().get("api_key")
+    token = login_user
     response = MembershipPlans.get_membership_plan(token, merchant)
     logging.info("The Membership plan for " + merchant + " is: \n" + json.dumps(response.json(), indent=4))
     with open(TestData.get_expected_membership_plan_json(merchant, env)) as json_file:
@@ -59,7 +60,7 @@ def ensure_the_merchants_plan_details_match_with_expected_data(merchant, env, lo
 def ensure_the_merchants_plan_details_barclays_match_with_expected_data(merchant, channel, login_user, env):
     """Merchant Iceland has some changes membership plan for Barclays"""
 
-    token = login_user.json().get("api_key")
+    token = login_user
     response = MembershipPlans.get_membership_plan(token, merchant)
     logging.info("The Membership plan for " + merchant + " is: \n" + json.dumps(response.json(), indent=4))
     with open(TestData.get_expected_membership_plan_json(merchant, env, channel)) as json_file:

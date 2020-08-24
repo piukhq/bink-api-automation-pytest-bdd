@@ -172,7 +172,18 @@
                 "validation": "^(Mr|Mrs|Miss|Ms|Dame|Sir|Doctor|Professor|Lord|Lady)$",
                 "common_name": "title",
                 "type": 0,
-                "choice": []
+                "choice": [
+                    "Mr",
+                    "Mrs",
+                    "Miss",
+                    "Ms",
+                    "Dame",
+                    "Sir",
+                    "Doctor",
+                    "Professor",
+                    "Lord",
+                    "Lady"
+                ]
             },
             {
                 "column": "First name",
@@ -245,7 +256,7 @@
                 "choice": []
             },
             {
-                "column": "Consent 1",
+                "column": "Enrol Consent 1",
                 "description": "I agree to receive promotions, offers & news",
                 "type": 3
             }
@@ -256,7 +267,18 @@
                 "validation": "^(Mr|Mrs|Miss|Ms|Dame|Sir|Doctor|Professor|Lord|Lady)$",
                 "common_name": "title",
                 "type": 0,
-                "choice": []
+                "choice": [
+                    "Mr",
+                    "Mrs",
+                    "Miss",
+                    "Ms",
+                    "Dame",
+                    "Sir",
+                    "Doctor",
+                    "Professor",
+                    "Lord",
+                    "Lady"
+                ]
             },
             {
                 "column": "First name",
@@ -329,7 +351,7 @@
                 "choice": []
             },
             {
-                "column": "Consent 1",
+                "column": "Enrol Consent 1",
                 "description": "I agree to receive promotions, offers & news",
                 "type": 3
             }

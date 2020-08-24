@@ -38,7 +38,7 @@ def context():
 
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card'))
 def add_membership_card(merchant, login_user, context):
-    context["token"] = login_user.json().get("api_key")
+    context["token"] = login_user
     response = MembershipCards.add_card(context["token"], merchant)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
@@ -57,7 +57,7 @@ def add_membership_card(merchant, login_user, context):
 
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card with "{invalid_data}"'))
 def add_invalid_membership_card(merchant, login_user, context, invalid_data):
-    context["token"] = login_user.json().get("api_key")
+    context["token"] = login_user
     response = MembershipCards.add_card(context["token"], merchant, invalid_data)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
@@ -78,7 +78,7 @@ def add_invalid_membership_card(merchant, login_user, context, invalid_data):
 )
 )
 def add_membership_card_invalid_credentials(merchant, login_user, context, email_address, password):
-    context["token"] = login_user.json().get("api_key")
+    context["token"] = login_user
     response = MembershipCards.add_card(context["token"], merchant)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
@@ -96,8 +96,8 @@ def add_membership_card_invalid_credentials(merchant, login_user, context, email
 
 @when(parsers.parse('I perform POST request to add & auto link an existing "{merchant}" membership card'))
 def add_existing_membership_card(merchant, login_user, context):
-    context["token"] = login_user.json().get("api_key")
-    response = MembershipCards.add_card_auto_link(login_user.json().get("api_key"), merchant)
+    context["token"] = login_user
+    response = MembershipCards.add_card_auto_link(context["token"], merchant)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
     TestContext.set_scheme_account(context["scheme_account_id"])
@@ -134,7 +134,7 @@ def patch_request_to_update_membership_card_details(merchant, context):
 
 @when(parsers.parse('I perform POST request to create a "{merchant}" membership account with enrol credentials'))
 def enrol_membership_account(merchant, register_user, context, test_email, env, channel):
-    context["token"] = register_user.json().get("api_key")
+    context["token"] = register_user
     response = MembershipCards.enrol_customer(context["token"], merchant, test_email, env, channel)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
@@ -156,7 +156,7 @@ def enrol_membership_account(merchant, register_user, context, test_email, env, 
 )
 )
 def enrol_membership_account_invalid_credentials(merchant, register_user, context, test_email, env, channel, invalid):
-    context["token"] = register_user.json().get("api_key")
+    context["token"] = register_user
     response = MembershipCards.enrol_customer(context["token"], merchant, test_email, env, channel, invalid)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
@@ -305,7 +305,7 @@ def verify_invalid_membership_card_is_added_to_wallet(merchant, context):
 
 
 @when(parsers.parse('I perform GET request to verify the "{merchant}" membership account is created with invalid data'))
-def verify_invalid_membership_card_is_added_to_wallet_enrol_journey(merchant, context):
+def verify_invalid_membership_card_is_created(merchant, context):
     response = MembershipCards.get_scheme_account(context["token"], context["scheme_account_id"])
     response_json = response.json()
     logging.info(
@@ -316,8 +316,8 @@ def verify_invalid_membership_card_is_added_to_wallet_enrol_journey(merchant, co
             response.status_code == 200
             and response_json["id"] == context["scheme_account_id"]
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.FAILED)
-            # and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-            # get(constants.REASON_CODE_FAILED_INVALID_DATA)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_FAILED_ENROL)
     ), ("Validations in GET/membership_cards with invalid data for  " + merchant + " failed")
 
 
@@ -341,8 +341,8 @@ def verify_membership_card_balance(context, merchant):
             TestData.get_data(merchant).get(constants.POINTS)
             and current_membership_card_response_array["balances"][0]["currency"] ==
             TestData.get_data(merchant).get(constants.CURRENCY)
-            # and current_membership_card_response_array["balances"][0]["description"] ==
-            # TestData.get_data(merchant).get(constants.DESCRIPTION)
+            and current_membership_card_response_array["balances"][0]["description"] ==
+            TestData.get_data(merchant).get(constants.DESCRIPTION)
     ), ("Validations in GET/membership_cards?balances for " + merchant + " failed")
 
 
@@ -463,15 +463,15 @@ def verify_membership_account_link_date_card_number_and_merchant_identifier_popu
                 "Link date in Django (" + link_date + ") is close to current date "
                                                       "(" + current_date + time.strftime(", %I:%M %p").lower() + ")"
             )
-            logging.info(
-                "Merchant Identifier in Django is: "
-                + driver.find_element_by_name("schemeaccountcredentialanswer_set-1-answer").get_attribute("value")
-            )
+        logging.info(
+            "Merchant Identifier in Django is: "
+            + driver.find_element_by_name("schemeaccountcredentialanswer_set-1-answer").get_attribute("value")
+        )
 
 
 @then("verify membership account Join date, Card Number and Merchant identifier populated in Django")
 def verify_membership_account_join_date_card_number_and_merchant_identifier_populated_in_django(driver, context, env):
-    if env == 'prod' or 'dev' or 'staging':
+    if env == "prod" or "dev" or "staging":
         pass
     else:
         scheme_account_id = str(context["scheme_account_id"])

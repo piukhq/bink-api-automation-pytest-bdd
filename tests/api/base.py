@@ -34,7 +34,10 @@ class Endpoint:
         }
 
         if token:
-            headers["Authorization"] = "token " + token
+            if "bearer" in token:
+                headers["Authorization"] = token
+            else:
+                headers["Authorization"] = "token " + token
 
         return headers
 

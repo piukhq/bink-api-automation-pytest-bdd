@@ -59,7 +59,6 @@ burger_king_invalid_data = {
     "email": "fail@unknown.com",
 }
 
-
 coop_membership_card = {
     "card_num": "633174912301122330",
     "dob": "01/01/2000",
@@ -184,7 +183,7 @@ membership_card_status_reason_codes = {
     "reason_code_pending_enrol": "X200",
     "reason_code_authorised": "X300",
     "reason_code_failed": "X303",
-    "reason_code_failed_invalid_data": "X201",
+    "reason_code_failed_enrol": "X201",
 }
 
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
@@ -202,6 +201,16 @@ barclays_user_accounts = {
 django_user_accounts = {
     "django_uid": "njames@bink.com",
     "django_pwd": "Password@200",
+}
+
+# ------------------------------------------ DB DETAILS ---------------------------------------------------- #
+
+db_details = {
+    "user": "laadmin@bink-dev-uksouth",
+    "password": "",
+    "host": "127.0.0.1",
+    "port": "5432",
+    "database": "hermes",
 }
 
 # ------------------------------------------ Encrypted Fields ---------------------------------------------------- #

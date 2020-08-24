@@ -28,12 +28,14 @@ PROD = EnvironmentDetails(
 
 
 class ChannelDetails:
-    def __init__(self, channel_name, bundle_id, client_id_dev, client_id_staging, client_id_prod):
+    def __init__(self, channel_name, bundle_id, client_id_dev, client_id_staging, client_id_prod,
+                 organisation_id):
         self.channel_name = channel_name
         self.bundle_id = bundle_id
         self.client_id_dev = client_id_dev
         self.client_id_staging = client_id_staging
         self.client_id_prod = client_id_prod
+        self.organisation_id = organisation_id
 
 
 BINK = ChannelDetails(
@@ -42,6 +44,7 @@ BINK = ChannelDetails(
     client_id_dev="MKd3FfDGBi1CIUQwtahmPap64lneCa2R6GvVWKg6dNg4w9Jnpd",
     client_id_staging="MKd3FfDGBi1CIUQwtahmPap64lneCa2R6GvVWKg6dNg4w9Jnpd",
     client_id_prod="MKd3FfDGBi1CIUQwtahmPap64lneCa2R6GvVWKg6dNg4w9Jnpd",
+    organisation_id="",
 )
 
 BARCLAYS = ChannelDetails(
@@ -50,6 +53,7 @@ BARCLAYS = ChannelDetails(
     client_id_dev="zQXVE6WnCXi5WCHa7p7PgAeszP9zZQgQOyRyYQjlFkpirclGyb",
     client_id_staging="lwhkGNn5FAXPCCcbIFrgZWk0i7Qolg5WBMFM4UYjZAbaOXQyq6",
     client_id_prod="neik5y7udnvZJAhfGrtH6I8iu02vcUoBhFixau5OWfGvZPrVfq",
+    organisation_id="Barclays",
 
 )
 
