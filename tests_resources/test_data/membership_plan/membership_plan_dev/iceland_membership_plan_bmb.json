@@ -172,7 +172,18 @@
                 "validation": "^(Mr|Mrs|Miss|Ms|Dame|Sir|Doctor|Professor|Lord|Lady)$",
                 "common_name": "title",
                 "type": 0,
-                "choice": []
+                "choice": [
+                    "Mr",
+                    "Mrs",
+                    "Miss",
+                    "Ms",
+                    "Dame",
+                    "Sir",
+                    "Doctor",
+                    "Professor",
+                    "Lord",
+                    "Lady"
+                ]
             },
             {
                 "column": "First name",
@@ -256,7 +267,18 @@
                 "validation": "^(Mr|Mrs|Miss|Ms|Dame|Sir|Doctor|Professor|Lord|Lady)$",
                 "common_name": "title",
                 "type": 0,
-                "choice": []
+                "choice": [
+                    "Mr",
+                    "Mrs",
+                    "Miss",
+                    "Ms",
+                    "Dame",
+                    "Sir",
+                    "Doctor",
+                    "Professor",
+                    "Lord",
+                    "Lady"
+                ]
             },
             {
                 "column": "First name",
