@@ -7,7 +7,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
 @add
     Scenario: Add Journey_BurgerKing
 
-    Given I am a Bink user
+    Given I am a customer who is subscribing to Bink or I am Bink app user
     When I perform POST request to add "BurgerKing" membership card
     And I perform GET request to verify the "BurgerKing" membership card is added to the wallet
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django

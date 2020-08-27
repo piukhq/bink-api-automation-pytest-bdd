@@ -108,3 +108,13 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
 
 
   #    Check if balance array is same for PLL & PLR . If not create separate scenarios
+
+   @schema_membership_cards
+  Scenario: Schema check MembershipCards
+
+     Given I am a Bink user
+    When I perform POST request to add "HarveyNichols" membership card
+    And I perform GET request to verify the "HarveyNichols" membership card is added to the wallet
+    Then I perform schema validation for GET/membership cards response for "HarveyNichols"
+    Then I perform DELETE request to delete the "HarveyNichols" membership card
+    And I perform DELETE request to delete the customer

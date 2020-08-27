@@ -117,9 +117,9 @@ harvey_nichols_invalid_data = {
 
 iceland_membership_card = {
     "card_num": "5555555555555555555",
+    "barcode": "5555555555555555555",
     "last_name": "five",
     "postcode": "rg5 5aa",
-    "barcode": "5555555555555555555",
     "points": 380.01,
     "currency": "GBP",
     "description": "Placeholder Balance Description",
