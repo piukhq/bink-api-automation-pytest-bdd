@@ -72,7 +72,10 @@ harvey_nichols_invalid_data = {
 }
 
 iceland_membership_card = {
+    # "card_num": "6332040030555532506",
+    # 6332040030541927281
     "card_num": "6332040030555532506",
+    "barcode": "633204003055553250600085",
     "last_name": "Armstrong",
     "postcode": "SW18 4HH",
     "points": 5,

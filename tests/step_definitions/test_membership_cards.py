@@ -211,11 +211,12 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
             response.status_code == 200
             and response_json["id"] == context["scheme_account_id"]
             and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
-            and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().
             get(constants.AUTHORIZED)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
             get(constants.REASON_CODE_AUTHORIZED)
+            and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
+            and response_json["card"]["barcode"] == TestData.get_data(merchant).get(constants.BARCODE)
     ), ("Validations in GET/membership_cards for " + merchant + " failed")
 
 
@@ -444,7 +445,7 @@ def perform_delete_request_scheme_account(context, merchant=None):
 
 @then("verify membership account Link date, Card Number and Merchant identifier populated in Django")
 def verify_membership_account_link_date_card_number_and_merchant_identifier_populated_in_django(driver, context, env):
-    if env == 'prod' or 'dev' or 'staging':
+    if env == "dev" or env == "staging" or env == "prod":
         pass
     else:
         scheme_account_id = str(context["scheme_account_id"])
@@ -471,6 +472,22 @@ def verify_membership_account_link_date_card_number_and_merchant_identifier_popu
 
 @then("verify membership account Join date, Card Number and Merchant identifier populated in Django")
 def verify_membership_account_join_date_card_number_and_merchant_identifier_populated_in_django(driver, context, env):
+    if env == "dev" or env == "staging" or env == "prod":
+        pass
+    else:
+        scheme_account_id = str(context["scheme_account_id"])
+        driver.get(Endpoint.DJANGO_URL + "scheme/schemeaccount/" + scheme_account_id + "/change/")
+        driver.find_element_by_name("username").send_keys(TestDataUtils.
+                                                          TEST_DATA.django_user_accounts.get("django_uid"))
+        driver.find_element_by_name("password").send_keys(TestDataUtils.
+                                                          TEST_DATA.django_user_accounts.get("django_pwd"))
+        driver.find_element_by_xpath("//input[@type='submit']").click()
+        select = Select(driver.find_element_by_name("status"))
+        assert select.first_selected_option.text == "Active"
+
+
+@then(parsers.parse('I perform schema validation for GET/membership cards response for "{merchant}"'))
+def schema_validation(driver, context, env):
     if env == "prod" or "dev" or "staging":
         pass
     else:

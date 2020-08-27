@@ -100,6 +100,7 @@ harvey_nichols_membership_card = {
     "id": "auto_five@testbink.com",
     "password": "Password01",
     "card_num": "9123001122335",
+    "barcode": "9123001122335",
     "points": 380,
     "currency": "Points",
     "description": "Placeholder Balance Description",
@@ -115,6 +116,7 @@ harvey_nichols_invalid_data = {
 
 iceland_membership_card = {
     "card_num": "5555555555555555555",
+    "barcode": "5555555555555555555",
     "last_name": "five",
     "postcode": "rg5 5aa",
     "points": 380.01,

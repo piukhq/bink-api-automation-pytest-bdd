@@ -10,6 +10,7 @@ CONSENT = "true"
 
 """ Constants for Add Journey"""
 CARD_NUM = "card_num"
+BARCODE = "barcode"
 EMAIL = "email"
 DOB = "dob"
 POSTCODE = "postcode"
