@@ -1,14 +1,39 @@
 # ------------------------------------ ---PAYMENT  CARDS ------------------------------------------------------- #
 
-payment_card = {
+visa_payment_card = {
+    "first_six_digits": "555555",
+    "last_four_digits": "4444",
+    "token": "auto1093448038331testbinkcom",
+    "name_on_card": "auto1093448038331testbinkcom",
+    "month": 1,
+    "year": 2044,
+    "fingerprint": "auto1093448038331testbinkcom",
+    "status": "active",
+    "active_link": True
+}
+
+amex_payment_card = {
+    "first_six_digits": "555555",
+    "last_four_digits": "4444",
+    "token": "auto1093448038331testbinkcom",
+    "name_on_card": "auto1093448038331testbinkcom",
+    "month": 1,
+    "year": 2044,
+    "fingerprint": "auto1093448038331testbinkcom",
+    "status": "active",
+    "active_link": True
+}
+
+master_payment_card = {
     "first_six_digits": "555555",
     "last_four_digits": "4444",
     "month": 1,
     "year": 2044,
     "status": "active",
-    "active_link": True,
-    "name_on_card": "",
+    "active_link": True
 }
+
+
 
 payment_card_encrypted_amex = {
     "first_six_digits": "kJcZ2vTbEYKMzd1aR3Ze9DVvnsu+pV//LZSCQuRb6oM28KAL2oCEzoyGpJ7mPBxiVqlIby+wZ+fpZhf0oUCuKOAvVQRl9pHX3AlkQKTuXRsBGHiDenKn9Dc5oJtWJ1/ZJErMGcvIKV0xD4FCq3NJFVe6DZTvGNU7qdY2DyXTdXGYmZAu3Yary6szEb3++WTg/NeHq4HWJzBZ0MAEji4LpHWLoGo67KuHYDtKOHwrxDfedNRKRObYZKGljDuljmeEDvO7cdlX8Id4gnlrLDxGGFdCsO44pv6sK+RBjBi4tcBwYeZST/Q+beAnp6Y//7tS8qY7vG9K2MMvSln21ePeL4Jm9vDwbZZRZq06mGnO7iHyghXdsKJPofcoLdkTJVjluLR0DEHf/VCMhYoiod+GaHXFLIDdvykGxpA/i0Ht8kPdPpKgmji6WyfTVQwQVycvk0pNKx+qMf6UrgX5sSmiolE/AQ/EMjrybybp8Tu9PPohCsqUKkOtMdEGefleeZoxayHa0+sf4gRViQSpCRAbCKkyIKXx6vIy3tyU/YMBcBh8zZ3MLzDB6LU5cBQH6FPrqjmbz3E74IehGeZ79MrK5/52cNO76ElWwOpXCCTyGEZOzLzU9wHqT58oub1HrSN0cO/nnWJV+tgXIHW2jlqcUtpY2cRlXL0RQxOj1MzEs9g=",# noqa

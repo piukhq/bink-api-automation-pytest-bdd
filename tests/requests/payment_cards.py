@@ -1,10 +1,16 @@
 import time
+import config
 import tests.api as api
 import tests.helpers.constants as constants
 
 from tests.payload.payment_cards.payment_card import PaymentCardDetails
 from tests.api.base import Endpoint
 from tests.helpers.test_data_utils import TestDataUtils
+from tests.helpers.test_helpers import PaymentCardTestData
+
+
+
+
 
 
 class PaymentCards(Endpoint):
@@ -12,8 +18,8 @@ class PaymentCards(Endpoint):
     def add_payment_card(token, test_email):
         url = PaymentCards.get_url()
         header = Endpoint.request_header(token)
-        payload = PaymentCardDetails.add_payment_card_payload(test_email)
-        # payload = PaymentCardDetails.add_payment_card_payload_encrypted(test_email)
+        # payload = PaymentCardDetails.add_payment_card_payload(test_email)
+        payload = PaymentCardDetails.add_payment_card_payload_encrypted(test_email)
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
@@ -23,7 +29,8 @@ class PaymentCards(Endpoint):
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
             response_json = response.json()
-            if not response_json["status"] == TestDataUtils.TEST_DATA.payment_card.get(constants.PAYMENT_CARD_STATUS):
+            if not response_json["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS):
+                   # TestDataUtils.TEST_DATA.payment_card.get(constants.PAYMENT_CARD_STATUS):
                 time.sleep(1)
             else:
                 break

@@ -1,11 +1,15 @@
 import logging
 import json
+import config
 from faker import Faker
 
-from tests.helpers.test_data_utils import TestDataUtils
-from tests.api.base import Endpoint
 import tests.api as api
 import tests.helpers.constants as constants
+from tests.api.base import Endpoint
+from tests.helpers.vault import channel_vault
+from tests.helpers.vault.channel_vault import KeyType
+from tests.helpers.test_data_utils import TestDataUtils
+from shared_config_storage.credentials.encryption import RSACipher
 
 
 class HarveyNicholsCard:
@@ -18,6 +22,8 @@ class HarveyNicholsCard:
         else:
             value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.ID)
             data_type = "Valid data"
+        sensitive_value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.PASSWORD)
+        pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
 
         payload = {
             "account": {
@@ -27,9 +33,7 @@ class HarveyNicholsCard:
                      },
                     {
                         "column": "Password",
-                        "value": TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.PASSWORD)
-
-
+                        "value": RSACipher().encrypt(sensitive_value, pub_key)
                     }
                 ]
             },

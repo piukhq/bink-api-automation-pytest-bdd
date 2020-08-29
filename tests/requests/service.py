@@ -4,7 +4,9 @@ from tests.api.base import Endpoint
 from tests.payload.service.customer_accounts import UserDetails
 from tests.payload.service.jwt_token import GenerateJWToken
 from tests.helpers.vault import channel_vault
+from tests.helpers.vault.channel_vault import KeyType
 from tests.helpers.test_context import TestContext
+import logging
 
 
 class CustomerAccount:
@@ -51,6 +53,7 @@ class CustomerAccount:
         """The Banking user creation has to be handled by ubiquity/service endpoint
         New Email Id : 201 Response
         Existing Banking user already subscribed to Bink : 200 Response"""
+
         jwt_secret = channel_vault.get_jwt_secret(config.BARCLAYS.bundle_id)
         bearer_token = GenerateJWToken(config.BARCLAYS.organisation_id, jwt_secret, config.BARCLAYS.bundle_id,
                                        test_email).get_token()
