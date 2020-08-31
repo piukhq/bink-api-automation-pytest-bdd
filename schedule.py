@@ -10,13 +10,22 @@ env = os.getenv("ENV", "dev")
 blob_storage_dsn = os.getenv("BLOB_STORAGE_DSN")
 teams_webhook_url = os.getenv(
     "TEAMS_WEBHOOK_URL",
-    "https://outlook.office.com/webhook/bf220ac8-d509-474f-a568-148982784d19@a6e2367a-92ea-4e5a-b565-723830bcc095/IncomingWebhook/5d25733db5994811b6ee4049ef74713e/48aca6b1-4d56-4a15-bc92-8aa9d97300df",  # noqa
+    "https://outlook.office.com/webhook/bf220ac8-d509-474f-a568-148982784d19@a6e2367a-92ea-4e5a-b565-723830bcc095/IncomingWebhook/5d25733db5994811b6ee4049ef74713e/48aca6b1-4d56-4a15-bc92-8aa9d97300df",# noqa
 )
-
 
 env_config = {
     "dev": {
-        "command": ["pytest", "--html", "report.html", "--self-contained-html", "-m", "dev", "--channel", "barclays"],
+        "command": [
+            "pytest",
+            "--html",
+            "report.html",
+            "--self-contained-html",
+            "-s",
+            "-m",
+            "dev",
+            "--channel",
+            "barclays"
+        ],
         "cron": "0 2 * * *",
     },
     "staging": {
@@ -25,6 +34,7 @@ env_config = {
             "--html",
             "report.html",
             "--self-contained-html",
+            "-s",
             "-m",
             "staging",
             "--env",
