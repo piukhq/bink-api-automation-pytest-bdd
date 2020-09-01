@@ -16,7 +16,6 @@ from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_context import TestContext
 from tests.helpers.test_helpers import PaymentCardTestData
 
-
 from faker import Faker
 
 
@@ -176,7 +175,6 @@ def verify_payment_card_added(context):
             response.status_code == 200
             and response_json["id"] == context["payment_card_id"]
             and response_json["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
-            # TestDataUtils.TEST_DATA.payment_card.get(constants.PAYMENT_CARD_STATUS)
     ), "Payment card addition is not successful"
 
 

@@ -4,9 +4,7 @@ from tests.api.base import Endpoint
 from tests.payload.service.customer_accounts import UserDetails
 from tests.payload.service.jwt_token import GenerateJWToken
 from tests.helpers.vault import channel_vault
-from tests.helpers.vault.channel_vault import KeyType
 from tests.helpers.test_context import TestContext
-import logging
 
 
 class CustomerAccount:

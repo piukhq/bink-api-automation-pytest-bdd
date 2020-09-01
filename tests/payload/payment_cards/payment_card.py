@@ -1,7 +1,6 @@
 import logging
 import json
 import config
-from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_helpers import PaymentCardTestData
 
 from tests.api.base import Endpoint
@@ -82,5 +81,5 @@ class PaymentCardDetails:
         }
 
         logging.info("The Request to add payment card is : \n\n"
-                 + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n" + json.dumps(payload, indent=4))
+                     + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
