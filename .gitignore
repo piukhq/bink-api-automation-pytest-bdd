@@ -1,8 +1,7 @@
 # Custom
 
 report/
-report.md
-report2.md
+report.html
 
 # Created by https://www.toptal.com/developers/gitignore/api/macos,linux,code,python,pycharm
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,linux,code,python,pycharm

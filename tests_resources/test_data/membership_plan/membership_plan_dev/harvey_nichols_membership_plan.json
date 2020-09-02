@@ -31,20 +31,6 @@
     },
     "images": [
         {
-            "id": 629,
-            "type": 9,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_jlFfemh.png",
-            "description": "Harvey Nichols Alternative Hero",
-            "encoding": "png"
-        },
-        {
-            "id": 524,
-            "type": 0,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN_aeOFrx6.png",
-            "description": "Harvey Nichols Default Hero",
-            "encoding": "png"
-        },
-        {
             "id": 528,
             "type": 2,
             "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Offer_tile_1.png",
@@ -94,10 +80,10 @@
             "encoding": "png"
         },
         {
-            "id": 494,
+            "id": 496,
             "type": 8,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_1_Silver_FlKOCRU.png",
-            "description": "Silver Tier",
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_3_Platinum_IdtXCBn.png",
+            "description": "Platinum Tier",
             "encoding": "png"
         },
         {
@@ -108,6 +94,13 @@
             "encoding": "png"
         },
         {
+            "id": 494,
+            "type": 8,
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_1_Silver_FlKOCRU.png",
+            "description": "Silver Tier",
+            "encoding": "png"
+        },
+        {
             "id": 497,
             "type": 8,
             "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_4_Black_r4vKKA7.png",
@@ -115,17 +108,24 @@
             "encoding": "png"
         },
         {
-            "id": 496,
-            "type": 8,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_3_Platinum_IdtXCBn.png",
-            "description": "Platinum Tier",
-            "encoding": "png"
-        },
-        {
             "id": 537,
             "type": 3,
             "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Logo_oLW0lxD.png",
             "description": "Harvey nichols Icon",
+            "encoding": "png"
+        },
+        {
+            "id": 629,
+            "type": 9,
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_jlFfemh.png",
+            "description": "Harvey Nichols Alternative Hero",
+            "encoding": "png"
+        },
+        {
+            "id": 524,
+            "type": 0,
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN_aeOFrx6.png",
+            "description": "Harvey Nichols Default Hero",
             "encoding": "png"
         }
     ],
