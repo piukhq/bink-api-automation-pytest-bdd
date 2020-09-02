@@ -5,7 +5,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
   So I can add my card, with the scheme provider Iceland & check its details successfully
 
 
-  @add @dev @staging @prod
+  @add @dev @staging @prod @CR250
   Scenario: Add Journey_Iceland
 
     Given I am a Bink user
@@ -15,15 +15,15 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the "Iceland" membership card
 
 #   Use below for production execution once iceland test data with balances is ready
-  @balances_transactions @dev @staging
-  Scenario: Balances and Transactions_Iceland
+  @balances_transactions @dev @staging @CR250
+  Scenario: Balances verification_Iceland
 
     Given I am a Bink user
     When I perform POST request to add "Iceland" membership card
     And I perform GET request to verify the "Iceland" membership card is added to the wallet
     And I perform GET request to view balance for recently added "Iceland" membership card
-    When I perform GET request to view all transactions made using the recently added "Iceland" membership card
-    Then I perform GET request to view a specific transaction made using the recently added "Iceland" membership card
+#    When I perform GET request to view all transactions made using the recently added "Iceland" membership card
+#    Then I perform GET request to view a specific transaction made using the recently added "Iceland" membership card
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     And I perform DELETE request to delete the "Iceland" membership card
 

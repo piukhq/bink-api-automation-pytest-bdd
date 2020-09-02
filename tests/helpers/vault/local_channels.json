@@ -1,11 +1,11 @@
 {
   "com.barclays.bmb": {
-    "jwt_secret": "testjwtsecret",
+    "jwt_secret": "62e64c5814ed4c01aa21703319fdae37359ce59e720845949a0fbe73e1602a97",
     "private_key": "testprivatekey",
-    "public_key": "testpublickkey"
+    "public_key": "-----BEGIN PUBLIC KEY-----\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA5zYyVv3Ax5tvkOu3taKy\nAgY9iUs0kyELaSKXEMj+CnxJ4fG/v3hYr4hh5eJzCrTB230nhLP0yjRinumiCf0u\nnMyDhe9S9e7+0hU8ZxTU6IZBpVwHaU2t6wADC4mLmCJ5YD067axrXO6q3YQ9gYww\nOCB9z48ICxXqMLagK/bzc8avxsJLwhEgIAr31BmDHX3NqEJbqTuqvzvQV9gHYfq8\nnfxMMriR+ZP74cvrSd0hV6Y7XevwqCnr67EHBvBSZ85w3K/9w+cPi5XZxTSB/XU9\nPeaVzkeiaPjUmzYZ4FKAUfjHFkpiAVH1RjDg4xfcycGufNfOsQAzyJk45wl208FZ\nPmu3a9YX4L7toZeylPWnGez/Usftu6rIYnuDtZjgUNRXbbkSFJRmWiQHMZkvSmMO\nE09U3tJWhKQwOpzHMw0UZhe5EJp9BB4raXQ9+VtiLkBR4a+a1akVJvjG4D3EqG2R\nqCkgRQnDJP8xOgBThcsJVP74Bn/fdCpDqPqi7oLqHeo32h1HM8Aa7S0xLVgyqX9q\nhFkbDcSElX3VELNn4ZnetM9OKUGTqF8qaXRnUQ/rS5CfvlaVFFUAe00HTobaPT83\nfU45Txy0UZ7A28UUsDt4+P2A1Nzz9Gp0lUJsfRANL1OpAdANz14e9blICLpbT7CK\nmKBmdSsAOeVLo47bRIdg9kcCAwEAAQ==\n-----END PUBLIC KEY-----"
   },
   "com.bink.wallet": {
-    "jwt_secret": "testjwtsecret",
+    "jwt_secret": "tes8tjwtsecret",
     "private_key": "testprivatekey",
     "public_key": "testpublickkey"
   }

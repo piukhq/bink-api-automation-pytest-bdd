@@ -51,6 +51,7 @@ class CustomerAccount:
         """The Banking user creation has to be handled by ubiquity/service endpoint
         New Email Id : 201 Response
         Existing Banking user already subscribed to Bink : 200 Response"""
+
         jwt_secret = channel_vault.get_jwt_secret(config.BARCLAYS.bundle_id)
         bearer_token = GenerateJWToken(config.BARCLAYS.organisation_id, jwt_secret, config.BARCLAYS.bundle_id,
                                        test_email).get_token()

@@ -17,8 +17,10 @@ from tests.api.base import Endpoint
 from tests.helpers.test_helpers import TestData
 from tests.helpers.test_context import TestContext
 from tests.helpers.test_data_utils import TestDataUtils
+from tests.helpers.test_helpers import PaymentCardTestData
 from tests.requests.membership_cards import MembershipCards
 from tests.requests.membership_transactions import MembershipTransactions
+
 
 scenarios("membership_cards/")
 
@@ -274,7 +276,8 @@ def verify_membership_card_is_add_and_linked(merchant, context):
                 get(constants.REASON_CODE_AUTHORIZED)
                 and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
                 and response_json["payment_cards"][0]["active_link"] ==
-                TestDataUtils.TEST_DATA.payment_card.get(constants.ACTIVE_LINK)
+                # TestDataUtils.TEST_DATA.payment_card.get(constants.ACTIVE_LINK)
+                PaymentCardTestData.get_data().get(constants.ACTIVE_LINK)
                 and payment_card_present == "yes"
 
         ), ("Validations in GET/membership_cards after AutoLink for " + merchant + " failed")
