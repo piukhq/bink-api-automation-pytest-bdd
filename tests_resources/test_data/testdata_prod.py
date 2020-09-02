@@ -1,8 +1,37 @@
 # ------------------------------------ ---PAYMENT  CARDS ------------------------------------------------------- #
 
-payment_card = {
-    "first_six_digits": "",
-    "last_four_digits": "",
+
+visa_payment_card = {
+    "first_six_digits": "555555",
+    "last_four_digits": "4444",
+    "token": "auto1093448038331testbinkcom",
+    "name_on_card": "auto1093448038331testbinkcom",
+    "month": 1,
+    "year": 2044,
+    "fingerprint": "auto1093448038331testbinkcom",
+    "status": "active",
+    "active_link": True
+}
+
+amex_payment_card = {
+    "first_six_digits": "555555",
+    "last_four_digits": "4444",
+    "token": "auto1093448038331testbinkcom",
+    "name_on_card": "auto1093448038331testbinkcom",
+    "month": 1,
+    "year": 2044,
+    "fingerprint": "auto1093448038331testbinkcom",
+    "status": "active",
+    "active_link": True
+}
+
+master_payment_card = {
+    "first_six_digits": "555555",
+    "last_four_digits": "4444",
+    "month": 1,
+    "year": 2044,
+    "status": "active",
+    "active_link": True
 }
 
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #

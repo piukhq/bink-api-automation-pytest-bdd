@@ -32,7 +32,7 @@ class PaymentCardDetails:
         return payload
 
     @staticmethod
-    def get_card(email, card_provider):
+    def get_card(email, card_provider="master"):
         return {
             "card": {
                 "hash": email.split("@")[0],

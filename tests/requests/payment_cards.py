@@ -9,7 +9,7 @@ from tests.helpers.test_helpers import PaymentCardTestData
 
 class PaymentCards(Endpoint):
     @staticmethod
-    def add_payment_card(token, test_email, card_provider=None):
+    def add_payment_card(token, test_email, card_provider="master"):
         url = PaymentCards.get_url()
         header = Endpoint.request_header(token)
         # payload = PaymentCardDetails.add_payment_card_payload(test_email)
