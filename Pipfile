@@ -28,7 +28,7 @@ arrow = "*"
 shared-config-storage = "*"
 pyjwt = "*"
 apscheduler = "*"
-pytest-md = "*"
+azure-storage-blob = "*"
 
 [requires]
 python_version = "3.8"
