@@ -154,7 +154,7 @@
         "authorise_fields": [
             {
                 "column": "Last name",
-                "validation": "^(((?=.{1,20}$)[A-Za-z\\-\\u00C0-\\u00FF\\'])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF\\'])+\\s*){1,4}$",
                 "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
@@ -191,7 +191,7 @@
             },
             {
                 "column": "First name",
-                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF\\'])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,20}$)[A-Za-z\\-\\u00C0-\\u00FF\\'])+\\s*){1,4}$",
                 "description": "Enter first name",
                 "common_name": "first_name",
                 "type": 0,
@@ -199,7 +199,7 @@
             },
             {
                 "column": "Last name",
-                "validation": "^(((?=.{1,20}$)[A-Za-z\\-\\u00C0-\\u00FF\\'])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF\\'])+\\s*){1,4}$",
                 "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
@@ -305,7 +305,7 @@
             },
             {
                 "column": "Last name",
-                "validation": "^(((?=.{1,20}$)[A-Za-z\\-\\u00C0-\\u00FF\\'])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF\\'])+\\s*){1,4}$",
                 "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
