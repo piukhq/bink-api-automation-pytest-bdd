@@ -55,10 +55,10 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Scenario:  Add_Journey with Invalid Credentials_Iceland
 
     Given I am a Bink user
-    When I perform POST request to add "HarveyNichols" membership card with "invalid_data"
-    And I perform GET request to verify the "HarveyNichols" membership card is added to the wallet with invalid data
+    When I perform POST request to add "Iceland" membership card with "invalid_data"
+    And I perform GET request to verify the "Iceland" membership card is added to the wallet with invalid data
 #    Then Verify the card status as "Invalid Credentials" in Django
-    Then I perform DELETE request to delete the "HarveyNichols" membership card
+    Then I perform DELETE request to delete the "Iceland" membership card
 
 
    @enrol @dev
