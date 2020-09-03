@@ -4,7 +4,7 @@ EMAIL_TEMPLATE = "pytest_email@bink.com"
 """Constants for Enrol_Scheme Credential Questions"""
 TITLE = "Mr"
 DATE_OF_BIRTH = "01/01/2000"
-PASSWORD_ENROL = "password"
+PASSWORD_ENROL = "Password01"
 EMAIL_MARKETING = "true"
 CONSENT = "true"
 

@@ -54,7 +54,7 @@ class HarveyNicholsCard:
         else:
             value = email
             data_type = "Valid data"
-        sensitive_value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.PASSWORD_ENROL)
+        sensitive_value = constants.PASSWORD_ENROL
         pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
         payload = {
             "account": {
