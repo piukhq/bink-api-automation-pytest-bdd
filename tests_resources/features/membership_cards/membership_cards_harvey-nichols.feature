@@ -80,6 +80,36 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the customer
 
+   @ubiquity
+  Scenario: Add a second membership card single channel_HarveyNichols
+
+    Given I am a customer who is subscribing to Bink or I am Bink app user
+    And I perform POST request to add payment card to wallet
+    And I perform the GET request to verify the payment card has been added successfully
+    When I perform POST request to add & auto link an existing "HarveyNichols" membership card
+    And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
+    When I perform POST request to add & auto link "HarveyNichols" membership_card2 to the same channel_1 wallet
+#    Then I see a successful response for the POST /membership_cards?auto-link=true
+    Then "HarveyNichols" membership_card2 is successfully added to channel_1 wallet
+    And the response shows the original link between "HarveyNichols" membership_card1 and payment card remains in force
+    And there is no link created between Payment card and "HarveyNichols" membership_card2
+
+    @ubiquity
+  Scenario: Add a second membership card second channel_HarveyNichols
+
+    Given I am a customer who is subscribing to Bink or I am Bink app user
+    And I perform POST request to add payment card to channel_1 wallet
+    And I perform the GET request to verify the payment card has been added successfully
+    When I perform POST request to add & auto link an existing "HarveyNichols" membership card
+    And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
+    And I perform POST request to add same payment card to channel_2 wallet
+    And I perform the GET request to verify the payment card has been added successfully
+    When I perform POST request to add & auto link "HarveyNichols" membership_card2 to the channel_2 wallet
+#    Then I see a successful response for the POST /membership_cards?auto-link=true
+    Then "HarveyNichols" membership_card2 is successfully added to channel_2 wallet
+    And the response shows the original link between "HarveyNichols" membership_card1 and payment card remains in force
+    And there is no link created between Payment card and "HarveyNichols" membership_card2
+
 #
 #  Scenario Outline:  Add_Journey_Invalid data_Error code checks
 #

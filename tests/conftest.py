@@ -123,6 +123,7 @@ def register_user(test_email, channel, env):
         return TestContext.get_token()
 
 
+@given("I am a customer who is subscribing to Bink or I am Bink app user")
 @given("I am a Bink user")
 def login_user(channel, env):
     if channel == config.BINK.channel_name:
