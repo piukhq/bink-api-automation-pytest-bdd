@@ -48,12 +48,14 @@ class HarveyNicholsCard:
         faker = Faker()
 
         if invalid_data:
-            value = TestDataUtils.TEST_DATA.coop_invalid_data.get("email")
+            value = TestDataUtils.TEST_DATA.harvey_nichols_invalid_data.get("id")
             logging.info("Invalid data is: " + value)
             data_type = "Invalid data"
         else:
             value = email
             data_type = "Valid data"
+        sensitive_value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.PASSWORD_ENROL)
+        pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
         payload = {
             "account": {
                 "enrol_fields": [
@@ -61,8 +63,7 @@ class HarveyNicholsCard:
                     {"column": "First name", "value": faker.name()},
                     {"column": "Last name", "value": faker.name()},
                     {"column": "Email", "value": value},
-                    {"column": "Password", "value": constants.PASSWORD_ENROL},
-
+                    {"column": "Password", "value": RSACipher().encrypt(sensitive_value, pub_key)},
                     {"column": "Mobile number", "value": faker.phone_number()},
                     {"column": "Consent 1", "value": constants.CONSENT},
                 ]
