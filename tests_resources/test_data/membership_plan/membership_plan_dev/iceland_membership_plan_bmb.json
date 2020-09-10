@@ -153,7 +153,7 @@
         "authorise_fields": [
             {
                 "column": "Last name",
-                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF\\'])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "common_name": "last_name",
                 "type": 0,
                 "choice": []
@@ -187,14 +187,14 @@
             },
             {
                 "column": "First name",
-                "validation": "^(((?=.{1,20}$)[A-Za-z\\-\\u00C0-\\u00FF\\'])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,20}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "common_name": "first_name",
                 "type": 0,
                 "choice": []
             },
             {
                 "column": "Last name",
-                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF\\'])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "common_name": "last_name",
                 "type": 0,
                 "choice": []
@@ -282,14 +282,14 @@
             },
             {
                 "column": "First name",
-                "validation": "^(((?=.{1,20}$)[A-Za-z\\-\\u00C0-\\u00FF\\'])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,20}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "common_name": "first_name",
                 "type": 0,
                 "choice": []
             },
             {
                 "column": "Last name",
-                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF\\'])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "common_name": "last_name",
                 "type": 0,
                 "choice": []
