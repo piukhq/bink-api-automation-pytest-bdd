@@ -42,7 +42,7 @@ env_config = {
             "--channel",
             "barclays",
         ],
-        "cron": "0 2 * * *",
+        "cron": "3 7 * * *",
     },
     "preprod": {
         "command": [
