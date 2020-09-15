@@ -93,6 +93,19 @@ harvey_nichols_membership_card = {
     "transaction_currency": "Points",
 }
 
+harvey_nichols_membership_card_2 = {
+    "id": "ryanedwards3@mac.com",
+    "password": "BinkTesting",
+    "card_num": "1000000729692",
+    "barcode": "1000000729692",
+    "points": 1896,
+    "currency": "Points",
+    "description": "Placeholder Balance Description",
+    "transactions": "0 ",
+    "transaction_status": "",
+    "transaction_currency": "",
+
+}
 harvey_nichols_invalid_data = {
     "id": "fail@unknown.com"
 }

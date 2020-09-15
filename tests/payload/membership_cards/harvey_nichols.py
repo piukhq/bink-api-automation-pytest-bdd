@@ -8,6 +8,7 @@ import tests.helpers.constants as constants
 from tests.api.base import Endpoint
 from tests.helpers.vault import channel_vault
 from tests.helpers.vault.channel_vault import KeyType
+from tests.helpers.test_context import TestContext
 from tests.helpers.test_data_utils import TestDataUtils
 from shared_config_storage.credentials.encryption import RSACipher
 
@@ -22,8 +23,12 @@ class HarveyNicholsCard:
         else:
             value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.ID)
             data_type = "Valid data"
+
+        if TestContext.get_channel() == config.BINK.channel_name:
+            pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
+        elif TestContext.get_channel() == config.BARCLAYS.channel_name:
+            pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
         sensitive_value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.PASSWORD)
-        pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
 
         payload = {
             "account": {
@@ -40,6 +45,32 @@ class HarveyNicholsCard:
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"),
         }
         logging.info("The Request for Add Journey with " + data_type + " :\n\n"
+                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        return payload
+
+    @staticmethod
+    def add_membership_card_2_payload():
+        if TestContext.get_channel() == config.BINK.channel_name:
+            pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
+        elif TestContext.get_channel() == config.BARCLAYS.channel_name:
+            pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
+        sensitive_value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.PASSWORD)
+
+        payload = {
+            "account": {
+                "authorise_fields": [
+                    {"column": "Email",
+                     "value": TestDataUtils.TEST_DATA.harvey_nichols_membership_card_2.get(constants.ID)
+                     },
+                    {
+                        "column": "Password",
+                        "value": RSACipher().encrypt(sensitive_value, pub_key)
+                    }
+                ]
+            },
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"),
+        }
+        logging.info("The Request for Add Journey membership_card_2 :\n\n"
                      + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
 

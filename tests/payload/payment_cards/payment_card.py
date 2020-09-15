@@ -9,6 +9,7 @@ import tests.helpers.constants as constants
 
 from tests.helpers.vault import channel_vault
 from tests.helpers.vault.channel_vault import KeyType
+from tests.helpers.test_context import TestContext
 from tests.helpers.test_data_utils import TestDataUtils
 from shared_config_storage.credentials.encryption import RSACipher
 
@@ -25,7 +26,10 @@ class PaymentCardDetails:
     @staticmethod
     def add_payment_card_payload_encrypted(test_email, card_provider="master"):
         payment_card = PaymentCardDetails.get_card(test_email, card_provider)
-        pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
+        if TestContext.get_channel() == config.BINK.channel_name:
+            pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
+        elif TestContext.get_channel() == config.BARCLAYS.channel_name:
+            pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
         payload = PaymentCardDetails.encrypt(payment_card, pub_key)
         logging.info("The Request to add encrypted payment card is : \n\n"
                      + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n" + json.dumps(payload, indent=4))

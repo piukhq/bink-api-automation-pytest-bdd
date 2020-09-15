@@ -218,8 +218,10 @@ def verify_membership_card_is_added_to_wallet(merchant, context):
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
             get(constants.REASON_CODE_AUTHORIZED)
             and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
-            and response_json["card"]["barcode"] == TestData.get_data(merchant).get(constants.BARCODE)
+            # and response_json["card"]["barcode"] == TestData.get_data(merchant).get(constants.BARCODE)
     ), ("Validations in GET/membership_cards for " + merchant + " failed")
+    if merchant in ("HarveyNichols", "Iceland"):
+        assert response_json["card"]["barcode"] == TestData.get_data(merchant).get(constants.BARCODE)
 
 
 @when(

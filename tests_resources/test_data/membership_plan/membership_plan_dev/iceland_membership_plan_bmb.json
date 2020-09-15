@@ -169,7 +169,7 @@
         "registration_fields": [
             {
                 "column": "Title",
-                "validation": "^(Mr|Mrs|Miss|Ms|Dame|Sir|Doctor|Professor|Lord|Lady)$",
+                "validation": "^(Mr|Mrs|Miss|Ms|Dr)$",
                 "common_name": "title",
                 "type": 0,
                 "choice": [
@@ -177,12 +177,7 @@
                     "Mrs",
                     "Miss",
                     "Ms",
-                    "Dame",
-                    "Sir",
-                    "Doctor",
-                    "Professor",
-                    "Lord",
-                    "Lady"
+                    "Dr"
                 ]
             },
             {
@@ -264,7 +259,7 @@
         "enrol_fields": [
             {
                 "column": "Title",
-                "validation": "^(Mr|Mrs|Miss|Ms|Dame|Sir|Doctor|Professor|Lord|Lady)$",
+                "validation": "^(Mr|Mrs|Miss|Ms|Dr)$",
                 "common_name": "title",
                 "type": 0,
                 "choice": [
@@ -272,12 +267,7 @@
                     "Mrs",
                     "Miss",
                     "Ms",
-                    "Dame",
-                    "Sir",
-                    "Doctor",
-                    "Professor",
-                    "Lord",
-                    "Lady"
+                    "Dr"
                 ]
             },
             {

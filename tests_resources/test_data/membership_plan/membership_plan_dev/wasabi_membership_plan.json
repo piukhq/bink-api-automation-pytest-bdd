@@ -57,9 +57,17 @@
         "plan_description": "Collect 7 stamps, so your 8th meal is free. Collect a stamp every time you make a purchase total of \u00a37 or more in a participating Wasabi store. Link your payment card and we will recognise you every time you shop with that card. One stamp can be earned per customer per day when the qualifying spend in a single transaction for food and drink purchases totals \u00a37.00 or more. T\u2019s and C\u2019s apply.\u200b",
         "plan_documents": [
             {
+                "name": "Terms & conditions",
+                "url": "https://policies.gb.bink.com/wasabi/tc.html",
+                "display": [
+                    "VOUCHER"
+                ],
+                "checkbox": false
+            },
+            {
                 "name": "Retailer terms & conditions",
                 "description": "I accept the",
-                "url": "https://policies.bink.com/wasabi/tc.html",
+                "url": "https://policies.gb.bink.com/wasabi/tc.html",
                 "display": [
                     "ENROL"
                 ],
@@ -68,19 +76,11 @@
             {
                 "name": "Wasabi privacy policy",
                 "description": "I have read the",
-                "url": "https://policies.bink.com/wasabi/pp.html",
+                "url": "https://policies.gb.bink.com/wasabi/pp.html",
                 "display": [
                     "ENROL"
                 ],
                 "checkbox": true
-            },
-            {
-                "name": "Terms & conditions",
-                "url": "https://policies.bink.com/wasabi/tc.html",
-                "display": [
-                    "VOUCHER"
-                ],
-                "checkbox": false
             }
         ],
         "company_name": "Wasabi",
@@ -126,26 +126,18 @@
                 "choice": []
             },
             {
-                "column": "Postcode",
-                "validation": "^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$",
-                "description": "Postcode",
-                "common_name": "postcode",
-                "type": 0,
-                "choice": []
-            },
-            {
-                "column": "Phone number",
-                "validation": "^[0-9]{9,11}$",
-                "description": "Phone number",
-                "common_name": "phone",
-                "type": 0,
-                "choice": []
-            },
-            {
                 "column": "Email",
                 "validation": "^.+@([A-Za-z0-9-]+.)+[A-Za-z]{2}[A-Za-z]*$",
                 "description": "Email",
                 "common_name": "email",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Date of birth",
+                "validation": "^(0[1-9]|[12][0-9]|3[01])[\\/](0[1-9]|1[012])[\\/](19|20)\\d\\d$",
+                "description": "DD/MM/YYYY",
+                "common_name": "date_of_birth",
                 "type": 0,
                 "choice": []
             },
