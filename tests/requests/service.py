@@ -31,7 +31,6 @@ class CustomerAccount:
 
     @staticmethod
     def login_bink_user(channel, env):
-
         url = Endpoint.BASE_URL + api.ENDPOINT_LOGIN
         headers = Endpoint.request_header()
         client_id = CustomerAccount.get_client_id(channel, env)

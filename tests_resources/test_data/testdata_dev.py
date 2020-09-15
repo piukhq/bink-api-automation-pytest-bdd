@@ -100,6 +100,19 @@ harvey_nichols_membership_card = {
 
 }
 
+harvey_nichols_membership_card_2 = {
+    "id": "auto_zero@testbink.com",
+    "password": "Password01",
+    "card_num": "9123001122330",
+    "barcode": "9123001122330",
+    "points": 0,
+    "currency": "Points",
+    "description": "Placeholder Balance Description",
+    "transactions": "0 ",
+    "transaction_status": "",
+    "transaction_currency": "",
+
+}
 harvey_nichols_invalid_data = {
     "id": "fail@unknown.com"
 }

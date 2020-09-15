@@ -21,10 +21,14 @@ class MembershipCards(Endpoint):
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
-    def add_card_auto_link(token, merchant):
+    def add_card_auto_link(token, merchant, card_2=None):
         url = Endpoint.BASE_URL + api.ENDPOINT_AUTO_LINK_PAYMENT_AND_MEMBERSHIP_CARD
         header = Endpoint.request_header(token)
-        payload = Merchant.get_merchant(merchant).add_membership_card_payload()
+        if not card_2:
+            payload = Merchant.get_merchant(merchant).add_membership_card_payload()
+
+        if card_2:
+            payload = Merchant.get_merchant(merchant).add_membership_card_2_payload()
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod

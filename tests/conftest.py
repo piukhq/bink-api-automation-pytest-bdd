@@ -28,8 +28,13 @@ def pytest_bdd_step_error(request, feature, scenario, step, step_func, step_func
 def pytest_bdd_after_scenario(request, feature, scenario):
     """Called after scenario is executed (even if one of steps has failed)
     So the scheme_account will be deleted always and make sure the test data is ready"""
-    if not TestContext.get_scheme_account_id() == "":
-        delete_scheme_account(TestContext.get_token(), TestContext.get_scheme_account_id())
+
+    """Below functions make sure the scheme account id and payment_card id deleted from
+          first channel after the execution of ubiquity scenarios
+          By default second channel becomes the default channel so above functions delete the
+           scheme account id  and payment_card id from channel_2"""
+    delete_scheme_account()
+    delete_payment_card()
 
 
 def pytest_html_report_title(report):
@@ -108,14 +113,16 @@ def driver(env):
 @given("I register with bink service as a new customer")
 def register_user(test_email, channel, env):
     if channel == config.BINK.channel_name:
-        response = CustomerAccount.create_user(test_email, channel, env)
+        TestContext.set_channel(channel)
+        response = CustomerAccount.register_bink_user(test_email, channel, env)
         token = response.json().get("api_key")
         TestContext.set_token(token)
-        response_consent = CustomerAccount.create_consent(TestContext.get_token(), test_email)
+        response_consent = CustomerAccount.service_consent_bink_user(TestContext.get_token(), test_email)
         assert response_consent.status_code == 201, "User Registration _ service consent is not successful"
         logging.info("User registration is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
         return token
     elif channel == config.BARCLAYS.channel_name:
+        TestContext.set_channel(channel)
         response = CustomerAccount.service_consent_banking_user(test_email)
         logging.info("Banking user subscription to Bink is successful and the token is: \n\n" +
                      TestContext.get_token() + "\n")
@@ -125,7 +132,9 @@ def register_user(test_email, channel, env):
 
 @given("I am a customer who is subscribing to Bink or I am Bink app user")
 @given("I am a Bink user")
+@given("I am a customer in channel_1")
 def login_user(channel, env):
+    TestContext.set_channel(channel)
     if channel == config.BINK.channel_name:
         response = CustomerAccount.login_bink_user(channel, env)
         logging.info("Token is: \n\n" + TestContext.get_token() + "\n")
@@ -180,20 +189,34 @@ def verify_payment_card_added(context):
 
 
 @then("I perform DELETE request to delete the payment card")
-def delete_payment_card(context):
-    response = PaymentCards.delete_payment_card(context["token"], context["payment_card_id"])
-    logging.info("Payment card is deleted successfully")
-    assert response.status_code == 200, "Payment card deletion is not successful"
+def delete_payment_card():
+    response = PaymentCards.delete_payment_card(TestContext.get_token(), TestContext.get_payment_card_id())
+    response1 = PaymentCards.delete_payment_card(TestContext.get_token_channel_1(), TestContext.get_payment_card_id())
 
-
-def delete_scheme_account(token, scheme_account):
-    """ To make sure the scheme_account is deleted successfully,even if the add/enrol journey failed """
-    response_del_schemes = MembershipCards.delete_scheme_account(token, scheme_account)
     try:
-        if response_del_schemes.status_code == 200:
-            logging.info("Scheme account is deleted successfully, even the scenario has failed")
+        if response.status_code == 200 or response1.status_code == 200:
+            logging.info("Payment card is deleted successfully")
+        elif response.status_code == 404 or response1.status_code == 200:
+            logging.info("Payment card is already  deleted ")
+
+    except HTTPError as network_response:
+
+        assert network_response.response.status_code == 404 or 400, "Payment card deletion is not successful"
+
+
+def delete_scheme_account():
+    """ To make sure the scheme_account is deleted successfully,even if the add/enrol journey failed """
+
+    response_del_schemes = MembershipCards.delete_scheme_account(TestContext.get_token(),
+                                                                 TestContext.get_scheme_account_id())
+    response_del_schemes1 = MembershipCards.delete_scheme_account(TestContext.get_token_channel_1(),
+                                                                  TestContext.get_scheme_account_id_1())
+
+    try:
+        if response_del_schemes.status_code == 200 or response_del_schemes1.status_code == 200:
+            logging.info("Scheme account is deleted successfully")
         elif response_del_schemes.status_code == 404:
             logging.info("Scheme account is already  deleted ")
 
     except HTTPError as network_response:
-        assert network_response.response.status_code == 404 or 400
+        assert network_response.response.status_code == 404 or 400, "Scheme account deletion is not successful"

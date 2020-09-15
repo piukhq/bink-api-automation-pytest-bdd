@@ -50,9 +50,8 @@ class WasabiCard:
                 "enrol_fields": [
                     {"column": "First name", "value": faker.name()},
                     {"column": "Last name", "value": faker.name()},
-                    {"column": "Postcode", "value": faker.postcode()},
-                    {"column": "Phone number", "value": faker.phone_number()},
                     {"column": "Email", "value": value},
+                    {"column": "Date of birth", "value": constants.DATE_OF_BIRTH},
                     {"column": "Consent 1", "value": constants.CONSENT},
                 ]
             },
