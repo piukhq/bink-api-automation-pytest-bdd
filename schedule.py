@@ -65,7 +65,7 @@ config = {
         "daily": {
             "cron": "0 22 * * *",
         },
-        "continious": {
+        "continuous": {
             "cron": "*/10 * * * *",
         }
     },
@@ -85,7 +85,7 @@ config = {
         "daily": {
             "cron": "0 22 * * *",
         },
-        "continious": {
+        "continuous": {
             "cron": "*/10 * * * *",
         },
     },
