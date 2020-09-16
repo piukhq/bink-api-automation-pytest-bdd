@@ -29,7 +29,7 @@ config = {
             "--channel",
             "barclays",
         ],
-        "daily": {"cron": "5 22 * * *",},
+        "daily": {"cron": "5 22 * * *"},
     },
     "staging": {
         "command": [
@@ -45,7 +45,7 @@ config = {
             "--channel",
             "barclays",
         ],
-        "daily": {"cron": "5 22 * * *",},
+        "daily": {"cron": "5 22 * * *"},
     },
     "preprod": {
         "command": [
@@ -60,8 +60,8 @@ config = {
             "--channel",
             "barclays",
         ],
-        "daily": {"cron": "5 22 * * *",},
-        "continuous": {"cron": "*/10 * * * *",},
+        "daily": {"cron": "5 22 * * *"},
+        "continuous": {"cron": "*/10 * * * *"},
     },
     "prod": {
         "command": [
@@ -76,8 +76,8 @@ config = {
             "--channel",
             "barclays",
         ],
-        "daily": {"cron": "5 22 * * *",},
-        "continuous": {"cron": "*/10 * * * *",},
+        "daily": {"cron": "5 22 * * *"},
+        "continuous": {"cron": "*/10 * * * *"},
     },
 }
 
@@ -101,10 +101,11 @@ def run_test():
 
 
 def upload(filename):
+    suffix = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(6))
     blob = BlobClient.from_connection_string(
         conn_str=blob_storage_dsn,
         container_name="qareports",
-        blob_name=f"{datetime.now().strftime('%Y%m%d-%H%M')}-{''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(6))}.html",
+        blob_name=f"{datetime.now().strftime('%Y%m%d-%H%M')}-{suffix}.html",
     )
     with open(filename, "rb") as f:
         blob.upload_blob(f, content_settings=ContentSettings(content_type="text/html"))
@@ -120,10 +121,10 @@ def post(webhook, status, url):
         "@type": "MessageCard",
         "@context": "http://schema.org/extensions",
         "themeColor": themeColor,
-        "summary": "Nightly Test Results",
+        "summary": f"{mode.title()} Test Results",
         "Sections": [
             {
-                "activityTitle": "Nightly Test Results",
+                "activityTitle": f"{mode.title()} Test Results",
                 "facts": [
                     {"name": "Environment", "value": env},
                     {"name": "Mode", "value": mode},
