@@ -93,6 +93,7 @@ config = {
 
 
 def run_test():
+    print('---- Running Test ----')
     process = subprocess.run(config[env]["command"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     print(process.stdout.decode())
     if process.returncode == 0:
