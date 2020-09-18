@@ -31,31 +31,10 @@
     },
     "images": [
         {
-            "id": 1293,
-            "type": 9,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_ESHACSv.png",
-            "description": "Harvey Nichols Alternative Hero",
-            "encoding": "png"
-        },
-        {
-            "id": 1184,
-            "type": 8,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_1_Silver.png",
-            "description": "Silver Tier",
-            "encoding": "png"
-        },
-        {
             "id": 1180,
             "type": 2,
             "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Offer_tile_4.png",
             "description": "Offer tile 4 - Shop Beauty",
-            "encoding": "png"
-        },
-        {
-            "id": 575,
-            "type": 0,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN.png",
-            "description": "Harvey Nichols Hero",
             "encoding": "png"
         },
         {
@@ -94,6 +73,20 @@
             "encoding": "png"
         },
         {
+            "id": 575,
+            "type": 0,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN.png",
+            "description": "Harvey Nichols Hero",
+            "encoding": "png"
+        },
+        {
+            "id": 1187,
+            "type": 8,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_4_Black.png",
+            "description": "Black Tier",
+            "encoding": "png"
+        },
+        {
             "id": 1186,
             "type": 8,
             "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_3_Platinum.png",
@@ -108,10 +101,10 @@
             "encoding": "png"
         },
         {
-            "id": 1187,
+            "id": 1184,
             "type": 8,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_4_Black.png",
-            "description": "Black Tier",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_1_Silver.png",
+            "description": "Silver Tier",
             "encoding": "png"
         },
         {
@@ -119,6 +112,13 @@
             "type": 2,
             "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Offer_tile_2_copy.png",
             "description": "Offer tile 2 - Shop Women",
+            "encoding": "png"
+        },
+        {
+            "id": 1293,
+            "type": 9,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_ESHACSv.png",
+            "description": "Harvey Nichols Alternative Hero",
             "encoding": "png"
         },
         {
