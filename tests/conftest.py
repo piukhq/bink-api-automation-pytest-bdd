@@ -170,6 +170,7 @@ def add_payment_card(login_user, context, test_email):
                  + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n"
                  + json.dumps(response_json, indent=4))
     context["payment_card_id"] = response_json.get("id")
+    TestContext.set_payment_card_id(response_json.get("id"))
     assert response.status_code == 201 or 200, "Payment card addition is not successful"
     return context["payment_card_id"]
 
