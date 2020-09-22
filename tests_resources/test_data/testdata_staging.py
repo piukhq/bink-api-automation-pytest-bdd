@@ -118,32 +118,32 @@ harvey_nichols_invalid_data = {
 # }
 
 
-# iceland_membership_card = {
-#     "card_num": "6666666666666666666",
-#     "barcode": "6666666666666666666",
-#     "last_name": "six",
-#     "postcode": "rg6 6aa",
-#     "points": 1480,
-#     "currency": "GBP",
-#     "description": "Placeholder Balance Description",
-#     "transactions": "6",
-#     "transaction_status": "active",
-#     "transaction_currency": "GBP",
-#
-# }
-
 iceland_membership_card = {
-    "card_num": "6332040030555532506",
-    "barcode": "633204003055553250600085",
-    "last_name": "Armstrong",
-    "postcode": "SW18 4HH",
-    "points": 5,
+    "card_num": "6666666666666666666",
+    "barcode": "6666666666666666666",
+    "last_name": "six",
+    "postcode": "rg6 6aa",
+    "points": 1480,
     "currency": "GBP",
     "description": "Placeholder Balance Description",
-    "transactions": "5",
+    "transactions": "6",
     "transaction_status": "active",
     "transaction_currency": "GBP",
+
 }
+
+# iceland_membership_card = {
+#     "card_num": "6332040030555532506",
+#     "barcode": "633204003055553250600085",
+#     "last_name": "Armstrong",
+#     "postcode": "SW18 4HH",
+#     "points": 5,
+#     "currency": "GBP",
+#     "description": "Placeholder Balance Description",
+#     "transactions": "5",
+#     "transaction_status": "active",
+#     "transaction_currency": "GBP",
+# }
 
 
 iceland_invalid_data = {
