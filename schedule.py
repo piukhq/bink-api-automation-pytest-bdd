@@ -61,7 +61,7 @@ config = {
             "barclays",
         ],
         "daily": {"cron": "5 22 * * *"},
-        "continuous": {"cron": "*/10 * * * *"},
+        "continuous": {"cron": "0 * * * *"},
     },
     "prod": {
         "command": [
@@ -77,7 +77,7 @@ config = {
             "barclays",
         ],
         "daily": {"cron": "5 22 * * *"},
-        "continuous": {"cron": "*/10 * * * *"},
+        "continuous": {"cron": "0 * * * *"},
     },
 }
 
