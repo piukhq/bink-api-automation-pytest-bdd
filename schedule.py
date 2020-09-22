@@ -61,7 +61,7 @@ config = {
             "barclays",
         ],
         "daily": {"cron": "5 22 * * *"},
-        "continuous": {"cron": "*/10 * * * *"},
+        "continuous": {"cron": "0 * * * *"},
     },
     "prod": {
         "command": [
@@ -77,13 +77,13 @@ config = {
             "barclays",
         ],
         "daily": {"cron": "5 22 * * *"},
-        "continuous": {"cron": "*/10 * * * *"},
+        "continuous": {"cron": "0 * * * *"},
     },
 }
 
 
 def run_test():
-    process = subprocess.run(config[env]["command"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process = subprocess.run(config[env]["command"], timeout=300, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     print(process.stdout.decode())
     if process.returncode == 0:
         status = "Success"
@@ -101,7 +101,7 @@ def run_test():
 
 
 def upload(filename):
-    suffix = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(6))
+    suffix = "".join(random.choice(string.ascii_lowercase + string.digits) for _ in range(6))
     blob = BlobClient.from_connection_string(
         conn_str=blob_storage_dsn,
         container_name="qareports",
