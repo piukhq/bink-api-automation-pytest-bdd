@@ -83,7 +83,7 @@ config = {
 
 
 def run_test():
-    process = subprocess.run(config[env]["command"], timeout=300, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process = subprocess.run(config[env]["command"], timeout=540, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     print(process.stdout.decode())
     if process.returncode == 0:
         status = "Success"
