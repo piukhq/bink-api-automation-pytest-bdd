@@ -419,7 +419,7 @@ def verify_membership_card_single_transaction_detail(context, merchant):
         context["token"], context["transaction_id"])
     response_json = response.json()
     logging.info(
-        "hgjgdjgfhThe response of GET/MembershipTransaction:\n\n"
+        "The response of GET/MembershipTransaction:\n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD_SINGLE_TRANSACTION.format(context["transaction_id"]) +
         "\n\n"
         + json.dumps(response_json, indent=4))
