@@ -37,7 +37,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     And I perform DELETE request to delete the "HarveyNichols" membership card
 
-  @addx_and_link @dev @staging
+  @add_and_link @dev @staging
   Scenario: ADD & LINK Journey_HarveyNichols
 
     Given I am a Bink user
