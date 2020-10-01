@@ -4,10 +4,13 @@
     "feature_set": {
         "authorisation_required": true,
         "transactions_available": false,
-        "digital_only": false,
+        "digital_only": true,
         "has_points": true,
         "card_type": 2,
-        "linking_support": [],
+        "linking_support": [
+            "ENROL",
+            "ADD"
+        ],
         "apps": [
             {
                 "app_type": 0
@@ -24,27 +27,69 @@
     },
     "images": [
         {
+            "id": 637,
+            "type": 2,
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/ff_brand_image-2.jpg",
+            "description": "FatFace Offer 1",
+            "encoding": "jpg"
+        },
+        {
             "id": 625,
             "type": 3,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/FF_logo.png",
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Fatface_Logo.png",
             "description": "FF logo",
             "encoding": "png"
         },
         {
             "id": 624,
             "type": 0,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/FF_hero_top_left.png",
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Fatface_Card.png",
             "description": "FF card",
+            "encoding": "png"
+        },
+        {
+            "id": 636,
+            "type": 9,
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Fatface_Alternate_Hero.png",
+            "description": "FatFace alternative hero",
             "encoding": "png"
         }
     ],
     "account": {
         "plan_name": "FatFace Rewards",
-        "plan_name_card": "Account",
+        "plan_name_card": "account",
         "plan_url": "https://www.fatface.com",
-        "plan_summary": "FatFace Rewards",
-        "plan_description": "FatFace Rewards",
-        "plan_documents": [],
+        "plan_summary": "Use your linked payment cards every time you shop in a FatFace store or online at fatface.com to start earning Rewards.  Each purchase gets you closer to a Reward Voucher.  Once you have spent \u00a3100 you will receive a \u00a35 Voucher to use online.",
+        "plan_description": "Use your linked payment cards every time you shop in a FatFace store or online at fatface.com to start earning Rewards.  Each purchase gets you closer to a Reward Voucher.  Once you have spent \u00a3100 you will receive a \u00a35 Voucher to use online.  Go to fatface.com to find out more and to see what other benefits you could receive.",
+        "plan_documents": [
+            {
+                "name": "Retailer terms and conditions",
+                "description": "I accept the",
+                "url": "https://policies.gb.bink.com/fatface/tc.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": true
+            },
+            {
+                "name": "FatFace privacy policy",
+                "description": "I accept the",
+                "url": "https://policies.gb.bink.com/fatface/pp.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": false
+            },
+            {
+                "name": "Terms & conditions",
+                "description": "I accept the",
+                "url": "https://policies.gb.bink.com/fatface/tc.html",
+                "display": [
+                    "VOUCHER"
+                ],
+                "checkbox": false
+            }
+        ],
         "company_name": "FatFace",
         "category": "Uncategorised",
         "tiers": [],
@@ -53,6 +98,7 @@
             {
                 "column": "Rewards number",
                 "validation": "^(FF)[0-9]{14}$",
+                "description": "Enter rewards number",
                 "common_name": "card_number",
                 "type": 0,
                 "choice": []
@@ -61,17 +107,9 @@
         "registration_fields": [],
         "enrol_fields": [
             {
-                "column": "Email",
-                "validation": "^(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
-                "description": "Email address",
-                "common_name": "email",
-                "type": 0,
-                "choice": []
-            },
-            {
                 "column": "First name",
                 "validation": "^(((?=.{1,100}$)[A-Za-z\\-\\u00C0-\\u00FF'])+\\s*){1,4}$",
-                "description": "First name",
+                "description": "Enter first name",
                 "common_name": "first_name",
                 "type": 0,
                 "choice": []
@@ -79,14 +117,22 @@
             {
                 "column": "Last name",
                 "validation": "^(((?=.{1,100}$)[A-Za-z\\-\\u00C0-\\u00FF'])+\\s*){1,4}$",
-                "description": "Last name",
+                "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
                 "choice": []
             },
             {
+                "column": "Email",
+                "validation": "^(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
+                "description": "example@mydomain.com",
+                "common_name": "email",
+                "type": 0,
+                "choice": []
+            },
+            {
                 "column": "Email Marketing",
-                "description": "FatFace Email Marketing",
+                "description": "Yes, I\u2019m happy to receive Email Marketing from FatFace",
                 "type": 3
             }
         ],
@@ -100,12 +146,12 @@
     ],
     "content": [
         {
-            "column": "Enrol_Help_Text",
-            "value": "Please enter your details to register with the retailer. If there\u2019s a physical card, this will be sent to the address you provide. We won\u2019t save or store any of the information you provide or edit below."
-        },
-        {
             "column": "Voucher_Issued_Detail",
             "value": "Use the code to receive \u00a35 off your next order at fatface.com. Simply enter the code below on the Shopping Bag page. Don\u2019t forget to pay any balance with your linked payment card to keep earning towards your next Reward."
+        },
+        {
+            "column": "Enrol_Help_Text",
+            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
         }
     ]
 }
