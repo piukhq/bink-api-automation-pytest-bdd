@@ -217,33 +217,3 @@ db_details = {
     "port": "5432",
     "database": "hermes",
 }
-
-# ------------------------------------------ Encrypted Fields ---------------------------------------------------- #
-"""Temporary solution till encryption feature is included as a part of framework
-Keeping the required values as encrypted and then using
-"""
-
-bink_encrypted_values = {
-    "encrypted_pwd": "MSsxtWZjwthttoXGvzPQMShHV0qlbo7u5Q+mQbdkC"
-                     "+U0JfttPKNdF4F1h693kBnP6ZReCbjak7ALj8rmKUCzMuSBG9DxmfvZBjPbcCYQVF9ld906ZdkfIh7geKLLPijxSlH"
-                     "+ylOl0Nj+hEv/6vq8psJKNUeXYt4AXnqyI7hhYPRjOzsVL3L2lezyh/5uVgoyvhANJZfdqQKoCTchn48OqlV"
-                     "/hxy7MHgtUQDwRS5QTUYY3Z9vAiZizRNiaSLI6bKIGqDbBo7vXXY+Rq4XHdTNB465s3L0SYzk2+/jXlhQWyVOqDYCx"
-                     "+8lfTGRgoHXome8vzwp4lrBb5mqeennHgUQuZX9tf57qRYPN379iMzjpoiSKWN2GY38+EmvjZ4aN8"
-                     "/3R0laxAZ2g1T4VskU9toCpFw/SuFtSwt1/w7qIGHXRe5rdrvwz6eC4cfcerr1laECgav2"
-                     "+bDk2RdvwAnhZUElbXFdHtS2f5Mwot21MHhb2vXeeqfeppw"
-                     "+ctE8PHQwzbQLeAQBIS0Qw4EUEizSR33Yuqj1V2McJ4O0g65rodT1LhrXcnQfBKG1GSNXLSnNQ4XyIyCFoR6Tgqcw"
-                     "+XUYM0JnJOEff94hXiGV+MbUzMkwVLiwwFYTsjDaok5bqNf+f6HqOkdx1QrABKlJZWKbqKno7Gm6GqsUDzEzvcDcPLGOvZQ"
-                     "=",
-}
-
-barclays_encrypted_values = {
-    "encrypted_pwd": "MLhOJSqQQ00H32Lj9kFuIGTCeH8ka7qEC/AXKi7fUdRFsmsyQ88S9CMxGmKDwzoOtarwrhYx"
-                     "/XpTX8BWzIMqIQl3wtRLwnFNtNdaRPvaW6d0PYe0SWVkDDrEtkixL8Qg0wliUVlIbx8Js8FnsboJ7"
-                     "/H33rCFkKaF5I0m1DZq21yB+T5LjKHFbSUhT2ccu6+hhrTDvWbtNLNLCsG5OvddxxLuvIdSYht"
-                     "+Og3oWGkMv9Fti7qVMmvo2q/+VRS2frW81ljgfY0lRz4w4l+XY1WQAXOWi+hTFu7daN/DI4raD/7pn/sVWsjRptZYgq"
-                     "/x5FVr5sf6HfghymRnrP7d3wcgchG/iZP9WKHT3Ic77qVGWONLypfERKAMcjDRWtGvsLfSUMU4bHi1iEwPypmv0QiyZ"
-                     "//MVOw3qHv5G7tQFMBp6WFNsSk7cn9VZMjxRFcOfZ899HwbgVM3JJCDMHq03xQ"
-                     "/if9vypZwqAWV92lA8dt8n16Rx9SPUGJVzGEEnV"
-                     "/a2YVTalU53J0yX78wc3QPWU7u5f0XuoKy9oQQu9K3thtE8u9fNMwdIrt4dkJsKxZRn1ekgRcjMRGU86YyGBH7cdtsEs2S"
-                     "+KvMT20eZCSZWUYG2blqF8Mu14gc1IldII3yBsbC56KYTL2syGxzcLTkFrHwh5eZZCm2j6GByCcmdWJF6Ko=",
-}
