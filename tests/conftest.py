@@ -2,7 +2,6 @@ import pytest
 import logging
 import json
 from pytest_bdd import given, then
-from selenium.webdriver import Chrome
 from requests.exceptions import HTTPError
 
 import config
@@ -86,25 +85,6 @@ def test_email():
     # return constants.EMAIL_TEMPLATE.replace("email", str(time.time()))
     faker = Faker()
     return constants.EMAIL_TEMPLATE.replace("email", str(faker.random_int()))
-
-
-@pytest.fixture
-def driver(env):
-    if env == "dev" or env == "staging" or env == "prod":
-        yield None
-    else:
-        if config.BROWSER.browser_name == "chrome":
-            driver = Chrome(executable_path=config.BROWSER.driver_path)
-            driver.maximize_window()
-        # elif launch in safari
-        else:
-            raise Exception(f'"{config.BROWSER.browser_name}" is not a supported browser')
-            driver.implicitly_wait(config.BROWSER.wait_time)
-
-        """Return driver object after set up """
-        yield driver
-        """Quit driver for cleanup """
-        driver.quit()
 
 
 """Shared  Steps"""

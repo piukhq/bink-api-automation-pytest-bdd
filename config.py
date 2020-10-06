@@ -56,17 +56,3 @@ BARCLAYS = ChannelDetails(
     organisation_id="Barclays",
 
 )
-
-
-class BrowserDetails:
-    def __init__(self, browser_name, driver_path, wait_time):
-        self.browser_name = browser_name
-        self.driver_path = driver_path
-        self.wait_time = wait_time
-
-
-BROWSER = BrowserDetails(
-    browser_name="chrome",
-    driver_path="tests_resources/drivers/chromedriver",
-    wait_time=10,
-)
