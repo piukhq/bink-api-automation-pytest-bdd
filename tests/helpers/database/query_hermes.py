@@ -18,7 +18,6 @@ class SchemeAccountRecord:
 
 @dataclass
 class CredentialAns:
-
     """sub- Set of credential answers
      All credential answers need not be captured as some of them are
      already verifying as apart of response"""
@@ -38,7 +37,6 @@ class QueryHermes:
         record = db.execute_query_fetch_one(connection, get_query(journey_type, scheme_account_id))
 
         if record is None:
-            logging.error(f"'{scheme_account_id}' is an Invalid Scheme account id")
             raise Exception(f"'{scheme_account_id}' is an Invalid Scheme account id")
         else:
             scheme_account_record = SchemeAccountRecord(record[0],
@@ -59,42 +57,41 @@ class QueryHermes:
         record = db.execute_query_fetch_all(connection, query_credential_ans)
 
         if record is None:
-            logging.error(f"Credential answers are not saved in DB for scheme account '{scheme_account_id}'")
             raise Exception(f"Credential answers are not saved in DB for scheme account '{scheme_account_id}'")
         else:
             logging.info(merchant + " Scheme Account  Credential Answers are:"
                                     "\n..............................................................................")
+
+            fields_to_verify = ("card_number", "email", "last_name", "postcode", "merchant_identifier")
+            fields_to_decrypt = ("last_name", "postcode", "merchant_identifier")
+
             for row in record:
                 credential_qn_label = get_credential_qn_label(row[3], connection)
-                logging.info(f"'{credential_qn_label[0]}' is '{row[1]}'")
-                if credential_qn_label[0] == "card_number":
-                    CredentialAns.card_number = row[1]
-                elif credential_qn_label[0] == "email":
-                    CredentialAns.email = row[1]
-                elif credential_qn_label[0] == "last_name":
-                    last_name = decrypt(row[1])
-                    CredentialAns.last_name = last_name
-                    logging.info(f"Decrypted value of Last Name is '{last_name}'")
-                elif credential_qn_label[0] == "postcode":
-                    post_code = decrypt(row[1])
-                    CredentialAns.post_code = post_code
-                    logging.info(f"Decrypted value of Post Code is '{post_code}'")
-                elif credential_qn_label[0] == "merchant_identifier":
-                    if len(row[1]) > 10:
-                        merchant_identifier = decrypt(row[1])
-                        logging.info(f"Decrypted value of Post Code is '{merchant_identifier}'")
-                    else:
-                        merchant_identifier = row[1]
-                    CredentialAns.merchant_identifier = merchant_identifier
+                question = credential_qn_label[0]
+                answer = row[1]
 
-        logging.info("..............................................................................")
-        db.clear_db(connection)
-        return CredentialAns
+                logging.info(f" '{question}' is '{answer}'")
+
+                if question in fields_to_verify:
+                    if question in fields_to_decrypt:
+                        if question == "merchant_identifier" and len(answer) <= 10:
+                            pass
+                        else:
+                            answer = decrypt(answer)
+                            logging.info(f"Decrypted value of {question} is '{answer}'")
+
+                    setattr(CredentialAns, question, answer)
+
+            logging.info("..............................................................................")
+
+            db.clear_db(connection)
+            return CredentialAns
 
 
 def get_credential_qn_label(qn_id, connection):
     """The label for each credential answer has been fetched using the unique question_id
     which is obtained from scheme_schemeaccountcredentialanswer table"""
+
     query_credential_qns = """SELECT type FROM
                            hermes.public.scheme_schemecredentialquestion
                            where id='%s'""" % qn_id

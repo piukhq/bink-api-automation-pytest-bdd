@@ -458,11 +458,13 @@ def perform_delete_request_scheme_account(context, merchant=None):
 
 @then(parsers.parse('verify the data stored in DB after "{journey_type}" journey for "{merchant}"'))
 def verify_db_details(journey_type, merchant, env):
+
     if env == "prod":
         """There is no DB validation in production suite"""
         pass
 
     elif env in ("dev", "staging"):
+
         scheme_account = QueryHermes.fetch_scheme_account(journey_type, TestContext.current_scheme_account_id)
         assert scheme_account.status == 1, f"Scheme Account is not Active and the status is '{scheme_account.status}'"
         logging.info(f"The scheme account is Active with status '{scheme_account.status}'")
@@ -472,11 +474,12 @@ def verify_db_details(journey_type, merchant, env):
                 and scheme_account.link_or_join_date.date() == datetime.datetime.now().date()
                 ), f"Details of scheme account '{scheme_account.id}'in DB is not as expected"
 
-        """Below function call will display all Scheme account credential answers for Add & Enrol Journeies"""
+        """Below function call will display all Scheme account credential answers for Add & Enrol Journeys"""
 
         cred_ans = QueryHermes.fetch_credential_ans(merchant, TestContext.current_scheme_account_id)
 
         """Verifying the request data is getting stored in DB after Add Journey """
+
         if journey_type == "Add":
             assert (scheme_account.main_answer == Merchant.get_scheme_cred_main_ans(merchant)
                     ), "The Main Scheme Account answer is not saved as expected "
@@ -499,6 +502,7 @@ def verify_scheme_account_ans(cred_ans, merchant):
         assert (cred_ans.last_name == TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
                 and cred_ans.post_code == TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
                 ), "Iceland scheme_account answers are not saved as expected"
+
     elif merchant == "Wasabi":
         assert (cred_ans.email == TestDataUtils.TEST_DATA.wasabi_membership_card.get(constants.EMAIL)
                 ), "Wasabi scheme_account answers are not saved as expected"
