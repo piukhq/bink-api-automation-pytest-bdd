@@ -4,12 +4,11 @@ from pytest_bdd import (
     when,
     parsers,
 )
-import time
+import datetime
 import pytest
 import json
 import logging
 from requests.exceptions import HTTPError
-from selenium.webdriver.support.ui import Select
 
 import tests.api as api
 import tests.helpers.constants as constants
@@ -20,7 +19,8 @@ from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_helpers import PaymentCardTestData
 from tests.requests.membership_cards import MembershipCards
 from tests.requests.membership_transactions import MembershipTransactions
-
+from tests.helpers.test_helpers import Merchant
+from tests.helpers.database.query_hermes import QueryHermes
 
 scenarios("membership_cards/")
 
@@ -453,63 +453,52 @@ def perform_delete_request_scheme_account(context, merchant=None):
         logging.error("Scheme account deletion for ", merchant, "failed due to HTTP error: {network_response}")
 
 
-"""Step definitions - Django Verifications"""
+"""Step definitions - DB Verifications"""
 
 
-@then("verify membership account Link date, Card Number and Merchant identifier populated in Django")
-def verify_membership_account_link_date_card_number_and_merchant_identifier_populated_in_django(driver, context, env):
-    if env == "dev" or env == "staging" or env == "prod":
+@then(parsers.parse('verify the data stored in DB after "{journey_type}" journey for "{merchant}"'))
+def verify_db_details(journey_type, merchant, env):
+    if env == "prod":
+        """There is no DB validation in production suite"""
         pass
-    else:
-        scheme_account_id = str(context["scheme_account_id"])
-        driver.get(Endpoint.DJANGO_URL + "scheme/schemeaccount/" + scheme_account_id + "/change/")
-        driver.find_element_by_name("username").send_keys(
-            TestDataUtils.TEST_DATA.django_user_accounts.get("django_uid"))
-        driver.find_element_by_name("password").send_keys(
-            TestDataUtils.TEST_DATA.django_user_accounts.get("django_pwd"))
-        driver.find_element_by_xpath("//input[@type='submit']").click()
-        select = Select(driver.find_element_by_name("status"))
-        assert select.first_selected_option.text == "Active"
-        link_date = driver.find_element_by_xpath('//form[@id="schemeaccount_form"]/div/fieldset/div[13]/div/div').text
-        current_date = time.strftime("%d %b %Y").lstrip("0")
-        if str(link_date).__contains__(current_date):
-            logging.info(
-                "Link date in Django (" + link_date + ") is close to current date "
-                                                      "(" + current_date + time.strftime(", %I:%M %p").lower() + ")"
-            )
-        logging.info(
-            "Merchant Identifier in Django is: "
-            + driver.find_element_by_name("schemeaccountcredentialanswer_set-1-answer").get_attribute("value")
-        )
+
+    elif env in ("dev", "staging"):
+        scheme_account = QueryHermes.fetch_scheme_account(journey_type, TestContext.current_scheme_account_id)
+        assert scheme_account.status == 1, f"Scheme Account is not Active and the status is '{scheme_account.status}'"
+        logging.info(f"The scheme account is Active with status '{scheme_account.status}'")
+
+        assert (scheme_account.id == TestContext.current_scheme_account_id
+                and scheme_account.scheme_id == TestData.get_membership_plan_id(merchant)
+                and scheme_account.link_or_join_date.date() == datetime.datetime.now().date()
+                ), f"Details of scheme account '{scheme_account.id}'in DB is not as expected"
+
+        """Below function call will display all Scheme account credential answers for Add & Enrol Journeies"""
+
+        cred_ans = QueryHermes.fetch_credential_ans(merchant, TestContext.current_scheme_account_id)
+
+        """Verifying the request data is getting stored in DB after Add Journey """
+        if journey_type == "Add":
+            assert (scheme_account.main_answer == Merchant.get_scheme_cred_main_ans(merchant)
+                    ), "The Main Scheme Account answer is not saved as expected "
+
+        verify_scheme_account_ans(cred_ans, merchant)
 
 
-@then("verify membership account Join date, Card Number and Merchant identifier populated in Django")
-def verify_membership_account_join_date_card_number_and_merchant_identifier_populated_in_django(driver, context, env):
-    if env == "dev" or env == "staging" or env == "prod":
-        pass
-    else:
-        scheme_account_id = str(context["scheme_account_id"])
-        driver.get(Endpoint.DJANGO_URL + "scheme/schemeaccount/" + scheme_account_id + "/change/")
-        driver.find_element_by_name("username").send_keys(TestDataUtils.
-                                                          TEST_DATA.django_user_accounts.get("django_uid"))
-        driver.find_element_by_name("password").send_keys(TestDataUtils.
-                                                          TEST_DATA.django_user_accounts.get("django_pwd"))
-        driver.find_element_by_xpath("//input[@type='submit']").click()
-        select = Select(driver.find_element_by_name("status"))
-        assert select.first_selected_option.text == "Active"
+def verify_scheme_account_ans(cred_ans, merchant):
+    """For HN , BK, FF, WHsmith the  main scheme_account_ans is validated against
+    'main_answer' column in scheme_schemeaccount table
 
+    HN 'Password' scheme_account_ans is not validating as it has to remain as encrypted
 
-@then(parsers.parse('I perform schema validation for GET/membership cards response for "{merchant}"'))
-def schema_validation(driver, context, env):
-    if env == "prod" or "dev" or "staging":
-        pass
-    else:
-        scheme_account_id = str(context["scheme_account_id"])
-        driver.get(Endpoint.DJANGO_URL + "scheme/schemeaccount/" + scheme_account_id + "/change/")
-        driver.find_element_by_name("username").send_keys(TestDataUtils.
-                                                          TEST_DATA.django_user_accounts.get("django_uid"))
-        driver.find_element_by_name("password").send_keys(TestDataUtils.
-                                                          TEST_DATA.django_user_accounts.get("django_pwd"))
-        driver.find_element_by_xpath("//input[@type='submit']").click()
-        select = Select(driver.find_element_by_name("status"))
-        assert select.first_selected_option.text == "Active"
+    The remaining columns in scheme_schemeaccountcredentialanswers table are already validated
+    as a part of the API response
+
+    This function validates Iceland's  last_name & post_code and Wasabi's  email field in the request."""
+
+    if merchant == "Iceland":
+        assert (cred_ans.last_name == TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+                and cred_ans.post_code == TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
+                ), "Iceland scheme_account answers are not saved as expected"
+    elif merchant == "Wasabi":
+        assert (cred_ans.email == TestDataUtils.TEST_DATA.wasabi_membership_card.get(constants.EMAIL)
+                ), "Wasabi scheme_account answers are not saved as expected"

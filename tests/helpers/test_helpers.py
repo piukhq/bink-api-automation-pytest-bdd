@@ -26,6 +26,20 @@ class Merchant:
         }
         return switcher.get(merchant)
 
+    @staticmethod
+    def get_scheme_cred_main_ans(merchant):
+        """Return main_scheme_account_answers for all merchants """
+        switcher = {
+            "BurgerKing": TestDataUtils.TEST_DATA.burger_king_membership_card.get(constants.CARD_NUM),
+            "CooP": TestDataUtils.TEST_DATA.coop_membership_card.get(constants.CARD_NUM),
+            "FatFace": TestDataUtils.TEST_DATA.fat_face_membership_card.get(constants.CARD_NUM),
+            "HarveyNichols": TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.ID),
+            "Iceland": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CARD_NUM),
+            "WHSmith": TestDataUtils.TEST_DATA.whsmith_membership_card.get(constants.CARD_NUM),
+            "Wasabi": TestDataUtils.TEST_DATA.wasabi_membership_card.get(constants.CARD_NUM),
+        }
+        return switcher.get(merchant)
+
 
 class TestData:
     """Functions used to supply expected data to pytest test_ classes"""
