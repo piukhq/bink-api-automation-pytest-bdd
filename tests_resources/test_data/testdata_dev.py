@@ -203,15 +203,10 @@ barclays_user_accounts = {
     "pwd": "Password01",
 }
 
-django_user_accounts = {
-    "django_uid": "njames@bink.com",
-    "django_pwd": "Password@200",
-}
-
 # ------------------------------------------ DB DETAILS ---------------------------------------------------- #
 
 db_details = {
-    "user": "laadmin@bink-dev-uksouth",
+    "user": "common@bink-uksouth-dev-common",
     "password": "",
     "host": "127.0.0.1",
     "port": "5432",
