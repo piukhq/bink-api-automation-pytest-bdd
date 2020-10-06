@@ -9,7 +9,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     Given I am a Bink user
     When I perform POST request to add "WHSmith" membership card
     And I perform GET request to verify the "WHSmith" membership card is added to the wallet
-    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Add" journey for "WHSmith"
     And I perform DELETE request to delete the "WHSmith" membership card
 
 #  @add_patch
@@ -20,7 +20,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     And I perform GET request to verify the "WHSmith" membership card is added to the wallet with invalid data
     And I perform PATCH request to update "WHSmith" membership card
     And I perform GET request to verify the "WHSmith" membership card details got updated after a successful PATCH
-    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Add" journey for "WHSmith"
     And I perform DELETE request to delete the "WHSmith" membership card
 
 #  @add_and_link
@@ -32,7 +32,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     When I perform POST request to add & auto link an existing "WHSmith" membership card
     And I perform GET request to verify the "WHSmith" membership card is added & linked successfully in the wallet
     And I perform GET request to view balance for recently added "WHSmith" membership card
-    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Add" journey for "WHSmith"
     Then I perform DELETE request to delete the "WHSmith" membership card
     And I perform DELETE request to delete the payment card
 
@@ -52,6 +52,6 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     And I perform GET request to verify the "WHSmith" membership account is created with invalid data
     And I perform PUT request to replace information of the enrolled "WHSmith" membership card
     And I perform GET request to verify the enrolled "WHSmith" membership card details got replaced after a successful PUT
-    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Enrol" journey for "WHSmith"
     Then I perform DELETE request to delete the "WHSmith" membership card
 

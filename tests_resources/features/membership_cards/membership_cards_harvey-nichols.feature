@@ -11,7 +11,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Given I am a Bink user
     When I perform POST request to add "HarveyNichols" membership card
     And I perform GET request to verify the "HarveyNichols" membership card is added to the wallet
-    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Add" journey for "HarveyNichols"
     And I perform DELETE request to delete the "HarveyNichols" membership card
 
   @balances_transactions @dev @staging @prod
@@ -23,7 +23,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     And I perform GET request to view balance for recently added "HarveyNichols" membership card
     When I perform GET request to view all transactions made using the recently added "HarveyNichols" membership card
     Then I perform GET request to view a specific transaction made using the recently added "HarveyNichols" membership card
-    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Add" journey for "HarveyNichols"
     And I perform DELETE request to delete the "HarveyNichols" membership card
 
   @add_patch @dev @staging @prod
@@ -34,7 +34,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     And I perform GET request to verify the "HarveyNichols" membership card is added to the wallet with invalid data
     And I perform PATCH request to update "HarveyNichols" membership card
     And I perform GET request to verify the "HarveyNichols" membership card details got updated after a successful PATCH
-    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Add" journey for "HarveyNichols"
     And I perform DELETE request to delete the "HarveyNichols" membership card
 
   @add_and_link @dev @staging
@@ -45,7 +45,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     And I perform the GET request to verify the payment card has been added successfully
     When I perform POST request to add & auto link an existing "HarveyNichols" membership card
     And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
-    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Add" journey for "HarveyNichols"
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the payment card
 
@@ -55,7 +55,6 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Given I am a Bink user
     When I perform POST request to add "HarveyNichols" membership card with "invalid_data"
     And I perform GET request to verify the "HarveyNichols" membership card is added to the wallet with invalid data
-#    Then Verify the card status as "Invalid Credentials" in Django
     Then I perform DELETE request to delete the "HarveyNichols" membership card
 
   @enrol @dev
@@ -65,6 +64,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     When I perform POST request to create a "HarveyNichols" membership account with enrol credentials
     And I perform GET request to verify the "HarveyNichols" membership account is created
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Enrol" journey for "HarveyNichols"
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the customer
 
@@ -76,7 +76,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     And I perform GET request to verify the "HarveyNichols" membership account is created with invalid data
     And I perform PUT request to replace information of the enrolled "HarveyNichols" membership card
     And I perform GET request to verify the enrolled "HarveyNichols" membership card details got replaced after a successful PUT
-    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Enrol" journey for "HarveyNichols"
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the customer
 
