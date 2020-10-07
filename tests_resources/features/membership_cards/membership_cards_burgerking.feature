@@ -10,7 +10,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Given I am a customer who is subscribing to Bink or I am Bink app user
     When I perform POST request to add "BurgerKing" membership card
     And I perform GET request to verify the "BurgerKing" membership card is added to the wallet
-    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Add" journey for "BurgerKing"
     And I perform DELETE request to delete the "BurgerKing" membership card
 
 
@@ -22,7 +22,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     And I perform GET request to verify the "BurgerKing" membership card is added to the wallet with invalid data
     And I perform PATCH request to update "BurgerKing" membership card
     And I perform GET request to verify the "BurgerKing" membership card details got updated after a successful PATCH
-    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Add" journey for "BurgerKing"
     And I perform DELETE request to delete the "BurgerKing" membership card
 
 
@@ -37,7 +37,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     And I perform GET request to view balance for recently added "BurgerKing" membership card
     When I perform GET request to view all transactions made using the recently added "BurgerKing" membership card
     Then I perform GET request to view a specific transaction made using the recently added "BurgerKing" membership card
-    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Add" journey for "BurgerKing"
     Then I perform DELETE request to delete the "BurgerKing" membership card
     And I perform DELETE request to delete the payment card
 @enrol
@@ -46,7 +46,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Given I register with bink service as a new customer
     When I perform POST request to create a "BurgerKing" membership account with enrol credentials
     And I perform GET request to verify the "BurgerKing" membership account is created
-    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Enrol" journey for "BurgerKing"
     Then I perform DELETE request to delete the "BurgerKing" membership card
     And I perform DELETE request to delete the customer
 
@@ -59,7 +59,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     And I perform GET request to verify the "BurgerKing" membership account is created with invalid data
     And I perform PUT request to replace information of the enrolled "BurgerKing" membership card
     And I perform GET request to verify the enrolled "BurgerKing" membership card details got replaced after a successful PUT
-    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
+    Then verify the data stored in DB after "Enrol" journey for "BurgerKing"
     Then I perform DELETE request to delete the "BurgerKing" membership card
     And I perform DELETE request to delete the customer
 

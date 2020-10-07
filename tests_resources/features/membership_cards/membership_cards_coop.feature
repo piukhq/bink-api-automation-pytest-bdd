@@ -10,7 +10,7 @@ Feature: Merchant CooP- Ensure a customer can add their membership card & view i
     Given I am a Bink user
     When I perform POST request to add "CooP" membership card
     And I perform GET request to verify the "CooP" membership card is added to the wallet
-    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+     Then verify the data stored in DB after "Add" journey for "CooP"
     And I perform DELETE request to delete the "CooP" membership card
 
 
@@ -22,7 +22,7 @@ Feature: Merchant CooP- Ensure a customer can add their membership card & view i
     And I perform GET request to verify the "CooP" membership card is added to the wallet with invalid data
     And I perform PATCH request to update "CooP" membership card
     And I perform GET request to verify the "CooP" membership card details got updated after a successful PATCH
-    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+     Then verify the data stored in DB after "Add" journey for "CooP"
     And I perform DELETE request to delete the "CooP" membership card
 
 
@@ -34,7 +34,7 @@ Feature: Merchant CooP- Ensure a customer can add their membership card & view i
     When I perform POST request to add & auto link an existing "CooP" membership card
     And I perform GET request to verify the "CooP" membership card is added & linked successfully in the wallet
     And I perform GET request to view balance for recently added "CooP" membership card
-    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+     Then verify the data stored in DB after "Add" journey for "CooP"
     Then I perform DELETE request to delete the "CooP" membership card
     And I perform DELETE request to delete the payment card
 
@@ -44,7 +44,7 @@ Feature: Merchant CooP- Ensure a customer can add their membership card & view i
     Given I register with bink service as a new customer
     When I perform POST request to create a "CooP" membership account with enrol credentials
     And I perform GET request to verify the "CooP" membership account is created
-    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
+     Then verify the data stored in DB after "Enrol" journey for "CooP"
     Then I perform DELETE request to delete the "CooP" membership card
     And I perform DELETE request to delete the customer
 
@@ -57,7 +57,7 @@ Feature: Merchant CooP- Ensure a customer can add their membership card & view i
     And I perform GET request to verify the "CooP" membership account is created with invalid data
     And I perform PUT request to replace information of the enrolled "CooP" membership card
     And I perform GET request to verify the enrolled "CooP" membership card details got replaced after a successful PUT
-    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
+     Then verify the data stored in DB after "Enrol" journey for "CooP"
     Then I perform DELETE request to delete the "CooP" membership card
     And I perform DELETE request to delete the customer
 

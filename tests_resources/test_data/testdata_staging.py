@@ -212,8 +212,12 @@ barclays_user_accounts = {
     "uid": "pytest_automation_barclays@testbink.com",
     "pwd": "Password01",
 }
+# ------------------------------------------ DB DETAILS ---------------------------------------------------- #
 
-django_user_accounts = {
-    "django_uid": "njames@bink.com",
-    "django_pwd": "Password@200",
+db_details = {
+    "user": "common@bink-uksouth-staging-common",
+    "password": "",
+    "host": "127.0.0.1",
+    "port": "5432",
+    "database": "hermes",
 }
