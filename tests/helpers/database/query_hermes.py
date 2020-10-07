@@ -25,7 +25,7 @@ class CredentialAns:
     card_number: int
     email: str
     last_name: str
-    post_code: str
+    postcode: str
     merchant_identifier: str
 
 
@@ -80,7 +80,7 @@ class QueryHermes:
                             answer = decrypt(answer)
                             logging.info(f"Decrypted value of {question} is '{answer}'")
 
-                    setattr(CredentialAns, question, answer)
+                setattr(CredentialAns, question, answer)
 
             logging.info("..............................................................................")
 
