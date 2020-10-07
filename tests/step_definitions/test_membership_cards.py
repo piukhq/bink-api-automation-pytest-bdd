@@ -497,10 +497,9 @@ def verify_scheme_account_ans(cred_ans, merchant):
     as a part of the API response
 
     This function validates Iceland's  last_name & post_code and Wasabi's  email field in the request."""
-
     if merchant == "Iceland":
         assert (cred_ans.last_name == TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
-                and cred_ans.post_code == TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
+                and cred_ans.postcode == TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
                 ), "Iceland scheme_account answers are not saved as expected"
 
     elif merchant == "Wasabi":
