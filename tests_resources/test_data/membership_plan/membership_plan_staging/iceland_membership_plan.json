@@ -29,13 +29,6 @@
     },
     "images": [
         {
-            "id": 1289,
-            "type": 9,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Iceland_MiyMk96.png",
-            "description": "Iceland Alternative Hero Image",
-            "encoding": "png"
-        },
-        {
             "id": 373,
             "type": 4,
             "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/iceland-asset.png",
@@ -85,6 +78,13 @@
             "encoding": "png"
         },
         {
+            "id": 1289,
+            "type": 9,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Iceland_MiyMk96.png",
+            "description": "Iceland Alternative Hero Image",
+            "encoding": "png"
+        },
+        {
             "id": 374,
             "type": 3,
             "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Iceland_Logo.png",
@@ -96,8 +96,8 @@
         "plan_name": "Iceland Bonus Card",
         "plan_name_card": "Card",
         "plan_url": "https://www.iceland.co.uk/",
-        "plan_summary": "With Iceland’s Bonus Card programme, you can easily save and spend when you shop. Iceland will give you £1 for every £20 you save on your Bonus Card. Iceland makes saving easy with their Bonus Card programme.",
-        "plan_description": "At checkout, simply tell the cashier how much money you would like to save, present your digital Bonus Card within this app and scan it using the customer facing scanners, as you normally would with your physical card. You will also be able to see your savings balance on your phone. For every £20 you save, Iceland give you £1 absolutely free. Additional benefits include free home delivery when you spend over £25, and exclusive bonuses and offers only for Bonus Cardholders.",
+        "plan_summary": "With Iceland\u2019s Bonus Card programme, you can easily save and spend when you shop. Iceland will give you \u00a31 for every \u00a320 you save on your Bonus Card. Iceland makes saving easy with their Bonus Card programme.",
+        "plan_description": "At checkout, simply tell the cashier how much money you would like to save, present your digital Bonus Card within this app and scan it using the customer facing scanners, as you normally would with your physical card. You will also be able to see your savings balance on your phone. For every \u00a320 you save, Iceland give you \u00a31 absolutely free. Additional benefits include free home delivery when you spend over \u00a325, and exclusive bonuses and offers only for Bonus Cardholders.",
         "plan_documents": [
             {
                 "name": "Retailer terms and conditions",
@@ -121,7 +121,7 @@
             }
         ],
         "barcode_redeem_instructions": "At checkout, simply tell the cashier how much money you would like to save or redeem, present the barcode below and scan it using the customer facing scanners, as you normally would with your physical card.",
-        "plan_register_info": "You have added a temporary card. You’ll need to register it to enjoy the full benefits of the programme.",
+        "plan_register_info": "You have added a temporary card. You\u2019ll need to register it to enjoy the full benefits of the programme.",
         "company_name": "Iceland",
         "company_url": "https://goo.gl/xPNXKv",
         "enrol_incentive": "Placeholder Enrol Incentive",
@@ -154,7 +154,7 @@
         "authorise_fields": [
             {
                 "column": "Last name",
-                "validation":"^(((?=.{1,40}$)[A-Za-z\\-\À-\ÿ])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
@@ -172,7 +172,7 @@
         "registration_fields": [
             {
                 "column": "Title",
-                "validation": "^(Mr|Mrs|Miss|Ms|Dame|Sir|Doctor|Professor|Lord|Lady)$",
+                "validation": "^(Mr|Mrs|Miss|Ms|Dr)$",
                 "description": "Select title",
                 "common_name": "title",
                 "type": 2,
@@ -181,17 +181,12 @@
                     "Mrs",
                     "Miss",
                     "Ms",
-                    "Dame",
-                    "Sir",
-                    "Doctor",
-                    "Professor",
-                    "Lord",
-                    "Lady"
+                    "Dr"
                 ]
             },
             {
                 "column": "First name",
-                "validation":"^(((?=.{1,20}$)[A-Za-z\\-\À-\ÿ])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,20}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "description": "Enter first name",
                 "common_name": "first_name",
                 "type": 0,
@@ -199,7 +194,7 @@
             },
             {
                 "column": "Last name",
-                "validation":"^(((?=.{1,40}$)[A-Za-z\\-\À-\ÿ])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
@@ -207,7 +202,7 @@
             },
             {
                 "column": "Date of birth",
-                "validation": "^(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[012])[\/](19|20)\\d\\d$",
+                "validation": "^(0[1-9]|[12][0-9]|3[01])[\\/](0[1-9]|1[012])[\\/](19|20)\\d\\d$",
                 "description": "DD/MM/YYYY",
                 "common_name": "date_of_birth",
                 "type": 0,
@@ -270,15 +265,15 @@
                 "choice": []
             },
             {
-                "column": "Enrol Consent 1",
-                "description": "I agree to receive promotions, offers & news",
+                "column": "Consent 2",
+                "description": "Check this box to receive money-off promotions, special offers and information on the latest deals and more from Iceland by email, SMS and other digital channels - if you change your mind, you can opt out anytime via the retailer.",
                 "type": 3
             }
         ],
         "enrol_fields": [
             {
                 "column": "Title",
-                "validation": "^(Mr|Mrs|Miss|Ms|Dame|Sir|Doctor|Professor|Lord|Lady)$",
+                "validation": "^(Mr|Mrs|Miss|Ms|Dr)$",
                 "description": "Select title",
                 "common_name": "title",
                 "type": 2,
@@ -287,17 +282,12 @@
                     "Mrs",
                     "Miss",
                     "Ms",
-                    "Dame",
-                    "Sir",
-                    "Doctor",
-                    "Professor",
-                    "Lord",
-                    "Lady"
+                    "Dr"
                 ]
             },
             {
                 "column": "First name",
-                "validation":"^(((?=.{1,20}$)[A-Za-z\\-\À-\ÿ])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,20}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "description": "Enter first name",
                 "common_name": "first_name",
                 "type": 0,
@@ -305,7 +295,7 @@
             },
             {
                 "column": "Last name",
-                "validation":"^(((?=.{1,40}$)[A-Za-z\\-\À-\ÿ])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
@@ -313,7 +303,7 @@
             },
             {
                 "column": "Date of birth",
-                "validation": "^(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[012])[\/](19|20)\\d\\d$",
+                "validation": "^(0[1-9]|[12][0-9]|3[01])[\\/](0[1-9]|1[012])[\\/](19|20)\\d\\d$",
                 "description": "DD/MM/YYYY",
                 "common_name": "date_of_birth",
                 "type": 0,
@@ -376,8 +366,8 @@
                 "choice": []
             },
             {
-                "column": "Enrol Consent 1",
-                "description": "I agree to receive promotions, offers & news",
+                "column": "Consent 2",
+                "description": "Check this box to receive money-off promotions, special offers and information on the latest deals and more from Iceland by email, SMS and other digital channels - if you change your mind, you can opt out anytime via the retailer.",
                 "type": 3
             }
         ],
@@ -386,14 +376,14 @@
     "balances": [
         {
             "currency": "GBP",
-            "prefix": "£",
+            "prefix": "\u00a3",
             "description": "Placeholder Balance Description"
         }
     ],
     "content": [
         {
             "column": "Enrol_Help_Text",
-            "value": "Please enter your details to register with the retailer. We won’t save or store any of the information you provide or edit below."
+            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
         }
     ]
 }
