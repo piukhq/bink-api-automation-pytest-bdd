@@ -74,7 +74,7 @@ class QueryHermes:
 
                 if question in fields_to_verify:
                     if question in fields_to_decrypt:
-                        if question == "merchant_identifier" and len(answer) <= 10:
+                        if question == "merchant_identifier" and len(answer) <= 15:
                             pass
                         else:
                             answer = decrypt(answer)
