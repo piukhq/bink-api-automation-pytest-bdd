@@ -458,7 +458,6 @@ def perform_delete_request_scheme_account(context, merchant=None):
 
 @then(parsers.parse('verify the data stored in DB after "{journey_type}" journey for "{merchant}"'))
 def verify_db_details(journey_type, merchant, env):
-
     if env == "prod":
         """There is no DB validation in production suite"""
         pass
@@ -466,6 +465,7 @@ def verify_db_details(journey_type, merchant, env):
     elif env in ("dev", "staging"):
 
         scheme_account = QueryHermes.fetch_scheme_account(journey_type, TestContext.current_scheme_account_id)
+
         assert scheme_account.status == 1, f"Scheme Account is not Active and the status is '{scheme_account.status}'"
         logging.info(f"The scheme account is Active with status '{scheme_account.status}'")
 
@@ -478,13 +478,19 @@ def verify_db_details(journey_type, merchant, env):
 
         cred_ans = QueryHermes.fetch_credential_ans(merchant, TestContext.current_scheme_account_id)
 
-        """Verifying the request data is getting stored in DB after Add Journey """
-
         if journey_type == "Add":
+            logging.info(f"The Link Date for scheme_account '{scheme_account.id}' is "
+                         f"{scheme_account.link_or_join_date}'")
+
             assert (scheme_account.main_answer == Merchant.get_scheme_cred_main_ans(merchant)
                     ), "The Main Scheme Account answer is not saved as expected "
 
-        verify_scheme_account_ans(cred_ans, merchant)
+            """Verifying the request data is getting stored in DB after Add Journey """
+            verify_scheme_account_ans(cred_ans, merchant)
+
+        elif journey_type == "Enrol":
+            logging.info(f"The Join Date for scheme_account '{scheme_account.id}' is "
+                         f"{scheme_account.link_or_join_date}'")
 
 
 def verify_scheme_account_ans(cred_ans, merchant):
