@@ -63,7 +63,6 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Given I register with bink service as a new customer
     When I perform POST request to create a "HarveyNichols" membership account with enrol credentials
     And I perform GET request to verify the "HarveyNichols" membership account is created
-    Then verify membership account Join date, Card Number and Merchant identifier populated in Django
     Then verify the data stored in DB after "Enrol" journey for "HarveyNichols"
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the customer
