@@ -261,7 +261,7 @@
             },
             {
                 "column": "Consent 1",
-                "description": "Yes, I\u2019m happy to receive Email Marketing from Harvey Nichols.",
+                "description": "Check this box for email marketing from Harvey Nichols - if you change your mind, you can opt out anytime via the retailer.",
                 "type": 3
             }
         ],
