@@ -1,3 +1,4 @@
+from os import environ
 from tests_resources.test_data import testdata_dev
 from tests_resources.test_data import testdata_staging
 from tests_resources.test_data import testdata_prod
@@ -10,21 +11,38 @@ class EnvironmentDetails:
         self.django_url = django_url
 
 
-DEV = EnvironmentDetails(
-    base_url="https://api.dev.gb.bink.com",
-    test_data=testdata_dev,
-    django_url="https://api.dev.gb.bink.com/admin/",
-)
-STAGING = EnvironmentDetails(
-    base_url="https://api.staging.gb.bink.com",
-    test_data=testdata_staging,
-    django_url="https://api.staging.gb.bink.com/admin/",
-)
-PROD = EnvironmentDetails(
-    base_url="https://api.gb.bink.com",
-    test_data=testdata_prod,
-    django_url=" ",
-)
+if "KUBERNETES_SERVICE_HOST" in environ:
+    DEV = EnvironmentDetails(
+        base_url="http://hermes-api",
+        test_data=testdata_dev,
+        django_url="https://api.dev.gb.bink.com/admin/",
+    )
+    STAGING = EnvironmentDetails(
+        base_url="http://hermes-api",
+        test_data=testdata_staging,
+        django_url="https://api.staging.gb.bink.com/admin/",
+    )
+    PROD = EnvironmentDetails(
+        base_url="http://hermes-api",
+        test_data=testdata_prod,
+        django_url=" ",
+    )
+else:
+    DEV = EnvironmentDetails(
+        base_url="https://api.dev.gb.bink.com",
+        test_data=testdata_dev,
+        django_url="https://api.dev.gb.bink.com/admin/",
+    )
+    STAGING = EnvironmentDetails(
+        base_url="https://api.staging.gb.bink.com",
+        test_data=testdata_staging,
+        django_url="https://api.staging.gb.bink.com/admin/",
+    )
+    PROD = EnvironmentDetails(
+        base_url="https://api.gb.bink.com",
+        test_data=testdata_prod,
+        django_url=" ",
+    )
 
 
 class ChannelDetails:
@@ -55,18 +73,4 @@ BARCLAYS = ChannelDetails(
     client_id_prod="neik5y7udnvZJAhfGrtH6I8iu02vcUoBhFixau5OWfGvZPrVfq",
     organisation_id="Barclays",
 
-)
-
-
-class BrowserDetails:
-    def __init__(self, browser_name, driver_path, wait_time):
-        self.browser_name = browser_name
-        self.driver_path = driver_path
-        self.wait_time = wait_time
-
-
-BROWSER = BrowserDetails(
-    browser_name="chrome",
-    driver_path="tests_resources/drivers/chromedriver",
-    wait_time=10,
 )
