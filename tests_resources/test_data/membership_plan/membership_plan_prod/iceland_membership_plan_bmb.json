@@ -243,7 +243,7 @@
             },
             {
                 "column": "Consent 1",
-                "description": "I agree to receive promotions, offers & news",
+                "description": "Check this box to receive money-off promotions, special offers and information on the latest deals and more from Iceland by email, SMS and other digital channels - if you change your mind, you can opt out anytime via the retailer",
                 "type": 3
             }
         ],
@@ -344,7 +344,7 @@
             },
             {
                 "column": "Consent 1",
-                "description": "I agree to receive promotions, offers & news",
+                "description": "Check this box to receive money-off promotions, special offers and information on the latest deals and more from Iceland by email, SMS and other digital channels - if you change your mind, you can opt out anytime via the retailer",
                 "type": 3
             }
         ],
@@ -360,7 +360,7 @@
     "content": [
         {
             "column": "Enrol_Help_Text",
-            "value": "Please enter your details to register with the retailer. We won’t save or store any of the information you provide or edit below."
+            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
         }
     ]
 }
