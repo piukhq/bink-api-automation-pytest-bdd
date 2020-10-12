@@ -1,31 +1,32 @@
 from tests_resources.test_data import testdata_dev
 from tests_resources.test_data import testdata_staging
 from tests_resources.test_data import testdata_prod
+from tests_resources.test_data import testdata_sit
 
 
 class EnvironmentDetails:
-    def __init__(self, base_url, test_data, django_url):
+    def __init__(self, base_url, test_data):
         self.base_url = base_url
         self.test_data = test_data
-        self.django_url = django_url
 
 
 DEV = EnvironmentDetails(
     base_url="https://api.dev.gb.bink.com",
     test_data=testdata_dev,
-    django_url="https://api.dev.gb.bink.com/admin/",
 )
 STAGING = EnvironmentDetails(
     base_url="https://api.staging.gb.bink.com",
     test_data=testdata_staging,
-    django_url="https://api.staging.gb.bink.com/admin/",
 )
 PROD = EnvironmentDetails(
     base_url="https://api.gb.bink.com",
     test_data=testdata_prod,
-    django_url=" ",
 )
 
+SIT = EnvironmentDetails(
+    base_url="https://api.sandbox.gb.bink.com",
+    test_data=testdata_sit,
+)
 
 class ChannelDetails:
     def __init__(self, channel_name, bundle_id, client_id_dev, client_id_staging, client_id_prod,

@@ -5,6 +5,7 @@ from pytest_bdd import given, then
 from requests.exceptions import HTTPError
 
 import config
+from config1 import ChannelDetails
 import tests.api as api
 import tests.helpers.constants as constants
 from tests.requests.service import CustomerAccount
@@ -103,7 +104,9 @@ def register_user(test_email, channel, env):
         return token
     elif channel == config.BARCLAYS.channel_name:
         TestContext.set_channel(channel)
-        response = CustomerAccount.service_consent_banking_user(test_email)
+        # response = CustomerAccount.service_consent_banking_user(test_email)
+        response = CustomerAccount.service_consent_banking_user("naj@gmail.com")
+
         logging.info("Banking user subscription to Bink is successful and the token is: \n\n" +
                      TestContext.get_token() + "\n")
         assert response.status_code == 201, "Banking user subscription to Bink is not successful"
