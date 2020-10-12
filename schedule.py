@@ -83,7 +83,11 @@ config = {
 
 
 def run_test():
-    process = subprocess.run(config[env]["command"], timeout=540, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    try:
+        process = subprocess.run(config[env]["command"], timeout=540, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except subprocess.TimeoutExpired:
+        print('Timeout occured, skipping run')
+        return
     print(process.stdout.decode())
     if process.returncode == 0:
         status = "Success"
