@@ -365,17 +365,6 @@ def verify_membership_card_balance(context, merchant):
     )
 )
 def verify_membership_card_transactions(context, merchant):
-    # response = MembershipTransactions.get_all_membership_transactions(context["token"])
-    # response_json = response.json()
-    # logging.info(
-    #     "The response of GET/MembershipTransactions:\n\n"
-    #     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_TRANSACTIONS + "\n\n"
-    #     + json.dumps(response_json, indent=4))
-    # assert (
-    #         response.status_code == 200
-    # ), "GET/ubiquity/membership_transactions is not working as expected"
-    # if response_json[0] == "[]":
-    #     logging.info("There are no matched transactions")
     response = MembershipTransactions.get_membership_transactions(context["token"], context["scheme_account_id"])
     response_json = response.json()
     logging.info(
@@ -390,19 +379,12 @@ def verify_membership_card_transactions(context, merchant):
             assert response.status_code == 200
             context["transaction_id"] = response_json[0].get("id")
         except IndexError:
-            logging.info("Existing transactions associated with " + merchant + " membership card: " +
-                         TestData.get_data(merchant).get(constants.CARD_NUM) + " are not populated the response of \n"
-                         + Endpoint.BASE_URL +
-                         api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]))
             raise Exception("Existing transactions associated with " + merchant + " membership card: " +
                             TestData.get_data(merchant).get(
                                 constants.CARD_NUM) + " are not populated the response of \n"
                             + Endpoint.BASE_URL +
                             api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]))
         except AssertionError as error:
-            logging.info("The response of " + Endpoint.BASE_URL +
-                         api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]) +
-                         " is not as expected")
             raise Exception("The response of " + Endpoint.BASE_URL +
                             api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(context["scheme_account_id"]) +
                             " is not as expected. Error is " + error.__str__())
