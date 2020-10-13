@@ -6,7 +6,6 @@ from tests_resources.test_data import testdata_sit
 from tests_resources.test_data import testdata_oat
 
 
-
 class EnvironmentDetails:
     def __init__(self, base_url, test_data):
         self.base_url = base_url
