@@ -52,8 +52,8 @@ def add_membership_card(merchant, login_user, context):
     if response.status_code == 200:
         logging.info("Scheme account is already present in another wallet")
         assert (
-                response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
-            constants.AUTHORIZED)
+                response_json["status"]["state"] == TestData.get_membership_card_status_states().
+                get(constants.AUTHORIZED)
                 and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
                 get(constants.REASON_CODE_AUTHORIZED)
         ), ("Scheme account was already present in another wallet. "
@@ -61,8 +61,8 @@ def add_membership_card(merchant, login_user, context):
     else:
         assert (
                 response.status_code == 201
-                and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
-            constants.PENDING)
+                and response_json["status"]["state"] == TestData.get_membership_card_status_states()
+                .get(constants.PENDING)
                 and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
                 get(constants.REASON_CODE_PENDING_ADD)
         ), ("Add Journey for " + merchant + " failed")
@@ -78,12 +78,16 @@ def add_invalid_membership_card(merchant, login_user, context, invalid_data):
     logging.info("The response of Add Journey (POST) with Invalid data is:\n \n"
                  + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n"
                  + json.dumps(response_json, indent=4))
-    assert (
-            response.status_code == 201
-            and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
-            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-            get(constants.REASON_CODE_PENDING_ADD)
-    ), ("Add Journey with invalid details for " + merchant + " failed")
+    if response.status_code == 200:
+        logging.info("Scheme account is already present in another wallet")
+    else:
+        assert (
+                response.status_code == 201
+                and response_json["status"]["state"] == TestData.get_membership_card_status_states().
+                get(constants.PENDING)
+                and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+                get(constants.REASON_CODE_PENDING_ADD)
+        ), ("Add Journey with invalid details for " + merchant + " failed")
 
 
 @when(parsers.parse(
@@ -99,12 +103,16 @@ def add_membership_card_invalid_credentials(merchant, login_user, context, email
     logging.info("The response of Add Journey (POST) with Invalid data is:\n \n"
                  + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n"
                  + json.dumps(response_json, indent=4))
-    assert (
-            response.status_code == 201
-            and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
-            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-            get(constants.REASON_CODE_PENDING_ADD)
-    ), ("Add Journey with invalid details for " + merchant + " failed")
+    if response.status_code == 200:
+        logging.info("Scheme account is already present in another wallet")
+    else:
+        assert (
+                response.status_code == 201
+                and response_json["status"]["state"] == TestData.get_membership_card_status_states().
+                get(constants.PENDING)
+                and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+                get(constants.REASON_CODE_PENDING_ADD)
+        ), ("Add Journey with invalid details for " + merchant + " failed")
 
 
 @when(parsers.parse('I perform POST request to add & auto link an existing "{merchant}" membership card'))
@@ -121,8 +129,8 @@ def add_existing_membership_card(merchant, login_user, context):
     if response.status_code == 200:
         logging.info("Scheme account is already present in another wallet")
         assert (
-                response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
-            constants.AUTHORIZED)
+                response_json["status"]["state"] == TestData.get_membership_card_status_states().
+                get(constants.AUTHORIZED)
                 and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
                 get(constants.REASON_CODE_AUTHORIZED)
         ), ("Scheme account was already present in another wallet. "
@@ -130,8 +138,8 @@ def add_existing_membership_card(merchant, login_user, context):
     else:
         assert (
                 response.status_code == 201
-                and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
-            constants.PENDING)
+                and response_json["status"]["state"] == TestData.get_membership_card_status_states()
+                .get(constants.PENDING)
                 and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
                 get(constants.REASON_CODE_PENDING_ADD)
         ), ("Add Journey for " + merchant + " failed")
