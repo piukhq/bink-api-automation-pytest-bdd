@@ -5,7 +5,6 @@ from pytest_bdd import given, then
 from requests.exceptions import HTTPError
 
 import config
-from config1 import ChannelDetails
 import tests.api as api
 import tests.helpers.constants as constants
 from tests.requests.service import CustomerAccount
