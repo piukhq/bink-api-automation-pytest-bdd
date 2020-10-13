@@ -1,5 +1,5 @@
 {
-    "id": 281,
+    "id": 246,
     "status": "active",
     "feature_set": {
         "authorisation_required": true,
@@ -27,32 +27,32 @@
     },
     "images": [
         {
-            "id": 637,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/ff_brand_image-2.jpg",
-            "description": "FatFace Offer 1",
-            "encoding": "jpg"
-        },
-        {
-            "id": 625,
+            "id": 1283,
             "type": 3,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Fatface_Logo.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Fatface_Logo.png",
             "description": "FF logo",
             "encoding": "png"
         },
         {
-            "id": 624,
+            "id": 1284,
             "type": 0,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Fatface_Card.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Fatface_Card.png",
             "description": "FF card",
             "encoding": "png"
         },
         {
-            "id": 636,
+            "id": 1299,
             "type": 9,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Fatface_Alternate_Hero.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Fatface_Alternate_Hero.png",
             "description": "FatFace alternative hero",
             "encoding": "png"
+        },
+        {
+            "id": 1301,
+            "type": 2,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/ff_brand_image-2.jpg",
+            "description": "FatFace Offer 1",
+            "encoding": "jpg"
         }
     ],
     "account": {
@@ -90,6 +90,7 @@
                 "checkbox": false
             }
         ],
+        "barcode_redeem_instructions": "Test redeem instructions.",
         "company_name": "FatFace",
         "category": "Uncategorised",
         "tiers": [],
