@@ -143,7 +143,7 @@
             },
             {
                 "column": "Consent 1",
-                "description": "Please send me the latest news and offers from Wasabi",
+                "description": "Please send me the latest news and offers from Wasabi - if you change your mind, you can opt out anytime via the retailer.",
                 "type": 3
             }
         ],
@@ -157,10 +157,6 @@
     ],
     "content": [
         {
-            "column": "Voucher_Issued_Detail",
-            "value": "Simply show the code to the team member at the till to redeem your free hot bento or sushi set."
-        },
-        {
             "column": "Voucher_Redeemed_Detail",
             "value": "Your FREE meal voucher was redeemed."
         },
@@ -169,16 +165,20 @@
             "value": "Your FREE meal voucher has expired."
         },
         {
-            "column": "Voucher_Inprogress_Detail",
-            "value": "Spend \u00a37.00 or more to get a stamp. Collect 7 stamps to get a FREE meal."
-        },
-        {
             "column": "Enrol_Help_Text",
             "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
         },
         {
+            "column": "Voucher_Issued_Detail",
+            "value": "Show your Wasabi Club reward code in store to redeem \u00a37 off your next meal."
+        },
+        {
+            "column": "Voucher_Inprogress_Detail",
+            "value": "Spend \u00a37.00 or more to get a stamp. Collect 7 stamps to get a Meal Voucher of up to \u00a37 off your next meal."
+        },
+        {
             "column": "Voucher_Cancelled_Detail",
-            "value": "Your voucher has been cancelled."
+            "value": "Your voucher has been cancelled. If you believe we have made a mistake please contact enquiries@wasabi.uk.com."
         }
     ]
 }
