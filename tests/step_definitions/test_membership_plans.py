@@ -12,7 +12,6 @@ from tests.requests.membership_plans import MembershipPlans
 from tests.helpers.test_helpers import TestData
 import tests.helpers.constants as constants
 
-
 scenarios("membership_plans/")
 
 
@@ -31,34 +30,9 @@ def view_all_available_membership_plans(login_user):
 
 
 @then(parsers.parse('I can ensure the "{merchant}" plan details match with expected data'))
-def ensure_the_merchants_plan_details_match_with_expected_data(merchant, env, login_user):
+def ensure_the_merchants_plan_details_match_with_expected_data(merchant, env, channel, login_user):
     """GET a merchant's membership plan and compare with
      expected membership plan of that merchant"""
-
-    token = login_user
-    response = MembershipPlans.get_membership_plan(token, merchant)
-    logging.info("The Membership plan for " + merchant + " is: \n" + json.dumps(response.json(), indent=4))
-    with open(TestData.get_expected_membership_plan_json(merchant, env)) as json_file:
-        json_data = json.load(json_file)
-    stored_json = json.dumps(json_data)
-    expected_membership_plan = json.loads(stored_json)
-    actual_membership_plan = response.json()
-    difference = json_compare(actual_membership_plan, expected_membership_plan)
-    if json.dumps(difference) != "{}":
-        logging.info(
-            "The expected and actual membership plan of "
-            + merchant
-            + " has following differences"
-            + json.dumps(difference, sort_keys=True, indent=4)
-        )
-        raise Exception("The expected and actual membership plan of " + merchant + " is not the same")
-    else:
-        logging.info("The expected and actual membership plan of" + merchant + "is same")
-
-
-@then(parsers.parse('I can ensure the "{merchant}" plan details for "{channel}" match with expected data'))
-def ensure_the_merchants_plan_details_barclays_match_with_expected_data(merchant, channel, login_user, env):
-    """Merchant Iceland has some changes membership plan for Barclays"""
 
     token = login_user
     response = MembershipPlans.get_membership_plan(token, merchant)
@@ -78,7 +52,7 @@ def ensure_the_merchants_plan_details_barclays_match_with_expected_data(merchant
         )
         raise Exception("The expected and actual membership plan of " + merchant + " is not the same")
     else:
-        logging.info("The expected and actual membership plan of " + merchant + " is the same")
+        logging.info("The expected and actual membership plan of" + merchant + "is same")
 
 
 def json_compare(actual_membership_plan, expected_membership_plan):

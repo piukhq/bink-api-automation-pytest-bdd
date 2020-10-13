@@ -1,24 +1,15 @@
 import json
 import requests
 import config
+# from config1 import EnvironmentDetails
 
 
 class Endpoint:
     BASE_URL = ""
-    DJANGO_URL = ""
 
     @staticmethod
     def set_environment(env):
-        if env == "dev":
-            Endpoint.BASE_URL = config.DEV.base_url
-            Endpoint.DJANGO_URL = config.DEV.django_url
-
-        elif env == "staging":
-            Endpoint.BASE_URL = config.STAGING.base_url
-            Endpoint.DJANGO_URL = config.STAGING.django_url
-
-        elif env == "prod":
-            Endpoint.BASE_URL = config.PROD.base_url
+        Endpoint.BASE_URL = getattr(config, env.upper()).base_url
 
     @staticmethod
     def request_header(token=None, version='1.2'):
