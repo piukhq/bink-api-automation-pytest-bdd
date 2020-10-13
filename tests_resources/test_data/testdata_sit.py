@@ -81,16 +81,16 @@ fat_face_invalid_data = {
 }
 
 harvey_nichols_membership_card = {
-    "id": "auto_five@testbink.com",
+    "id": "auto_zero@testbink.com",
     "password": "Password01",
-    "card_num": "9123001122335",
-    "barcode": "9123001122335",
-    "points": 380,
+    "card_num": "9123001122330",
+    "barcode": "9123001122330",
+    "points": 0,
     "currency": "Points",
     "description": "Placeholder Balance Description",
-    "transactions": "5",
-    "transaction_status": "active",
-    "transaction_currency": "Points",
+    "transactions": "0 ",
+    "transaction_status": "",
+    "transaction_currency": "",
 
 }
 
