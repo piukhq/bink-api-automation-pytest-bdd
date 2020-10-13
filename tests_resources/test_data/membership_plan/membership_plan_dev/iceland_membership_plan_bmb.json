@@ -29,6 +29,20 @@
     },
     "images": [
         {
+            "id": 639,
+            "type": 2,
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Iceland_Offer_Greggs.jpg",
+            "description": "Iceland Offer - Greggs",
+            "encoding": "jpg"
+        },
+        {
+            "id": 638,
+            "type": 2,
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Iceland_Offer_Pizza.jpg",
+            "description": "Iceland Offer - Pizza",
+            "encoding": "jpg"
+        },
+        {
             "id": 373,
             "type": 4,
             "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/iceland-asset.png",
@@ -39,13 +53,6 @@
             "type": 0,
             "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Iceland_Card_SalkL4I.png",
             "description": "Iceland Hero Image",
-            "encoding": "png"
-        },
-        {
-            "id": 540,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Tier-4-a_copy_B9FdOEH.png",
-            "description": "Tier-4-barcode_tile",
             "encoding": "png"
         },
         {
