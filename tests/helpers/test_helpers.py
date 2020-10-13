@@ -77,27 +77,34 @@ class TestData:
 
     @staticmethod
     def get_expected_membership_plan_json(merchant, env, channel=None):
+
         merchant_key = TestData.get_merchant_key(merchant)
-        """Temporary solution as Iceland has different membership plan id for Bink & Barclays"""
-        if env == "dev":
-            if merchant == "Iceland" and channel == "Barclays":
-                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_DEV + "/iceland_membership_plan_bmb.json"
-            else:
-                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_DEV + "/" + merchant_key + "_membership_plan.json"
-        elif env == "staging":
-            if merchant == "Iceland" and channel == "Barclays":
-                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_STAGING + "/iceland_membership_plan_bmb.json"
-            else:
-                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_STAGING + "/" + merchant_key + "_membership_plan.json"
-        elif env == "prod":
-            if merchant == "Iceland" and channel == "Barclays":
-                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD + "/iceland_membership_plan_bmb.json"
-            else:
-                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD + "/" + merchant_key + "_membership_plan.json"
+        mem_plan_path = TestData.get_mem_plan_path(env)
+
+        if merchant == "Iceland" and channel == "barclays":
+            """Temporary case as Iceland has different membership plan id for Bink & Barclays"""
+            return mem_plan_path + "/" + merchant_key + "_membership_plan_bmb.json"
+        else:
+            return mem_plan_path + "/" + merchant_key + "_membership_plan.json"
+
+    @staticmethod
+    def get_mem_plan_path(env):
+        """return the base path of stored membership plan json
+            for any merchant based on environment"""
+
+        switcher = {
+            "dev": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_DEV,
+            "staging": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_STAGING,
+            "prod": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD,
+            "sit": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_SIT,
+            "oat": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_OAT,
+        }
+        return switcher.get(env)
 
     @staticmethod
     def get_merchant_key(merchant):
-        """Generate the merchant key based on the merchant value from bdd feature file"""
+        """Generate the merchant key based on the
+        merchant value from bdd feature file"""
 
         switcher = {
             "BurgerKing": "burger_king",

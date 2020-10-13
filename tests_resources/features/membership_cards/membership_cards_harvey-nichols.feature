@@ -67,18 +67,18 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the customer
 
-  @enrol_put @dev
+  @enrol_put @dev1
   Scenario: Join Journey_PUT_HarveyNichols
 
     Given I register with bink service as a new customer
-    When I perform POST request to create a "HarveyNichols" membership account with "invalid" enrol credentials
-    And I perform GET request to verify the "HarveyNichols" membership account is created with invalid data
-    And I perform PUT request to replace information of the enrolled "HarveyNichols" membership card
-    And I perform GET request to verify the enrolled "HarveyNichols" membership card details got replaced after a successful PUT
-    Then verify the data stored in DB after "Enrol" journey for "HarveyNichols"
-    Then I perform DELETE request to delete the "HarveyNichols" membership card
-    And I perform DELETE request to delete the customer
-
+#    When I perform POST request to create a "HarveyNichols" membership account with "invalid" enrol credentials
+#    And I perform GET request to verify the "HarveyNichols" membership account is created with invalid data
+#    And I perform PUT request to replace information of the enrolled "HarveyNichols" membership card
+#    And I perform GET request to verify the enrolled "HarveyNichols" membership card details got replaced after a successful PUT
+#    Then verify the data stored in DB after "Enrol" journey for "HarveyNichols"
+#    Then I perform DELETE request to delete the "HarveyNichols" membership card
+#    And I perform DELETE request to delete the customer
+#
 
 #
 #  Scenario Outline:  Add_Journey_Invalid data_Error code checks
