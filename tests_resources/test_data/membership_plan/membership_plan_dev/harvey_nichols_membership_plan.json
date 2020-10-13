@@ -31,53 +31,11 @@
     },
     "images": [
         {
-            "id": 528,
+            "id": 640,
             "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Offer_tile_1.png",
-            "description": "Offer tile 1",
-            "encoding": "png"
-        },
-        {
-            "id": 527,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_instructional_tile.png",
-            "description": "Harvey Nichols Instructional tile",
-            "encoding": "png"
-        },
-        {
-            "id": 529,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Offer_tile_1_kr830d9.png",
-            "description": "Offer tile 2",
-            "encoding": "png"
-        },
-        {
-            "id": 530,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Offer_tile_3.png",
-            "description": "Offer tile 3",
-            "encoding": "png"
-        },
-        {
-            "id": 531,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Offer_tile_4.png",
-            "description": "Offer tile 4",
-            "encoding": "png"
-        },
-        {
-            "id": 532,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Offer_tile_5.png",
-            "description": "Offer tile 5",
-            "encoding": "png"
-        },
-        {
-            "id": 533,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Offer_tile_6.png",
-            "description": "Offer tile 6",
-            "encoding": "png"
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Rewards_square_oct_02.jpg",
+            "description": "Harvey Nichols Rewards",
+            "encoding": "jpg"
         },
         {
             "id": 496,
@@ -285,7 +243,7 @@
         },
         {
             "column": "Enrol_Help_Text",
-            "value": "Please enter your details to register with the retailer. We won’t save or store any of the information you provide or edit below."
+            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
         }
     ]
 }
