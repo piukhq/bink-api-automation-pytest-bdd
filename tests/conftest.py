@@ -47,7 +47,7 @@ def configure_html_report_env(request, env, channel):
     for ele in list(request.config._metadata.keys()):
         del request.config._metadata[ele]
     # if re.search(r'^(GITLAB_|CI_)', k): for git lab related extra table contents
-    request.config._metadata.update({"Test Environment": env, "Channel": channel})
+    request.config._metadata.update({"Test Environment": env.upper(), "Channel": channel.upper()})
 
 
 """Reading inputs from terminal"""
@@ -103,9 +103,7 @@ def register_user(test_email, channel, env):
         return token
     elif channel == config.BARCLAYS.channel_name:
         TestContext.set_channel(channel)
-        # response = CustomerAccount.service_consent_banking_user(test_email)
-        response = CustomerAccount.service_consent_banking_user("naj@gmail.com")
-
+        response = CustomerAccount.service_consent_banking_user(test_email)
         logging.info("Banking user subscription to Bink is successful and the token is: \n\n" +
                      TestContext.get_token() + "\n")
         assert response.status_code == 201, "Banking user subscription to Bink is not successful"
