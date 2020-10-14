@@ -47,7 +47,7 @@ def configure_html_report_env(request, env, channel):
     for ele in list(request.config._metadata.keys()):
         del request.config._metadata[ele]
     # if re.search(r'^(GITLAB_|CI_)', k): for git lab related extra table contents
-    request.config._metadata.update({"Test Environment": env, "Channel": channel})
+    request.config._metadata.update({"Test Environment": env.upper(), "Channel": channel.upper()})
 
 
 """Reading inputs from terminal"""
