@@ -58,7 +58,6 @@ def load_secrets():
         loaded = True
 
     else:
-        # logger.info(f"JWT bundle secrets - from vault at {VAULT_URL}  secrets: {CHANNEL_VAULT_PATH}")
         try:
             bundle_secrets = retry_get_secrets_from_vault()
         except requests.RequestException as e:
@@ -66,8 +65,8 @@ def load_secrets():
             logger.exception(err_msg)
             raise VaultError(err_msg) from e
 
-        logger.info(f"JWT bundle secrets - Found secrets for {[bundle_secrets]}")
-        logger.info(f"JWT bundle secrets - Found secrets for {[bundle_id for bundle_id in bundle_secrets]}")
+        # logger.info(f"JWT bundle secrets - Found secrets for {[bundle_secrets]}")§  §
+        # logger.info(f"JWT bundle secrets - Found secrets for {[bundle_id for bundle_id in bundle_secrets]}")
         _bundle_secrets = bundle_secrets
         loaded = True
 

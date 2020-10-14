@@ -80,43 +80,37 @@ fat_face_invalid_data = {
     "card_num": "FF00000059702810",
 }
 
+# harvey_nichols_membership_card = {
+#     "id": "auto_zero@testbink.com",
+#     "password": "Password01",
+#     "card_num": "9123001122330",
+#     "barcode": "9123001122330",
+#     "points": 0,
+#     "currency": "Points",
+#     "description": "Placeholder Balance Description",
+#     "transactions": "0 ",
+#     "transaction_status": "",
+#     "transaction_currency": "",
+#
+# }
+
 harvey_nichols_membership_card = {
-    "id": "andyjameshill@gmail.com",
-    "password": "BinkTest",
-    "card_num": "1000000962497",
-    "barcode": "1000000962497",
-    "points": 64,
+    "id": "auto_five@testbink.com",
+    "password": "Password01",
+    "card_num": "9123001122335",
+    "barcode": "9123001122335",
+    "points": 380,
     "currency": "Points",
     "description": "Placeholder Balance Description",
     "transactions": "5",
     "transaction_status": "active",
     "transaction_currency": "Points",
-}
-
-harvey_nichols_membership_card_2 = {
-    "id": "ryanedwards3@mac.com",
-    "password": "BinkTesting",
-    "card_num": "1000000729692",
-    "barcode": "1000000729692",
-    "points": 1896,
-    "currency": "Points",
-    "description": "Placeholder Balance Description",
-    "transactions": "0 ",
-    "transaction_status": "",
-    "transaction_currency": "",
 
 }
+
 harvey_nichols_invalid_data = {
     "id": "fail@unknown.com"
 }
-
-# iceland_membership_card = {
-#     "card_num": "6332040030473324721",
-#     "last_name": "Bransden",
-#     "postcode": "BN16 4HE",
-#     "points": 380.01
-# }
-
 
 iceland_membership_card = {
     "card_num": "6666666666666666666",
@@ -133,19 +127,17 @@ iceland_membership_card = {
 }
 
 # iceland_membership_card = {
-#     "card_num": "6332040030555532506",
-#     "barcode": "633204003055553250600085",
-#     "last_name": "Armstrong",
-#     "postcode": "SW18 4HH",
-#     "points": 5,
+#     "card_num": "5555555555555555555",
+#     "barcode": "5555555555555555555",
+#     "last_name": "five",
+#     "postcode": "rg5 5aa",
+#     "points": 380.01,
 #     "currency": "GBP",
 #     "description": "Placeholder Balance Description",
 #     "transactions": "5",
 #     "transaction_status": "active",
 #     "transaction_currency": "GBP",
 # }
-
-
 iceland_invalid_data = {
     "email": "fail@unknown.com",
     "postcode": "fail",
