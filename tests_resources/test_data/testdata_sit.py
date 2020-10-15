@@ -80,6 +80,20 @@ fat_face_invalid_data = {
     "card_num": "FF00000059702810",
 }
 
+# harvey_nichols_membership_card = {
+#     "id": "auto_zero@testbink.com",
+#     "password": "Password01",
+#     "card_num": "9123001122330",
+#     "barcode": "9123001122330",
+#     "points": 0,
+#     "currency": "Points",
+#     "description": "Placeholder Balance Description",
+#     "transactions": "0 ",
+#     "transaction_status": "",
+#     "transaction_currency": "",
+#
+# }
+
 harvey_nichols_membership_card = {
     "id": "auto_five@testbink.com",
     "password": "Password01",
@@ -112,6 +126,18 @@ iceland_membership_card = {
 
 }
 
+# iceland_membership_card = {
+#     "card_num": "5555555555555555555",
+#     "barcode": "5555555555555555555",
+#     "last_name": "five",
+#     "postcode": "rg5 5aa",
+#     "points": 380.01,
+#     "currency": "GBP",
+#     "description": "Placeholder Balance Description",
+#     "transactions": "5",
+#     "transaction_status": "active",
+#     "transaction_currency": "GBP",
+# }
 iceland_invalid_data = {
     "email": "fail@unknown.com",
     "postcode": "fail",
