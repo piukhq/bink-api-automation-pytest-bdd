@@ -31,55 +31,6 @@
     },
     "images": [
         {
-            "id": 1118,
-            "type": 2,
-            "url": "https://api.gb.bink.com/content/media/hermes/schemes/Offer_tile_1.png",
-            "description": "Rewards by Harvey Nichols",
-            "encoding": "png"
-        },
-        {
-            "id": 1119,
-            "type": 2,
-            "url": "https://api.gb.bink.com/content/media/hermes/schemes/Offer_2.png",
-            "description": "Shop Women",
-            "encoding": "png"
-        },
-        {
-            "id": 1120,
-            "type": 2,
-            "url": "https://api.gb.bink.com/content/media/hermes/schemes/Offer_tile_3.png",
-            "description": "Shop Men",
-            "encoding": "png"
-        },
-        {
-            "id": 1121,
-            "type": 2,
-            "url": "https://api.gb.bink.com/content/media/hermes/schemes/Offer_tile_4.png",
-            "description": "Shop Beauty",
-            "encoding": "png"
-        },
-        {
-            "id": 1122,
-            "type": 2,
-            "url": "https://api.gb.bink.com/content/media/hermes/schemes/Offer_tile_5.png",
-            "description": "Shop Food & Wine",
-            "encoding": "png"
-        },
-        {
-            "id": 1123,
-            "type": 2,
-            "url": "https://api.gb.bink.com/content/media/hermes/schemes/Offer_tile_6.png",
-            "description": "Discover Our Stores",
-            "encoding": "png"
-        },
-        {
-            "id": 1369,
-            "type": 2,
-            "url": "https://api.gb.bink.com/content/media/hermes/schemes/Harvey_Nichols_instructional_tile_6ZiHGMH.png",
-            "description": "Harvey Nichols Instructional tile",
-            "encoding": "png"
-        },
-        {
             "id": 1366,
             "type": 8,
             "url": "https://api.gb.bink.com/content/media/hermes/schemes/Harvey_Nichols_Card_2_Gold.png",
@@ -127,6 +78,13 @@
             "url": "https://api.gb.bink.com/content/media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN.png",
             "description": "Harvey Nichols Hero",
             "encoding": "png"
+        },
+        {
+            "id": 1383,
+            "type": 2,
+            "url": "https://api.gb.bink.com/content/media/hermes/schemes/Rewards_square_oct_02.jpg",
+            "description": "Harvey Nichols Rewards",
+            "encoding": "jpg"
         }
     ],
     "account": {
