@@ -31,60 +31,60 @@
     },
     "images": [
         {
+            "id": 537,
+            "type": 3,
+            "url": "https://oat.sandbox.gb.bink.com/content/sandbox-oat-media/hermes/schemes/Harvey_Nichols_Logo.png",
+            "description": "Harvey nichols Icon",
+            "encoding": "png"
+        },
+        {
             "id": 497,
             "type": 8,
-            "url": "https://api.sandbox.gb.bink.com/content/sandbox-media/hermes/schemes/Harvey_Nichols_Card_4_Black.png",
+            "url": "https://oat.sandbox.gb.bink.com/content/sandbox-oat-media/hermes/schemes/Harvey_Nichols_Card_4_Black.png",
             "description": "Black Tier",
             "encoding": "png"
         },
         {
             "id": 496,
             "type": 8,
-            "url": "https://api.sandbox.gb.bink.com/content/sandbox-media/hermes/schemes/Harvey_Nichols_Card_3_Platinum.png",
+            "url": "https://oat.sandbox.gb.bink.com/content/sandbox-oat-media/hermes/schemes/Harvey_Nichols_Card_3_Platinum.png",
             "description": "Platinum Tier",
             "encoding": "png"
         },
         {
             "id": 495,
             "type": 8,
-            "url": "https://api.sandbox.gb.bink.com/content/sandbox-media/hermes/schemes/Harvey_Nichols_Card_2_Gold.png",
+            "url": "https://oat.sandbox.gb.bink.com/content/sandbox-oat-media/hermes/schemes/Harvey_Nichols_Card_2_Gold.png",
             "description": "Gold Tier",
             "encoding": "png"
         },
         {
             "id": 494,
             "type": 8,
-            "url": "https://api.sandbox.gb.bink.com/content/sandbox-media/hermes/schemes/Harvey_Nichols_Card_1_Silver.png",
+            "url": "https://oat.sandbox.gb.bink.com/content/sandbox-oat-media/hermes/schemes/Harvey_Nichols_Card_1_Silver.png",
             "description": "Silver Tier",
             "encoding": "png"
         },
         {
-            "id": 537,
-            "type": 3,
-            "url": "https://api.sandbox.gb.bink.com/content/sandbox-media/hermes/schemes/Harvey_Nichols_Logo.png",
-            "description": "Harvey nichols Icon",
+            "id": 633,
+            "type": 9,
+            "url": "https://oat.sandbox.gb.bink.com/content/sandbox-oat-media/hermes/schemes/Harvey_Nichols.png",
+            "description": "Harvey Nichols Alternative Hero",
             "encoding": "png"
         },
         {
             "id": 524,
             "type": 0,
-            "url": "https://api.sandbox.gb.bink.com/content/sandbox-media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN.png",
+            "url": "https://oat.sandbox.gb.bink.com/content/sandbox-oat-media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN.png",
             "description": "Harvey Nichols Default Hero",
             "encoding": "png"
         },
         {
-            "id": 646,
+            "id": 639,
             "type": 2,
-            "url": "https://api.sandbox.gb.bink.com/content/sandbox-media/hermes/schemes/Rewards_square_oct_02.jpg",
+            "url": "https://oat.sandbox.gb.bink.com/content/sandbox-oat-media/hermes/schemes/Rewards_square_oct_02.jpg",
             "description": "Harvey Nichols Rewards",
             "encoding": "jpg"
-        },
-        {
-            "id": 633,
-            "type": 9,
-            "url": "https://api.sandbox.gb.bink.com/content/sandbox-media/hermes/schemes/Harvey_Nichols_peUXAeI.png",
-            "description": "Harvey Nichols Alternative Hero",
-            "encoding": "png"
         }
     ],
     "account": {
@@ -97,7 +97,7 @@
             {
                 "name": "Retailer terms and conditions",
                 "description": "I agree to the",
-                "url": "https://policies.gb.bink.com/hn/tc.html",
+                "url": "https://policies.bink.com/hn/tc.html",
                 "display": [
                     "ENROL"
                 ],
@@ -106,7 +106,7 @@
             {
                 "name": "Harvey Nichols privacy policy",
                 "description": "I agree to the",
-                "url": "https://policies.gb.bink.com/hn/pp.html",
+                "url": "https://policies.bink.com/hn/pp.html",
                 "display": [
                     "ENROL"
                 ],
