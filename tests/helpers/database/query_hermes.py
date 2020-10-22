@@ -63,7 +63,7 @@ class QueryHermes:
                                     "\n..............................................................................")
 
             fields_to_verify = ("card_number", "email", "last_name", "postcode", "merchant_identifier")
-            fields_to_decrypt = ("last_name", "postcode", "merchant_identifier")
+            fields_to_decrypt = ("last_name", "postcode")
 
             for row in record:
                 credential_qn_label = get_credential_qn_label(row[3], connection)
@@ -74,11 +74,8 @@ class QueryHermes:
 
                 if question in fields_to_verify:
                     if question in fields_to_decrypt:
-                        if question == "merchant_identifier" and len(answer) <= 15:
-                            pass
-                        else:
-                            answer = decrypt(answer)
-                            logging.info(f"Decrypted value of {question} is '{answer}'")
+                        answer = decrypt(answer)
+                        logging.info(f"Decrypted value of {question} is '{answer}'")
 
                 setattr(CredentialAns, question, answer)
 
