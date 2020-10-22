@@ -74,6 +74,8 @@ coop_ghost_card = {
 
 fat_face_membership_card = {
     "card_num": "FF00000059702811",
+    "points": 0,
+    "currency": "GBP",
 }
 
 fat_face_invalid_data = {
@@ -200,6 +202,7 @@ membership_card_status_reason_codes = {
     "reason_code_authorised": "X300",
     "reason_code_failed": "X303",
     "reason_code_failed_enrol": "X201",
+    "reason_code_invalid_failed_enrol": "X202",
 }
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
 

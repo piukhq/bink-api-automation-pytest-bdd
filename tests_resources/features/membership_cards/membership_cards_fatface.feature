@@ -1,4 +1,4 @@
-@fatface
+@fatface @bink
 Feature: Merchant FatFace - Ensure a customer can add their membership card & view its details
   As a customer
   I want to utilise membership_cards endpoint of the Banking API
@@ -6,8 +6,8 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
 
 
    
-@add
-    Scenario: Add Journey_FatFace
+  @add
+  Scenario: Add Journey_FatFace
 
     Given I am a Bink user
     When I perform POST request to add "FatFace" membership card
@@ -28,8 +28,9 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the "FatFace" membership card
 
 
- @add_and_link
+  @add_and_link
   Scenario: ADD & LINK Journey_FatFace
+
     Given I am a Bink user
     And I perform POST request to add payment card to wallet
     And I perform the GET request to verify the payment card has been added successfully
@@ -39,8 +40,9 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then verify the data stored in DB after "Add" journey for "FatFace"
     Then I perform DELETE request to delete the "FatFace" membership card
     And I perform DELETE request to delete the payment card
-@enrol
-    Scenario: Join Journey_FatFace
+
+  @enrol
+  Scenario: Join Journey_FatFace
 
     Given I register with bink service as a new customer
     When I perform POST request to create a "FatFace" membership account with enrol credentials
@@ -51,7 +53,6 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
 
   @enrol_put
   Scenario: Join Journey_PUT_FatFace
-
 
     Given I register with bink service as a new customer
     When I perform POST request to create a "FatFace" membership account with "invalid" enrol credentials
