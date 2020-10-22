@@ -59,8 +59,8 @@
         "plan_name": "FatFace Rewards",
         "plan_name_card": "account",
         "plan_url": "https://www.fatface.com",
-        "plan_summary": "Use your linked payment cards every time you shop in a FatFace store or online at fatface.com to start earning Rewards.  Each purchase gets you closer to a Reward Voucher.  Once you have spent \u00a3100 you will receive a \u00a35 Voucher to use online.",
-        "plan_description": "Use your linked payment cards every time you shop in a FatFace store or online at fatface.com to start earning Rewards.  Each purchase gets you closer to a Reward Voucher.  Once you have spent \u00a3100 you will receive a \u00a35 Voucher to use online.  Go to fatface.com to find out more and to see what other benefits you could receive.",
+        "plan_summary": "Use your linked payment cards every time you shop in a FatFace store or online at fatface.com to start earning Rewards. Each purchase gets you closer to a Reward Voucher. Once you have spent \u00a3100 you will receive a 15% Voucher to use online.",
+        "plan_description": "At this time FatFace Rewards is only available to Barclays customers.",
         "plan_documents": [
             {
                 "name": "Retailer terms and conditions",
@@ -146,12 +146,12 @@
     ],
     "content": [
         {
-            "column": "Voucher_Issued_Detail",
-            "value": "Use the code to receive \u00a35 off your next order at fatface.com. Simply enter the code below on the Shopping Bag page. Don\u2019t forget to pay any balance with your linked payment card to keep earning towards your next Reward."
-        },
-        {
             "column": "Enrol_Help_Text",
             "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
+        },
+        {
+            "column": "Voucher_Issued_Detail",
+            "value": "Use the code below to get 15% off your next order at fatface.com. Cannot be used in conjunction with any other offer or purchase of gift cards. Discount applies to Full price stock only."
         }
     ]
 }

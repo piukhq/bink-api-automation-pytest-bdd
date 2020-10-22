@@ -101,7 +101,7 @@
             {
                 "column": "Email",
                 "validation": "^.+@([A-Za-z0-9-]+.)+[A-Za-z]{2}[A-Za-z]*$",
-                "description": "Email",
+                "description": "example@mydomain.com",
                 "common_name": "email",
                 "type": 0,
                 "choice": []
@@ -112,13 +112,13 @@
             {
                 "column": "First name",
                 "validation": "^(((?=.{1,100}$)[A-Za-z-'])+\\s*){1,4}$",
-                "description": "First name",
+                "description": "Enter first name",
                 "common_name": "first_name",
                 "type": 0,
                 "choice": []
             },
             {
-                "column": "Last name",
+                "column": "Enter last name",
                 "validation": "^(((?=.{1,100}$)[A-Za-z-'])+\\s*){1,4}$",
                 "description": "Last name",
                 "common_name": "last_name",
@@ -128,7 +128,7 @@
             {
                 "column": "Email",
                 "validation": "^.+@([A-Za-z0-9-]+.)+[A-Za-z]{2}[A-Za-z]*$",
-                "description": "Email",
+                "description": "example@mydomain.com",
                 "common_name": "email",
                 "type": 0,
                 "choice": []
@@ -143,7 +143,7 @@
             },
             {
                 "column": "Consent 1",
-                "description": "Please send me the latest news and offers from Wasabi - if you change your mind, you can opt out anytime via the retailer.",
+                "description": "Check this box to receive the latest news and offers from Wasabi - if you change your mind, you can opt out anytime via the retailer.",
                 "type": 3
             }
         ],
