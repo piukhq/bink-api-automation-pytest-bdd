@@ -74,12 +74,8 @@ coop_invalid_data = {
 
 fat_face_membership_card = {
     "card_num": "FF00000059702811",
-    "points": "",
-    "currency": "",
-    "description": "",
-    "transactions": "",
-    "transaction_status": "",
-    "transaction_currency": "",
+    "points": 0,
+    "currency": "GBP"
 }
 
 fat_face_invalid_data = {
