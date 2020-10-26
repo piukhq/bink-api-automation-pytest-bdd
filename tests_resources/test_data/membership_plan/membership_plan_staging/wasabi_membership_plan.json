@@ -27,13 +27,6 @@
     },
     "images": [
         {
-            "id": 1306,
-            "type": 9,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/bink.png",
-            "description": "test dark mode",
-            "encoding": "png"
-        },
-        {
             "id": 1297,
             "type": 3,
             "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Logo.png",
