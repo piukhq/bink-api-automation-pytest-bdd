@@ -25,6 +25,20 @@ TRANSACTIONS = "transactions"
 TRANSACTIONS_STATUS = "transaction_status"
 TRANSACTIONS_CURRENCY = "transaction_currency"
 
+INPROGRESS_STATE = "inprogress_state"
+ISSUED_STATE = "issued_state"
+BURN_TYPE = "burn_type"
+BURN_PREFIX = "burn_prefix"
+CODE = "code"
+
+
+EARN_TYPE = "earn_type"
+TARGET_VALUE = "target_value"
+HEADLINE = "headline"
+BARCODE_TYPE = "barcode_type"
+ISSUED_HEADLINE = "issued_headline"
+
+
 
 """ Membership Card's Status.State"""
 AUTHORIZED = "state_authorised"

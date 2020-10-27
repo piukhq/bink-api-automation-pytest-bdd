@@ -62,3 +62,27 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then verify the data stored in DB after "Enrol" journey for "FatFace"
     Then I perform DELETE request to delete the "FatFace" membership card
     And I perform DELETE request to delete the customer
+
+  @balances_transactions
+  Scenario: Balances and Transactions_Fatface
+
+    Given I am a Bink user
+    When I perform POST request to add "FatFace" membership card
+    And I perform GET request to verify the "FatFace" membership card is added to the wallet
+    And I perform GET request to view balance for recently added "FatFace" membership card
+#    When I perform GET request to view all transactions made using the recently added "FatFace" membership card
+#    Then I perform GET request to view a specific transaction made using the recently added "FatFace" membership card
+    Then verify the data stored in DB after "Add" journey for "FatFace"
+    And I perform DELETE request to delete the "FatFace" membership card
+
+  @voucher_transactions
+  Scenario: Vouchers and Transactions_Fatface
+
+    Given I am a Bink user
+    When I perform POST request to add "FatFace" membership card
+    And I perform GET request to verify the "FatFace" membership card is added to the wallet
+    And I perform GET request to view balance for recently added "FatFace" membership card
+    When I perform GET request to view "Inprogress" voucher for recently added "FatFace" membership card
+    And I perform GET request to view "Issued" voucher for recently added "FatFace" membership card
+    Then verify the data stored in DB after "Add" journey for "FatFace"
+    And I perform DELETE request to delete the "FatFace" membership card

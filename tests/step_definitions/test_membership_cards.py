@@ -387,6 +387,57 @@ def verify_membership_card_balance(context, merchant):
         current_membership_card_response_array["status"]["reason_codes"][0])
 
 
+@when(parsers.parse('I perform GET request to view "{Voucher}" voucher for recently added "{merchant}" membership card'))
+def verify_membership_card_voucher(context, merchant, Voucher):
+
+    current_membership_card_response_array = MembershipCards.get_membership_card_balance(context["token"],
+                                                                                         context["scheme_account_id"])
+
+    if Voucher == 'Inprogress':
+
+        assert (
+            current_membership_card_response_array["status"]["state"] ==
+            TestData.get_membership_card_status_states().get(constants.AUTHORIZED)
+            and current_membership_card_response_array["vouchers"][0]["burn"]["type"] ==
+            TestData.get_data(merchant).get(constants.BURN_TYPE)
+            and current_membership_card_response_array["vouchers"][0]["burn"]["prefix"] ==
+            TestData.get_data(merchant).get(constants.BURN_PREFIX)
+            and current_membership_card_response_array["vouchers"][0]["burn"]["currency"] ==
+            TestData.get_data(merchant).get(constants.CURRENCY)
+
+            and current_membership_card_response_array["vouchers"][0]["earn"]["type"] ==
+            TestData.get_data(merchant).get(constants.EARN_TYPE)
+            and current_membership_card_response_array["vouchers"][0]["earn"]["currency"] ==
+            TestData.get_data(merchant).get(constants.CURRENCY)
+            and current_membership_card_response_array["vouchers"][0]["earn"]["target_value"] ==
+            TestData.get_data(merchant).get(constants.TARGET_VALUE)
+
+            and current_membership_card_response_array["vouchers"][0]["state"] ==
+            TestData.get_data(merchant).get(constants.INPROGRESS_STATE)
+            and current_membership_card_response_array["vouchers"][0]["headline"] ==
+            TestData.get_data(merchant).get(constants.HEADLINE)
+            and current_membership_card_response_array["vouchers"][0]["barcode_type"] ==
+            TestData.get_data(merchant).get(constants.BARCODE_TYPE),
+            ("Validations in GET/membership_cards for " + merchant + " failed with reason code" +
+        current_membership_card_response_array["status"]["reason_codes"][0]))
+
+    elif Voucher == 'Issued':
+
+        assert (
+            current_membership_card_response_array["status"]["state"] ==
+            TestData.get_membership_card_status_states().get(constants.ISSUED_STATE)
+            and current_membership_card_response_array["vouchers"][1]["code"] ==
+            TestData.get_data(merchant).get(constants.CODE)
+            and current_membership_card_response_array["vouchers"][1]["headline"] ==
+            TestData.get_data(merchant).get(constants.ISSUED_HEADLINE)
+             ,("Validations in GET/membership_cards for " + merchant + " failed with reason code" +
+                current_membership_card_response_array["status"]["reason_codes"][0]))
+
+    logging.info(
+        "The response of GET/MembershipCardBalances for the current membership card is : \n\n"
+        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n"
+        + json.dumps(current_membership_card_response_array, indent=4))
+
 """"Step definitions for Membership_Transactions"""
 
 
