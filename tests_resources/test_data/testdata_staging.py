@@ -79,7 +79,7 @@ fat_face_membership_card = {
     "burn_type": "voucher",
     "burn_prefix": "15% off",
     "earn_type": "accumulator",
-    "issued_state":"issued",
+    "issued_state": "issued",
     "inprogress_state": "inprogress",
     "target_value": 100.0,
     "headline": "Spend \u00a3100 to get 15% to spend online.",

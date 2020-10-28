@@ -39,7 +39,6 @@ BARCODE_TYPE = "barcode_type"
 ISSUED_HEADLINE = "issued_headline"
 
 
-
 """ Membership Card's Status.State"""
 AUTHORIZED = "state_authorised"
 PENDING = "state_pending"
