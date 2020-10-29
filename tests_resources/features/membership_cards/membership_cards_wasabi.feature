@@ -14,7 +14,17 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     And I perform DELETE request to delete the "Wasabi" membership card
 
+  @balances_transactions @dev @staging @prod
+  Scenario: Balances and Transactions_Wasabi
 
+    Given I am a Bink user
+    When I perform POST request to add "Wasabi" membership card
+    And I perform GET request to verify the "Wasabi" membership card is added to the wallet
+    And I perform GET request to view balance for recently added "Wasabi" membership card
+    When I perform GET request to view all transactions made using the recently added "Wasabi" membership card
+    Then I perform GET request to view a specific transaction made using the recently added "Wasabi" membership card
+    Then verify the data stored in DB after "Add" journey for "Wasabi"
+    And I perform DELETE request to delete the "Wasabi" membership card
   @add_patch
   Scenario:  PATCH membership card details_Wasabi
 
@@ -38,20 +48,6 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then I perform DELETE request to delete the "Wasabi" membership card
     And I perform DELETE request to delete the payment card
 
-  @error_codes
-    Scenario Outline:  Add Journey_Error code checks
-
-    Given I am a Bink user
-    When I perform POST request to add "Wasabi" membership card with invalid "<card_number>" and "<email_address>"
-    And I perform GET request to verify the "Wasabi" membership card fails to add & link in their wallet with "<state>"
-    Then I can see relevant "<reason code>" is present in the response
-    Then they can perform Delete operation to delete the membership card
-
-
-    Examples:
-      | card_number               | email_address             | state  |reason code |
-      |104817410                  | binktestuser16@wasabi.com | failed |  X102      |
-      |1048173057                 |binktestuser16@wasabi.com  | failed |  X303      |
 
   @enrol
     Scenario: Join Journey_Wasabi
