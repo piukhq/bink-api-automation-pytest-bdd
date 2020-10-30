@@ -14,7 +14,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     And I perform DELETE request to delete the "Wasabi" membership card
 
-  @balances_transactions @dev @staging @prod
+  @balances_transactions
   Scenario: Balances and Transactions_Wasabi
 
     Given I am a Bink user
