@@ -29,6 +29,8 @@ INPROGRESS_STATE = "inprogress_state"
 ISSUED_STATE = "issued_state"
 BURN_TYPE = "burn_type"
 BURN_PREFIX = "burn_prefix"
+EARN_PREFIX = "earn_prefix"
+SUBTEXT = "subtext"
 CODE = "code"
 
 

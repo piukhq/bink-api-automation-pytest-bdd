@@ -13,8 +13,8 @@ visa_payment_card = {
 }
 
 amex_payment_card = {
-    "first_six_digits": "555555",
-    "last_four_digits": "4444",
+    "first_six_digits": "378282",
+    "last_four_digits": "0005",
     "token": "auto1093448038331testbinkcom",
     "name_on_card": "auto1093448038331testbinkcom",
     "month": 1,
@@ -79,13 +79,15 @@ fat_face_membership_card = {
     "burn_type": "voucher",
     "burn_prefix": "15% off",
     "earn_type": "accumulator",
+    "earn_prefix": "\u00a3",
     "issued_state": "issued",
     "inprogress_state": "inprogress",
     "target_value": 100.0,
-    "headline": "Spend \u00a3100 to get 15% to spend online.",
+    "subtext": "for spending",
+    "headline": "Spend \u00a3100 to get 15 percent off to spend online",
     "barcode_type": 4,
     "code": "XP7E0G3O0L",
-    "issued_headline": "Earned"
+    "issued_headline": "Earned",
 }
 
 fat_face_invalid_data = {

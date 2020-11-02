@@ -5,7 +5,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
   So I can add my card, with the scheme provider FatFace & check its details successfully
 
 
-   
+
   @add
   Scenario: Add Journey_FatFace
 
@@ -76,13 +76,13 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the "FatFace" membership card
 
   @voucher_transactions
-  Scenario: Vouchers and Transactions_Fatface
+ Scenario: Vouchers and Transactions_Fatface
 
     Given I am a Bink user
     When I perform POST request to add "FatFace" membership card
     And I perform GET request to verify the "FatFace" membership card is added to the wallet
     And I perform GET request to view balance for recently added "FatFace" membership card
-    When I perform GET request to view "Inprogress" voucher for recently added "FatFace" membership card
-    And I perform GET request to view "Issued" voucher for recently added "FatFace" membership card
+    When I perform GET request to view "Inprogress" "0" for recently added "FatFace" membership card
+    And I perform GET request to view "Issued" "1" for recently added "FatFace" membership card
     Then verify the data stored in DB after "Add" journey for "FatFace"
     And I perform DELETE request to delete the "FatFace" membership card
