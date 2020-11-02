@@ -223,8 +223,8 @@ membership_card_status_reason_codes = {
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
 
 bink_user_accounts = {
-    "uid": "njames@bink.com",
-    "pwd": "Password@200",
+    "uid": "pytest_staging@bink.com",
+    "pwd": "Password1",
 }
 
 barclays_user_accounts = {
