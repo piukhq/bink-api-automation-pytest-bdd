@@ -25,6 +25,25 @@ TRANSACTIONS = "transactions"
 TRANSACTIONS_STATUS = "transaction_status"
 TRANSACTIONS_CURRENCY = "transaction_currency"
 
+INPROGRESS_STATE = "inprogress_state"
+ISSUED_STATE = "issued_state"
+EXPIRED_STATE = "expired_state"
+REDEEMED_STATE = "redeemed_state"
+BURN_TYPE = "burn_type"
+BURN_PREFIX = "burn_prefix"
+EARN_PREFIX = "earn_prefix"
+SUBTEXT = "subtext"
+CODE = "code"
+
+
+EARN_TYPE = "earn_type"
+TARGET_VALUE = "target_value"
+HEADLINE = "headline"
+EXPIRED_HEADLINE = "expired_headline"
+REDEEMED_HEADLINE = "redeemed_headline"
+BARCODE_TYPE = "barcode_type"
+ISSUED_HEADLINE = "issued_headline"
+
 
 """ Membership Card's Status.State"""
 AUTHORIZED = "state_authorised"

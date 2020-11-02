@@ -542,3 +542,84 @@ def verify_scheme_account_ans(cred_ans, merchant):
     elif merchant == "Wasabi":
         assert (cred_ans.email == TestDataUtils.TEST_DATA.wasabi_membership_card.get(constants.EMAIL)
                 ), "Wasabi scheme_account answers are not saved as expected"
+
+
+@then(parsers.parse('I perform GET request to view "{Voucher}" vouchers with voucher_id "{voucherId}" for recently added "{merchant}" '
+                    'membership card'))
+def verify_membership_card_voucher(context, merchant, Voucher, voucherId):
+    voucherId = int(voucherId)
+    response = MembershipCards.get_scheme_account(context["token"], context["scheme_account_id"])
+    response_json = response.json()
+    logging.info(
+        "The response of GET/MembershipCard after Add Journey is:\n\n"
+        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(context["scheme_account_id"]) + "\n\n"
+        + json.dumps(response_json, indent=4))
+    assert (
+        response_json["status"]["state"] ==
+        TestData.get_membership_card_status_states().get(constants.AUTHORIZED)
+        and response_json["vouchers"][voucherId]["burn"]["type"] ==
+        TestData.get_data(merchant).get(constants.BURN_TYPE)
+        and response_json["vouchers"][voucherId]["burn"]["prefix"] ==
+        TestData.get_data(merchant).get(constants.BURN_PREFIX)
+        and response_json["vouchers"][voucherId]["burn"]["currency"] ==
+        TestData.get_data(merchant).get(constants.CURRENCY)
+        and response_json["vouchers"][voucherId]["earn"]["type"] ==
+        TestData.get_data(merchant).get(constants.EARN_TYPE)
+        and response_json["vouchers"][voucherId]["earn"]["prefix"] ==
+        TestData.get_data(merchant).get(constants.EARN_PREFIX)
+        and response_json["vouchers"][voucherId]["earn"]["currency"] ==
+        TestData.get_data(merchant).get(constants.CURRENCY)
+        and response_json["vouchers"][voucherId]["earn"]["target_value"] ==
+        TestData.get_data(merchant).get(constants.TARGET_VALUE)
+        and response_json["vouchers"][voucherId]["subtext"] ==
+        TestData.get_data(merchant).get(constants.SUBTEXT)
+        and response_json["vouchers"][voucherId]["barcode_type"] ==
+        TestData.get_data(merchant).get(constants.BARCODE_TYPE)
+         ), ("Validations in GET/membership_cards for " + merchant + " failed to get voucher")
+
+    if Voucher == "Inprogress":
+        logging.info("The response of GET/MembershipCard: " + merchant + "Inprogress Voucher : " +
+                         json.dumps(response_json, indent=4))
+        assert (
+            response_json["vouchers"][voucherId]["state"] ==
+            TestData.get_data(merchant).get(constants.INPROGRESS_STATE)
+            and response_json["vouchers"][voucherId]["headline"] ==
+            TestData.get_data(merchant).get(constants.HEADLINE)
+            ), ("Validations in GET/membership_cards for " + merchant + "failed with state Inprogress" +
+                response_json["vouchers"][voucherId]["state"])
+
+    elif Voucher == "Issued":
+        logging.info("The response of GET/MembershipCard: " + merchant + "Issued Voucher : " +
+                         json.dumps(response_json, indent=4))
+        assert (
+            response_json["vouchers"][voucherId]["state"] ==
+            TestData.get_data(merchant).get(constants.ISSUED_STATE)
+            and response_json["vouchers"][voucherId]["code"] ==
+            TestData.get_data(merchant).get(constants.CODE)
+            and response_json["vouchers"][voucherId]["headline"] ==
+            TestData.get_data(merchant).get(constants.ISSUED_HEADLINE)
+            ), ("Validations in GET/membership_cards for " + merchant + "failed with state Issued" +
+                response_json["vouchers"][voucherId]["state"])
+
+    elif Voucher == "Expired":
+        logging.info("The response of GET/MembershipCard: " + merchant + "Expired Voucher : " +
+                         json.dumps(response_json, indent=4))
+        assert (
+            response_json["vouchers"][voucherId]["state"] ==
+            TestData.get_data(merchant).get(constants.EXPIRED_STATE)
+            and response_json["vouchers"][voucherId]["headline"] ==
+            TestData.get_data(merchant).get(constants.EXPIRED_HEADLINE)
+            ), ("Validations in GET/membership_cards for " + merchant + "failed with state Expired" +
+                response_json["vouchers"][voucherId]["state"])
+
+    elif Voucher == "Redeemed":
+        logging.info("The response of GET/MembershipCard: " + merchant + "Redeemed Voucher : " +
+                         json.dumps(response_json, indent=4))
+        assert (
+            response_json["vouchers"][voucherId]["state"] ==
+            TestData.get_data(merchant).get(constants.REDEEMED_STATE)
+            and response_json["vouchers"][voucherId]["headline"] ==
+            TestData.get_data(merchant).get(constants.REDEEMED_HEADLINE)
+            ), ("Validations in GET/membership_cards for " + merchant + "failed with state Redeemed" +
+                response_json["vouchers"][voucherId]["state"])
+
