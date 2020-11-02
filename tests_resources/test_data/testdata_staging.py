@@ -13,8 +13,8 @@ visa_payment_card = {
 }
 
 amex_payment_card = {
-    "first_six_digits": "555555",
-    "last_four_digits": "4444",
+    "first_six_digits": "378282",
+    "last_four_digits": "0005",
     "token": "auto1093448038331testbinkcom",
     "name_on_card": "auto1093448038331testbinkcom",
     "month": 1,
@@ -73,9 +73,25 @@ coop_ghost_card = {
 }
 
 fat_face_membership_card = {
-    "card_num": "FF00000059702811",
-    "points": 0,
+    "card_num": "FF00000058556150",
+    "points": 55.5,
     "currency": "GBP",
+    "burn_type": "voucher",
+    "burn_prefix": "15% off",
+    "earn_type": "accumulator",
+    "earn_prefix": "\u00a3",
+    "issued_state": "issued",
+    "inprogress_state": "inprogress",
+    "expired_state": "expired",
+    "redeemed_state": "redeemed",
+    "target_value": 100.0,
+    "subtext": "for spending",
+    "headline": "Spend \u00a3100 to get 15 percent off to spend online",
+    "expired_headline": "Expired",
+    "redeemed_headline": "Redeemed",
+    "barcode_type": 4,
+    "code": "5AC623TDLH",
+    "issued_headline": "Earned",
 }
 
 fat_face_invalid_data = {
