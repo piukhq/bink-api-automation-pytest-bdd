@@ -523,6 +523,7 @@ def verify_db_details(journey_type, merchant, env):
             logging.info(f"The Join Date for scheme_account '{scheme_account.id}' is "
                          f"{scheme_account.link_or_join_date}'")
 
+
 def verify_scheme_account_ans(cred_ans, merchant):
     """For HN , BK, FF, WHsmith the  main scheme_account_ans is validated against
     'main_answer' column in scheme_schemeaccount table
@@ -543,7 +544,8 @@ def verify_scheme_account_ans(cred_ans, merchant):
                 ), "Wasabi scheme_account answers are not saved as expected"
 
 
-@when(parsers.parse('I perform GET request to view "{Voucher}" "{voucherId}" for recently added "{merchant}" membership card'))
+@when(parsers.parse('I perform GET request to view "{Voucher}" "{voucherId}" for recently added "{merchant}" '
+                    'membership card'))
 def verify_membership_card_voucher(context, merchant, Voucher, voucherId):
     voucherId = int(voucherId)
     response = MembershipCards.get_scheme_account(context["token"], context["scheme_account_id"])
@@ -553,8 +555,9 @@ def verify_membership_card_voucher(context, merchant, Voucher, voucherId):
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(context["scheme_account_id"]) + "\n\n"
         + json.dumps(response_json, indent=4))
 
-    if not Voucher :
-        logging.info("The response of GET/MembershipCard: " + merchant + "has no voucher" +json.dumps(response_json, indent=4))
+    if not Voucher:
+        logging.info("The response of GET/MembershipCard: " + merchant + "has no voucher" +
+                     json.dumps(response_json, indent=4))
     else:
         assert (
             response_json["status"]["state"] ==
@@ -580,7 +583,8 @@ def verify_membership_card_voucher(context, merchant, Voucher, voucherId):
          ), ("Validations in GET/membership_cards for " + merchant + " failed to get voucher")
 
         if Voucher == "Inprogress":
-            logging.info("The response of GET/MembershipCard: " + merchant + "Inprogress Voucher : " + json.dumps(response_json, indent=4))
+            logging.info("The response of GET/MembershipCard: " + merchant + "Inprogress Voucher : " +
+                         json.dumps(response_json, indent=4))
             assert (
                 response_json["vouchers"][voucherId]["state"] ==
                 TestData.get_data(merchant).get(constants.INPROGRESS_STATE)
@@ -589,7 +593,8 @@ def verify_membership_card_voucher(context, merchant, Voucher, voucherId):
             ), "Inprogress Voucher is empty"
 
         elif Voucher == "Issued":
-            logging.info("The response of GET/MembershipCard: " + merchant + "Issued Voucher : " + json.dumps(response_json, indent=4))
+            logging.info("The response of GET/MembershipCard: " + merchant + "Issued Voucher : " +
+                         json.dumps(response_json, indent=4))
             assert (
                 response_json["vouchers"][voucherId]["state"] ==
                 TestData.get_data(merchant).get(constants.ISSUED_STATE)
@@ -601,4 +606,4 @@ def verify_membership_card_voucher(context, merchant, Voucher, voucherId):
                  response_json["vouchers"][voucherId]["state"])
 
         else:
-            logging.info("No Issued Voucher Available for these membershipcard "+ response_json[0]["id"])
+            logging.info("No Issued Voucher Available for these membershipcard " + response_json[0]["id"]["vouchers"])
