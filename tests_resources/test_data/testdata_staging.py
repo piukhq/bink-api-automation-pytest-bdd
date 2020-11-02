@@ -73,8 +73,8 @@ coop_ghost_card = {
 }
 
 fat_face_membership_card = {
-    "card_num": "FF00000073205924",
-    "points": 0.0,
+    "card_num": "FF00000058556150",
+    "points": 55.5,
     "currency": "GBP",
     "burn_type": "voucher",
     "burn_prefix": "15% off",
@@ -82,11 +82,15 @@ fat_face_membership_card = {
     "earn_prefix": "\u00a3",
     "issued_state": "issued",
     "inprogress_state": "inprogress",
+    "expired_state": "expired",
+    "redeemed_state": "redeemed",
     "target_value": 100.0,
     "subtext": "for spending",
     "headline": "Spend \u00a3100 to get 15 percent off to spend online",
+    "expired_headline": "Expired",
+    "redeemed_headline": "Redeemed",
     "barcode_type": 4,
-    "code": "XP7E0G3O0L",
+    "code": "5AC623TDLH",
     "issued_headline": "Earned",
 }
 
