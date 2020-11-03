@@ -269,11 +269,6 @@
                 "common_name": "postcode",
                 "type": 0,
                 "choice": []
-            },
-            {
-                "column": "Consent 1",
-                "description": "Check this box to receive money-off promotions, special offers and information on the latest deals and more from Iceland by email, SMS and other digital channels - if you change your mind, you can opt out anytime via the retailer.",
-                "type": 3
             }
         ],
         "enrol_fields": [
@@ -370,11 +365,6 @@
                 "common_name": "postcode",
                 "type": 0,
                 "choice": []
-            },
-            {
-                "column": "Consent 1",
-                "description": "Check this box to receive money-off promotions, special offers and information on the latest deals and more from Iceland by email, SMS and other digital channels - if you change your mind, you can opt out anytime via the retailer.",
-                "type": 3
             }
         ],
         "fees": []

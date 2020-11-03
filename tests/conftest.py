@@ -116,7 +116,7 @@ def register_user(test_email, channel, env):
 def login_user(channel, env):
     TestContext.set_channel(channel)
     if channel == config.BINK.channel_name:
-        response = CustomerAccount.login_bink_user(channel, env)
+        response = CustomerAccount.login_bink_user()
         logging.info("Token is: \n\n" + TestContext.get_token() + "\n")
         assert response.status_code == 200, "User login in Bink Channel is not successful"
         return TestContext.get_token()
