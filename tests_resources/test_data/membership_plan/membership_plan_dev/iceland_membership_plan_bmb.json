@@ -108,7 +108,7 @@
             {
                 "name": "Retailer terms and conditions",
                 "description": "Terms & conditions",
-                "url": "https://policies.bink.com/iceland/tc.html",
+                "url": "https://policies.staging.gb.bink.com/iceland/tc.html",
                 "display": [
                     "REGISTRATION",
                     "ENROL"
@@ -118,7 +118,7 @@
             {
                 "name": "Iceland privacy policy",
                 "description": "Privacy Policy description",
-                "url": "https://policies.bink.com/iceland/pp.html",
+                "url": "https://policies.staging.gb.bink.com/iceland/pp.html",
                 "display": [
                     "REGISTRATION",
                     "ENROL"
