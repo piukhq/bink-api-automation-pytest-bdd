@@ -58,7 +58,7 @@
         "plan_documents": [
             {
                 "name": "Terms & conditions",
-                "url": "https://policies.gb.bink.com/wasabi/tc.html",
+                "url": "https://policies.staging.gb.bink.com/wasabi/tc.html",
                 "display": [
                     "VOUCHER"
                 ],
@@ -67,7 +67,7 @@
             {
                 "name": "Retailer terms & conditions",
                 "description": "I accept the",
-                "url": "https://policies.gb.bink.com/wasabi/tc.html",
+                "url": "https://policies.staging.gb.bink.com/wasabi/tc.html",
                 "display": [
                     "ENROL"
                 ],
@@ -76,7 +76,7 @@
             {
                 "name": "Wasabi privacy policy",
                 "description": "I have read the",
-                "url": "https://policies.gb.bink.com/wasabi/pp.html",
+                "url": "https://policies.staging.gb.bink.com/wasabi/pp.html",
                 "display": [
                     "ENROL"
                 ],

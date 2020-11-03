@@ -30,10 +30,10 @@ class CustomerAccount:
         return Endpoint.call(url, headers, "POST", payload)
 
     @staticmethod
-    def login_bink_user(channel, env):
+    def login_bink_user():
         url = Endpoint.BASE_URL + api.ENDPOINT_LOGIN
         headers = Endpoint.request_header()
-        client_id = CustomerAccount.get_client_id(channel, env)
+        client_id = config.BINK.client_id
         payload = UserDetails.bink_login_user_payload(client_id, config.BINK.bundle_id)
         response = Endpoint.call(url, headers, "POST", payload)
         TestContext.set_token(response.json().get("api_key"))
@@ -59,20 +59,6 @@ class CustomerAccount:
         headers = Endpoint.request_header(bearer_token)
         payload = UserDetails.register_bearer_user_payload(test_email)
         return Endpoint.call(url, headers, "POST", payload)
-
-    @staticmethod
-    def get_client_id(channel, env):
-        """Get the client_ids based on channel & environment"""
-        if channel == config.BINK.channel_name:
-            channel = config.BINK
-        elif channel == config.BARCLAYS.channel_name:
-            channel = config.BARCLAYS
-        if env == "dev":
-            return channel.client_id_dev
-        elif env == "staging":
-            return channel.client_id_staging
-        elif env == "prod":
-            return channel.client_id_prod
 
     @staticmethod
     def get_secret_key(env):

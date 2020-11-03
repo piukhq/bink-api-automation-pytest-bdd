@@ -8,8 +8,8 @@
         "has_points": true,
         "card_type": 2,
         "linking_support": [
-            "ENROL",
-            "ADD"
+            "ADD",
+            "ENROL"
         ],
         "apps": [
             {
@@ -27,31 +27,24 @@
     },
     "images": [
         {
-            "id": 637,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/ff_brand_image-2.jpg",
-            "description": "FatFace Offer 1",
-            "encoding": "jpg"
-        },
-        {
-            "id": 625,
-            "type": 3,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Fatface_Logo.png",
-            "description": "FF logo",
+            "id": 636,
+            "type": 9,
+            "url": "https://api.sandbox.gb.bink.com/content/sandbox-media/hermes/schemes/Fatface_Alternate_Hero.png",
+            "description": "FF Alternative Hero",
             "encoding": "png"
         },
         {
-            "id": 624,
+            "id": 632,
             "type": 0,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Fatface_Card.png",
+            "url": "https://api.sandbox.gb.bink.com/content/sandbox-media/hermes/schemes/Fatface_Card.png",
             "description": "FF card",
             "encoding": "png"
         },
         {
-            "id": 636,
-            "type": 9,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Fatface_Alternate_Hero.png",
-            "description": "FatFace alternative hero",
+            "id": 630,
+            "type": 3,
+            "url": "https://api.sandbox.gb.bink.com/content/sandbox-media/hermes/schemes/Fatface_Logo.png",
+            "description": "FF logo",
             "encoding": "png"
         }
     ],
@@ -63,16 +56,16 @@
         "plan_description": "At this time FatFace Rewards is only available to Barclays customers.",
         "plan_documents": [
             {
-                "name": "FatFace privacy policy",
+                "name": "Retailer terms and conditions",
                 "description": "I accept the",
-                "url": "https://policies.staging.gb.bink.com/fatface/pp.html",
+                "url": "https://policies.staging.gb.bink.com/fatface/tc.html",
                 "display": [
                     "ENROL"
                 ],
-                "checkbox": false
+                "checkbox": true
             },
             {
-                "name": "Terms & conditions",
+                "name": "Terms & Conditions",
                 "description": "I accept the",
                 "url": "https://policies.staging.gb.bink.com/fatface/tc.html",
                 "display": [
@@ -81,13 +74,13 @@
                 "checkbox": false
             },
             {
-                "name": "Retailer terms and conditions",
+                "name": "FatFace privacy policy",
                 "description": "I accept the",
-                "url": "https://policies.staging.gb.bink.com/fatface/tc.html",
+                "url": "https://policies.staging.gb.bink.com/fatface/pp.html",
                 "display": [
                     "ENROL"
                 ],
-                "checkbox": true
+                "checkbox": false
             }
         ],
         "company_name": "FatFace",

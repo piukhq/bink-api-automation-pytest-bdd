@@ -171,13 +171,13 @@ whsmith_invalid_data = {
 # ----------------------------------------MEMBERSHIP PLAN IDs   ----------------------------------------------- #
 
 membership_plan_id = {
-    "burger_king": "",
+    "burger_king": 314,
     "coop": "",
     "fat_face": 281,
     "harvey_nichols": 194,
     "iceland": 105,
     "whsmith": "",
-    "wasabi": 281,
+    "wasabi": 316,
 }
 # ----------------------------------------MEMBERSHIP ACCOUNT STATES & REASON_CODES ---------------------------------- #
 
@@ -197,4 +197,9 @@ membership_card_status_reason_codes = {
 barclays_user_accounts = {
     "uid": "njames@bink.com",
     "pwd": "Password@200",
+}
+
+bink_user_accounts = {
+    "uid": "pytest_sit@bink.com",
+    "pwd": "Password1",
 }

@@ -43,29 +43,29 @@
         "plan_documents": [
             {
                 "name": "Terms & conditions",
-                "url": "https://policies.bink.com/whsmith/tc.html",
+                "url": "https://policies.staging.gb.bink.com/whsmith/tc.html",
                 "display": [
                     "VOUCHER"
                 ],
                 "checkbox": false
             },
             {
-                "name": "Privacy policy",
-                "description": "I have read the",
-                "url": "https://policies.bink.com/whsmith/pp.html",
-                "display": [
-                    "ENROL"
-                ],
-                "checkbox": false
-            },
-            {
-                "name": "Terms & conditions",
+                "name": "Retailer terms and conditions",
                 "description": "I accept the",
-                "url": "https://policies.bink.com/whsmith/tc.html",
+                "url": "https://policies.staging.gb.bink.com/whsmith/tc.html",
                 "display": [
                     "ENROL"
                 ],
                 "checkbox": true
+            },
+            {
+                "name": "Retailer privacy policy",
+                "description": "I have read the",
+                "url": "https://policies.staging.gb.bink.com/whsmith/pp.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": false
             }
         ],
         "company_name": "WHSmith",
@@ -75,9 +75,9 @@
         "add_fields": [],
         "authorise_fields": [
             {
-                "column": "Reward number",
+                "column": "Rewards number",
                 "validation": "^(WHS)[0-9]{14}$",
-                "description": "Reward number received when joining",
+                "description": "17 digit number",
                 "common_name": "card_number",
                 "type": 0,
                 "choice": []
