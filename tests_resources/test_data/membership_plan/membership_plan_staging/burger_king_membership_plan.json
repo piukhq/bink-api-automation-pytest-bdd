@@ -56,27 +56,27 @@
         "plan_description": "Spend \u00a35 or over in any Scotland Burger King store and you will earn a stamp.  \r\n\r\nCollect 5 stamps and you will earn a free Whopper voucher that you can redeem in any Scotland Burger King store.",
         "plan_documents": [
             {
-                "name": "Retailer terms and conditions",
-                "description": "I accept the",
-                "url": "https://policies.gb.bink.com/burger_king/tc.html",
-                "display": [
-                    "ENROL"
-                ],
-                "checkbox": true
-            },
-            {
                 "name": "Burger King privacy policy",
                 "description": "I accept the",
-                "url": "https://policies.gb.bink.com/burger_king/pp.html",
+                "url": "https://policies.staging.gb.bink.com/burger_king/pp.html",
                 "display": [
                     "ENROL"
                 ],
                 "checkbox": false
             },
             {
+                "name": "Retailer terms and conditions",
+                "description": "I accept the",
+                "url": "https://policies.staging.gb.bink.com/burger_king/tc.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": true
+            },
+            {
                 "name": "Terms & conditions",
                 "description": "I accept the",
-                "url": "https://policies.gb.bink.com/burger_king/tc.html",
+                "url": "https://policies.staging.gb.bink.com/burger_king/tc.html",
                 "display": [
                     "VOUCHER"
                 ],
