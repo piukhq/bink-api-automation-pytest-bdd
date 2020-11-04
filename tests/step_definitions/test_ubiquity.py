@@ -38,6 +38,9 @@ def context():
 
 @when(parsers.parse('I switch to "{channel_name}"'))
 def ubiquity_login_user(env, channel, channel_name):
+    """This function is used to switch between the channels for ubiquity feature
+    if user is in BINK, switch to BARCLAYS and vice-versa"""
+
     if channel == config.BINK.channel_name:
         logging.info("Switching to another channel: " + config.BARCLAYS.channel_name)
         TestContext.set_channel(config.BARCLAYS.channel_name)
@@ -50,7 +53,7 @@ def ubiquity_login_user(env, channel, channel_name):
     elif channel == config.BARCLAYS.channel_name:
         logging.info("Switching to another channel: " + config.BINK.channel_name)
         TestContext.set_channel(config.BINK.channel_name)
-        response = CustomerAccount.login_bink_user(TestContext.get_channel(), env)
+        response = CustomerAccount.login_bink_user()
         logging.info("Token is: \n\n" + TestContext.get_token() + "\n")
         assert response.status_code == 200, "User login in Bink Channel is not successful"
 
