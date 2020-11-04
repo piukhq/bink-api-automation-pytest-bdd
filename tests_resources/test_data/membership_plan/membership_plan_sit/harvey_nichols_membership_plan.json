@@ -97,7 +97,7 @@
             {
                 "name": "Retailer terms and conditions",
                 "description": "I agree to the",
-                "url": "https://policies.gb.bink.com/hn/tc.html",
+                "url": "https://policies.staging.gb.bink.com/hn/tc.html",
                 "display": [
                     "ENROL"
                 ],
@@ -106,7 +106,7 @@
             {
                 "name": "Harvey Nichols privacy policy",
                 "description": "I agree to the",
-                "url": "https://policies.gb.bink.com/hn/pp.html",
+                "url": "https://policies.staging.gb.bink.com/hn/pp.html",
                 "display": [
                     "ENROL"
                 ],
