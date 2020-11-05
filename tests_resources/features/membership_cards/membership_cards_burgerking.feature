@@ -11,8 +11,28 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     When I perform POST request to add "BurgerKing" membership card
     And I perform GET request to verify the "BurgerKing" membership card is added to the wallet
     Then verify the data stored in DB after "Add" journey for "BurgerKing"
-    And I perform DELETE request to delete the "BurgerKing" membership card
+    Then I perform DELETE request to delete the "BurgerKing" membership card
 
+
+    @balances_transactions
+  Scenario: Balances and Burgerking
+
+    Given I am a Bink user
+    When I perform POST request to add "BurgerKing" membership card
+    And I perform GET request to verify the "BurgerKing" membership card is added to the wallet
+    And I perform GET request to view balance for recently added "BurgerKing" membership card
+#    When I perform GET request to view all transactions made using the recently added "BurgerKing" membership card
+#    Then I perform GET request to view a specific transaction made using the recently added "BurgerKing" membership card
+    Then verify the data stored in DB after "Add" journey for "BurgerKing"
+    And I perform DELETE request to delete the "BurgerKing" membership card
+  @vouchers
+    Scenario: Add Journey_BurgerKing and verify vouchers
+
+    Given I am a customer who is subscribing to Bink or I am Bink app user
+    When I perform POST request to add "BurgerKing" membership card
+    And I perform GET request to verify the "BurgerKing" membership card voucher details
+    Then verify the data stored in DB after "Add" journey for "BurgerKing"
+    Then I perform DELETE request to delete the "BurgerKing" membership card
 
 @add_patch
   Scenario: PATCH membership card details_BurgerKing
@@ -25,8 +45,8 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then verify the data stored in DB after "Add" journey for "BurgerKing"
     And I perform DELETE request to delete the "BurgerKing" membership card
 
-
- @add_and_link
+  
+  @add_and_link
   Scenario: ADD & LINK Journey_BurgerKing
 
     Given I am a Bink user
@@ -35,11 +55,10 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     When I perform POST request to add & auto link an existing "BurgerKing" membership card
     And I perform GET request to verify the "BurgerKing" membership card is added & linked successfully in the wallet
     And I perform GET request to view balance for recently added "BurgerKing" membership card
-    When I perform GET request to view all transactions made using the recently added "BurgerKing" membership card
-    Then I perform GET request to view a specific transaction made using the recently added "BurgerKing" membership card
     Then verify the data stored in DB after "Add" journey for "BurgerKing"
     Then I perform DELETE request to delete the "BurgerKing" membership card
     And I perform DELETE request to delete the payment card
+
 @enrol
     Scenario: Join Journey_BurgerKing
 
@@ -53,7 +72,6 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
 @enrol_put
   Scenario: Join Journey_PUT_BurgerKing
 
-
     Given I register with bink service as a new customer
     When I perform POST request to create a "BurgerKing" membership account with "invalid" enrol credentials
     And I perform GET request to verify the "BurgerKing" membership account is created with invalid data
@@ -62,4 +80,6 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then verify the data stored in DB after "Enrol" journey for "BurgerKing"
     Then I perform DELETE request to delete the "BurgerKing" membership card
     And I perform DELETE request to delete the customer
+
+
 
