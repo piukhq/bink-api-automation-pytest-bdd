@@ -584,8 +584,8 @@ def verify_membership_card_voucher(context, merchant, voucher, voucherId):
                 TestData.get_data(merchant).get(constants.INPROGRESS_STATE)
                 and response_json["vouchers"][voucherId]["headline"] ==
                 TestData.get_data(merchant).get(constants.HEADLINE)
-           ), ("Validations of inprogress voucher for " + merchant + " failed. \n\n"
-               + "The New State is: " + response_json["vouchers"][voucherId]["state"])
+        ), ("Validations of inprogress voucher for " + merchant + " failed. \n\n"
+            + "The New State is: " + response_json["vouchers"][voucherId]["state"])
         logging.info("The Inprogress " + merchant + " voucher has been verified sucessfully: ")
 
     elif voucher == "Issued":
@@ -596,8 +596,8 @@ def verify_membership_card_voucher(context, merchant, voucher, voucherId):
                 TestData.get_data(merchant).get(constants.CODE)
                 and response_json["vouchers"][voucherId]["headline"] ==
                 TestData.get_data(merchant).get(constants.ISSUED_HEADLINE)
-           ), ("Validations of issued voucher for " + merchant + " failed. \n\n"
-               + "The New State is: " + response_json["vouchers"][voucherId]["state"])
+        ), ("Validations of issued voucher for " + merchant + " failed. \n\n"
+            + "The New State is: " + response_json["vouchers"][voucherId]["state"])
         logging.info("The Issued " + merchant + " voucher has been verified sucessfully: ")
 
     elif voucher == "Expired":
@@ -606,8 +606,8 @@ def verify_membership_card_voucher(context, merchant, voucher, voucherId):
                 TestData.get_data(merchant).get(constants.EXPIRED_STATE)
                 and response_json["vouchers"][voucherId]["headline"] ==
                 TestData.get_data(merchant).get(constants.EXPIRED_HEADLINE)
-           ), ("Validations of expired voucher for " + merchant + " failed. \n\n"
-               + "The New State is: " + response_json["vouchers"][voucherId]["state"])
+        ), ("Validations of expired voucher for " + merchant + " failed. \n\n"
+            + "The New State is: " + response_json["vouchers"][voucherId]["state"])
         logging.info("The Inprogress " + merchant + " voucher has been verified sucessfully: ")
 
     elif voucher == "Redeemed":
@@ -616,6 +616,20 @@ def verify_membership_card_voucher(context, merchant, voucher, voucherId):
                 TestData.get_data(merchant).get(constants.REDEEMED_STATE)
                 and response_json["vouchers"][voucherId]["headline"] ==
                 TestData.get_data(merchant).get(constants.REDEEMED_HEADLINE)
-           ), ("Validations of redeemed voucher for " + merchant + " failed. \n\n"
-               + "The New State is: " + response_json["vouchers"][voucherId]["state"])
+        ), ("Validations of redeemed voucher for " + merchant + " failed. \n\n"
+            + "The New State is: " + response_json["vouchers"][voucherId]["state"])
         logging.info("The Redeemed " + merchant + " voucher has been verified sucessfully: ")
+
+
+@when(parsers.parse('I perform Get request to verify the "{merchant}" membership card voucher details'))
+def verify_membership_card_vouchers(context, merchant, env):
+    response = MembershipCards.get_scheme_account(context["token"], context["scheme_account_id"])
+    response_json = response.json()
+    logging.info("Response for BurgerKing vouchers details" + json.dumps(response_json, indent=4))
+    with open(TestData.get_expected_membership_card_json(merchant, env)) as json_file:
+        expected_response = json.load(json_file)
+    logging.info("expected_Voucher_response for BurgerKing" + json.dumps(expected_response['vouchers'], indent=4))
+    actual_response = response_json
+    logging.info("actual_voucher_response for BurgerKing" + json.dumps(actual_response['vouchers'], indent=4))
+    assert (expected_response['vouchers'] == actual_response['vouchers']), "Voucher verification failed"
+    logging.info("Voucher verification is successful")
