@@ -13,11 +13,10 @@ class CustomerAccount:
     Login using an existing user(User Login credentials are kept in test_data_sheet based in environment)"""
 
     @staticmethod
-    def register_bink_user(test_email, channel, env):
+    def register_bink_user(test_email):
         url = Endpoint.BASE_URL + api.ENDPOINT_REGISTER
         headers = Endpoint.request_header()
-        client_id = CustomerAccount.get_client_id(channel, env)
-        payload = UserDetails.register_user_payload(test_email, client_id, config.BINK.bundle_id)
+        payload = UserDetails.register_user_payload(test_email, config.BINK.client_id, config.BINK.bundle_id)
         response = Endpoint.call(url, headers, "POST", payload)
         TestContext.set_token(response.json().get("api_key"))
         return response

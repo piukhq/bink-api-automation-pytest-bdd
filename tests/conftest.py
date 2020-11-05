@@ -94,7 +94,7 @@ def test_email():
 def register_user(test_email, channel, env):
     if channel == config.BINK.channel_name:
         TestContext.set_channel(channel)
-        response = CustomerAccount.register_bink_user(test_email, channel, env)
+        response = CustomerAccount.register_bink_user(test_email)
         token = response.json().get("api_key")
         TestContext.set_token(token)
         response_consent = CustomerAccount.service_consent_bink_user(TestContext.get_token(), test_email)
