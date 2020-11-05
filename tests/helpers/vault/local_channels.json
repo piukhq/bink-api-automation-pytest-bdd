@@ -1,11 +1,11 @@
 {
   "com.barclays.bmb": {
-    "jwt_secret": "jwtsecret",
+    "jwt_secret": "testjwtsecret",
     "private_key": "testprivatekey",
     "public_key": "testpublickkey"
   },
   "com.bink.wallet": {
-    "jwt_secret": "tes8tjwtsecret",
+    "jwt_secret": "testjwtsecret",
     "private_key": "testprivatekey",
     "public_key": "testpublickkey"
   }

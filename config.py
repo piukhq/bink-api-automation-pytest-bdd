@@ -4,6 +4,7 @@ from tests_resources.test_data import testdata_staging
 from tests_resources.test_data import testdata_prod
 from tests_resources.test_data import testdata_sit
 from tests_resources.test_data import testdata_oat
+from tests_resources.test_data import testdata_preprod
 
 
 class EnvironmentDetails:
@@ -45,6 +46,10 @@ else:
     OAT = EnvironmentDetails(
         base_url="https://oat.sandbox.gb.bink.com",
         test_data=testdata_oat,
+    )
+    PREPROD = EnvironmentDetails(
+        base_url="https://api.preprod.gb.bink.com",
+        test_data=testdata_preprod,
     )
 
 
