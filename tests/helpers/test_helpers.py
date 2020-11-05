@@ -98,6 +98,7 @@ class TestData:
             "prod": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD,
             "sit": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_SIT,
             "oat": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_OAT,
+            "preprod": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PREPROD
         }
         return switcher.get(env)
 

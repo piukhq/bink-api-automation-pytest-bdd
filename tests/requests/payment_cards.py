@@ -12,7 +12,7 @@ class PaymentCards(Endpoint):
     def add_payment_card(token, test_email, card_provider="master"):
         url = PaymentCards.get_url()
         header = Endpoint.request_header(token)
-        # payload = PaymentCardDetails.add_payment_card_payload(test_email)
+        # payload = PaymentCardDetails.add_payment_card_payload_unencrypted(test_email, card_provider)
         payload = PaymentCardDetails.add_payment_card_payload_encrypted(test_email, card_provider)
         return Endpoint.call(url, header, "POST", payload)
 
