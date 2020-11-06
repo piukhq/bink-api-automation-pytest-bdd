@@ -26,6 +26,7 @@ class UserDetails:
                 "longitude": 12.345
             }
         }
+
         return payload
 
     @staticmethod

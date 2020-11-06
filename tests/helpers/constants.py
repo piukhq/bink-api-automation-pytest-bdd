@@ -77,9 +77,19 @@ EXPECTED_MEMBERSHIP_PLANS_PATH_STAGING = "tests_resources/test_data/membership_p
 EXPECTED_MEMBERSHIP_PLANS_PATH_PROD = "tests_resources/test_data/membership_plan/membership_plan_prod"
 EXPECTED_MEMBERSHIP_PLANS_PATH_SIT = "tests_resources/test_data/membership_plan/membership_plan_sit"
 EXPECTED_MEMBERSHIP_PLANS_PATH_OAT = "tests_resources/test_data/membership_plan/membership_plan_oat"
+EXPECTED_MEMBERSHIP_PLANS_PATH_PREPROD = "tests_resources/test_data/membership_plan/membership_plan_preprod"
+
 JSON_DIFF_EXPECTED_JSON = "tests_resources/test_data/membership_plan/json_diff_comparator/expected_membership_plan.json"
 JSON_DIFF_ACTUAL_JSON = "tests_resources/test_data/membership_plan/json_diff_comparator/actual_membership_plan.json"
 
+
+MEMBERSHIP_CARD_PATH = "tests_resources/test_data/membership_card"
+MEMBERSHIP_CARD_DEV = "tests_resources/test_data/membership_card/membership_card_dev"
+MEMBERSHIP_CARD_STAGING = "tests_resources/test_data/membership_card/membership_card_staging"
+MEMBERSHIP_CARD_PROD = "tests_resources/test_data/membership_card/membership_card_prod"
+MEMBERSHIP_CARD_SIT = "tests_resources/test_data/membership_card/membership_card_sit"
+MEMBERSHIP_CARD_PREPROD = "tests_resources/test_data/membership_card/membership_card_preprod"
+MEMBERSHIP_CARD_OAT = "tests_resources/test_data/membership_card/membership_card_oat"
 """Channel User Details"""
 USER_ID = "uid"
 PWD = "pwd"

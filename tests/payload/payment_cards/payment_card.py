@@ -10,7 +10,6 @@ import tests.helpers.constants as constants
 from tests.helpers.vault import channel_vault
 from tests.helpers.vault.channel_vault import KeyType
 from tests.helpers.test_context import TestContext
-from tests.helpers.test_data_utils import TestDataUtils
 from shared_config_storage.credentials.encryption import RSACipher
 
 
@@ -68,16 +67,17 @@ class PaymentCardDetails:
         return payment_card
 
     @staticmethod
-    def add_payment_card_payload_unencrypted(test_email):
+    def add_payment_card_payload_unencrypted(email, card_provider="master"):
         payload = {
             "card": {
-                "token": test_email.split("@")[0],
-                "last_four_digits": TestDataUtils.TEST_DATA.payment_card.get(constants.LAST_FOUR_DIGITS),
-                "first_six_digits": TestDataUtils.TEST_DATA.payment_card.get(constants.FIRST_SIX_DIGITS),
-                "name_on_card": test_email.split("@")[0],
-                "month": TestDataUtils.TEST_DATA.payment_card.get(constants.MONTH),
-                "year": TestDataUtils.TEST_DATA.payment_card.get(constants.YEAR),
-                "fingerprint": test_email.split("@")[0],
+                "hash": email.split("@")[0],
+                "token": email.split("@")[0],
+                "last_four_digits": PaymentCardTestData.get_data(card_provider).get(constants.LAST_FOUR_DIGITS),
+                "first_six_digits": PaymentCardTestData.get_data(card_provider).get(constants.FIRST_SIX_DIGITS),
+                "name_on_card": email.split("@")[0],
+                "month": PaymentCardTestData.get_data(card_provider).get(constants.MONTH),
+                "year": PaymentCardTestData.get_data(card_provider).get(constants.YEAR),
+                "fingerprint": email.split("@")[0],
             },
             "account": {
                 "consents": [{"latitude": 51.405372, "longitude": -0.678357, "timestamp": 1541720805, "type": 1}]

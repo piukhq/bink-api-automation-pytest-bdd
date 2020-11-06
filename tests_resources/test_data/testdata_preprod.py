@@ -13,8 +13,8 @@ visa_payment_card = {
 }
 
 amex_payment_card = {
-    "first_six_digits": "378282",
-    "last_four_digits": "0005",
+    "first_six_digits": "555555",
+    "last_four_digits": "4444",
     "token": "auto1093448038331testbinkcom",
     "name_on_card": "auto1093448038331testbinkcom",
     "month": 1,
@@ -36,11 +36,9 @@ master_payment_card = {
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #
 
 burger_king_membership_card = {
-    "card_num": "BK00000031049422",
-    "points": 1,
-    "currency": "stamps"
+    "card_num": "BK00000031049422"
+    # "BK00000035620277",
 }
-
 burger_king_invalid_data = {
     "card_num": "BK00000035941500",
     "email": "fail@unknown.com",
@@ -75,25 +73,9 @@ coop_ghost_card = {
 }
 
 fat_face_membership_card = {
-    "card_num": "FF00000058556150",
-    "points": 55.5,
+    "card_num": "FF00000059702811",
+    "points": 0,
     "currency": "GBP",
-    "burn_type": "voucher",
-    "burn_prefix": "15% off",
-    "earn_type": "accumulator",
-    "earn_prefix": "\u00a3",
-    "issued_state": "issued",
-    "inprogress_state": "inprogress",
-    "expired_state": "expired",
-    "redeemed_state": "redeemed",
-    "target_value": 100.0,
-    "subtext": "for spending",
-    "headline": "Spend \u00a3100 to get 15 percent off to spend online",
-    "expired_headline": "Expired",
-    "redeemed_headline": "Redeemed",
-    "barcode_type": 4,
-    "code": "5AC623TDLH",
-    "issued_headline": "Earned",
 }
 
 fat_face_invalid_data = {
@@ -137,33 +119,33 @@ harvey_nichols_invalid_data = {
 #     "points": 380.01
 # }
 
-
-iceland_membership_card = {
-    "card_num": "6666666666666666666",
-    "barcode": "6666666666666666666",
-    "last_name": "six",
-    "postcode": "rg6 6aa",
-    "points": 1480,
-    "currency": "GBP",
-    "description": "Placeholder Balance Description",
-    "transactions": "6",
-    "transaction_status": "active",
-    "transaction_currency": "GBP",
-
-}
-
+#
 # iceland_membership_card = {
-#     "card_num": "6332040030555532506",
-#     "barcode": "633204003055553250600085",
-#     "last_name": "Armstrong",
-#     "postcode": "SW18 4HH",
-#     "points": 5,
+#     "card_num": "6666666666666666666",
+#     "barcode": "6666666666666666666",
+#     "last_name": "six",
+#     "postcode": "rg6 6aa",
+#     "points": 1480,
 #     "currency": "GBP",
 #     "description": "Placeholder Balance Description",
-#     "transactions": "5",
+#     "transactions": "6",
 #     "transaction_status": "active",
 #     "transaction_currency": "GBP",
+#
 # }
+
+iceland_membership_card = {
+    "card_num": "6332040030555532506",
+    "barcode": "633204003055553250600085",
+    "last_name": "Armstrong",
+    "postcode": "SW18 4HH",
+    "points": 5,
+    "currency": "GBP",
+    "description": "Placeholder Balance Description",
+    "transactions": "5",
+    "transaction_status": "active",
+    "transaction_currency": "GBP",
+}
 
 
 iceland_invalid_data = {
@@ -225,8 +207,8 @@ membership_card_status_reason_codes = {
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
 
 bink_user_accounts = {
-    "uid": "pytest_staging@bink.com",
-    "pwd": "Password1",
+    "uid": "pytest_user@bink.com",
+    "pwd": "Password01",
 }
 
 barclays_user_accounts = {

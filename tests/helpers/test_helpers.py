@@ -98,6 +98,29 @@ class TestData:
             "prod": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD,
             "sit": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_SIT,
             "oat": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_OAT,
+            "preprod": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PREPROD
+        }
+        return switcher.get(env)
+
+    @staticmethod
+    def get_expected_membership_card_json(merchant, env, channel=None):
+
+        merchant_key = TestData.get_merchant_key(merchant)
+        membership_card_path = TestData.get_membership_card_path(env)
+        return membership_card_path + "/" + merchant_key + "_membership_card.json"
+
+    @staticmethod
+    def get_membership_card_path(env):
+        """return the base path of stored membership plan json
+            for any merchant based on environment"""
+
+        switcher = {
+            "dev": constants.MEMBERSHIP_CARD_DEV,
+            "staging": constants.MEMBERSHIP_CARD_STAGING,
+            "prod": constants.MEMBERSHIP_CARD_PROD,
+            "sit": constants.MEMBERSHIP_CARD_SIT,
+            "oat": constants.MEMBERSHIP_CARD_OAT,
+            "preprod": constants.MEMBERSHIP_CARD_PREPROD
         }
         return switcher.get(env)
 

@@ -65,7 +65,7 @@ def load_secrets():
             logger.exception(err_msg)
             raise VaultError(err_msg) from e
 
-        # logger.info(f"JWT bundle secrets - Found secrets for {[bundle_secrets]}")§  §
+        # logger.info(f"JWT bundle secrets - Found secrets for {[bundle_secrets]}")
         # logger.info(f"JWT bundle secrets - Found secrets for {[bundle_id for bundle_id in bundle_secrets]}")
         _bundle_secrets = bundle_secrets
         loaded = True

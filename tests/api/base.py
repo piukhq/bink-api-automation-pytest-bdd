@@ -1,7 +1,6 @@
 import json
 import requests
 import config
-# from config1 import EnvironmentDetails
 
 
 class Endpoint:
