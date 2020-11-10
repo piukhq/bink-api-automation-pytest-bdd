@@ -107,7 +107,7 @@ class TestData:
 
         merchant_key = TestData.get_merchant_key(merchant)
         membership_card_path = TestData.get_membership_card_path(env)
-        return membership_card_path + "/" + merchant_key + "_membership_card.json"
+        return membership_card_path + "/" + merchant_key + "_membership_cards.json"
 
     @staticmethod
     def get_membership_card_path(env):
