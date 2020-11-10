@@ -103,7 +103,7 @@ class TestData:
         return switcher.get(env)
 
     @staticmethod
-    def get_expected_membership_card_json(merchant, env, channel=None):
+    def get_expected_membership_card_json(merchant, env):
 
         merchant_key = TestData.get_merchant_key(merchant)
         membership_card_path = TestData.get_membership_card_path(env)
