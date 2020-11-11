@@ -689,10 +689,6 @@ def verify_membership_card_is_add_and_not_linked(merchant, context):
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(context["scheme_account_id"]) + "\n\n"
         + json.dumps(response_json, indent=4))
     try:
-        payment_card_present = "no"
-        for current_payment_card in response_json["payment_cards"]:
-            if current_payment_card["id"] == context["payment_card_id"]:
-                payment_card_present = "yes"
         assert (
                 response.status_code == 200
                 and response_json["id"] == context["scheme_account_id"]
@@ -703,7 +699,6 @@ def verify_membership_card_is_add_and_not_linked(merchant, context):
                 get(constants.REASON_CODE_AUTHORIZED)
                 and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
                 and response_json["payment_cards"][0] == []
-                and payment_card_present == "yes"
         ), ("Validations in GET/membership_cards after AutoLink for " + merchant + "failed with reason code " +
             response_json["status"]["reason_codes"][0])
     except IndexError:
