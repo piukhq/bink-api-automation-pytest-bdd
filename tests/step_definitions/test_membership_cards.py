@@ -21,6 +21,7 @@ from tests.requests.membership_cards import MembershipCards
 from tests.requests.membership_transactions import MembershipTransactions
 from tests.helpers.test_helpers import Merchant
 from tests.helpers.database.query_hermes import QueryHermes
+from tests.requests.payment_cards import PaymentCards
 
 scenarios("membership_cards/")
 
@@ -633,3 +634,74 @@ def verify_membership_card_vouchers(context, merchant, env):
     logging.info("actual_voucher_response for BurgerKing" + json.dumps(actual_response['vouchers'], indent=4))
     assert (expected_response['vouchers'] == actual_response['vouchers']), "Voucher verification failed"
     logging.info("Voucher verification is successful")
+
+
+@when("I perform POST request to add payment card to wallet")
+def add_payment_cards(login_user, context, test_email):
+    context["token"] = login_user
+    response = PaymentCards.add_payment_card(context["token"], test_email)
+    response_json = response.json()
+    logging.info("The response of POST/PaymentCard is: \n\n"
+                 + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n"
+                 + json.dumps(response_json, indent=4))
+    context["payment_card_id"] = response_json.get("id")
+    TestContext.set_payment_card_id(response_json.get("id"))
+    assert response.status_code == 201 or 200, "Payment card addition is not successful"
+    return context["payment_card_id"]
+
+
+@when("I perform the GET request to verify the payment card has been added successfully")
+def verify_payment_card_added_in_wallet(context):
+    response = PaymentCards.get_payment_card(context["token"], context["payment_card_id"])
+    response_json = response.json()
+    logging.info("The response of GET/PaymentCards is: \n\n"
+                 + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARD.format(context["payment_card_id"]) + "\n\n"
+                 + json.dumps(response_json, indent=4))
+    assert (
+            response.status_code == 200
+            and response_json["id"] == context["payment_card_id"]
+            and response_json["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
+    ), "Payment card addition is not successful"
+
+
+@when("I perform POST request to add payment card to wallet with autolink false")
+def add_payment_cards_autolink_false(login_user, context, test_email):
+    context["token"] = login_user
+    response = PaymentCards.add_payment_card(context["token"], test_email)
+    response_json = response.json()
+    logging.info("The response of POST/PaymentCard is: \n\n"
+                 + Endpoint.BASE_URL + api.ENDPOINT_AUTO_LINK_FALSE + "\n\n"
+                 + json.dumps(response_json, indent=4))
+    context["payment_card_id"] = response_json.get("id")
+    TestContext.set_payment_card_id(response_json.get("id"))
+    assert response.status_code == 201 or 200, "Payment card addition is not successful"
+    return context["payment_card_id"]
+
+
+@when(
+    parsers.parse(
+        'I perform GET request to verify the "HarveyNichols" membership card is added & not linked in the wallet'))
+def verify_membership_card_is_add_and_not_linked(merchant, context):
+    response = MembershipCards.get_scheme_account_auto_link(context["token"], context["scheme_account_id"], False)
+    response_json = response.json()
+    logging.info(
+        "The response of GET/MembershipCard after payment card added is not AutoLink is:\n\n"
+        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(context["scheme_account_id"]) + "\n\n"
+        + json.dumps(response_json, indent=4))
+    try:
+        assert (
+                response.status_code == 200
+                and response_json["id"] == context["scheme_account_id"]
+                and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
+                and response_json["status"]["state"] == TestData.get_membership_card_status_states().
+                get(constants.AUTHORIZED)
+                and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+                get(constants.REASON_CODE_AUTHORIZED)
+                and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
+                and response_json["payment_cards"][0] == []
+        ), ("Validations in GET/membership_cards after AutoLink for " + merchant + "failed with reason code " +
+            response_json["status"]["reason_codes"][0])
+    except IndexError:
+        raise Exception("PLL link for " + merchant + " failed and the payment array in the response is not empty")
+    except AssertionError as error:
+        raise Exception("Add&Link Journey for " + merchant + " failed due to " + error.__str__())

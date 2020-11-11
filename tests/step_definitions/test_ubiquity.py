@@ -119,7 +119,7 @@ def ubiquity_add_existing_membership_card_1(merchant):
 )
 def ubiquity_verify_membership_card_1_is_add_and_linked(merchant, channel, context):
     response = MembershipCards.get_scheme_account_auto_link(TestContext.get_token(),
-                                                            TestContext.get_scheme_account_id_1())
+                                                            TestContext.get_scheme_account_id_1(), False)
     response_json = response.json()
     logging.info(
         "The response of GET/MembershipCard after Membership card Add & AutoLink is:\n\n"
