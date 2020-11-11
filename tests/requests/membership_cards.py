@@ -87,7 +87,7 @@ class MembershipCards(Endpoint):
         return response
 
     @staticmethod
-    def get_scheme_account_auto_link(token, scheme_account_id, is_not_autolink):
+    def get_scheme_account_auto_link(token, scheme_account_id, is_autolink=None):
         """Waiting max up to 30 sec to change status from Pending to Authorized"""
         time.sleep(5)
         for i in range(1, 30):
@@ -96,7 +96,7 @@ class MembershipCards(Endpoint):
             response = Endpoint.call(url, header, "GET")
             response_json = response.json()
             try:
-                if is_not_autolink:
+                if not is_autolink:
                     return response
                 else:
                     if not response_json["payment_cards"][0]["active_link"]:

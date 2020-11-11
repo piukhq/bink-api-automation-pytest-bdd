@@ -69,7 +69,7 @@ def add_an_existing_membership_card(merchant, login_user, context):
     )
 )
 def verify_membership_card_is_add_linked(merchant, context):
-    response = MembershipCards.get_scheme_account_auto_link(context["token"], context["scheme_account_id"], False)
+    response = MembershipCards.get_scheme_account_auto_link(context["token"], context["scheme_account_id"])
     response_json = response.json()
     logging.info(
         "The response of GET/MembershipCard after Membership card Add & AutoLink is:\n\n"

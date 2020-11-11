@@ -288,7 +288,7 @@ def verify_membership_card_is_created(merchant, context):
     )
 )
 def verify_membership_card_is_add_and_linked(merchant, context):
-    response = MembershipCards.get_scheme_account_auto_link(context["token"], context["scheme_account_id"], False)
+    response = MembershipCards.get_scheme_account_auto_link(context["token"], context["scheme_account_id"])
     response_json = response.json()
     logging.info(
         "The response of GET/MembershipCard after Membership card Add & AutoLink is:\n\n"
@@ -682,7 +682,7 @@ def add_payment_cards_autolink_false(login_user, context, test_email):
     parsers.parse(
         'I perform GET request to verify the "HarveyNichols" membership card is added & not linked in the wallet'))
 def verify_membership_card_is_add_and_not_linked(merchant, context):
-    response = MembershipCards.get_scheme_account_auto_link(context["token"], context["scheme_account_id"], True)
+    response = MembershipCards.get_scheme_account_auto_link(context["token"], context["scheme_account_id"], False)
     response_json = response.json()
     logging.info(
         "The response of GET/MembershipCard after payment card added is not AutoLink is:\n\n"
