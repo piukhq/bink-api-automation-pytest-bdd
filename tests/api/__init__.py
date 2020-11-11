@@ -18,4 +18,3 @@ ENDPOINT_MEMBERSHIP_CARD_SINGLE_TRANSACTION = "/ubiquity/membership_transaction/
 ENDPOINT_PAYMENT_CARD = "/ubiquity/payment_card/{}"
 ENDPOINT_LINK_PAYMENT_MEMBERSHIP = "/ubiquity/payment_card/{}/membership_card/{}"
 ENDPOINT_PAYMENT_CARDS = "/ubiquity/payment_cards"
-ENDPOINT_AUTO_LINK_FALSE = "/ubiquity/membership_cards?autolink=false"

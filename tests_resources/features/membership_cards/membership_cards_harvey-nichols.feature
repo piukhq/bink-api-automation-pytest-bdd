@@ -118,26 +118,3 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then I perform schema validation for GET/membership cards response for "HarveyNichols"
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the customer
-
-  @add @dev @LOY-1211
-  Scenario: Adding payments cards to always auto-link
-
-    Given I am a Bink user
-    When I perform POST request to add "HarveyNichols" membership card
-    And I perform POST request to add payment card to wallet
-    And I perform the GET request to verify the payment card has been added successfully
-    And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
-    Then verify the data stored in DB after "Add" journey for "HarveyNichols"
-    And I perform DELETE request to delete the "HarveyNichols" membership card
-    Then I perform DELETE request to delete the payment card
-
-  @add @dev @staging @prod @LOY-1211
-  Scenario: Adding payments cards with autolink false should not link membership card
-
-    Given I am a Bink user
-    When I perform POST request to add "HarveyNichols" membership card
-    And I perform POST request to add payment card to wallet with autolink false
-    And I perform the GET request to verify the payment card has been added successfully
-    And  I perform GET request to verify the "HarveyNichols" membership card is added & not linked in the wallet
-    And I perform DELETE request to delete the "HarveyNichols" membership card
-    And I perform DELETE request to delete the payment card
