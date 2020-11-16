@@ -25,9 +25,9 @@ class PaymentCardDetails:
     @staticmethod
     def add_payment_card_payload_encrypted(test_email, card_provider="master"):
         payment_card = PaymentCardDetails.get_card(test_email, card_provider)
-        if TestContext.get_channel() == config.BINK.channel_name:
+        if TestContext.channel_name == config.BINK.channel_name:
             pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
-        elif TestContext.get_channel() == config.BARCLAYS.channel_name:
+        elif TestContext.channel_name == config.BARCLAYS.channel_name:
             pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
         payload = PaymentCardDetails.encrypt(payment_card, pub_key)
         logging.info("The Request to add encrypted payment card is : \n\n"

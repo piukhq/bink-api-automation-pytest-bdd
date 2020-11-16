@@ -16,8 +16,8 @@ def connect_db():
         )
         logging.info("Connected to Hermes")
 
-    except (Exception, psycopg2.Error) as error:
-        logging.info("Error while connecting to Hermes" + error)
+    except Exception as error:
+        raise Exception(f"Error while connecting to Hermes '{str(error)}'")
     return connection
 
 
