@@ -18,7 +18,7 @@ class CustomerAccount:
         headers = Endpoint.request_header()
         payload = UserDetails.register_user_payload(test_email, config.BINK.client_id, config.BINK.bundle_id)
         response = Endpoint.call(url, headers, "POST", payload)
-        TestContext.set_token(response.json().get("api_key"))
+        TestContext.token = response.json().get("api_key")
         return response
 
     @staticmethod
@@ -35,7 +35,7 @@ class CustomerAccount:
         client_id = config.BINK.client_id
         payload = UserDetails.bink_login_user_payload(client_id, config.BINK.bundle_id)
         response = Endpoint.call(url, headers, "POST", payload)
-        TestContext.set_token(response.json().get("api_key"))
+        TestContext.token = response.json().get("api_key")
         return response
 
     @staticmethod
@@ -53,7 +53,7 @@ class CustomerAccount:
         jwt_secret = channel_vault.get_jwt_secret(config.BARCLAYS.bundle_id)
         bearer_token = GenerateJWToken(config.BARCLAYS.organisation_id, jwt_secret, config.BARCLAYS.bundle_id,
                                        test_email).get_token()
-        TestContext.set_token(bearer_token)
+        TestContext.token = bearer_token
         url = Endpoint.BASE_URL + api.ENDPOINT_SERVICE
         headers = Endpoint.request_header(bearer_token)
         payload = UserDetails.register_bearer_user_payload(test_email)

@@ -1,7 +1,7 @@
 import time
+
 import tests.api as api
 import tests.helpers.constants as constants
-
 from tests.payload.payment_cards.payment_card import PaymentCardDetails
 from tests.api.base import Endpoint
 from tests.helpers.test_helpers import PaymentCardTestData
@@ -35,6 +35,24 @@ class PaymentCards(Endpoint):
         url = PaymentCards.get_url(payment_card_id)
         header = Endpoint.request_header(token)
         response = Endpoint.call(url, header, "DELETE")
+        return response
+
+    @staticmethod
+    def patch_mcard_pcard(token, membership_card_id, payment_card_id):
+
+        url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_MEMBERSHIP_PAYMENT.format(membership_card_id,
+                                                                               payment_card_id)
+        header = Endpoint.request_header(token)
+        response = Endpoint.call(url, header, "PATCH")
+        return response
+
+    @staticmethod
+    def patch_pcard_mcard(token, payment_card_id, membership_card_id):
+
+        url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_PAYMENT_MEMBERSHIP.format(payment_card_id,
+                                                                               membership_card_id)
+        header = Endpoint.request_header(token)
+        response = Endpoint.call(url, header, "PATCH")
         return response
 
     @staticmethod

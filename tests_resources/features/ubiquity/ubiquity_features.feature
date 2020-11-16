@@ -5,9 +5,9 @@ Feature: Merchant Harvey Nichols - Ensure a customer can use Bink's Ubiquity fea
   So I can add my card, with the scheme provider Harvey Nichols & check its details successfully
 
 
-   @ubiquity @LOY988 @dev
+   @ubiquity @LOY988
   Scenario: Add a second membership card single channel_HarveyNichols
-
+#  Ensure a Customer cannot link multiple membership cards of the same merchant to a payment card
     Given I am a customer in channel_1
     When I perform POST request to add payment_card_1 to my wallet in channel_1
     And I perform the GET request to verify the payment_card_1 has been added successfully to the wallet in channel_1
@@ -18,7 +18,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can use Bink's Ubiquity fea
     And The response shows the original link between "HarveyNichols" membership_card_1 and payment_card_1 remains in force
     And There is no link created between payment_card_1 and "HarveyNichols" membership_card_2
 
-    @ubiquity @LOY988 @dev
+    @ubiquity @LOY988
   Scenario: Add a second membership card second channel_HarveyNichols
 
     Given I am a customer in channel_1
