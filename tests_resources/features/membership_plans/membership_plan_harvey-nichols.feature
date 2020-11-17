@@ -12,8 +12,3 @@ Feature: Merchant HarveyNichols - Ensure a customer can view Scheme plan details
     When I perform GET request to view all available membership plans
     Then I can ensure the "HarveyNichols" plan details match with expected data
 
-  @membership_plans_barclays
-  Scenario: Verify membership plan for Barclays return Iceland & Harvey Nichols plans
-    Given I register with bink service as a new customer
-    When I perform GET request to view all available membership plans
-    Then I can ensure that only "HarveyNichols" and "Iceland" plan details are populated

@@ -77,13 +77,11 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
 
   @voucher
   Scenario: verify Vouchers for Fatface
-
-    Given I am a Bink user
+   Given I am a customer who is subscribing to Bink or I am Bink app user
     When I perform POST request to add "FatFace" membership card
-    And I perform GET request to verify the "FatFace" membership card is added to the wallet
-    Then I perform GET request to view "Inprogress" vouchers with voucher_id "0" for recently added "FatFace" membership card
-    And I perform GET request to view "Expired" vouchers with voucher_id "1" for recently added "FatFace" membership card
-    And I perform GET request to view "Redeemed" vouchers with voucher_id "2" for recently added "FatFace" membership card
-    And I perform GET request to view "Issued" vouchers with voucher_id "4" for recently added "FatFace" membership card
-#    Then verify the data stored in DB after "Add" journey for "FatFace"
-    And I perform DELETE request to delete the "FatFace" membership card
+    And I perform GET request to verify the "FatFace" membership card voucher details
+    Then verify the data stored in DB after "Add" journey for "FatFace"
+    Then I perform DELETE request to delete the "FatFace" membership card
+    
+
+

@@ -67,18 +67,18 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the customer
 
-  @enrol_put @dev1
+  @enrol_put @dev
   Scenario: Join Journey_PUT_HarveyNichols
 
     Given I register with bink service as a new customer
-#    When I perform POST request to create a "HarveyNichols" membership account with "invalid" enrol credentials
-#    And I perform GET request to verify the "HarveyNichols" membership account is created with invalid data
-#    And I perform PUT request to replace information of the enrolled "HarveyNichols" membership card
-#    And I perform GET request to verify the enrolled "HarveyNichols" membership card details got replaced after a successful PUT
-#    Then verify the data stored in DB after "Enrol" journey for "HarveyNichols"
-#    Then I perform DELETE request to delete the "HarveyNichols" membership card
-#    And I perform DELETE request to delete the customer
-#
+    When I perform POST request to create a "HarveyNichols" membership account with "invalid" enrol credentials
+    And I perform GET request to verify the "HarveyNichols" membership account is created with invalid data
+    And I perform PUT request to replace information of the enrolled "HarveyNichols" membership card
+    And I perform GET request to verify the enrolled "HarveyNichols" membership card details got replaced after a successful PUT
+    Then verify the data stored in DB after "Enrol" journey for "HarveyNichols"
+    Then I perform DELETE request to delete the "HarveyNichols" membership card
+    And I perform DELETE request to delete the customer
+
 
 #
 #  Scenario Outline:  Add_Journey_Invalid data_Error code checks
@@ -96,25 +96,3 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
 #      |auto_zero@testbink.web     | BinkTesting | failed |  X303      |
 #      |auto_zero@testbink.com     | BinkT       | failed |  X303      |
 
-
-#  Scenario: Delete membership card to a payment card, then verify PLL link is automatically deleted
-#    Given I am a Bink user
-#    And I perform POST request to add payment card to wallet
-#    And I perform the GET request to verify the payment card has been added successfully
-#    When I perform POST request to add & auto link an existing "HarveyNichols" membership card
-#    And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
-#    Then I perform DELETE request to delete the "HarveyNichols" membership card
-#    Then PLL link should be automatically deleted
-
-
-  #    Check if balance array is same for PLL & PLR . If not create separate scenarios
-
-   @schema_membership_cards
-  Scenario: Schema check MembershipCards
-
-     Given I am a Bink user
-    When I perform POST request to add "HarveyNichols" membership card
-    And I perform GET request to verify the "HarveyNichols" membership card is added to the wallet
-    Then I perform schema validation for GET/membership cards response for "HarveyNichols"
-    Then I perform DELETE request to delete the "HarveyNichols" membership card
-    And I perform DELETE request to delete the customer

@@ -24,7 +24,6 @@ from tests.helpers.database.query_hermes import QueryHermes
 
 scenarios("membership_cards/")
 
-
 """Step definitions - Add Journey """
 
 
@@ -38,12 +37,12 @@ def add_membership_card(merchant):
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n"
         + json.dumps(response_json, indent=4))
     assert (
-                response.status_code == 201
-                and response_json["status"]["state"] == TestData.get_membership_card_status_states()
-                .get(constants.PENDING)
-                and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-                get(constants.REASON_CODE_PENDING_ADD)
-        ), ("Add Journey for " + merchant + " failed")
+            response.status_code == 201
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states()
+            .get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING_ADD)
+    ), ("Add Journey for " + merchant + " failed")
 
 
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card with "{invalid_data}"'))
@@ -56,12 +55,12 @@ def add_invalid_membership_card(merchant, invalid_data):
                  + json.dumps(response_json, indent=4))
 
     assert (
-                response.status_code == 201
-                and response_json["status"]["state"] == TestData.get_membership_card_status_states().
-                get(constants.PENDING)
-                and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-                get(constants.REASON_CODE_PENDING_ADD)
-        ), ("Add Journey with invalid details for " + merchant + " failed")
+            response.status_code == 201
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states().
+            get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING_ADD)
+    ), ("Add Journey with invalid details for " + merchant + " failed")
 
 
 @when(parsers.parse(
@@ -77,12 +76,12 @@ def add_membership_card_invalid_credentials(merchant, email_address, password):
                  + json.dumps(response_json, indent=4))
 
     assert (
-                response.status_code == 201
-                and response_json["status"]["state"] == TestData.get_membership_card_status_states().
-                get(constants.PENDING)
-                and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-                get(constants.REASON_CODE_PENDING_ADD)
-        ), ("Add Journey with invalid details for " + merchant + " failed")
+            response.status_code == 201
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states().
+            get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING_ADD)
+    ), ("Add Journey with invalid details for " + merchant + " failed")
 
 
 @when(parsers.parse('I perform POST request to add & auto link an existing "{merchant}" membership card'))
@@ -96,12 +95,12 @@ def add_and_link_membership_card(merchant):
         + json.dumps(response_json, indent=4))
 
     assert (
-                response.status_code == 201
-                and response_json["status"]["state"] == TestData.get_membership_card_status_states()
-                .get(constants.PENDING)
-                and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-                get(constants.REASON_CODE_PENDING_ADD)
-        ), ("Add Journey for " + merchant + " failed")
+            response.status_code == 201
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states()
+            .get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING_ADD)
+    ), ("Add Journey for " + merchant + " failed")
 
 
 @when(parsers.parse('I perform PATCH request to update "{merchant}" membership card'))
@@ -339,8 +338,6 @@ def verify_membership_card_balance(merchant):
             TestData.get_data(merchant).get(constants.POINTS)
             and current_membership_card_response_array["balances"][0]["currency"] ==
             TestData.get_data(merchant).get(constants.CURRENCY)
-            # and current_membership_card_response_array["balances"][0]["description"] ==
-            # TestData.get_data(merchant).get(constants.DESCRIPTION)
     ), ("Validations in GET/membership_cards?balances for " + merchant + " failed with reason code" +
         current_membership_card_response_array["status"]["reason_codes"][0])
 
@@ -407,6 +404,20 @@ def verify_membership_card_single_transaction_detail(merchant):
                 and response_json["amounts"][0]["currency"] == TestData.get_data(merchant).
                 get(constants.TRANSACTIONS_CURRENCY)
         ), ("Validations in GET/MembershipTransaction " + merchant + " failed")
+
+
+@when(parsers.parse('I perform Get request to verify the "{merchant}" membership card voucher details'))
+def verify_membership_card_vouchers(context, merchant, env):
+    response = MembershipCards.get_scheme_account(context["token"], context["scheme_account_id"])
+    response_json = response.json()
+    logging.info("Response for BurgerKing vouchers details" + json.dumps(response_json, indent=4))
+    with open(TestData.get_expected_membership_card_json(merchant, env)) as json_file:
+        expected_response = json.load(json_file)
+    logging.info("expected_Voucher_response for BurgerKing" + json.dumps(expected_response['vouchers'], indent=4))
+    actual_response = response_json
+    logging.info("actual_voucher_response for BurgerKing" + json.dumps(actual_response['vouchers'], indent=4))
+    assert (expected_response['vouchers'] == actual_response['vouchers']), "Voucher verification failed"
+    logging.info("Voucher verification is successful")
 
 
 """Step definitions - DELETE Scheme Account """
