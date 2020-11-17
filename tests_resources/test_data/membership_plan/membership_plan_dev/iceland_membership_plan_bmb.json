@@ -106,24 +106,24 @@
         "plan_description": "At checkout, simply tell the cashier how much money you would like to save, present your digital Bonus Card within this app and scan it using the customer facing scanners, as you normally would with your physical card. You will also be able to see your savings balance on your phone. For every \u00a320 you save, Iceland give you \u00a31 absolutely free. Additional benefits include free home delivery when you spend over \u00a325, and exclusive bonuses and offers only for Bonus Cardholders.",
         "plan_documents": [
             {
-                "name": "Retailer terms and conditions",
-                "description": "Terms & conditions",
-                "url": "https://policies.staging.gb.bink.com/iceland/tc.html",
-                "display": [
-                    "REGISTRATION",
-                    "ENROL"
-                ],
-                "checkbox": true
-            },
-            {
                 "name": "Iceland privacy policy",
-                "description": "Privacy Policy description",
+                "description": "Please read the",
                 "url": "https://policies.staging.gb.bink.com/iceland/pp.html",
                 "display": [
                     "REGISTRATION",
                     "ENROL"
                 ],
                 "checkbox": false
+            },
+            {
+                "name": "Retailer terms and conditions",
+                "description": "I accept the",
+                "url": "https://policies.staging.gb.bink.com/iceland/tc.html",
+                "display": [
+                    "REGISTRATION",
+                    "ENROL"
+                ],
+                "checkbox": true
             }
         ],
         "barcode_redeem_instructions": "At checkout, simply tell the cashier how much money you would like to save or redeem, present the barcode below and scan it using the customer facing scanners, as you normally would with your physical card.",

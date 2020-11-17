@@ -96,7 +96,7 @@
         "plan_documents": [
             {
                 "name": "Harvey Nichols privacy policy",
-                "description": "I agree to the",
+                "description": "Please read the",
                 "url": "https://policies.staging.gb.bink.com/hn/pp.html",
                 "display": [
                     "ENROL"
@@ -105,7 +105,7 @@
             },
             {
                 "name": "Retailer terms and conditions",
-                "description": "I agree to the",
+                "description": "I accept the",
                 "url": "https://policies.staging.gb.bink.com/hn/tc.html",
                 "display": [
                     "ENROL"

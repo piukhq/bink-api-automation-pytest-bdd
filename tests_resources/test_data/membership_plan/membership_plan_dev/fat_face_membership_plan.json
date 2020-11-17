@@ -63,15 +63,6 @@
         "plan_description": "At this time FatFace Rewards is only available to Barclays customers.",
         "plan_documents": [
             {
-                "name": "FatFace privacy policy",
-                "description": "I accept the",
-                "url": "https://policies.staging.gb.bink.com/fatface/pp.html",
-                "display": [
-                    "ENROL"
-                ],
-                "checkbox": false
-            },
-            {
                 "name": "Terms & conditions",
                 "description": "I accept the",
                 "url": "https://policies.staging.gb.bink.com/fatface/tc.html",
@@ -88,6 +79,15 @@
                     "ENROL"
                 ],
                 "checkbox": true
+            },
+            {
+                "name": "FatFace privacy policy",
+                "description": "Please read the",
+                "url": "https://policies.staging.gb.bink.com/fatface/pp.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": false
             }
         ],
         "company_name": "FatFace",

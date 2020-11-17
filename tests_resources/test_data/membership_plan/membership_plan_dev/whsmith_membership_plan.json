@@ -59,8 +59,8 @@
                 "checkbox": true
             },
             {
-                "name": "Retailer privacy policy",
-                "description": "I have read the",
+                "name": "WHSmith privacy policy",
+                "description": "Please read the",
                 "url": "https://policies.staging.gb.bink.com/whsmith/pp.html",
                 "display": [
                     "ENROL"

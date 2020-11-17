@@ -95,22 +95,22 @@
         "plan_description": "As your purchases inch you up the points ladder, you will unlock ever-increasingly spectacular rewards \u2013 think cases of premium wine or a private canape party hosted at the OXO Tower Restaurant. Our programme is the only one of its kind to offer a choice of rewards every 3 months, rather than once a year. The hardest part will be choosing which to redeem. Please note, Payment Linked Loyalty is currently not available in Harvey Nichols restaurants and online.",
         "plan_documents": [
             {
-                "name": "Retailer terms and conditions",
-                "description": "I agree to the",
-                "url": "https://policies.staging.gb.bink.com/hn/tc.html",
-                "display": [
-                    "ENROL"
-                ],
-                "checkbox": true
-            },
-            {
                 "name": "Harvey Nichols privacy policy",
-                "description": "I agree to the",
+                "description": "Please read the",
                 "url": "https://policies.staging.gb.bink.com/hn/pp.html",
                 "display": [
                     "ENROL"
                 ],
                 "checkbox": false
+            },
+            {
+                "name": "Retailer terms and conditions",
+                "description": "I accept the",
+                "url": "https://policies.staging.gb.bink.com/hn/tc.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": true
             }
         ],
         "barcode_redeem_instructions": "Present the barcode below to the cashier or use the card number below to still earn points, if you are paying with cash or an unlinked payment card",

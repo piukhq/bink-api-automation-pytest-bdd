@@ -56,6 +56,15 @@
         "plan_description": "Please note that your vouchers are single-use and cannot be used twice. Show your Wasabi Club reward code in store to redeem \u00a37 off your next meal.\r\nThe voucher will be available to redeem 2 months from the date it is collected. This voucher is non-refundable and cannot be exchanged for cash in part or full and is valid for a single transaction only.",
         "plan_documents": [
             {
+                "name": "Wasabi privacy policy",
+                "description": "Please read the",
+                "url": "https://policies.staging.gb.bink.com/wasabi/pp.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": false
+            },
+            {
                 "name": "Retailer terms and conditions",
                 "description": "I accept the",
                 "url": "https://policies.staging.gb.bink.com/wasabi/tc.html",
@@ -69,15 +78,6 @@
                 "url": "https://policies.staging.gb.bink.com/wasabi/tc.html",
                 "display": [
                     "VOUCHER"
-                ],
-                "checkbox": false
-            },
-            {
-                "name": "Wasabi privacy policy",
-                "description": "I have read the",
-                "url": "https://policies.staging.gb.bink.com/wasabi/pp.html",
-                "display": [
-                    "ENROL"
                 ],
                 "checkbox": false
             }
