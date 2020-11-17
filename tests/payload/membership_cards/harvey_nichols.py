@@ -24,9 +24,9 @@ class HarveyNicholsCard:
             value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.ID)
             data_type = "Valid data"
 
-        if TestContext.get_channel() == config.BINK.channel_name:
+        if TestContext.channel_name == config.BINK.channel_name:
             pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
-        elif TestContext.get_channel() == config.BARCLAYS.channel_name:
+        elif TestContext.channel_name == config.BARCLAYS.channel_name:
             pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
         sensitive_value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.PASSWORD)
 
@@ -50,9 +50,9 @@ class HarveyNicholsCard:
 
     @staticmethod
     def add_membership_card_2_payload():
-        if TestContext.get_channel() == config.BINK.channel_name:
+        if TestContext.channel_name == config.BINK.channel_name:
             pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
-        elif TestContext.get_channel() == config.BARCLAYS.channel_name:
+        elif TestContext.channel_name == config.BARCLAYS.channel_name:
             pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
         sensitive_value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.PASSWORD)
 
