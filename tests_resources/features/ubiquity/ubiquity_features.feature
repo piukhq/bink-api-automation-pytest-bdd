@@ -4,10 +4,9 @@ Feature: Merchant Harvey Nichols - Ensure a customer can use Bink's Ubiquity fea
   I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider Harvey Nichols & check its details successfully
 
-
+#  Ensure a Customer cannot link multiple membership cards of the same merchant to a payment card
    @ubiquity @LOY988
   Scenario: Add a second membership card single channel_HarveyNichols
-#  Ensure a Customer cannot link multiple membership cards of the same merchant to a payment card
     Given I am a customer in channel_1
     When I perform POST request to add payment_card_1 to my wallet in channel_1
     And I perform the GET request to verify the payment_card_1 has been added successfully to the wallet in channel_1

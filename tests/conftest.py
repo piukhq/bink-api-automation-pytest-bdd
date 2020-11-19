@@ -1,11 +1,9 @@
 import pytest
 import logging
-import json
-from pytest_bdd import given, then
+from pytest_bdd import given, then, parsers
 from requests.exceptions import HTTPError
 
 import config
-import tests.api as api
 import tests.helpers.constants as constants
 from tests.requests.service import CustomerAccount
 from tests.requests.payment_cards import PaymentCards
@@ -13,7 +11,7 @@ from tests.requests.membership_cards import MembershipCards
 from tests.api.base import Endpoint
 from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_context import TestContext
-from tests.helpers.test_helpers import PaymentCardTestData
+
 
 from faker import Faker
 
@@ -92,17 +90,15 @@ def test_email():
 
 @given("I register with bink service as a new customer")
 def register_user(test_email, channel, env):
+    TestContext.channel_name = channel
     if channel == config.BINK.channel_name:
-        TestContext.channel_name = channel
-        response = CustomerAccount.register_bink_user(test_email, channel, env)
-        token = response.json().get("api_key")
-        TestContext.set_token(token)
+        response = CustomerAccount.register_bink_user(test_email)
+        TestContext.token = response.json().get("api_key")
         response_consent = CustomerAccount.service_consent_bink_user(TestContext.token, test_email)
         assert response_consent.status_code == 201, "User Registration _ service consent is not successful"
         logging.info("User registration is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
-        return token
+        return TestContext.token
     elif channel == config.BARCLAYS.channel_name:
-        TestContext.channel_name = channel
         response = CustomerAccount.service_consent_banking_user(test_email)
         logging.info("Banking user subscription to Bink is successful and the token is: \n\n" +
                      TestContext.token + "\n")
@@ -136,62 +132,33 @@ def delete_user():
     logging.info("User is deleted successfully from the system")
 
 
-@given("I perform POST request to add payment card to wallet")
-def add_payment_card(test_email):
-    response = PaymentCards.add_payment_card(TestContext.token, test_email)
-    response_json = response.json()
-    logging.info("The response of POST/PaymentCard is: \n\n"
-                 + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n"
-                 + json.dumps(response_json, indent=4))
-    TestContext.current_payment_card_id = response_json.get("id")
-    assert response.status_code == 201 or 200, "Payment card addition is not successful"
-    return TestContext.current_payment_card_id
-
-
-@given("I perform the GET request to verify the payment card has been added successfully")
-def verify_payment_card_added():
-    response = PaymentCards.get_payment_card(TestContext.token,
-                                             TestContext.current_payment_card_id)
-    response_json = response.json()
-    logging.info("The response of GET/PaymentCard/id is: \n\n"
-                 + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARD.format(TestContext.current_payment_card_id)
-                 + "\n\n" + json.dumps(response_json, indent=4))
-    assert (
-            response.status_code == 200
-            and response_json["id"] == TestContext.current_payment_card_id
-            and response_json["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
-    ), "Payment card addition is not successful"
-
-
 @then("I perform DELETE request to delete the payment card")
 def delete_payment_card():
     response = PaymentCards.delete_payment_card(TestContext.token, TestContext.current_payment_card_id)
     response1 = PaymentCards.delete_payment_card(TestContext.token_channel_1, TestContext.current_payment_card_id)
-
+    TestContext.response = response
     try:
         if response.status_code == 200 or response1.status_code == 200:
             logging.info("Payment card is deleted successfully")
         elif response.status_code == 404 or response1.status_code == 200:
-            logging.info("Payment card is already  deleted ")
+            logging.info("Payment card is already  deleted")
 
     except HTTPError as network_response:
 
         assert network_response.response.status_code == 404 or 400, "Payment card deletion is not successful"
 
 
-def delete_scheme_account():
-    """ To make sure the scheme_account is deleted successfully,even if the add/enrol journey failed """
-
+@then(parsers.parse('I perform DELETE request to delete the "{merchant}" membership card'))
+def delete_scheme_account(merchant=None):
     response_del_schemes = MembershipCards.delete_scheme_account(TestContext.token,
                                                                  TestContext.current_scheme_account_id)
-    response_del_schemes1 = MembershipCards.delete_scheme_account(TestContext.token_channel_1,
-                                                                  TestContext.scheme_account_id1)
-
+    response_del_schemes_1 = MembershipCards.delete_scheme_account(TestContext.token_channel_1,
+                                                                   TestContext.scheme_account_id1)
     try:
-        if response_del_schemes.status_code == 200 or response_del_schemes1.status_code == 200:
+        if response_del_schemes.status_code == 200 or response_del_schemes_1.status_code == 200:
             logging.info("Scheme account is deleted successfully")
         elif response_del_schemes.status_code == 404:
-            logging.info("Scheme account is already  deleted ")
+            logging.info("Scheme account is already  deleted")
 
     except HTTPError as network_response:
-        assert network_response.response.status_code == 404 or 400, "Scheme account deletion is not successful"
+        assert network_response.response.status_code == 404 or 400

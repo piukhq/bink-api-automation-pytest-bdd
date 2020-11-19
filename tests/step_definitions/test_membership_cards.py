@@ -2,12 +2,12 @@ from pytest_bdd import (
     scenarios,
     then,
     when,
+    given,
     parsers,
 )
 import datetime
 import json
 import logging
-from requests.exceptions import HTTPError
 from json import JSONDecodeError
 
 import tests.api as api
@@ -21,6 +21,7 @@ from tests.requests.membership_cards import MembershipCards
 from tests.requests.membership_transactions import MembershipTransactions
 from tests.helpers.test_helpers import Merchant
 from tests.helpers.database.query_hermes import QueryHermes
+import tests.step_definitions.test_payment_cards as test_payment_cards
 
 scenarios("membership_cards/")
 
@@ -89,6 +90,7 @@ def add_and_link_membership_card(merchant):
     response = MembershipCards.add_card_auto_link(TestContext.token, merchant)
     response_json = response_to_json(response)
     TestContext.current_scheme_account_id = response_json.get("id")
+    TestContext.response = response
     logging.info(
         "The response of Add&Link Journey (POST) is:\n\n" +
         Endpoint.BASE_URL + api.ENDPOINT_AUTO_LINK_PAYMENT_AND_MEMBERSHIP_CARD + "\n\n"
@@ -188,11 +190,12 @@ def put_request_to_replace_enrolled_membership_card_details(merchant, test_email
         "successful PATCH"
     )
 )
-def verify_membership_card_is_added_to_wallet(merchant):
+def verify_get_membership_card(merchant):
     response = MembershipCards.get_scheme_account(TestContext.token, TestContext.current_scheme_account_id)
+    TestContext.response = response
     response_json = response_to_json(response)
     logging.info(
-        "The response of GET/MembershipCard after Add Journey is:\n\n"
+        "The response of GET/MembershipCard/id is:\n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(TestContext.current_scheme_account_id) + "\n\n" +
         json.dumps(response_json, indent=4))
     assert (
@@ -209,6 +212,8 @@ def verify_membership_card_is_added_to_wallet(merchant):
     if merchant in ("HarveyNichols", "Iceland"):
         assert (response_json["card"]["barcode"] == TestData.get_data(merchant).get(constants.BARCODE)
                 ), ("Barcode verification for " + merchant + " failed")
+
+    return response
 
 
 @when(
@@ -242,11 +247,11 @@ def verify_membership_card_is_created(merchant):
         "in the wallet"
     )
 )
-def verify_membership_card_is_add_and_linked(merchant):
+def verify_add_and_link_membership_card(merchant):
     response = MembershipCards.get_scheme_account_auto_link(TestContext.token, TestContext.current_scheme_account_id)
     response_json = response_to_json(response)
     logging.info(
-        "The response of GET/MembershipCard after Membership card Add & AutoLink is:\n\n"
+        "The response of GET/MembershipCard/id after PLL :\n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(TestContext.current_scheme_account_id) + "\n\n"
         + json.dumps(response_json, indent=4))
 
@@ -274,6 +279,7 @@ def verify_membership_card_is_add_and_linked(merchant):
         raise Exception("PLL link for " + merchant + " failed and the payment array in the response is empty")
     except AssertionError as error:
         raise Exception("Add&Link Journey for " + merchant + " failed due to " + error.__str__())
+    return response
 
 
 @when(
@@ -406,38 +412,6 @@ def verify_membership_card_single_transaction_detail(merchant):
         ), ("Validations in GET/MembershipTransaction " + merchant + " failed")
 
 
-@when(parsers.parse('I perform Get request to verify the "{merchant}" membership card voucher details'))
-def verify_membership_card_vouchers(context, merchant, env):
-    response = MembershipCards.get_scheme_account(context["token"], context["scheme_account_id"])
-    response_json = response.json()
-    logging.info("Response for BurgerKing vouchers details" + json.dumps(response_json, indent=4))
-    with open(TestData.get_expected_membership_card_json(merchant, env)) as json_file:
-        expected_response = json.load(json_file)
-    logging.info("expected_Voucher_response for BurgerKing" + json.dumps(expected_response['vouchers'], indent=4))
-    actual_response = response_json
-    logging.info("actual_voucher_response for BurgerKing" + json.dumps(actual_response['vouchers'], indent=4))
-    assert (expected_response['vouchers'] == actual_response['vouchers']), "Voucher verification failed"
-    logging.info("Voucher verification is successful")
-
-
-"""Step definitions - DELETE Scheme Account """
-
-
-@then(parsers.parse('I perform DELETE request to delete the "{merchant}" membership card'))
-def perform_delete_request_scheme_account(merchant=None):
-    response_del_schemes = MembershipCards.delete_scheme_account(TestContext.token,
-                                                                 TestContext.current_scheme_account_id)
-    try:
-        if response_del_schemes.status_code == 200:
-            logging.info("Scheme account is deleted successfully")
-        elif response_del_schemes.status_code == 404:
-            logging.info("Scheme account is not exist ")
-
-    except HTTPError as network_response:
-        assert network_response.response.status_code == 404 or 400
-        logging.error("Scheme account deletion for ", merchant, "failed due to HTTP error: {network_response}")
-
-
 """Step definitions - DB Verifications"""
 
 
@@ -496,6 +470,19 @@ def verify_scheme_account_ans(cred_ans, merchant):
     elif merchant == "Wasabi":
         assert (cred_ans.email == TestDataUtils.TEST_DATA.wasabi_membership_card.get(constants.EMAIL)
                 ), "Wasabi scheme_account answers are not saved as expected"
+
+
+"""Call payment cards functions"""
+
+
+@given("I perform POST request to add payment card to wallet")
+def post_add_payment_card(test_email):
+    test_payment_cards.add_payment_card(test_email)
+
+
+@given("I perform the GET request to verify the payment card has been added successfully")
+def get_add_payment_card():
+    test_payment_cards.verify_payment_card_added()
 
 
 def response_to_json(response):
