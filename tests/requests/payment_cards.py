@@ -9,7 +9,7 @@ from tests.helpers.test_helpers import PaymentCardTestData
 
 class PaymentCards(Endpoint):
     @staticmethod
-    def add_payment_card(token, test_email, card_provider="master"):
+    def add_payment_card(token, test_email, card_provider):
         url = PaymentCards.get_url()
         header = Endpoint.request_header(token)
         # payload = PaymentCardDetails.add_payment_card_payload_unencrypted(test_email, card_provider)
@@ -24,6 +24,20 @@ class PaymentCards(Endpoint):
             response = Endpoint.call(url, header, "GET")
             response_json = response.json()
             if not response_json["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS):
+                time.sleep(1)
+            else:
+                break
+
+        return response
+
+    @staticmethod
+    def get_payment_cards(token):
+        for i in range(1, 30):
+            url = PaymentCards.get_url()
+            header = Endpoint.request_header(token)
+            response = Endpoint.call(url, header, "GET")
+            response_json = response.json()
+            if not response_json[0]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS):
                 time.sleep(1)
             else:
                 break
@@ -53,6 +67,24 @@ class PaymentCards(Endpoint):
                                                                                membership_card_id)
         header = Endpoint.request_header(token)
         response = Endpoint.call(url, header, "PATCH")
+        return response
+
+    @staticmethod
+    def delete_mcard_pcard(token, membership_card_id, payment_card_id):
+
+        url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_MEMBERSHIP_PAYMENT.format(membership_card_id,
+                                                                               payment_card_id)
+        header = Endpoint.request_header(token)
+        response = Endpoint.call(url, header, "DELETE")
+        return response
+
+    @staticmethod
+    def delete_pcard_mcard(token, payment_card_id, membership_card_id):
+
+        url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_PAYMENT_MEMBERSHIP.format(payment_card_id,
+                                                                               membership_card_id)
+        header = Endpoint.request_header(token)
+        response = Endpoint.call(url, header, "DELETE")
         return response
 
     @staticmethod

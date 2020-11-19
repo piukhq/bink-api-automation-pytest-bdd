@@ -1,6 +1,7 @@
 import logging
 import json
 import config
+import arrow
 from tests.helpers.test_helpers import PaymentCardTestData
 
 from tests.api.base import Endpoint
@@ -23,7 +24,7 @@ class PaymentCardDetails:
     )
 
     @staticmethod
-    def add_payment_card_payload_encrypted(test_email, card_provider="master"):
+    def add_payment_card_payload_encrypted(test_email, card_provider):
         payment_card = PaymentCardDetails.get_card(test_email, card_provider)
         if TestContext.channel_name == config.BINK.channel_name:
             pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
@@ -35,20 +36,21 @@ class PaymentCardDetails:
         return payload
 
     @staticmethod
-    def get_card(email, card_provider="master"):
+    def get_card(email, card_provider):
         return {
             "card": {
                 "hash": email.split("@")[0],
-                "token": email.split("@")[0],
+                "token": PaymentCardTestData.get_data(card_provider).get(constants.TOKEN),
                 "last_four_digits": PaymentCardTestData.get_data(card_provider).get(constants.LAST_FOUR_DIGITS),
                 "first_six_digits": PaymentCardTestData.get_data(card_provider).get(constants.FIRST_SIX_DIGITS),
-                "name_on_card": email.split("@")[0],
+                "name_on_card": PaymentCardTestData.get_data(card_provider).get(constants.NAME_ON_CARD),
                 "month": PaymentCardTestData.get_data(card_provider).get(constants.MONTH),
                 "year": PaymentCardTestData.get_data(card_provider).get(constants.YEAR),
-                "fingerprint": email.split("@")[0],
+                "fingerprint": PaymentCardTestData.get_data(card_provider).get(constants.FINGERPRINT),
             },
             "account": {
-                "consents": []
+               "consents": [{"latitude": 51.405372, "longitude": -0.678357, "timestamp": arrow.utcnow().timestamp,
+                             "type": 1}]
             },
         }
 
@@ -67,20 +69,21 @@ class PaymentCardDetails:
         return payment_card
 
     @staticmethod
-    def add_payment_card_payload_unencrypted(email, card_provider="master"):
+    def add_payment_card_payload_unencrypted(email, card_provider):
         payload = {
             "card": {
                 "hash": email.split("@")[0],
-                "token": email.split("@")[0],
+                "token": PaymentCardTestData.get_data(card_provider).get(constants.TOKEN),
                 "last_four_digits": PaymentCardTestData.get_data(card_provider).get(constants.LAST_FOUR_DIGITS),
                 "first_six_digits": PaymentCardTestData.get_data(card_provider).get(constants.FIRST_SIX_DIGITS),
                 "name_on_card": email.split("@")[0],
                 "month": PaymentCardTestData.get_data(card_provider).get(constants.MONTH),
                 "year": PaymentCardTestData.get_data(card_provider).get(constants.YEAR),
-                "fingerprint": email.split("@")[0],
+                "fingerprint": PaymentCardTestData.get_data(card_provider).get(constants.FINGERPRINT),
             },
             "account": {
-                "consents": [{"latitude": 51.405372, "longitude": -0.678357, "timestamp": 1541720805, "type": 1}]
+                "consents": [{"latitude": 51.405372, "longitude": -0.678357, "timestamp": arrow.utcnow().timestamp,
+                              "type": 1}]
             }
         }
 

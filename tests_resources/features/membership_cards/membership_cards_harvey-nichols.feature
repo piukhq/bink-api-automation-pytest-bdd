@@ -37,17 +37,18 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then verify the data stored in DB after "Add" journey for "HarveyNichols"
     And I perform DELETE request to delete the "HarveyNichols" membership card
 
-  @add_and_link @dev @staging
+#  @add_and_link @dev @staging
+  @new
   Scenario: ADD & LINK Journey_HarveyNichols
 
     Given I am a Bink user
     And I perform POST request to add payment card to wallet
     And I perform the GET request to verify the payment card has been added successfully
     When I perform POST request to add & auto link an existing "HarveyNichols" membership card
-    And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
-    Then verify the data stored in DB after "Add" journey for "HarveyNichols"
-    Then I perform DELETE request to delete the "HarveyNichols" membership card
-    And I perform DELETE request to delete the payment card
+#    And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
+#    Then verify the data stored in DB after "Add" journey for "HarveyNichols"
+#    Then I perform DELETE request to delete the "HarveyNichols" membership card
+#    And I perform DELETE request to delete the payment card
 
     @dev @staging @prod
     Scenario:  Add_Journey with Invalid Credentials_Harvey Nichols

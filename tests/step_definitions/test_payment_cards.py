@@ -6,8 +6,8 @@ from pytest_bdd import (
 )
 import logging
 import json
+import time
 import tests.api as api
-
 
 from requests.exceptions import HTTPError
 
@@ -15,111 +15,76 @@ from tests.requests.payment_cards import PaymentCards
 from tests.api.base import Endpoint
 from json import JSONDecodeError
 import tests.helpers.constants as constants
-from tests.helpers.test_helpers import TestData
 from tests.helpers.test_context import TestContext
 from tests.helpers.test_helpers import PaymentCardTestData
-from tests.requests.membership_cards import MembershipCards
-import tests.step_definitions.test_membership_cards as membership_card_test
+import tests.step_definitions.test_membership_cards as test_membership_cards
 
 scenarios("payment_cards/")
-
 
 """Step definitions - Add Payment Card """
 
 
 @when(parsers.parse('I perform POST request to add "{payment_card_provider}" payment card to wallet'))
-def add_payment_card_specific_card_provider(add_payment_card):
-    """Calling the common add payment card function in conftest"""
+@when('I perform POST request to add "<payment_card_provider>" payment card to wallet')
+def add_payment_card(test_email, payment_card_provider="master"):
+    response = PaymentCards.add_payment_card(TestContext.token, test_email, payment_card_provider)
+    assert response.status_code == 201 or 200, \
+        f"Payment card addition for '{payment_card_provider}' is not successful"
+    response_json = response_to_json(response)
+    logging.info(f"The response of POST/PaymentCard '{payment_card_provider}' is: \n\n"
+                 + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n"
+                 + json.dumps(response_json, indent=4))
+    TestContext.current_payment_card_id = response_json.get("id")
+    return TestContext.current_payment_card_id
 
 
 @when("I perform the GET request to verify the payment card has been added successfully to the wallet")
-def get_payment_card(verify_payment_card_added):
-    """Calling the common add payment card function in conftest"""
-
-
-@when(parsers.parse('I perform POST request to add & auto link "{merchant}" membership card'))
-def add_and_link(merchant):
-    membership_card_test.add_and_link_membership_card(merchant)
-
-
-@when(
-    parsers.parse(
-        'I perform GET request to verify the "{merchant}" membership card is added & linked successfully '
-        "in the wallet"
-    )
-)
-def verify_membership_card_is_add_linked(merchant):
-    response = MembershipCards.get_scheme_account_auto_link(TestContext.token, TestContext.current_scheme_account_id)
-    response_json = response_to_json(response)
-    logging.info(
-        "The response of GET/MembershipCard after Membership card Add & AutoLink is:\n\n"
-        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(TestContext.current_scheme_account_id) + "\n\n"
-        + json.dumps(response_json, indent=4))
-
-    try:
-        payment_card_present = "no"
-        for current_payment_card in response_json["payment_cards"]:
-            if current_payment_card["id"] == TestContext.current_payment_card_id:
-                payment_card_present = "yes"
-        assert (
-                response.status_code == 200
-                and response_json["id"] == TestContext.current_scheme_account_id
-                and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
-                and response_json["status"]["state"] == TestData.get_membership_card_status_states().
-                get(constants.AUTHORIZED)
-                and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-                get(constants.REASON_CODE_AUTHORIZED)
-                and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
-                and response_json["payment_cards"][0]["active_link"] ==
-                PaymentCardTestData.get_data().get(constants.ACTIVE_LINK)
-                and payment_card_present == "yes"
-
-        ), ("Validations in GET/membership_cards after AutoLink for " + merchant + " failed")
-    except IndexError:
-        raise Exception("PLL link for " + merchant + " failed and the payment array in the response is empty")
-    except AssertionError as error:
-        raise Exception("Add&Link Journey for " + merchant + " failed due to " + error.__str__())
-
-
-@then(parsers.parse('I perform DELETE request to delete the "{merchant}" membership card'))
-def delete_request_scheme_account(merchant=None):
-    response_del_schemes = MembershipCards.delete_scheme_account(TestContext.token,
-                                                                 TestContext.current_scheme_account_id)
-    try:
-        if response_del_schemes.status_code == 200:
-            logging.info("Scheme account is deleted successfully")
-        elif response_del_schemes.status_code == 404:
-            logging.info("Scheme account is not exist ")
-
-    except HTTPError as network_response:
-        assert network_response.response.status_code == 404 or 400
-        logging.error("Scheme account deletion for ", merchant, "failed due to HTTP error: {network_response}")
-
-
-@when(parsers.parse('I perform POST request to add "{merchant}" membership card to my wallet'))
-def add_membership_card_to_wallet(merchant):
-    membership_card_test.add_membership_card(merchant)
-
-
-@when(parsers.parse('I perform GET request to verify the "{merchant}" membership card is added to my wallet'))
-def verify_membership_card_is_added_to_wallet(merchant):
-    response = MembershipCards.get_scheme_account(TestContext.token, TestContext.current_scheme_account_id)
-    response_json = response_to_json(response)
-    logging.info(
-        "The response of GET/MembershipCard after Add Journey is:\n\n"
-        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(TestContext.current_scheme_account_id) + "\n\n" +
-        json.dumps(response_json, indent=4))
+def verify_payment_card_added():
+    response = PaymentCards.get_payment_card(TestContext.token,
+                                             TestContext.current_payment_card_id)
+    response_json = response.json()
+    logging.info("The response of GET/PaymentCard/id is: \n\n"
+                 + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARD.format(TestContext.current_payment_card_id)
+                 + "\n\n" + json.dumps(response_json, indent=4))
     assert (
             response.status_code == 200
-            and response_json["id"] == TestContext.current_scheme_account_id
-            and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
-            and response_json["status"]["state"] == TestData.get_membership_card_status_states().
-            get(constants.AUTHORIZED)
-            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
-            get(constants.REASON_CODE_AUTHORIZED)
-            and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
-    ), ("Validations in GET/membership_cards for " + merchant + " failed with reason code " +
-        response_json["status"]["reason_codes"][0])
+            and response_json["id"] == TestContext.current_payment_card_id
+            and response_json["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
+    ), "Payment card addition is not successful"
+    return response
+
+
+@when("I perform POST request to add multiple payment cards to wallet")
+def add_multiple_payment_cards(test_email):
+    """Adding a master card"""
+    add_payment_card(test_email, "master")
+    add_payment_card(test_email, "amex")
+    add_payment_card(test_email, "visa")
+    """Visa is taking more time to get authorised"""
+    time.sleep(3)
+
+
+@when("I perform the GET request to verify all the payment card has been added successfully to the wallet")
+def verify_multi_payment_card_added():
+    response = PaymentCards.get_payment_cards(TestContext.token)
+    response_json = response.json()
+    logging.info("The response of GET/PaymentCards is: \n\n"
+                 + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS
+                 + "\n\n" + json.dumps(response_json, indent=4))
+    assert (
+            response.status_code == 200
+            and response_json[0]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
+            and response_json[1]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
+            and response_json[2]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
+    ), "Payment card addition is not successful"
+    return response
+
+
+@when("Ensure only one payment card returned in the response")
+def payment_card_link():
+    response_json = response_to_json(TestContext.response)
+    assert len(response_json["payment_cards"]) == 1, "The Pll link is not successful"
+    logging.info("Only one payment card is linked to membership card")
 
 
 @when("I perform PATCH request to link membership card to payment card")
@@ -151,37 +116,168 @@ def patch_pcard_mcard():
     response_json = response_to_json(response)
 
     logging.info(
-        "The response of PATCH/membership_card/payment_card is :\n\n"
+        "The response of DELETE/membership_card/payment_card is :\n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_PATCH_PAYMENT_MEMBERSHIP.format(TestContext.current_payment_card_id,
                                                                            TestContext.current_scheme_account_id) +
         "\n\n" + json.dumps(response_json, indent=4))
-    assert (
-            response.status_code == 201
+    assert (response.status_code == 201
             and response_json["id"] == TestContext.current_scheme_account_id
             and response_json["payment_cards"][0]["active_link"]
             and response_json["payment_cards"][0]["id"] == TestContext.current_payment_card_id
-    ), "Validations in PATCH/membership_card/payment_card failed"
+            ), "Validations in PATCH/membership_card/payment_card failed"
 
 
-@when("I perform GET membership_cards request to verify the membership card is linked successfully in the wallet")
-def verify_mcard_link():
-    response = PaymentCards.patch_pcard_mcard(TestContext.token,
-                                              TestContext.current_payment_card_id,
-                                              TestContext.current_scheme_account_id
-                                              )
+@then("I perform DELETE request to delete the link between membership_card & payment_card")
+def delete_mcard_pcard_link():
+    response = PaymentCards.delete_mcard_pcard(TestContext.token,
+                                               TestContext.current_scheme_account_id,
+                                               TestContext.current_payment_card_id)
+    assert (response.status_code == 200), f"DELETE/membership_card/payment_card failed with reason code" \
+                                          f" '{response.status_code}'"
+    logging.info(f"The response code of DELETE/membership_card/payment_card is '{response.status_code}'")
+
+
+@then("I perform DELETE request to delete the link between payment_card & membership_card")
+def delete_pcard_mcard_link():
+    response = PaymentCards.delete_pcard_mcard(TestContext.token,
+                                               TestContext.current_payment_card_id,
+                                               TestContext.current_scheme_account_id)
+    assert (response.status_code == 200), f"DELETE/payment_card/membership_card failed with reason code" \
+                                          f" '{response.status_code}'"
+    logging.info(f"The response code of DELETE/payment_card/membership_card is '{response.status_code}'")
+
+
+@when("I perform GET/payment_card/id request to verify the membership card is linked to the payment card")
+def verify_mcard_pacrd_link():
+    response = verify_payment_card_added()
     response_json = response_to_json(response)
-
-    logging.info(
-        "The response of PATCH/membership_card/payment_card is :\n\n"
-        + Endpoint.BASE_URL + api.ENDPOINT_PATCH_PAYMENT_MEMBERSHIP.format(TestContext.current_payment_card_id,
-                                                                           TestContext.current_scheme_account_id) +
-        "\n\n" + json.dumps(response_json, indent=4))
     assert (
-            response.status_code == 201
-            and response_json["id"] == TestContext.current_scheme_account_id
-            and response_json["payment_cards"][0]["active_link"]
-            and response_json["payment_cards"][0]["id"] == TestContext.current_payment_card_id
-    ), "Validations in PATCH/membership_card/payment_card failed"
+            response_json["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
+            and response_json["membership_cards"][0]["active_link"]
+    ), "Membership card  link to the payment cards is not a success"
+    logging.info(f"membership card '{TestContext.current_scheme_account_id}'"
+                 f" is linked to the payment card '{TestContext.current_payment_card_id}'")
+
+
+@when("I perform the GET/payment_cards request to verify the membership card is linked to all payment cards")
+def verify_multi_payment_card_add_link():
+    response = verify_multi_payment_card_added()
+    response_json = response_to_json(response)
+    assert (
+            response_json[0]["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
+            and response_json[0]["membership_cards"][0]["active_link"]
+            and response_json[1]["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
+            and response_json[1]["membership_cards"][0]["active_link"]
+            and response_json[0]["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
+            and response_json[0]["membership_cards"][0]["active_link"]
+    ), "Membership card link to all the payment cards is not a success"
+
+
+@then("I perform GET/payment_card/id request to verify the membership card is unlinked")
+def verify_membership_card_unlink():
+    time.sleep(2)
+    response = verify_payment_card_added()
+    response_json = response_to_json(response)
+    assert response_json["membership_cards"] == [], \
+        "membership is not successfully unlink even after deletion"
+    logging.info("Membership card is successfully unlinked ")
+
+
+@then('I perform GET request to verify the membership card is unlinked from all payment cards')
+def verify_membership_cards_unlink():
+    time.sleep(2)
+    response = verify_multi_payment_card_added()
+    response_json = response_to_json(response)
+    assert (
+            response_json[0]["membership_cards"] == []
+            and response_json[1]["membership_cards"] == []
+            and response_json[2]["membership_cards"] == []
+    ), "membership is not successfully unlink even after deletion"
+    logging.info(f"Membership card '{TestContext.current_scheme_account_id}' is successfully unlinked from"
+                 f"Payment card '{TestContext.current_payment_card_id}'")
+
+    """Storing each payment card ids for deletion"""
+    TestContext.payment_card_1 = response_json[0]["id"]
+    TestContext.payment_card_2 = response_json[1]["id"]
+    TestContext.payment_card_3 = response_json[2]["id"]
+
+
+@then(parsers.parse('I perform GET/membership_card/id request to verify the payment card is unlinked from'
+                    ' "{merchant}" membership card'))
+def verify_payment_card_unlink(merchant):
+    time.sleep(2)
+    response = test_membership_cards.verify_get_membership_card(merchant)
+    response_json = response_to_json(response)
+    assert response_json["payment_cards"] == [], \
+        "Payment card is not successfully unlink even after deletion"
+    logging.info(f"Payment card '{TestContext.current_payment_card_id}' is successfully unlinked from "
+                 f"membership_card '{TestContext.current_scheme_account_id}'")
+
+
+@then("I perform DELETE request to delete all payment cards")
+def delete_all_payment_cards():
+    response_payment_card_1 = PaymentCards.delete_payment_card(TestContext.token, TestContext.payment_card_1)
+    response_payment_card_2 = PaymentCards.delete_payment_card(TestContext.token, TestContext.payment_card_2)
+    response_payment_card_3 = PaymentCards.delete_payment_card(TestContext.token, TestContext.payment_card_3)
+
+    try:
+        if response_payment_card_1.status_code == 200 \
+                or response_payment_card_2.status_code == 200 \
+                or response_payment_card_3.status_code == 200:
+            logging.info("Payment card is deleted successfully")
+        else:
+            logging.info("Payment card is already  deleted")
+
+    except HTTPError as network_response:
+        assert network_response.response.status_code == 404 or 400, "Payment card deletion is not successful"
+
+
+"""Call to membership_cards functions"""
+
+
+@when(parsers.parse('I perform POST request to add "{merchant}" membership card to my wallet'))
+def post_membership_cards(merchant):
+    """Call to add_card in test_membership_cards"""
+    test_membership_cards.add_membership_card(merchant)
+
+
+@when(parsers.parse('I perform GET request to verify the "{merchant}" membership card is added to the wallet'))
+def get_membership_card(merchant):
+    """Call to add_card in test_membership_cards"""
+    test_membership_cards.verify_get_membership_card(merchant)
+
+
+@when(parsers.parse('I perform POST request to add & auto link "{merchant}" membership card'))
+def post_add_and_link(merchant):
+    """Function call to add_and_link in test_membership_cards"""
+    test_membership_cards.add_and_link_membership_card(merchant)
+
+
+@then(parsers.parse(
+    'I perform GET request to verify the "{merchant}" membership card is added & linked successfully '
+    "in the wallet")
+)
+def get_add_and_link(merchant):
+    """Function call to get_membership_cards in test_membership_cards"""
+    test_membership_cards.verify_add_and_link_membership_card(merchant)
+
+
+@when(parsers.parse('I perform GET request to verify the "{merchant}" membership card is'
+                    ' linked successfully in the wallet'))
+def verify_mcard_link(merchant):
+    """Function call to get_membership_cards in test_membership_cards"""
+    test_membership_cards.verify_add_and_link_membership_card(merchant)
+
+
+@when(parsers.parse(
+    'I perform GET request to verify the "{merchant}" membership card is added & linked to all payment cards')
+)
+def get_add_and_link_to_many_pcards(merchant):
+    response = test_membership_cards.verify_add_and_link_membership_card(merchant)
+    response_json = response_to_json(response)
+    assert (response_json["payment_cards"][0]["active_link"]
+            and response_json["payment_cards"][1]["active_link"]
+            and response_json["payment_cards"][2]["active_link"])
 
 
 def response_to_json(response):
