@@ -1,25 +1,25 @@
 # ------------------------------------ ---PAYMENT  CARDS ------------------------------------------------------- #
 
 visa_payment_card = {
-    "first_six_digits": "555555",
-    "last_four_digits": "4444",
-    "token": "auto1093448038331testbinkcom",
-    "name_on_card": "auto1093448038331testbinkcom",
-    "month": 1,
-    "year": 2044,
-    "fingerprint": "auto1093448038331testbinkcom",
+    "first_six_digits": "401288",
+    "last_four_digits": "1813",
+    "token": "UPBoHspUQWWTdg1Zso+1Nw==2",
+    "name_on_card": "Avery",
+    "month": 10,
+    "year": 2026,
+    "fingerprint": "b0548a5e26030ccd853fcb70e9011fb79577",
     "status": "active",
     "active_link": True
 }
 
 amex_payment_card = {
-    "first_six_digits": "555555",
-    "last_four_digits": "4444",
-    "token": "auto1093448038331testbinkcom",
-    "name_on_card": "auto1093448038331testbinkcom",
+    "first_six_digits": "378282",
+    "last_four_digits": "0005",
+    "token": "amexAutoPaymentcardtoken",
+    "name_on_card": "amexAutoPaymentcardbinkcom",
     "month": 1,
     "year": 2044,
-    "fingerprint": "auto1093448038331testbinkcom",
+    "fingerprint": "amexAutoPaymentcardbinkcom",
     "status": "active",
     "active_link": True
 }
@@ -27,12 +27,14 @@ amex_payment_card = {
 master_payment_card = {
     "first_six_digits": "555555",
     "last_four_digits": "4444",
+    "token": "mastercardAutoPaymentcardtoken",
+    "name_on_card": "mastercardAutoPaymentcardbinkcom",
     "month": 1,
     "year": 2044,
+    "fingerprint": "mastercardAutoPaymentcardbinkcom",
     "status": "active",
     "active_link": True
 }
-
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #
 
 burger_king_membership_card = {
