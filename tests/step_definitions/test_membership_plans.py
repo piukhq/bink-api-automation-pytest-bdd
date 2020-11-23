@@ -52,7 +52,7 @@ def ensure_the_merchants_plan_details_match_with_expected_data(merchant, env, ch
         )
         raise Exception("The expected and actual membership plan of " + merchant + " is not the same")
     else:
-        logging.info("The expected and actual membership plan of" + merchant + "is same")
+        logging.info("The expected and actual membership plan of " + merchant + " is same")
 
 
 def json_compare(actual_membership_plan, expected_membership_plan):

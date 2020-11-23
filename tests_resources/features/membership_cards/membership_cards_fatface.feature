@@ -4,7 +4,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
   I want to utilise membership_cards endpoint of the Banking API
   So I can add my card, with the scheme provider FatFace & check its details successfully
 
-# fatface testdata used by ba so db verification dates comming different. once confirme testdata remove db commented line
+# fatface testdata used by ba so db verification dates comming different. once confirm testdata remove db commented line
 
   @add1
   Scenario: Add Journey_FatFace
