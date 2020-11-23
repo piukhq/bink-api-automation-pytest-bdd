@@ -177,7 +177,7 @@ membership_plan_id = {
     "harvey_nichols": 194,
     "iceland": 105,
     "whsmith": "",
-    "wasabi": 281,
+    "wasabi": 316,
 }
 # ----------------------------------------MEMBERSHIP ACCOUNT STATES & REASON_CODES ---------------------------------- #
 
@@ -194,6 +194,13 @@ membership_card_status_reason_codes = {
     "reason_code_failed_enrol": "X201",
 }
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
+
+
+bink_user_accounts = {
+    "uid": "pytest_oat@bink.com",
+    "pwd": "Password1",
+}
+
 barclays_user_accounts = {
     "uid": "njames@bink.com",
     "pwd": "Password@200",

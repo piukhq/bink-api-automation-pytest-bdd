@@ -1,5 +1,5 @@
 {
-    "id": 281,
+    "id": 316,
     "status": "active",
     "feature_set": {
         "authorisation_required": true,
@@ -27,24 +27,24 @@
     },
     "images": [
         {
-            "id": 1297,
+            "id": 644,
+            "type": 9,
+            "url": "https://oat.sandbox.gb.bink.com/content/sandbox-oat-media/hermes/schemes/Wasabi_Alternate_Hero.png",
+            "description": "Wasabi Alternative Hero",
+            "encoding": "png"
+        },
+        {
+            "id": 643,
             "type": 3,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Logo.png",
+            "url": "https://oat.sandbox.gb.bink.com/content/sandbox-oat-media/hermes/schemes/Wasabi_Logo.png",
             "description": "Wasabi Icon",
             "encoding": "png"
         },
         {
-            "id": 1296,
+            "id": 642,
             "type": 0,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Card.png",
+            "url": "https://oat.sandbox.gb.bink.com/content/sandbox-oat-media/hermes/schemes/Wasabi_Card.png",
             "description": "Wasabi Hero",
-            "encoding": "png"
-        },
-        {
-            "id": 1298,
-            "type": 9,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Alternate_Hero.png",
-            "description": "Wasabi Alternative Hero",
             "encoding": "png"
         }
     ],
@@ -58,7 +58,7 @@
             {
                 "name": "Wasabi privacy policy",
                 "description": "Please read the",
-                "url": "https://policies.staging.gb.bink.com/wasabi/pp.html",
+                "url": "https://policies.gb.bink.com/wasabi/pp.html",
                 "display": [
                     "ENROL"
                 ],
@@ -67,7 +67,7 @@
             {
                 "name": "Retailer terms and conditions",
                 "description": "I accept the",
-                "url": "https://policies.staging.gb.bink.com/wasabi/tc.html",
+                "url": "https://policies.gb.bink.com/wasabi/tc.html",
                 "display": [
                     "ENROL"
                 ],
@@ -75,7 +75,7 @@
             },
             {
                 "name": "Terms & conditions",
-                "url": "https://policies.staging.gb.bink.com/wasabi/tc.html",
+                "url": "https://policies.gb.bink.com/wasabi/tc.html",
                 "display": [
                     "VOUCHER"
                 ],
@@ -139,11 +139,6 @@
                 "common_name": "date_of_birth",
                 "type": 0,
                 "choice": []
-            },
-            {
-                "column": "Consent 1",
-                "description": "Check this box to receive the latest news and offers from Wasabi - if you change your mind, you can opt out anytime via the retailer.",
-                "type": 3
             }
         ],
         "fees": []
@@ -156,18 +151,6 @@
     ],
     "content": [
         {
-            "column": "Voucher_Redeemed_Detail",
-            "value": "Your FREE meal voucher was redeemed."
-        },
-        {
-            "column": "Voucher_Expired_Detail",
-            "value": "Your FREE meal voucher has expired."
-        },
-        {
-            "column": "Enrol_Help_Text",
-            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
-        },
-        {
             "column": "Voucher_Issued_Detail",
             "value": "Show your Wasabi Club reward code in store to redeem \u00a37 off your next meal."
         },
@@ -176,8 +159,20 @@
             "value": "Spend \u00a37.00 or more to get a stamp. Collect 7 stamps to get a Meal Voucher of up to \u00a37 off your next meal."
         },
         {
+            "column": "Voucher_Redeemed_Detail",
+            "value": "Your FREE meal voucher was redeemed."
+        },
+        {
+            "column": "Voucher_Expired_Detail",
+            "value": "Your FREE meal voucher has expired."
+        },
+        {
             "column": "Voucher_Cancelled_Detail",
-            "value": "Your\u00a0voucher\u00a0has\u00a0been\u00a0cancelled. If you believe we have made a mistake please contact enquiries@wasabi.uk.com."
+            "value": "Your voucher has been cancelled. If you believe we have made a mistake please contact enquiries@wasabi.uk.com."
+        },
+        {
+            "column": "Enrol_Help_Text",
+            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
         }
     ]
 }
