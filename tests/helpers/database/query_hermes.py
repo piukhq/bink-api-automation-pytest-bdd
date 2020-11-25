@@ -27,6 +27,7 @@ class CredentialAns:
     last_name: str
     postcode: str
     merchant_identifier: str
+    date_of_birth: str
 
 
 class QueryHermes:
@@ -62,8 +63,8 @@ class QueryHermes:
             logging.info(merchant + " Scheme Account  Credential Answers are:"
                                     "\n..............................................................................")
 
-            fields_to_verify = ("card_number", "email", "last_name", "postcode", "merchant_identifier")
-            fields_to_decrypt = ("last_name", "postcode")
+            fields_to_verify = ("card_number", "email", "last_name", "postcode", "merchant_identifier", "date_of_birth")
+            fields_to_decrypt = ("last_name", "postcode", "date_of_birth")
 
             for row in record:
                 credential_qn_label = get_credential_qn_label(row[3], connection)

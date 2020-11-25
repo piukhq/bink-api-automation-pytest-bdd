@@ -6,7 +6,7 @@ Feature: Merchant CooP - Ensure a customer can add their payment card & link it 
   I want to utilise payment_cards endpoint
   So I can add my payment card and can link to CooP membership card & check the details successfully
 
-  @pll
+  @pll_coop
   Scenario Outline: ADD & LINK Journey_CooP
 
     Given I am a Bink user
@@ -18,8 +18,8 @@ Feature: Merchant CooP - Ensure a customer can add their payment card & link it 
     Examples:
     | payment_card_provider|
     |          amex        |
-    |          master      |
-    |          visa        |
+#    |          master      |
+#    |          visa        |
 
     @patch_mcard_pcard
     Scenario: PLL Link by PATCH_(mcard_pcard)_CooP

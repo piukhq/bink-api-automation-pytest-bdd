@@ -5,9 +5,9 @@ from pytest_bdd import (
     given,
     parsers,
 )
-import datetime
 import json
 import logging
+import datetime
 from json import JSONDecodeError
 
 import tests.api as api
@@ -476,8 +476,8 @@ def verify_scheme_account_ans(cred_ans, merchant):
 
 
 @given("I perform POST request to add payment card to wallet")
-def post_add_payment_card(test_email):
-    test_payment_cards.add_payment_card(test_email)
+def post_add_payment_card():
+    test_payment_cards.add_payment_card("master")
 
 
 @given("I perform the GET request to verify the payment card has been added successfully")

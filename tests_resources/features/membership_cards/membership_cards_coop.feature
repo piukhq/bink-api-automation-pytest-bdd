@@ -1,4 +1,5 @@
 #@coop Ignore Coop features until getting a confirmation from Product Owner
+  @CooP
 Feature: Merchant CooP- Ensure a customer can add their membership card & view its details
   As a customer
   I want to utilise membership_cards endpoint

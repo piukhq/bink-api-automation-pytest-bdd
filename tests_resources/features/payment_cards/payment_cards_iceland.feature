@@ -21,7 +21,7 @@ Feature: Merchant Iceland - Ensure a customer can add their payment card & link 
     |          master      |
     |          visa        |
 
-    @patch_mcard_pcard
+    @dev @staging
     Scenario: PLL Link by PATCH_(mcard_pcard)_Iceland
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -37,7 +37,7 @@ Feature: Merchant Iceland - Ensure a customer can add their payment card & link 
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
 
-    @patch_pcard_mcard
+     @dev @staging
     Scenario: PLL Link by PATCH_(pcard_mcard)_Iceland
 
     Given I am a customer who is subscribing to Bink or I am Bink app user

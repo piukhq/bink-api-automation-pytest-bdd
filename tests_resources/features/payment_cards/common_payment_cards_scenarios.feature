@@ -16,7 +16,7 @@ Feature: This feature file contains different features related to payment cards
     When I perform POST request to add "master" payment card to wallet
     And I perform the GET request to verify the payment card has been added successfully to the wallet
     And I perform POST request to add & auto link "HarveyNichols" membership card
-    And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
+    Then I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
     And Ensure only one payment card returned in the response
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform GET/payment_card/id request to verify the membership card is unlinked
@@ -53,7 +53,7 @@ Feature: This feature file contains different features related to payment cards
 
 #     This scenario should happen in preprod, not implemented in staging yet
   @preprod @LOY1285
-    Scenario: Verify deletion of membership card linked to a Payment card deletes PLL link
+    Scenario: PLL link visa _ preprod tests
 
     Given I register with bink service as a new customer
     When I perform POST request to add "visa" payment card to wallet
@@ -63,3 +63,15 @@ Feature: This feature file contains different features related to payment cards
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform GET/payment_card/id request to verify the membership card is unlinked
    Then I perform DELETE request to delete the customer
+
+  @staging
+  Scenario: Delete Payment card by hash
+
+    Given I register with bink service as a new customer
+    When I perform POST request to add "amex" payment card to wallet
+    And I perform the GET request to verify the payment card has been added successfully to the wallet
+    And I perform POST request to add & auto link "HarveyNichols" membership card
+    Then I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
+    And I perform DELETE request to delete the payment card by hash
+    And I perform GET/membership_card/id request to verify the payment card is unlinked from "HarveyNichols" membership card
+    Then I perform DELETE request to delete the customer
