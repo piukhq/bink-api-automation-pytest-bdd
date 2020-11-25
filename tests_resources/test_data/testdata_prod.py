@@ -158,8 +158,13 @@ membership_card_status_reason_codes = {
 }
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
 
+# bink_user_accounts = {
+#     "uid": "drtesting_qa@testbink.com",
+#     "pwd": "Password01",
+# }
+
 bink_user_accounts = {
-    "uid": "drtesting_qa@testbink.com",
+    "uid": "njames@bink.com",
     "pwd": "Password01",
 }
 

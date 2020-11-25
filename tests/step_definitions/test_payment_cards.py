@@ -26,8 +26,8 @@ scenarios("payment_cards/")
 
 @when(parsers.parse('I perform POST request to add "{payment_card_provider}" payment card to wallet'))
 @when('I perform POST request to add "<payment_card_provider>" payment card to wallet')
-def add_payment_card(test_email, payment_card_provider="master"):
-    response = PaymentCards.add_payment_card(TestContext.token, test_email, payment_card_provider)
+def add_payment_card(payment_card_provider="master"):
+    response = PaymentCards.add_payment_card(TestContext.token, payment_card_provider)
     assert response.status_code == 201 or 200, \
         f"Payment card addition for '{payment_card_provider}' is not successful"
     response_json = response_to_json(response)
@@ -55,11 +55,11 @@ def verify_payment_card_added():
 
 
 @when("I perform POST request to add multiple payment cards to wallet")
-def add_multiple_payment_cards(test_email):
+def add_multiple_payment_cards():
     """Adding a master card"""
-    add_payment_card(test_email, "master")
-    add_payment_card(test_email, "amex")
-    add_payment_card(test_email, "visa")
+    add_payment_card("master")
+    add_payment_card("amex")
+    add_payment_card("visa")
     """Visa is taking more time to get authorised"""
     time.sleep(3)
 
@@ -80,7 +80,7 @@ def verify_multi_payment_card_added():
     return response
 
 
-@when("Ensure only one payment card returned in the response")
+@then("Ensure only one payment card returned in the response")
 def payment_card_link():
     response_json = response_to_json(TestContext.response)
     assert len(response_json["payment_cards"]) == 1, "The Pll link is not successful"
@@ -230,6 +230,13 @@ def delete_all_payment_cards():
 
     except HTTPError as network_response:
         assert network_response.response.status_code == 404 or 400, "Payment card deletion is not successful"
+
+
+@then("I perform DELETE request to delete the payment card by hash")
+def delete_payment_card():
+    response = PaymentCards.delete_payment_card_with_hash(TestContext.token)
+    assert response.status_code == 200, "Payment card deletion by hash is not successful"
+    logging.info(f"Payment card '{TestContext.current_payment_card_id}' is deleted by hash")
 
 
 """Call to membership_cards functions"""

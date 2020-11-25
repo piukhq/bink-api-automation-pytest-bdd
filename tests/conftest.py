@@ -140,7 +140,7 @@ def delete_payment_card():
     try:
         if response.status_code == 200 or response1.status_code == 200:
             logging.info("Payment card is deleted successfully")
-        elif response.status_code == 404 or response1.status_code == 200:
+        elif response.status_code == 404 or response1.status_code == 404:
             logging.info("Payment card is already  deleted")
 
     except HTTPError as network_response:
