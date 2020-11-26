@@ -251,6 +251,7 @@ def verify_membership_card_is_created(merchant):
 def verify_add_and_link_membership_card(merchant):
     response = MembershipCards.get_scheme_account_auto_link(TestContext.token, TestContext.current_scheme_account_id)
     response_json = response_to_json(response)
+    TestContext.response = response
     logging.info(
         "The response of GET/MembershipCard/id after PLL :\n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(TestContext.current_scheme_account_id) + "\n\n"

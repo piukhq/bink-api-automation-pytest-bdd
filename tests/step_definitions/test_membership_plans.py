@@ -10,7 +10,9 @@ from json_diff import Comparator
 
 from tests.requests.membership_plans import MembershipPlans
 from tests.helpers.test_helpers import TestData
+from tests.helpers.test_context import TestContext
 import tests.helpers.constants as constants
+
 
 scenarios("membership_plans/")
 
@@ -21,21 +23,20 @@ def customer_can_view_membership_plan():
 
 
 @when("I perform GET request to view all available membership plans")
-def view_all_available_membership_plans(login_user):
-    token = login_user
-    response = MembershipPlans.get_all_membership_plans(token)
+def view_all_available_membership_plans():
+
+    response = MembershipPlans.get_all_membership_plans(TestContext.token)
     logging.info("Membership_Plans response is \n\n" + json.dumps(response.json(), indent=4))
     if response is not None:
         logging.info("GET/Membership_plans is working as expected")
 
 
 @then(parsers.parse('I can ensure the "{merchant}" plan details match with expected data'))
-def ensure_the_merchants_plan_details_match_with_expected_data(merchant, env, channel, login_user):
+def ensure_the_merchants_plan_details_match_with_expected_data(merchant, env, channel):
     """GET a merchant's membership plan and compare with
      expected membership plan of that merchant"""
 
-    token = login_user
-    response = MembershipPlans.get_membership_plan(token, merchant)
+    response = MembershipPlans.get_membership_plan(TestContext.token, merchant)
     logging.info("The Membership plan for " + merchant + " is: \n" + json.dumps(response.json(), indent=4))
     with open(TestData.get_expected_membership_plan_json(merchant, env, channel)) as json_file:
         json_data = json.load(json_file)

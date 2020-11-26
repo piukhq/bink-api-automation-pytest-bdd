@@ -1,4 +1,4 @@
-@iceland @bink
+@iceland @bmb
 Feature: Merchant Iceland - Ensure a customer can view Scheme plan details
   As a customer
   I want to access membership plans
