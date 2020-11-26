@@ -83,5 +83,14 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then verify the data stored in DB after "Add" journey for "FatFace"
     Then I perform DELETE request to delete the "FatFace" membership card
     
+ @add_always_link @LOY-1211
+  Scenario: Adding payments cards with auto-link false
 
+  Given I am a Bink user
+  When I perform POST request to add "FatFace" membership card
+  And I perform POST request to add payment card to wallet
+  And I perform the GET request to verify the payment card has been added successfully
+  And I perform GET request to verify the "FatFace" membership card is added & linked successfully in the wallet
+  And I perform DELETE request to delete the "FatFace" membership card
+  Then I perform DELETE request to delete the payment card
 
