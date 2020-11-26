@@ -8,100 +8,34 @@ from azure.storage.blob import BlobClient, ContentSettings
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.schedulers.blocking import BlockingScheduler
 
-env = os.getenv("ENV", "dev")
-mode = os.getenv("MODE", "daily")
+name = os.getenv("FRIENDLY_NAME")
 blob_storage_dsn = os.getenv("BLOB_STORAGE_DSN")
-
-teams_webhook_qa = "https://outlook.office.com/webhook/bf220ac8-d509-474f-a568-148982784d19@a6e2367a-92ea-4e5a-b565-723830bcc095/IncomingWebhook/5d25733db5994811b6ee4049ef74713e/48aca6b1-4d56-4a15-bc92-8aa9d97300df"  # noqa
-teams_webhook_alerts_qa = "https://outlook.office.com/webhook/bf220ac8-d509-474f-a568-148982784d19@a6e2367a-92ea-4e5a-b565-723830bcc095/IncomingWebhook/0856493823a1484b9adfa37c942d2da4/48aca6b1-4d56-4a15-bc92-8aa9d97300df"  # noqa
-teams_webhook_alerts_production = "https://outlook.office.com/webhook/bf220ac8-d509-474f-a568-148982784d19@a6e2367a-92ea-4e5a-b565-723830bcc095/IncomingWebhook/7ae4116d366e4e5a92a65d9135a0664d/48aca6b1-4d56-4a15-bc92-8aa9d97300df"  # noqa
-
-config = {
-    "dev": {
-        "command": [
-            "pytest",
-            "--html",
-            "report.html",
-            "--self-contained-html",
-            "-s",
-            "-m",
-            "dev",
-            "--channel",
-            "barclays",
-        ],
-        "daily": {"cron": "5 22 * * *"},
-    },
-    "staging": {
-        "command": [
-            "pytest",
-            "--html",
-            "report.html",
-            "--self-contained-html",
-            "-s",
-            "-m",
-            "staging",
-            "--env",
-            "staging",
-            "--channel",
-            "barclays",
-        ],
-        "daily": {"cron": "5 22 * * *"},
-    },
-    "preprod": {
-        "command": [
-            "pytest",
-            "--html",
-            "report.html",
-            "--self-contained-html",
-            "-m",
-            "preprod",
-            "--env",
-            "preprod",
-            "--channel",
-            "barclays",
-        ],
-        "daily": {"cron": "5 22 * * *"},
-        "continuous": {"cron": "0 * * * *"},
-    },
-    "prod": {
-        "command": [
-            "pytest",
-            "--html",
-            "report.html",
-            "--self-contained-html",
-            "-m",
-            "prod",
-            "--env",
-            "prod",
-            "--channel",
-            "barclays",
-        ],
-        "daily": {"cron": "5 22 * * *"},
-        "continuous": {"cron": "0 * * * *"},
-    },
-}
+teams_webhook = os.getenv("TEAMS_WEBHOOK")
+schedule = os.getenv("SCHEDULE")
+command = os.getenv("COMMAND")
+alert_on_success = os.getenv('ALERT_ON_SUCCESS', True)
+alert_on_failure = os.getenv('ALERT_ON_FAILURE', True)
 
 
 def run_test():
     try:
-        process = subprocess.run(config[env]["command"], timeout=540, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process = subprocess.run(command, timeout=540, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except subprocess.TimeoutExpired:
-        print('Timeout occurred, skipping run')
+        print("Timeout occurred, skipping run")
         return
     print(process.stdout.decode())
+    alert = False
     if process.returncode == 0:
         status = "Success"
+        if alert_on_success:
+            alert = True
     else:
         status = "Failure"
+        if alert_on_failure:
+            alert = True
     url = upload("report.html")
-    if env == "prod":
-        if status == "Success":
-            post(teams_webhook_alerts_qa, status, url)
-        if status == "Failure":
-            post(teams_webhook_alerts_production, status, url)
-            post(teams_webhook_alerts_qa, status, url)
-    else:
-        post(teams_webhook_qa, status, url)
+    if alert:
+        post(teams_webhook, status, url)
 
 
 def upload(filename):
@@ -125,13 +59,11 @@ def post(webhook, status, url):
         "@type": "MessageCard",
         "@context": "http://schema.org/extensions",
         "themeColor": themeColor,
-        "summary": f"{mode.title()} Test Results",
+        "summary": f"{name} Test Results",
         "Sections": [
             {
-                "activityTitle": f"{mode.title()} Test Results",
+                "activityTitle": f"{name} Test Results",
                 "facts": [
-                    {"name": "Environment", "value": env},
-                    {"name": "Mode", "value": mode},
                     {"name": "Status", "value": status},
                     {"name": "URL", "value": f"[{url}]({url})"},
                 ],
@@ -144,7 +76,7 @@ def post(webhook, status, url):
 
 def main():
     scheduler = BlockingScheduler()
-    scheduler.add_job(run_test, trigger=CronTrigger.from_crontab(config[env][mode]["cron"]))
+    scheduler.add_job(run_test, trigger=CronTrigger.from_crontab(schedule))
     scheduler.start()
 
 
