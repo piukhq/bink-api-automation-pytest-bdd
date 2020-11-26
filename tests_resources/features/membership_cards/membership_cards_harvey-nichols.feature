@@ -96,3 +96,24 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
 #      |auto_zero@testbink.web     | BinkTesting | failed |  X303      |
 #      |auto_zero@testbink.com     | BinkT       | failed |  X303      |
 
+@add_always_link @dev @staging @LOY-1211
+Scenario: Adding payments cards to always auto-link
+
+  Given I am a Bink user
+  When I perform POST request to add "HarveyNichols" membership card
+  And I perform POST request to add payment card to wallet
+  And I perform the GET request to verify the payment card has been added successfully
+  And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
+  And I perform DELETE request to delete the "HarveyNichols" membership card
+  Then I perform DELETE request to delete the payment card
+
+@add_always_link @LOY-1211
+Scenario: Adding payments cards with autolink false should not link membership card
+
+  Given I am a Bink user
+  When I perform POST request to add "HarveyNichols" membership card
+  And I perform POST request to add "master" payment card to wallet with autolink false
+  And I perform the GET request to verify the payment card has been added successfully
+  And  I perform GET request to verify the "HarveyNichols" membership card is added & not linked in the wallet
+  And I perform DELETE request to delete the "HarveyNichols" membership card
+  And I perform DELETE request to delete the payment card
