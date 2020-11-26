@@ -8,6 +8,7 @@ visa_payment_card = {
     "month": 10,
     "year": 2026,
     "fingerprint": "b0548a5e26030ccd853fcb70e9011fb79577",
+    "hash": "pytest7117",
     "status": "active",
     "active_link": True
 }
@@ -15,11 +16,12 @@ visa_payment_card = {
 amex_payment_card = {
     "first_six_digits": "378282",
     "last_four_digits": "0005",
-    "token": "amexAutoPaymentcardtoken",
-    "name_on_card": "amexAutoPaymentcardbinkcom",
+    "token": "pytest7117",
+    "name_on_card": "amex_dev_test",
     "month": 1,
     "year": 2044,
-    "fingerprint": "amexAutoPaymentcardbinkcom",
+    "fingerprint": "pytest7117",
+    "hash": "pytest7117",
     "status": "active",
     "active_link": True
 }
@@ -27,14 +29,16 @@ amex_payment_card = {
 master_payment_card = {
     "first_six_digits": "555555",
     "last_four_digits": "4444",
-    "token": "mastercardAutoPaymentcardtoken",
-    "name_on_card": "mastercardAutoPaymentcardbinkcom",
+    "token": "pytest4011",
+    "name_on_card": "master_dev_test",
     "month": 1,
     "year": 2044,
-    "fingerprint": "mastercardAutoPaymentcardbinkcom",
+    "fingerprint": "pytest4011",
+    "hash": "pytest4011",
     "status": "active",
     "active_link": True
 }
+
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #
 
 burger_king_membership_card = {
