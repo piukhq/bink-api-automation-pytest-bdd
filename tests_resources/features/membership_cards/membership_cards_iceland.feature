@@ -62,30 +62,30 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "Iceland" membership card
 
 
-   @enrol @dev
-    Scenario: Join Journey_Iceland
-
-    Given I register with bink service as a new customer
-    When I perform POST request to create a "Iceland" membership account with enrol credentials
-    And I perform GET request to verify the "Iceland" membership account is created
-    Then verify the data stored in DB after "Enrol" journey for "Iceland"
-    Then I perform DELETE request to delete the "Iceland" membership card
-    And I perform DELETE request to delete the customer
-
-
-  @enrol_put @dev
-
-  Scenario: Join Journey_PUT_Iceland
-
-
-    Given I register with bink service as a new customer
-    When I perform POST request to create a "Iceland" membership account with "invalid" enrol credentials
-    And I perform GET request to verify the "Iceland" membership account is created with invalid data
-    And I perform PUT request to replace information of the enrolled "Iceland" membership card
-    And I perform GET request to verify the enrolled "Iceland" membership card details got replaced after a successful PUT
-    Then verify the data stored in DB after "Enrol" journey for "Iceland"
-    Then I perform DELETE request to delete the "Iceland" membership card
-    And I perform DELETE request to delete the customer
+#   @enrol @dev
+#    Scenario: Join Journey_Iceland
+#
+#    Given I register with bink service as a new customer
+#    When I perform POST request to create a "Iceland" membership account with enrol credentials
+#    And I perform GET request to verify the "Iceland" membership account is created
+#    Then verify the data stored in DB after "Enrol" journey for "Iceland"
+#    Then I perform DELETE request to delete the "Iceland" membership card
+#    And I perform DELETE request to delete the customer
+#
+#
+#  @enrol_put @dev
+#
+#  Scenario: Join Journey_PUT_Iceland
+#
+#
+#    Given I register with bink service as a new customer
+#    When I perform POST request to create a "Iceland" membership account with "invalid" enrol credentials
+#    And I perform GET request to verify the "Iceland" membership account is created with invalid data
+#    And I perform PUT request to replace information of the enrolled "Iceland" membership card
+#    And I perform GET request to verify the enrolled "Iceland" membership card details got replaced after a successful PUT
+#    Then verify the data stored in DB after "Enrol" journey for "Iceland"
+#    Then I perform DELETE request to delete the "Iceland" membership card
+#    And I perform DELETE request to delete the customer
 
     @add_always_link @dev @staging @LOY-1211
   Scenario: Adding payments cards to always auto-link
