@@ -419,11 +419,11 @@ def verify_membership_card_single_transaction_detail(merchant):
 
 @then(parsers.parse('verify the data stored in DB after "{journey_type}" journey for "{merchant}"'))
 def verify_db_details(journey_type, merchant, env):
-    if env == "prod":
+    if env in ("dev", "staging", "prod"):
         """There is no DB validation in production suite"""
         pass
 
-    elif env in ("dev", "staging"):
+    else:
 
         scheme_account = QueryHermes.fetch_scheme_account(journey_type, TestContext.current_scheme_account_id)
 
