@@ -5,7 +5,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
   So I can add my card, with the scheme provider Wasabi & check its details successfully
 
 
-  @add
+  @add @dev @staging
   Scenario: Add Journey_Wasabi
 
     Given I am a Bink user
@@ -14,7 +14,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     And I perform DELETE request to delete the "Wasabi" membership card
 
-  @balances_transactions
+  @balances_transactions @dev @staging
   Scenario: Balances and Transactions_Wasabi
 
     Given I am a Bink user
@@ -36,7 +36,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     Then I perform DELETE request to delete the "Wasabi" membership card
 
-  @add_patch
+  @add_patch @dev @staging
   Scenario:  PATCH membership card details_Wasabi
 
     Given I am a Bink user
@@ -47,7 +47,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     And I perform DELETE request to delete the "Wasabi" membership card
 
- @add_and_link
+ @add_and_link @dev @staging
   Scenario: ADD & LINK Journey_Wasabi
     Given I am a Bink user
     And I perform POST request to add payment card to wallet
@@ -60,7 +60,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     And I perform DELETE request to delete the payment card
 
 
-  @enrol
+  @enrol @dev
     Scenario: Join Journey_Wasabi
 
     Given I register with bink service as a new customer
@@ -69,7 +69,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Enrol" journey for "Wasabi"
     Then I perform DELETE request to delete the "Wasabi" membership card
 
-  @enrol_put
+  @enrol_put @dev
   Scenario: Join Journey_PUT_Wasabi
 
 
