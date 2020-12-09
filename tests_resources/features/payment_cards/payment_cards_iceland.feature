@@ -1,4 +1,4 @@
-@iceland @payment_cards @bmb
+@iceland @payment_cards
 Feature: Merchant Iceland - Ensure a customer can add their payment card & link it to loyalty membership card
   and view their card(s) details
 
@@ -6,7 +6,7 @@ Feature: Merchant Iceland - Ensure a customer can add their payment card & link 
   I want to utilise payment_cards endpoint
   So I can add my payment card and can link to Iceland membership card & check the details successfully
 
-  @dev @staging
+  @bink_regression @bmb_regression
   Scenario Outline: ADD & LINK Journey_Iceland
 
     Given I am a Bink user
@@ -19,9 +19,9 @@ Feature: Merchant Iceland - Ensure a customer can add their payment card & link 
     | payment_card_provider|
     |          amex        |
     |          master      |
-    |          visa        |
+#    |          visa        |
 
-    @dev @staging
+    @bink_regression @bmb_regression
     Scenario: PLL Link by PATCH_(mcard_pcard)_Iceland
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -37,7 +37,7 @@ Feature: Merchant Iceland - Ensure a customer can add their payment card & link 
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
 
-     @dev @staging
+     @bink_regression @bmb_regression
     Scenario: PLL Link by PATCH_(pcard_mcard)_Iceland
 
     Given I am a customer who is subscribing to Bink or I am Bink app user

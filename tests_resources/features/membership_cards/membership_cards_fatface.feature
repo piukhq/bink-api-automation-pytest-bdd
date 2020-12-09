@@ -6,7 +6,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
 
 # fatface testdata used by ba so db verification dates comming different. once confirm testdata remove db commented line
 
-  @add @dev @staging
+  @add  @bink_regression
   Scenario: Add Journey_FatFace
 
     Given I am a Bink user
@@ -16,7 +16,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the "FatFace" membership card
 
 
-  @add_patch @dev @staging
+  @add_patch  @bink_regression
   Scenario: PATCH membership card details_FatFace
 
     Given I am a Bink user
@@ -28,7 +28,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the "FatFace" membership card
 
 
-  @add_and_link @dev @staging
+  @add_and_link  @bink_regression
   Scenario: ADD & LINK Journey_FatFace
 
     Given I am a Bink user
@@ -41,7 +41,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "FatFace" membership card
     And I perform DELETE request to delete the payment card
 
-  @enrol @dev
+  @enrol 
   Scenario: Join Journey_FatFace
 
     Given I register with bink service as a new customer
@@ -51,7 +51,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "FatFace" membership card
     And I perform DELETE request to delete the customer
 
-  @enrol_put @dev
+  @enrol_put 
   Scenario: Join Journey_PUT_FatFace
 
     Given I register with bink service as a new customer
@@ -63,7 +63,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "FatFace" membership card
     And I perform DELETE request to delete the customer
 
-  @balances_transactions @dev @staging
+  @balances_transactions  @bink_regression
   Scenario: Balances and Transactions_Fatface
 
     Given I am a Bink user

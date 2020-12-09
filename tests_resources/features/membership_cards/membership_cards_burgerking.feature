@@ -4,7 +4,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
   I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider BurgerKing & check its details successfully
 
-@add @dev @staging
+@add @bink_regression
     Scenario: Add Journey_BurgerKing
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -14,7 +14,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then I perform DELETE request to delete the "BurgerKing" membership card
 
 
-    @balances_transactions @dev @staging
+    @balances_transactions @bink_regression
   Scenario: Balances and Burgerking
 
     Given I am a Bink user
@@ -34,7 +34,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then verify the data stored in DB after "Add" journey for "BurgerKing"
     Then I perform DELETE request to delete the "BurgerKing" membership card
 
-@add_patch @dev @staging
+@add_patch @bink_regression
   Scenario: PATCH membership card details_BurgerKing
 
     Given I am a Bink user
@@ -46,7 +46,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     And I perform DELETE request to delete the "BurgerKing" membership card
 
   
-  @add_and_link @dev @staging
+  @add_and_link @bink_regression
   Scenario: ADD & LINK Journey_BurgerKing
 
     Given I am a Bink user
@@ -59,7 +59,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then I perform DELETE request to delete the "BurgerKing" membership card
     And I perform DELETE request to delete the payment card
 
-@enrol @dev
+@enrol @bink_regression
     Scenario: Join Journey_BurgerKing
 
     Given I register with bink service as a new customer
@@ -69,7 +69,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then I perform DELETE request to delete the "BurgerKing" membership card
     And I perform DELETE request to delete the customer
 
-@enrol_put @dev
+@enrol_put @bink_regression
   Scenario: Join Journey_PUT_BurgerKing
 
     Given I register with bink service as a new customer

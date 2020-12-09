@@ -6,7 +6,7 @@ Feature: Merchant FatFace - Ensure a customer can view Scheme plan details
 
   Verify a customer can use Banking API to view available FatFace membership plans v1.2
 
-  @membership_plan
+  @membership_plan @bink_regression
   Scenario: Membership plans_FatFace
     Given I am a Bink user
     When I perform GET request to view all available membership plans

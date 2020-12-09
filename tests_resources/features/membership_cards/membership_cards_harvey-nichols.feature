@@ -5,7 +5,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
   So I can add my card, with the scheme provider Harvey Nichols & check its details successfully
 
 
-  @add @dev @staging @prod
+  @add @bink_regression @bmb_regression
   Scenario: Add Journey_HarveyNichols
 
     Given I am a Bink user
@@ -14,7 +14,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then verify the data stored in DB after "Add" journey for "HarveyNichols"
     And I perform DELETE request to delete the "HarveyNichols" membership card
 
-  @balances_transactions @dev @staging @prod
+  @balances_transactions @bink_regression @bmb_regression
   Scenario: Balances and Transactions_HarveyNichols
 
     Given I am a Bink user
@@ -26,7 +26,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then verify the data stored in DB after "Add" journey for "HarveyNichols"
     And I perform DELETE request to delete the "HarveyNichols" membership card
 
-  @add_patch @dev @staging @prod
+  @add_patch @bink_regression @bmb_regression 
   Scenario:  Add Journey_PATCH_HarveyNichols
 
     Given I am a Bink user
@@ -37,7 +37,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then verify the data stored in DB after "Add" journey for "HarveyNichols"
     And I perform DELETE request to delete the "HarveyNichols" membership card
 
-  @add_and_link @dev @staging
+  @add_and_link @bink_regression @bmb_regression 
 
   Scenario: ADD & LINK Journey_HarveyNichols
 
@@ -50,7 +50,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the payment card
 
-    @dev @staging @prod
+    @bink_regression @bmb_regression 
     Scenario:  Add_Journey with Invalid Credentials_Harvey Nichols
 
     Given I am a Bink user
@@ -58,27 +58,27 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     And I perform GET request to verify the "HarveyNichols" membership card is added to the wallet with invalid data
     Then I perform DELETE request to delete the "HarveyNichols" membership card
 
-#  @enrol @dev
-#    Scenario: Join Journey_HarveyNichols
-#
-#    Given I register with bink service as a new customer
-#    When I perform POST request to create a "HarveyNichols" membership account with enrol credentials
-#    And I perform GET request to verify the "HarveyNichols" membership account is created
-#    Then verify the data stored in DB after "Enrol" journey for "HarveyNichols"
-#    Then I perform DELETE request to delete the "HarveyNichols" membership card
-#    And I perform DELETE request to delete the customer
-#
-#  @enrol_put @dev
-#  Scenario: Join Journey_PUT_HarveyNichols
-#
-#    Given I register with bink service as a new customer
-#    When I perform POST request to create a "HarveyNichols" membership account with "invalid" enrol credentials
-#    And I perform GET request to verify the "HarveyNichols" membership account is created with invalid data
-#    And I perform PUT request to replace information of the enrolled "HarveyNichols" membership card
-#    And I perform GET request to verify the enrolled "HarveyNichols" membership card details got replaced after a successful PUT
-#    Then verify the data stored in DB after "Enrol" journey for "HarveyNichols"
-#    Then I perform DELETE request to delete the "HarveyNichols" membership card
-#    And I perform DELETE request to delete the customer
+  @enrol
+    Scenario: Join Journey_HarveyNichols
+
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "HarveyNichols" membership account with enrol credentials
+    And I perform GET request to verify the "HarveyNichols" membership account is created
+    Then verify the data stored in DB after "Enrol" journey for "HarveyNichols"
+    Then I perform DELETE request to delete the "HarveyNichols" membership card
+    And I perform DELETE request to delete the customer
+
+  @enrol_put
+  Scenario: Join Journey_PUT_HarveyNichols
+
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "HarveyNichols" membership account with "invalid" enrol credentials
+    And I perform GET request to verify the "HarveyNichols" membership account is created with invalid data
+    And I perform PUT request to replace information of the enrolled "HarveyNichols" membership card
+    And I perform GET request to verify the enrolled "HarveyNichols" membership card details got replaced after a successful PUT
+    Then verify the data stored in DB after "Enrol" journey for "HarveyNichols"
+    Then I perform DELETE request to delete the "HarveyNichols" membership card
+    And I perform DELETE request to delete the customer
 
 #
 #  Scenario Outline:  Add_Journey_Invalid data_Error code checks
@@ -96,7 +96,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
 #      |auto_zero@testbink.web     | BinkTesting | failed |  X303      |
 #      |auto_zero@testbink.com     | BinkT       | failed |  X303      |
 
-@add_always_link @LOY-1211
+@add_always_link @bink_regression @bmb_regression
 Scenario: Adding payments cards to always auto-link
 
   Given I am a Bink user
@@ -106,13 +106,13 @@ Scenario: Adding payments cards to always auto-link
   And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
 
 
-#@add_always_link @LOY-1211
-#Scenario: Adding payments cards with autolink false should not link membership card
-#
-#  Given I am a Bink user
-#  When I perform POST request to add "HarveyNichols" membership card
-#  And I perform POST request to add "master" payment card to wallet with autolink false
-#  And I perform the GET request to verify the payment card has been added successfully
-#  And  I perform GET request to verify the "HarveyNichols" membership card is added & not linked in the wallet
-#  And I perform DELETE request to delete the "HarveyNichols" membership card
-#  And I perform DELETE request to delete the payment card
+@add_always_link
+Scenario: Adding payments cards with autolink false should not link membership card
+
+  Given I am a Bink user
+  When I perform POST request to add "HarveyNichols" membership card
+  And I perform POST request to add "master" payment card to wallet with autolink false
+  And I perform the GET request to verify the payment card has been added successfully
+  And  I perform GET request to verify the "HarveyNichols" membership card is added & not linked in the wallet
+  And I perform DELETE request to delete the "HarveyNichols" membership card
+  And I perform DELETE request to delete the payment card

@@ -1,4 +1,4 @@
-@harvey_nichols @payment_cards  @bmb
+@harvey_nichols @payment_cards
 Feature: Merchant Harvey Nichols - Ensure a customer can add their payment card & link it to loyalty membership card
   and view their card(s) details
 
@@ -6,7 +6,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their payment card 
   I want to utilise payment_cards endpoint
   So I can add my payment card and can link to Harvey Nichols membership card & check the details successfully
 
-  @dev @staging
+  @bink_regression @bmb_regression
   Scenario Outline: ADD & LINK Journey_HarveyNichols
 
     Given I am a Bink user
@@ -19,9 +19,9 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their payment card 
     | payment_card_provider|
     |          amex        |
     |          master      |
-    |          visa        |
+#    |          visa        |
 
-     @dev @staging
+     @bink_regression @bmb_regression
     Scenario: PLL Link by PATCH_(mcard_pcard)_HarveyNichols
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -37,7 +37,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their payment card 
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
 
-     @dev @staging
+     @bink_regression @bmb_regression
     Scenario: PLL Link by PATCH_(pcard_mcard)_HarveyNichols
 
     Given I am a customer who is subscribing to Bink or I am Bink app user

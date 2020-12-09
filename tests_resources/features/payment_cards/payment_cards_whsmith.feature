@@ -6,7 +6,7 @@ Feature: Merchant WhSmith - Ensure a customer can add their payment card & link 
   I want to utilise payment_cards endpoint
   So I can add my payment card and can link to WhSmith membership card & check the details successfully
 
-  @pll
+  @pll 
   Scenario Outline: ADD & LINK Journey_WhSmith
 
     Given I am a Bink user
@@ -19,9 +19,9 @@ Feature: Merchant WhSmith - Ensure a customer can add their payment card & link 
     | payment_card_provider|
     |          amex        |
     |          master      |
-    |          visa        |
+#    |          visa        |
 
-    @patch_mcard_pcard
+    @patch_mcard_pcard 
     Scenario: PLL Link by PATCH_(mcard_pcard)_WhSmith
 
     Given I am a customer who is subscribing to Bink or I am Bink app user

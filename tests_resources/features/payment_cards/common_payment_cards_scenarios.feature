@@ -9,7 +9,7 @@ Feature: This feature file contains different features related to payment cards
   So I can add my payment card and can link to Harvey Nichols membership card & check the details successfully
 
 
-    @staging
+  @bink_regression @bmb_regression
     Scenario: Verify deletion of membership card linked to a Payment card deletes PLL link
 
     Given I register with bink service as a new customer
@@ -25,7 +25,7 @@ Feature: This feature file contains different features related to payment cards
 #      Scenario: Check a customer can auto link a membership card to a payment card
 #      Scenario: Verify for a new customer with one mcard & pacrd linked in wallet returns only one PLL link in the response
 
-    @staging
+  @bink_regression @bmb_regression
     Scenario: Verify deletion of Payment card linked to a membership card deletes PLL link
 
     Given I register with bink service as a new customer
@@ -37,7 +37,7 @@ Feature: This feature file contains different features related to payment cards
     And I perform GET/membership_card/id request to verify the payment card is unlinked from "HarveyNichols" membership card
     Then I perform DELETE request to delete the customer
 
-    @staging
+  @bink_regression @bmb_regression
     Scenario: Check a customer can link multiple payment cards to the same membership card
 
     Given I register with bink service as a new customer
@@ -64,7 +64,7 @@ Feature: This feature file contains different features related to payment cards
     And I perform GET/payment_card/id request to verify the membership card is unlinked
    Then I perform DELETE request to delete the customer
 
-  @staging
+@bink_regression @bmb_regression
   Scenario: Delete Payment card by hash
 
     Given I register with bink service as a new customer
