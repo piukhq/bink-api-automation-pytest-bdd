@@ -88,12 +88,12 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
 #    And I perform DELETE request to delete the customer
 
     @add_always_link @dev @staging @LOY-1211
-  Scenario: Adding payments cards to always auto-link
+  Scenario: Adding payments cards to always auto-link_Iceland
 
   Given I am a Bink user
   When I perform POST request to add "Iceland" membership card
   And I perform POST request to add payment card to wallet
   And I perform the GET request to verify the payment card has been added successfully
   And I perform GET request to verify the "Iceland" membership card is added & linked successfully in the wallet
-  And I perform DELETE request to delete the "Iceland" membership card
-  Then I perform DELETE request to delete the payment card
+  Then I perform DELETE request to delete the "Iceland" membership card
+  And I perform DELETE request to delete the payment card

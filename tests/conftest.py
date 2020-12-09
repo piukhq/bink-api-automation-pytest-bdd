@@ -1,6 +1,6 @@
 import pytest
 import logging
-from pytest_bdd import given, then, parsers, when
+from pytest_bdd import given, then, parsers
 from requests.exceptions import HTTPError
 
 import config
@@ -149,7 +149,6 @@ def delete_payment_card():
 
 
 @then(parsers.parse('I perform DELETE request to delete the "{merchant}" membership card'))
-@when(parsers.parse('I perform DELETE request to delete the "{merchant}" membership card'))
 def delete_scheme_account(merchant=None):
     response_del_schemes = MembershipCards.delete_scheme_account(TestContext.token,
                                                                  TestContext.current_scheme_account_id)
