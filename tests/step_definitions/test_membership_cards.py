@@ -126,8 +126,8 @@ def patch_request_to_update_membership_card_details(merchant):
 
 
 @when(parsers.parse('I perform POST request to create a "{merchant}" membership account with enrol credentials'))
-def enrol_membership_account(merchant, register_user, test_email, env, channel):
-    TestContext.token = register_user
+def enrol_membership_account(merchant, test_email, env, channel):
+
     response = MembershipCards.enrol_customer(TestContext.token, merchant, test_email, env, channel)
     response_json = response_to_json(response)
     TestContext.current_scheme_account_id = response_json.get("id")
@@ -147,8 +147,7 @@ def enrol_membership_account(merchant, register_user, test_email, env, channel):
     'I perform POST request to create a "{merchant}" membership account with "{invalid}" enrol credentials'
 )
 )
-def enrol_membership_account_invalid_credentials(merchant, register_user, test_email, env, channel, invalid):
-    TestContext.token = register_user
+def enrol_membership_account_invalid_credentials(merchant, test_email, env, channel, invalid):
     response = MembershipCards.enrol_customer(TestContext.token, merchant, test_email, env, channel, invalid)
     response_json = response_to_json(response)
     TestContext.current_scheme_account_id = response_json.get("id")

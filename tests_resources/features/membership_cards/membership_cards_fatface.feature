@@ -13,7 +13,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     When I perform POST request to add "FatFace" membership card
     And I perform GET request to verify the "FatFace" membership card is added to the wallet
 #    Then verify the data stored in DB after "Add" journey for "FatFace"
-    And I perform DELETE request to delete the "FatFace" membership card
+    Then I perform DELETE request to delete the "FatFace" membership card
 
 
   @add_patch  @bink_regression
@@ -25,7 +25,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     And I perform PATCH request to update "FatFace" membership card
     And I perform GET request to verify the "FatFace" membership card details got updated after a successful PATCH
 #    Then verify the data stored in DB after "Add" journey for "FatFace"
-    And I perform DELETE request to delete the "FatFace" membership card
+    Then I perform DELETE request to delete the "FatFace" membership card
 
 
   @add_and_link  @bink_regression
@@ -73,7 +73,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
 #    When I perform GET request to view all transactions made using the recently added "FatFace" membership card
 #    Then I perform GET request to view a specific transaction made using the recently added "FatFace" membership card
     Then verify the data stored in DB after "Add" journey for "FatFace"
-    And I perform DELETE request to delete the "FatFace" membership card
+    Then I perform DELETE request to delete the "FatFace" membership card
 
   @voucher
   Scenario: verify Vouchers for Fatface
@@ -91,6 +91,6 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
   And I perform POST request to add payment card to wallet
   And I perform the GET request to verify the payment card has been added successfully
   And I perform GET request to verify the "FatFace" membership card is added & linked successfully in the wallet
-  And I perform DELETE request to delete the "FatFace" membership card
+  Then I perform DELETE request to delete the "FatFace" membership card
   Then I perform DELETE request to delete the payment card
 

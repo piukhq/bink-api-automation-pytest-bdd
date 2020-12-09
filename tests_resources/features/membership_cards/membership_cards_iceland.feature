@@ -87,7 +87,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "Iceland" membership card
     And I perform DELETE request to delete the customer
 
-    @add_always_link @bink_regression @bmb_regression
+    @add_always_link
   Scenario: Adding payments cards to always auto-link_Iceland
 
   Given I am a Bink user
