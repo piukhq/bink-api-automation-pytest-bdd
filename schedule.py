@@ -19,7 +19,7 @@ alert_on_failure = os.getenv('ALERT_ON_FAILURE', True)
 
 def run_test():
     try:
-        process = subprocess.run(command.split(" "), timeout=540, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process = subprocess.run(command.split(" "), timeout=1200, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except subprocess.TimeoutExpired:
         print("Timeout occurred, skipping run")
         return
