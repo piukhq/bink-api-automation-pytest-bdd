@@ -1,4 +1,4 @@
-@iceland @bmb
+@iceland @bmb @bink
 Feature: Merchant Iceland - Ensure a customer can add their membership card & view its details for merchant Iceland
   As a customer
   I want to utilise membership_cards endpoint
@@ -62,7 +62,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "Iceland" membership card
 
 
-   @enrol @dev
+   @enrol
     Scenario: Join Journey_Iceland
 
     Given I register with bink service as a new customer
@@ -73,11 +73,8 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the customer
 
 
-  @enrol_put @dev
-
+  @enrol_put
   Scenario: Join Journey_PUT_Iceland
-
-
     Given I register with bink service as a new customer
     When I perform POST request to create a "Iceland" membership account with "invalid" enrol credentials
     And I perform GET request to verify the "Iceland" membership account is created with invalid data

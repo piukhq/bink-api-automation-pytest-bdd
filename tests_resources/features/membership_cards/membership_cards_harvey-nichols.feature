@@ -1,4 +1,4 @@
-@harvey_nichols @bmb @
+@harvey_nichols @bmb @bink
 Feature: Merchant Harvey Nichols - Ensure a customer can add their membership card & view its details for merchant Harvey Nichols
   As a customer
   I want to utilise membership_cards endpoint
@@ -107,13 +107,13 @@ Scenario: Adding payments cards to always auto-link
   Then I perform DELETE request to delete the "HarveyNichols" membership card
   And I perform DELETE request to delete the payment card
 
-@add_always_link
-Scenario: Adding payments cards with autolink false should not link membership card
-
-  Given I am a Bink user
-  When I perform POST request to add "HarveyNichols" membership card
-  And I perform POST request to add "master" payment card to wallet with autolink false
-  And I perform the GET request to verify the payment card has been added successfully
-  And  I perform GET request to verify the "HarveyNichols" membership card is added & not linked in the wallet
-  And I perform DELETE request to delete the "HarveyNichols" membership card
-  And I perform DELETE request to delete the payment card
+#@add_always_link
+#Scenario: Adding payments cards with autolink false should not link membership card
+#
+#  Given I am a Bink user
+#  When I perform POST request to add "HarveyNichols" membership card
+#  And I perform POST request to add "master" payment card to wallet with autolink false
+#  And I perform the GET request to verify the payment card has been added successfully
+#  And  I perform GET request to verify the "HarveyNichols" membership card is added & not linked in the wallet
+#  And I perform DELETE request to delete the "HarveyNichols" membership card
+#  And I perform DELETE request to delete the payment card

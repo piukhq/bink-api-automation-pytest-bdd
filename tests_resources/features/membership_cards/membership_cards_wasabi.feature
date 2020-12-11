@@ -1,4 +1,4 @@
-@wasabi
+@wasabi @bink
 Feature: Merchant Wasabi - Ensure a customer can add their membership card & view its details for merchant Wasabi
   As a customer
   I want to utilise membership_cards endpoint
@@ -71,8 +71,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
 
   @enrol_put @bink_regression
   Scenario: Join Journey_PUT_Wasabi
-
-
+    
     Given I register with bink service as a new customer
     When I perform POST request to create a "Wasabi" membership account with "invalid" enrol credentials
     And I perform GET request to verify the "Wasabi" membership account is created with invalid data

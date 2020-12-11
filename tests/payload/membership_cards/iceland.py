@@ -62,7 +62,7 @@ class IcelandCard:
                 enrol_consent = "Consent 1"
             elif env == "staging":
                 enrol_consent = "Consent 2"
-        elif channel == "Bink":
+        elif channel == "bink":
             enrol_consent = "Enrol Consent 1"
 
         payload = {
