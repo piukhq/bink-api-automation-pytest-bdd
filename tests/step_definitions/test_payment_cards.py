@@ -59,7 +59,7 @@ def add_multiple_payment_cards():
     """Adding a master card"""
     add_payment_card("master")
     add_payment_card("amex")
-    add_payment_card("visa")
+    # add_payment_card("visa")
     """Visa is taking more time to get authorised"""
     time.sleep(3)
 
@@ -75,7 +75,7 @@ def verify_multi_payment_card_added():
             response.status_code == 200
             and response_json[0]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
             and response_json[1]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
-            and response_json[2]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
+            # and response_json[2]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
     ), "Payment card addition is not successful"
     return response
 
@@ -168,8 +168,6 @@ def verify_multi_payment_card_add_link():
             and response_json[0]["membership_cards"][0]["active_link"]
             and response_json[1]["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
             and response_json[1]["membership_cards"][0]["active_link"]
-            and response_json[0]["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
-            and response_json[0]["membership_cards"][0]["active_link"]
     ), "Membership card link to all the payment cards is not a success"
 
 
@@ -191,7 +189,7 @@ def verify_membership_cards_unlink():
     assert (
             response_json[0]["membership_cards"] == []
             and response_json[1]["membership_cards"] == []
-            and response_json[2]["membership_cards"] == []
+            # and response_json[2]["membership_cards"] == []
     ), "membership is not successfully unlink even after deletion"
     logging.info(f"Membership card '{TestContext.current_scheme_account_id}' is successfully unlinked from"
                  f"Payment card '{TestContext.current_payment_card_id}'")
@@ -199,7 +197,7 @@ def verify_membership_cards_unlink():
     """Storing each payment card ids for deletion"""
     TestContext.payment_card_1 = response_json[0]["id"]
     TestContext.payment_card_2 = response_json[1]["id"]
-    TestContext.payment_card_3 = response_json[2]["id"]
+    # TestContext.payment_card_3 = response_json[2]["id"]
 
 
 @then(parsers.parse('I perform GET/membership_card/id request to verify the payment card is unlinked from'
@@ -218,12 +216,12 @@ def verify_payment_card_unlink(merchant):
 def delete_all_payment_cards():
     response_payment_card_1 = PaymentCards.delete_payment_card(TestContext.token, TestContext.payment_card_1)
     response_payment_card_2 = PaymentCards.delete_payment_card(TestContext.token, TestContext.payment_card_2)
-    response_payment_card_3 = PaymentCards.delete_payment_card(TestContext.token, TestContext.payment_card_3)
+    # response_payment_card_3 = PaymentCards.delete_payment_card(TestContext.token, TestContext.payment_card_3)
 
     try:
         if response_payment_card_1.status_code == 200 \
-                or response_payment_card_2.status_code == 200 \
-                or response_payment_card_3.status_code == 200:
+                or response_payment_card_2.status_code == 200:
+            # or response_payment_card_3.status_code == 200:
             logging.info("Payment card is deleted successfully")
         else:
             logging.info("Payment card is already  deleted")
@@ -283,8 +281,8 @@ def get_add_and_link_to_many_pcards(merchant):
     response = test_membership_cards.verify_add_and_link_membership_card(merchant)
     response_json = response_to_json(response)
     assert (response_json["payment_cards"][0]["active_link"]
-            and response_json["payment_cards"][1]["active_link"]
-            and response_json["payment_cards"][2]["active_link"])
+            and response_json["payment_cards"][1]["active_link"])
+    # and response_json["payment_cards"][2]["active_link"])
 
 
 def response_to_json(response):
