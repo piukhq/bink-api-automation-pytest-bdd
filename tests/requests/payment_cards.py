@@ -23,6 +23,8 @@ class PaymentCards(Endpoint):
     def get_payment_card(token, payment_card_id):
         url = PaymentCards.get_url(payment_card_id)
         header = Endpoint.request_header(token)
+        time.sleep(3)
+
         for i in range(1, 30):
             response = Endpoint.call(url, header, "GET")
             try:
@@ -31,7 +33,7 @@ class PaymentCards(Endpoint):
                     time.sleep(1)
                 else:
                     break
-            except JSONDecodeError:
+            except (JSONDecodeError, KeyError):
                 logging.info(
                     "The response text:  " + response.text + "\n The response Status Code: " +
                     str(response.status_code))
@@ -51,7 +53,7 @@ class PaymentCards(Endpoint):
                     time.sleep(1)
                 else:
                     break
-            except JSONDecodeError:
+            except (JSONDecodeError, KeyError):
                 logging.info(
                     "The response text:  " + response.text + "\n The response Status Code: " +
                     str(response.status_code))

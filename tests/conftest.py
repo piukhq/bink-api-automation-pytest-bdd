@@ -1,5 +1,6 @@
 import pytest
 import logging
+import time
 from pytest_bdd import given, then, parsers
 from requests.exceptions import HTTPError
 
@@ -137,6 +138,9 @@ def delete_payment_card():
     response = PaymentCards.delete_payment_card(TestContext.token, TestContext.current_payment_card_id)
     response1 = PaymentCards.delete_payment_card(TestContext.token_channel_1, TestContext.current_payment_card_id)
     TestContext.response = response
+    """Even if the scheme account is deleted, it is not updating DB so quickly
+        so his delay is required before next execution"""
+    time.sleep(2)
     try:
         if response.status_code == 200 or response1.status_code == 200:
             logging.info("Payment card is deleted successfully")
@@ -154,6 +158,9 @@ def delete_scheme_account(merchant=None):
                                                                  TestContext.current_scheme_account_id)
     response_del_schemes_1 = MembershipCards.delete_scheme_account(TestContext.token_channel_1,
                                                                    TestContext.scheme_account_id1)
+    """Even if the scheme account is deleted, it is not updating DB so quickly
+     so his delay is required before next execution"""
+    time.sleep(2)
     try:
         if response_del_schemes.status_code == 200 or response_del_schemes_1.status_code == 200:
             logging.info("Scheme account is deleted successfully")
