@@ -1,4 +1,4 @@
-@coop @bink
+@coop
 Feature: Merchant CooP - Ensure a customer can view Scheme plan details
   As a customer
   I want to access membership plans
