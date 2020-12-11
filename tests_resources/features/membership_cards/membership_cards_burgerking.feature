@@ -25,14 +25,14 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
 #    Then I perform GET request to view a specific transaction made using the recently added "BurgerKing" membership card
     Then verify the data stored in DB after "Add" journey for "BurgerKing"
     And I perform DELETE request to delete the "BurgerKing" membership card
-  @vouchers
-    Scenario: Add Journey_BurgerKing and verify vouchers
-
-    Given I am a customer who is subscribing to Bink or I am Bink app user
-    When I perform POST request to add "BurgerKing" membership card
-    And I perform GET request to verify the "BurgerKing" membership card voucher details
-    Then verify the data stored in DB after "Add" journey for "BurgerKing"
-    Then I perform DELETE request to delete the "BurgerKing" membership card
+#  @vouchers
+#    Scenario: Add Journey_BurgerKing and verify vouchers
+#
+#    Given I am a customer who is subscribing to Bink or I am Bink app user
+#    When I perform POST request to add "BurgerKing" membership card
+#    And I perform GET request to verify the "BurgerKing" membership card voucher details
+#    Then verify the data stored in DB after "Add" journey for "BurgerKing"
+#    Then I perform DELETE request to delete the "BurgerKing" membership card
 
 @add_patch @bink_regression
   Scenario: PATCH membership card details_BurgerKing

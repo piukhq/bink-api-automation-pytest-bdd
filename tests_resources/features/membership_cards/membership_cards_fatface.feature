@@ -75,13 +75,13 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then verify the data stored in DB after "Add" journey for "FatFace"
     Then I perform DELETE request to delete the "FatFace" membership card
 
-  @voucher
-  Scenario: verify Vouchers for Fatface
-   Given I am a customer who is subscribing to Bink or I am Bink app user
-    When I perform POST request to add "FatFace" membership card
-    And I perform GET request to verify the "FatFace" membership card voucher details
-    Then verify the data stored in DB after "Add" journey for "FatFace"
-    Then I perform DELETE request to delete the "FatFace" membership card
+#  @voucher
+#  Scenario: verify Vouchers for Fatface
+#   Given I am a customer who is subscribing to Bink or I am Bink app user
+#    When I perform POST request to add "FatFace" membership card
+#    And I perform GET request to verify the "FatFace" membership card voucher details
+#    Then verify the data stored in DB after "Add" journey for "FatFace"
+#    Then I perform DELETE request to delete the "FatFace" membership card
     
  @add_always_link @LOY-1211
   Scenario: Adding payments cards with auto-link false

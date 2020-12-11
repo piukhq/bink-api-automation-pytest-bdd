@@ -27,14 +27,14 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     And I perform DELETE request to delete the "Wasabi" membership card
 
 
-  @vouchers
-    Scenario: Add Journey_Wasabi and verify vouchers
-
-    Given I am a customer who is subscribing to Bink or I am Bink app user
-    When I perform POST request to add "Wasabi" membership card
-    And I perform GET request to verify the "Wasabi" membership card voucher details
-    Then verify the data stored in DB after "Add" journey for "Wasabi"
-    Then I perform DELETE request to delete the "Wasabi" membership card
+#  @vouchers
+#    Scenario: Add Journey_Wasabi and verify vouchers
+#
+#    Given I am a customer who is subscribing to Bink or I am Bink app user
+#    When I perform POST request to add "Wasabi" membership card
+#    And I perform GET request to verify the "Wasabi" membership card voucher details
+#    Then verify the data stored in DB after "Add" journey for "Wasabi"
+#    Then I perform DELETE request to delete the "Wasabi" membership card
 
   @add_patch @bink_regression 
   Scenario:  PATCH membership card details_Wasabi
