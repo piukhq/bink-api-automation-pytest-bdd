@@ -94,3 +94,12 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
   Then I perform DELETE request to delete the "FatFace" membership card
   Then I perform DELETE request to delete the payment card
 
+  @enrol_add @bink_regression
+  Scenario: Verify join Fatface then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "FatFace" membership account with enrol credentials
+    And I perform GET request to verify the "FatFace" membership account is created
+    Then I perform DELETE request to delete the "FatFace" membership card
+    When I perform POST request to add "FatFace" membership card after enrol deleted
+    And I perform GET request to verify the "Wasabi" membership card is added to the wallet
+    Then verify the data stored in DB after "Enrol" journey for "FatFace"

@@ -207,6 +207,7 @@ def verify_get_membership_card(merchant):
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
             get(constants.REASON_CODE_AUTHORIZED)
             and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
+            or TestContext.card_number
     ), ("Validations in GET/membership_cards for " + merchant + " failed with reason code " +
         response_json["status"]["reason_codes"][0])
     if merchant in ("HarveyNichols", "Iceland"):
@@ -226,6 +227,7 @@ def verify_get_membership_card(merchant):
 def verify_membership_card_is_created(merchant):
     response = MembershipCards.get_scheme_account(TestContext.token, TestContext.current_scheme_account_id)
     response_json = response_to_json(response)
+    TestContext.card_number = response_json["card"]["membership_id"]
     logging.info(
         "The response of GET/MembershipCard after Enrol Journey is:\n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(TestContext.current_scheme_account_id) + "\n\n"
@@ -547,3 +549,22 @@ def response_to_json(response):
     except JSONDecodeError or Exception:
         raise Exception(f"Empty response and the response Status Code is {str(response.status_code)}")
     return response_json
+
+
+@when(parsers.parse('I perform POST request to add "{merchant}" membership card after enrol deleted'))
+def enrol_delete_add_membership_account(merchant, test_email):
+    response = MembershipCards.enrol_delete_add_card(TestContext.token, merchant, test_email)
+    response_json = response_to_json(response)
+    TestContext.current_scheme_account_id = response_json.get("id")
+    logging.info(
+        "The response of Add Journey (POST) is:\n\n"
+        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n"
+        + json.dumps(response_json, indent=4))
+    assert (
+            response.status_code == 201
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states()
+            .get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING_ADD)
+
+    ), ("Add Journey for " + merchant + " failed")
