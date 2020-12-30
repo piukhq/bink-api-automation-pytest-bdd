@@ -92,3 +92,14 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
   And I perform GET request to verify the "BurgerKing" membership card is added & linked successfully in the wallet
   And I perform DELETE request to delete the "BurgerKing" membership card
   Then I perform DELETE request to delete the payment card
+
+  @enrol_add @bink_regression
+  Scenario: Verify join burgerking then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
+
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "BurgerKing" membership account with enrol credentials
+    And I perform GET request to verify the "BurgerKing" membership account is created
+    Then I perform DELETE request to delete the "BurgerKing" membership card
+    When I perform POST request to add "BurgerKing" membership card after enrol deleted
+    And I perform GET request to verify the "Wasabi" membership card is added to the wallet
+    Then verify the data stored in DB after "Enrol" journey for "BurgerKing"

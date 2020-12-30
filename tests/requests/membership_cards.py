@@ -149,3 +149,10 @@ class MembershipCards(Endpoint):
             return Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS
         else:
             return Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(scheme_account_id)
+
+    @staticmethod
+    def enrol_delete_add_card(token, merchant, email):
+        url = MembershipCards.get_url()
+        header = Endpoint.request_header(token)
+        payload = Merchant.get_merchant(merchant).enrol_delete_add_membership_card_payload(email)
+        return Endpoint.call(url, header, "POST", payload)

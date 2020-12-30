@@ -1,4 +1,4 @@
-@wasabi
+@wasabi @bink
 Feature: Merchant Wasabi - Ensure a customer can add their membership card & view its details for merchant Wasabi
   As a customer
   I want to utilise membership_cards endpoint
@@ -36,7 +36,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
 #    Then verify the data stored in DB after "Add" journey for "Wasabi"
 #    Then I perform DELETE request to delete the "Wasabi" membership card
 
-  @add_patch @bink_regression 
+  @add_patch @bink_regression
   Scenario:  PATCH membership card details_Wasabi
 
     Given I am a Bink user
@@ -80,6 +80,13 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Enrol" journey for "Wasabi"
     Then I perform DELETE request to delete the "Wasabi" membership card
 
+    @enrol_add @bink_regression
+    Scenario: Verify join wasabi then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
 
-
-
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "Wasabi" membership account with enrol credentials
+    And I perform GET request to verify the "Wasabi" membership account is created
+    Then I perform DELETE request to delete the "Wasabi" membership card
+    When I perform POST request to add "Wasabi" membership card after enrol deleted
+    And I perform GET request to verify the "Wasabi" membership card is added to the wallet
+    Then verify the data stored in DB after "Enrol" journey for "Wasabi"
