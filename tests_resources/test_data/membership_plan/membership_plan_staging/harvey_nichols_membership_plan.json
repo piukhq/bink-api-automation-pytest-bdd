@@ -38,24 +38,10 @@
             "encoding": "jpg"
         },
         {
-            "id": 575,
-            "type": 0,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN.png",
-            "description": "Harvey Nichols Hero",
-            "encoding": "png"
-        },
-        {
-            "id": 1187,
+            "id": 1184,
             "type": 8,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_4_Black.png",
-            "description": "Black Tier",
-            "encoding": "png"
-        },
-        {
-            "id": 1186,
-            "type": 8,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_3_Platinum.png",
-            "description": "Platinum Tier",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_1_Silver.png",
+            "description": "Silver Tier",
             "encoding": "png"
         },
         {
@@ -66,10 +52,24 @@
             "encoding": "png"
         },
         {
-            "id": 1184,
+            "id": 1186,
             "type": 8,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_1_Silver.png",
-            "description": "Silver Tier",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_3_Platinum.png",
+            "description": "Platinum Tier",
+            "encoding": "png"
+        },
+        {
+            "id": 1187,
+            "type": 8,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_4_Black.png",
+            "description": "Black Tier",
+            "encoding": "png"
+        },
+        {
+            "id": 575,
+            "type": 0,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN.png",
+            "description": "Harvey Nichols Hero",
             "encoding": "png"
         },
         {

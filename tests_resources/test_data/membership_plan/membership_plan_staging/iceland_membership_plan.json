@@ -43,16 +43,16 @@
             "encoding": "jpg"
         },
         {
-            "id": 373,
-            "type": 4,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/iceland-asset.png",
-            "description": "Iceland Asset",
+            "id": 1234,
+            "type": 0,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Iceland_Card.png",
+            "description": "Iceland Slimming World hero card",
             "encoding": "png"
         },
         {
-            "id": 1070,
+            "id": 1072,
             "type": 5,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Iceland_ref1.jpg",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/iceland_ref3.jpg",
             "description": "Iceland Reference",
             "encoding": "jpg"
         },
@@ -64,17 +64,17 @@
             "encoding": "jpg"
         },
         {
-            "id": 1072,
+            "id": 1070,
             "type": 5,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/iceland_ref3.jpg",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Iceland_ref1.jpg",
             "description": "Iceland Reference",
             "encoding": "jpg"
         },
         {
-            "id": 1234,
-            "type": 0,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Iceland_Card.png",
-            "description": "Iceland Slimming World hero card",
+            "id": 373,
+            "type": 4,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/iceland-asset.png",
+            "description": "Iceland Asset",
             "encoding": "png"
         },
         {

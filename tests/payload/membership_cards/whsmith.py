@@ -2,7 +2,6 @@ import logging
 import json
 
 from faker import Faker
-
 from tests.helpers.test_data_utils import TestDataUtils
 import tests.helpers.constants as constants
 
@@ -20,7 +19,7 @@ class WHSmithCard:
             "account": {
                 "authorise_fields": [
                     {
-                        "column": "Reward number",
+                        "column": "Rewards number",
                         "value": value
                     }
                 ]
@@ -31,7 +30,7 @@ class WHSmithCard:
         return payload
 
     @staticmethod
-    def enrol_membership_scheme_payload(email, invalid_data=None):
+    def enrol_membership_scheme_payload(email, env=None, channel=None, invalid_data=None):
         faker = Faker()
 
         if invalid_data:

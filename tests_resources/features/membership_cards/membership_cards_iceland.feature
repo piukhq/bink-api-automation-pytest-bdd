@@ -28,7 +28,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the "Iceland" membership card
 
 
-  @add_patch @bink_regression @bmb_regression 
+  @add_patch @bink_regression @bmb_regression
 
   Scenario: Add Journey_PATCH_Iceland
 

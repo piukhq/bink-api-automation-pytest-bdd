@@ -34,18 +34,18 @@
             "encoding": "png"
         },
         {
-            "id": 1287,
-            "type": 0,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/BK_card.jpg",
-            "description": "Burger King hero",
-            "encoding": "jpg"
-        },
-        {
             "id": 1300,
             "type": 9,
             "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/BK_alternative_hero.png",
             "description": "Burger King alternative hero",
             "encoding": "png"
+        },
+        {
+            "id": 1287,
+            "type": 0,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/BK_card.jpg",
+            "description": "Burger King hero",
+            "encoding": "jpg"
         }
     ],
     "account": {

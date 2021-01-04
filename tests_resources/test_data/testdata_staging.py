@@ -194,11 +194,14 @@ wasabi_invalid_data = {
 }
 
 whsmith_membership_card = {
-    "card_num": "FF00000004827176",
+    "card_num": "WHS00000009523459",
+    "points": 0,
+    "currency": "stamps",
+    "description": "Customer earns one stamp for every valid transaction."
 }
 
 whsmith_invalid_data = {
-    "card_num": "WHSmithInvalid_Card",
+    "card_num": "WHS12000009523459",
     "email": "fail@unknown.com",
 }
 
@@ -227,6 +230,7 @@ membership_card_status_reason_codes = {
     "reason_code_failed": "X303",
     "reason_code_failed_enrol": "X201",
     "reason_code_invalid_failed_enrol": "X202",
+    "reason_code_add_failed": "X102"
 }
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
 
