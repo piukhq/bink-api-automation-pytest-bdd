@@ -1,4 +1,4 @@
-@WHSmith
+@whsmith @bink
 Feature: Merchant WHSmith - Ensure a customer can view Scheme plan details
   As a customer
   I want to access membership plans
@@ -6,7 +6,7 @@ Feature: Merchant WHSmith - Ensure a customer can view Scheme plan details
 
   Verify a customer can use Banking API to view available WHSmith membership plans v1.2
 #WHSmith is not present in SIT
-  @membership_plan
+  @membership_plan @bink_regression
   Scenario: Membership plans WHSmith
     Given I am a Bink user
     When I perform GET request to view all available membership plans

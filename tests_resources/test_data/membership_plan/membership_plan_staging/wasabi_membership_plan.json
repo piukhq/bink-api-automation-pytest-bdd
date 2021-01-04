@@ -27,6 +27,13 @@
     },
     "images": [
         {
+            "id": 1298,
+            "type": 9,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Alternate_Hero.png",
+            "description": "Wasabi Alternative Hero",
+            "encoding": "png"
+        },
+        {
             "id": 1297,
             "type": 3,
             "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Logo.png",
@@ -38,13 +45,6 @@
             "type": 0,
             "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Card.png",
             "description": "Wasabi Hero",
-            "encoding": "png"
-        },
-        {
-            "id": 1298,
-            "type": 9,
-            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Alternate_Hero.png",
-            "description": "Wasabi Alternative Hero",
             "encoding": "png"
         }
     ],
