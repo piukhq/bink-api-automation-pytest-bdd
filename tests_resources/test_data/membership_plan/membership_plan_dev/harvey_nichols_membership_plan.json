@@ -31,6 +31,20 @@
     },
     "images": [
         {
+            "id": 629,
+            "type": 9,
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_jlFfemh.png",
+            "description": "Harvey Nichols Alternative Hero",
+            "encoding": "png"
+        },
+        {
+            "id": 524,
+            "type": 0,
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN_aeOFrx6.png",
+            "description": "Harvey Nichols Default Hero",
+            "encoding": "png"
+        },
+        {
             "id": 640,
             "type": 2,
             "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Rewards_square_oct_02.jpg",
@@ -70,20 +84,6 @@
             "type": 3,
             "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Logo_oLW0lxD.png",
             "description": "Harvey nichols Icon",
-            "encoding": "png"
-        },
-        {
-            "id": 629,
-            "type": 9,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_jlFfemh.png",
-            "description": "Harvey Nichols Alternative Hero",
-            "encoding": "png"
-        },
-        {
-            "id": 524,
-            "type": 0,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN_aeOFrx6.png",
-            "description": "Harvey Nichols Default Hero",
             "encoding": "png"
         }
     ],
