@@ -29,17 +29,24 @@
     },
     "images": [
         {
-            "id": 639,
-            "type": 2,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Iceland_Offer_Greggs.jpg",
-            "description": "Iceland Offer - Greggs",
-            "encoding": "jpg"
+            "id": 623,
+            "type": 9,
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Iceland_LXhjvaj.png",
+            "description": "Iceland Alternative Hero Image",
+            "encoding": "png"
         },
         {
             "id": 638,
             "type": 2,
             "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Iceland_Offer_Pizza.jpg",
             "description": "Iceland Offer - Pizza",
+            "encoding": "jpg"
+        },
+        {
+            "id": 639,
+            "type": 2,
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Iceland_Offer_Greggs.jpg",
+            "description": "Iceland Offer - Greggs",
             "encoding": "jpg"
         },
         {
@@ -89,13 +96,6 @@
             "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/iceland-300x197_jQohtHm.jpg",
             "description": "Iceland Test Promo",
             "encoding": "jpg"
-        },
-        {
-            "id": 623,
-            "type": 9,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Iceland_LXhjvaj.png",
-            "description": "Iceland Alternative Hero Image",
-            "encoding": "png"
         }
     ],
     "account": {
