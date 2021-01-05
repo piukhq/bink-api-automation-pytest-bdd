@@ -28,17 +28,17 @@
     },
     "images": [
         {
-            "id": 634,
-            "type": 9,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Wasabi_Alternate_Hero.png",
-            "description": "Wasabi Alternative Hero",
-            "encoding": "png"
-        },
-        {
             "id": 633,
             "type": 3,
             "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Wasabi_Logo.png",
             "description": "Wasabi Icon",
+            "encoding": "png"
+        },
+        {
+            "id": 634,
+            "type": 9,
+            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Wasabi_Alternate_Hero.png",
+            "description": "Wasabi Alternative Hero",
             "encoding": "png"
         },
         {
@@ -118,9 +118,9 @@
                 "choice": []
             },
             {
-                "column": "Enter last name",
+                "column": "Last name",
                 "validation": "^(((?=.{1,100}$)[A-Za-z-'])+\\s*){1,4}$",
-                "description": "Last name",
+                "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
                 "choice": []

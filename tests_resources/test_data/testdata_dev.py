@@ -42,13 +42,9 @@ master_payment_card = {
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #
 
 burger_king_membership_card = {
-    "card_num": "BK00000035941509",
-    "points": "",
-    "currency": "",
-    "description": "",
-    "transactions": "",
-    "transaction_status": "",
-    "transaction_currency": "",
+    "card_num": "BK00000031049422",
+    "points": 1,
+    "currency": "stamps",
 }
 burger_king_invalid_data = {
     "card_num": "BK00000035941500",
