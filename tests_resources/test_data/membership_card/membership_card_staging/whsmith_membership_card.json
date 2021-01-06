@@ -1,5 +1,5 @@
 {
-    "id": 47811,
+    "id": 48917,
     "membership_plan": 280,
     "payment_cards": [],
     "membership_transactions": [],
@@ -37,7 +37,7 @@
             "value": 0,
             "suffix": "stamps",
             "currency": "stamps",
-            "updated_at": 1609409598,
+            "updated_at": 1609950911,
             "description": "Customer earns one stamp for every valid transaction."
         }
     ],
@@ -75,7 +75,7 @@
             },
             "state": "expired",
             "headline": "Expired",
-            "date_issued": 1609545600,
+            "date_issued": 1609718400,
             "expiry_date": 1596240000,
             "barcode_type": 0
         }
