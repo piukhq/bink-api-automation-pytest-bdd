@@ -1,4 +1,4 @@
-@iceland @bmb @bink
+@iceland
 Feature: Merchant Iceland - Ensure a customer can add their membership card & view its details for merchant Iceland
   As a customer
   I want to utilise membership_cards endpoint

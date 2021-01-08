@@ -1,4 +1,4 @@
-@harvey_nichols @bmb
+@harvey_nichols
 Feature: Merchant Harvey Nichols - Ensure a customer can add their payment card & link it to loyalty membership card
   and view their card(s) details
 

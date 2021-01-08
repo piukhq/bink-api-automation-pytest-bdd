@@ -1,4 +1,4 @@
-@fat_face @bink
+@fat_face
 Feature: Merchant FatFace - Ensure a customer can view Scheme plan details
   As a customer
   I want to access membership plans

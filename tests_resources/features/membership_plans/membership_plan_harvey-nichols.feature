@@ -1,4 +1,4 @@
-@harvey_nichols @bmb @bink
+@harvey_nichols
 Feature: Merchant HarveyNichols - Ensure a customer can view Scheme plan details
   As a customer
   I want to access membership plans
