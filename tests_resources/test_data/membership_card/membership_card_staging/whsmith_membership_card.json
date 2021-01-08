@@ -1,5 +1,5 @@
 {
-    "id": 48917,
+    "id": 49191,
     "membership_plan": 280,
     "payment_cards": [],
     "membership_transactions": [],
@@ -10,7 +10,7 @@
         ]
     },
     "card": {
-        "membership_id": "WHS00000009523459",
+        "membership_id": "WHS00000009523504",
         "colour": "#003087"
     },
     "images": [
@@ -34,10 +34,10 @@
     },
     "balances": [
         {
-            "value": 0,
+            "value": 1,
             "suffix": "stamps",
             "currency": "stamps",
-            "updated_at": 1609950911,
+            "updated_at": 1610125040,
             "description": "Customer earns one stamp for every valid transaction."
         }
     ],
@@ -51,12 +51,12 @@
             },
             "earn": {
                 "type": "stamps",
-                "value": 0.0,
+                "value": 1.0,
                 "suffix": "stamps",
                 "target_value": 5.0
             },
             "state": "inprogress",
-            "headline": "5 stamps to go!",
+            "headline": "4 stamps to go!",
             "barcode_type": 0
         },
         {
@@ -75,9 +75,50 @@
             },
             "state": "expired",
             "headline": "Expired",
-            "date_issued": 1609718400,
+            "date_issued": 1609891200,
             "expiry_date": 1596240000,
             "barcode_type": 0
+        },
+        {
+            "burn": {
+                "type": "voucher",
+                "value": 2.5,
+                "prefix": "\u00a3",
+                "suffix": "Reward"
+            },
+            "code": "",
+            "earn": {
+                "type": "stamps",
+                "value": 5.0,
+                "suffix": "stamps",
+                "target_value": 5.0
+            },
+            "state": "expired",
+            "headline": "Expired",
+            "date_issued": 1609891200,
+            "expiry_date": 1595635200,
+            "barcode_type": 0
+        },
+        {
+            "burn": {
+                "type": "voucher",
+                "value": 2.5,
+                "prefix": "\u00a3",
+                "suffix": "Reward"
+            },
+            "code": "",
+            "earn": {
+                "type": "stamps",
+                "value": 5.0,
+                "suffix": "stamps",
+                "target_value": 5.0
+            },
+            "state": "redeemed",
+            "headline": "Redeemed",
+            "date_issued": 1609891200,
+            "expiry_date": 1596499200,
+            "barcode_type": 0,
+            "date_redeemed": 1609977600
         }
     ]
 }

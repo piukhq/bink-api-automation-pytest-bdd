@@ -1,4 +1,4 @@
-@harvey_nichols @payment_cards  @bmb
+@harvey_nichols @payment_cards
 Feature: This feature file contains different features related to payment cards
   As these are the common behaviours, they are implemented for one merchant ( Harvey-Nichols)
   Note: Edit the merchant parameter as Iceland, Fatface, BurgerKing, Wasabi, WHSmith, CoOP if required

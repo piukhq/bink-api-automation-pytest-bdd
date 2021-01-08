@@ -1,4 +1,4 @@
-@harvey_nichols @bmb @bink
+@harvey_nichols
 Feature: Merchant Harvey Nichols - Ensure a customer can add their membership card & view its details for merchant Harvey Nichols
   As a customer
   I want to utilise membership_cards endpoint
