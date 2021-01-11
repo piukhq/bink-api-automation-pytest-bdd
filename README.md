@@ -1,10 +1,11 @@
-[Draft - Will enhance further during migration process]
 
 # BinkAPI-TestAutomation-pytest-bdd
-This is a framework design in Python for the test automation of Bink's APIs.
-Currently, the codebase contains classes required for migration
-Once migration started, this repository will contain test automation scripts for Bink API's testing 
-and Django UI verifications
+- This is a framework design in Python for the test automation of Bink's APIs.
+- The framework has been designed using the Pytest-BDD plugin to implement  the BDD approach. 
+- Modules of the framework are designed in such a way that it can be reused by all merchants in any channels
+- This framework will provide a Regression testing suite for all available API endpoints, and also serve for Sanity, 
+  Smoke testing & In- Sprint testing for all channels & merchants.
+
 
 #  Set Up
 This project requires an up-to-date version of Python 3 (Currently using Python 3.8)
@@ -12,26 +13,30 @@ This project requires an up-to-date version of Python 3 (Currently using Python 
 
 To set up this project on your local machine:
 
-    1. Clone it from this GitLab repository.
-    2. Run `pipenv install` from the terminal in the project's root directory.
-    3. For Django Web UI tests, install the appropriate browser and WebDriver executable
+    1. Clone it from this GitLab repository [QA GitLab](https://git.bink.com/QA/bink-api-automation-pytest-bdd)
+    2. Run `pipenv install` from the project's root directory.
+    3. * Optional Step : For Django Web UI tests, install the appropriate browser and WebDriver executable
         * Current Django tests use Chrome and
          [chromedriver](https://chromedriver.chromium.org/downloads) 
        
 # Running Tests
-    * Run tests simply using the `pytest` command.
+    1. Test Execution:
+        - Use `pytest` command 
+        - Use markers '-m' to fileter tests by BDD tags
+        - Pass variables '--env' and '--channel' to set current environment and channel
+        - The default environment is dev and default channel is bink
+      
+    2. A few sample execution commands:
+        - pytest -m "add" --env staging --channel barclays : Execute Add Journey for all merchants in staging-barclays 
+        - pytest -m "add" --env staging                    : Execute Add Journey for all merchants in staging-bink
+        - pytest -m "add and iceland" --env staging        : Execute Add Journey for Iceland in staging-bink
+        - pytest -m "add and enrol"                        : Execute Add & Enrol Journey for all merchants in dev-bink 
     
-    * Use the "-m" option to filter tests by bdd tags. 
-        eg1: pytest -m "enrol" : Execute Enrol Journey for all merchants
-        eg2: pytest -m "enrol and iceland" :  Execute Enrol Journey for Iceland only
-        eg3: pytest -m "enrol or add" : Execute Enrol, Add Journey for all merchants
-        
-    * Pass '--channel' argument in execution command to pass 'barclays' /  'bink' channels. Default is bink
-        eg: pytest -m "enrol" --channel barclays
-        
-    * Pass '--env' argument in execution command to determine the test environment as 'dev' / 'staging'. Default is dev
-        eg: pytest -m "enrol" --env staging --channel barclays
-        
+    3. Commands used for nighly regression in bink in staging
+        - pytest -m "bink_regression" --env staging 
+       Commands used for nighly regression in bink in staging
+        - pytest -m "bmb_regression" --env staging --channel barclays     
+
 # Running inside Kubernetes
 
 The project requires the following Environment Variables to function correctly:

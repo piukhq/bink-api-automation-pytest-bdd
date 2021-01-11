@@ -1,4 +1,4 @@
-@burgerking
+@burgerking @dev
 Feature: Merchant BurgerKing - Ensure a customer can add & link their membership card and enrol for a new membership card & view its details
   As a customer
   I want to utilise membership_cards endpoint
