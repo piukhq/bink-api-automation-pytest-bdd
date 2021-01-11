@@ -71,7 +71,7 @@ BINK = ChannelDetails(
 BARCLAYS = ChannelDetails(
     channel_name="barclays",
     bundle_id="com.barclays.bmb",
-    client_id="not using for Barclays jwt token creation",
+    client_id="not using for Barclays  token creation",
     organisation_id="Barclays",
 
 )

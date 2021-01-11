@@ -1,4 +1,4 @@
-@whsmith
+@whsmith @dev
 Feature: Merchant WHSmith - Ensure a customer can add their membership card & view its details
   As a customer
   I want to utilise membership_cards endpoint
@@ -69,8 +69,8 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     Then verify the data stored in DB after "Add" journey for "WHSmith"
     And I perform DELETE request to delete the "WHSmith" membership card
 
-  @vouchers @bink_regression
-  Scenario: Add Journey and verify vouchers
+  @voucher
+  Scenario: Add Journey and verify vouchers WHSmith
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
     When I perform POST request to add "WHSmith" membership card
