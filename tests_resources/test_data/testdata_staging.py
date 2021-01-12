@@ -194,8 +194,7 @@ wasabi_invalid_data = {
 }
 
 whsmith_membership_card = {
-    "card_num": "WHS00000009523504",
-    # "WHS00000009523459",
+    "card_num": "WHS00000009523459",
     "points": 0,
     "currency": "stamps",
     "description": "Customer earns one stamp for every valid transaction."
