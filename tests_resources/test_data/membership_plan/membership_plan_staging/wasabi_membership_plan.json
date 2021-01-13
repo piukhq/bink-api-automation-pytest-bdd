@@ -27,6 +27,13 @@
     },
     "images": [
         {
+            "id": 1319,
+            "type": 2,
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Offer_tile_5_CVAeqUv.png",
+            "description": "Wasabi Test Offer",
+            "encoding": "png"
+        },
+        {
             "id": 1298,
             "type": 9,
             "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Alternate_Hero.png",
