@@ -13,7 +13,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     And I perform DELETE request to delete the "Wasabi" membership card
 
-  @balances_transactions @bink_regression 
+  @balances_transactions @bink_regression
   Scenario: Balances and Transactions_Wasabi
 
     Given I am a Bink user
@@ -25,7 +25,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     And I perform DELETE request to delete the "Wasabi" membership card
 
-  @vouchers
+  @vouchers @bink_regression
   Scenario: Add Journey_Wasabi and verify vouchers
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -45,7 +45,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     And I perform DELETE request to delete the "Wasabi" membership card
 
-  @add_and_link @bink_regression
+  @add_and_link @bink_regression 
   Scenario: ADD & LINK Journey_Wasabi
     Given I am a Bink user
     And I perform POST request to add payment card to wallet
@@ -58,7 +58,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     And I perform DELETE request to delete the payment card
 
 
-  @enrol @bink_regression
+  @enrol @bink_regression 
   Scenario: Join Journey_Wasabi
 
     Given I register with bink service as a new customer
@@ -67,7 +67,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Enrol" journey for "Wasabi"
     Then I perform DELETE request to delete the "Wasabi" membership card
 
-  @enrol_put @bink_regression
+  @enrol_put @bink_regression 
   Scenario: Join Journey_PUT_Wasabi
     
     Given I register with bink service as a new customer
@@ -78,7 +78,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Enrol" journey for "Wasabi"
     Then I perform DELETE request to delete the "Wasabi" membership card
 
-  @enrol_add @bink_regression
+  @enrol_add
   Scenario: Verify join wasabi then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
 
     Given I register with bink service as a new customer
