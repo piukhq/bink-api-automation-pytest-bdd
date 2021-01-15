@@ -131,7 +131,7 @@
         "add_fields": [
             {
                 "column": "Bonus card number",
-                "validation": "^([0-9]){19}$",
+                "validation": "^(63320400)[0-9]{11}$",
                 "description": "19 digit card number",
                 "common_name": "card_number",
                 "type": 0,
