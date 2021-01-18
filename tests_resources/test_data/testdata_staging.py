@@ -16,12 +16,12 @@ visa_payment_card = {
 amex_payment_card = {
     "first_six_digits": "378282",
     "last_four_digits": "0005",
-    "token": "pytest7117",
+    "token": "pytest7118",
     "name_on_card": "amex_staging_test",
     "month": 1,
     "year": 2044,
-    "fingerprint": "pytest7117",
-    "hash": "pytest7117",
+    "fingerprint": "pytest7118",
+    "hash": "pytest7118",
     "status": "active",
     "active_link": True
 }
