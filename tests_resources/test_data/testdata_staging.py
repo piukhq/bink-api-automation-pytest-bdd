@@ -20,8 +20,8 @@ amex_payment_card = {
     "name_on_card": "amex_staging_test",
     "month": 1,
     "year": 2044,
-    "fingerprint": "pytest7117",
-    "hash": "pytest7117",
+    "fingerprint": "pytestFingerPrint7117",
+    "hash": "pytestHash7117",
     "status": "active",
     "active_link": True
 }
