@@ -13,7 +13,6 @@ from tests.api.base import Endpoint
 from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_context import TestContext
 
-
 from faker import Faker
 
 
@@ -33,6 +32,7 @@ def pytest_bdd_after_scenario(request, feature, scenario):
            scheme account id  and payment_card id from channel_2"""
     delete_scheme_account()
     delete_payment_card()
+    delete_user()
 
 
 def pytest_html_report_title(report):
