@@ -9,7 +9,7 @@ Feature: This feature file contains different features related to payment cards
   So I can add my payment card and can link to Harvey Nichols membership card & check the details successfully
 
 
-  @bink_regression @bmb_regression @test
+  @bink_regression @bmb_regression
     Scenario: Verify deletion of membership card linked to a Payment card deletes PLL link
 
     Given I register with bink service as a new customer
