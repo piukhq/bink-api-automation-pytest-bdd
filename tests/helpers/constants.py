@@ -1,5 +1,5 @@
 """Email Template"""
-EMAIL_TEMPLATE = "pytestemail@bink.com"
+EMAIL_TEMPLATE = "pytest_regression_email@bink.com"
 
 """Constants for Enrol_Scheme Credential Questions"""
 TITLE = "Mr"
