@@ -32,7 +32,6 @@ def pytest_bdd_after_scenario(request, feature, scenario):
            scheme account id  and payment_card id from channel_2"""
     delete_scheme_account()
     delete_payment_card()
-    delete_user()
 
 
 def pytest_html_report_title(report):
