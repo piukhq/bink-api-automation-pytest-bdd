@@ -103,3 +103,4 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     When I perform POST request to add "FatFace" membership card after enrol deleted
     And I perform GET request to verify the "Wasabi" membership card is added to the wallet
     Then verify the data stored in DB after "Enrol" journey for "FatFace"
+    Then I perform DELETE request to delete the customer

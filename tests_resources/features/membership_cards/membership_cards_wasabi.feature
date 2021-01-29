@@ -66,6 +66,8 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     And I perform GET request to verify the "Wasabi" membership account is created
     Then verify the data stored in DB after "Enrol" journey for "Wasabi"
     Then I perform DELETE request to delete the "Wasabi" membership card
+    And I perform DELETE request to delete the customer
+
 
   @enrol_put @bink_regression 
   Scenario: Join Journey_PUT_Wasabi
@@ -77,6 +79,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     And I perform GET request to verify the enrolled "Wasabi" membership card details got replaced after a successful PUT
     Then verify the data stored in DB after "Enrol" journey for "Wasabi"
     Then I perform DELETE request to delete the "Wasabi" membership card
+    And I perform DELETE request to delete the customer
 
   @enrol_add
   Scenario: Verify join wasabi then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
@@ -88,3 +91,4 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     When I perform POST request to add "Wasabi" membership card after enrol deleted
     And I perform GET request to verify the "Wasabi" membership card is added to the wallet
     Then verify the data stored in DB after "Enrol" journey for "Wasabi"
+    And I perform DELETE request to delete the customer

@@ -93,7 +93,6 @@ def register_user(test_email, channel, env):
     TestContext.channel_name = channel
     if channel == config.BINK.channel_name:
         response = CustomerAccount.register_bink_user(test_email)
-        TestContext.token = response.json().get("api_key")
         response_consent = CustomerAccount.service_consent_bink_user(TestContext.token, test_email)
         assert response_consent.status_code == 201, "User Registration _ service consent is not successful"
         logging.info("User registration is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
@@ -128,7 +127,7 @@ def login_user(channel, env):
 @then("I perform DELETE request to delete the customer")
 def delete_user():
     response = CustomerAccount.delete_new_user(TestContext.token)
-    assert response.status_code == 200, "Te user deletion is not successful"
+    assert response.status_code == 200, "The user deletion is not successful"
     logging.info("User is deleted successfully from the system")
 
 

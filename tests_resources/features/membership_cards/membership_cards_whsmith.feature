@@ -45,6 +45,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     And I perform GET request to verify the "WHSmith" membership account is created
     Then verify the data stored in DB after "Enrol" journey for "WHSmith"
     Then I perform DELETE request to delete the "WHSmith" membership card
+    Then I perform DELETE request to delete the customer
 
   @enrol_put @bink_regression
   Scenario: Join Journey_PUT_WHSmith
@@ -56,6 +57,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     And I perform GET request to verify the enrolled "WHSmith" membership card details got replaced after a successful PUT
     Then verify the data stored in DB after "Enrol" journey for "WHSmith"
     Then I perform DELETE request to delete the "WHSmith" membership card
+    Then I perform DELETE request to delete the customer
 
   @balances_transactions @bink_regression
   Scenario: Balances and Transactions_WHSmith
