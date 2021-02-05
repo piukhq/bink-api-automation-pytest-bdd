@@ -29,14 +29,14 @@
         {
             "id": 1291,
             "type": 0,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/WHSmith_Logo_Block_PMS_287.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/WHSmith_Logo_Block_PMS_287.png",
             "description": "WHSmith Hero",
             "encoding": "png"
         },
         {
             "id": 1292,
             "type": 3,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/WH_Smith_Logo.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/WH_Smith_Logo.png",
             "description": "WHSmith Icon",
             "encoding": "png"
         }

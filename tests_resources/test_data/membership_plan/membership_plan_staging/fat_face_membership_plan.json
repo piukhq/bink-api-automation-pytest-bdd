@@ -29,28 +29,28 @@
         {
             "id": 1283,
             "type": 3,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/FatfaceLogo_.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/FatfaceLogo_.png",
             "description": "FF logo",
             "encoding": "png"
         },
         {
             "id": 1284,
             "type": 0,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Fatface_Card.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Fatface_Card.png",
             "description": "FF card",
             "encoding": "png"
         },
         {
             "id": 1299,
             "type": 9,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Fatface_Alternate_Hero.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Fatface_Alternate_Hero.png",
             "description": "FatFace alternative hero",
             "encoding": "png"
         },
         {
             "id": 1301,
             "type": 2,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/ff_brand_image-2.jpg",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/ff_brand_image-2.jpg",
             "description": "FatFace Offer 1",
             "encoding": "jpg"
         }

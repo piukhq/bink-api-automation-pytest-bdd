@@ -29,28 +29,28 @@
         {
             "id": 1319,
             "type": 2,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Offer_tile_5_CVAeqUv.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Offer_tile_5_CVAeqUv.png",
             "description": "Wasabi Test Offer",
             "encoding": "png"
         },
         {
             "id": 1298,
             "type": 9,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Wasabi_Alternate_Hero.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Alternate_Hero.png",
             "description": "Wasabi Alternative Hero",
             "encoding": "png"
         },
         {
             "id": 1297,
             "type": 3,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Wasabi_Logo.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Logo.png",
             "description": "Wasabi Icon",
             "encoding": "png"
         },
         {
             "id": 1296,
             "type": 0,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Wasabi_Card.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Wasabi_Card.png",
             "description": "Wasabi Hero",
             "encoding": "png"
         }

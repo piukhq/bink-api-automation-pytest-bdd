@@ -33,56 +33,56 @@
         {
             "id": 1304,
             "type": 2,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Harvey_Nichols_Rewards_square_oct_02.jpg",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Rewards_square_oct_02.jpg",
             "description": "Harvey Nichols Rewards",
             "encoding": "jpg"
         },
         {
             "id": 1184,
             "type": 8,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Harvey_Nichols_Card_1_Silver.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_1_Silver.png",
             "description": "Silver Tier",
             "encoding": "png"
         },
         {
             "id": 1185,
             "type": 8,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Harvey_Nichols_Card_2_Gold.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_2_Gold.png",
             "description": "Gold Tier",
             "encoding": "png"
         },
         {
             "id": 1186,
             "type": 8,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Harvey_Nichols_Card_3_Platinum.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_3_Platinum.png",
             "description": "Platinum Tier",
             "encoding": "png"
         },
         {
             "id": 1187,
             "type": 8,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Harvey_Nichols_Card_4_Black.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_4_Black.png",
             "description": "Black Tier",
             "encoding": "png"
         },
         {
             "id": 575,
             "type": 0,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Card_0_TIER_UNKNOWN.png",
             "description": "Harvey Nichols Hero",
             "encoding": "png"
         },
         {
             "id": 1293,
             "type": 9,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Harvey_Nichols_ESHACSv.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_ESHACSv.png",
             "description": "Harvey Nichols Alternative Hero",
             "encoding": "png"
         },
         {
             "id": 660,
             "type": 3,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Harvey_Nichols_Logo.png",
+            "url": "https://api.staging.gb.bink.com/content/staging-media/hermes/schemes/Harvey_Nichols_Logo.png",
             "description": "Harvey Nichols Icon",
             "encoding": "png"
         }
