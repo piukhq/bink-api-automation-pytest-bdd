@@ -20,3 +20,8 @@ ENDPOINT_MEMBERSHIP_CARD_SINGLE_TRANSACTION = "/ubiquity/membership_transaction/
 ENDPOINT_PAYMENT_CARD = "/ubiquity/payment_card/{}"
 ENDPOINT_LINK_PAYMENT_MEMBERSHIP = "/ubiquity/payment_card/{}/membership_card/{}"
 ENDPOINT_PAYMENT_CARDS = "/ubiquity/payment_cards"
+
+# --------------------Transaction Matching API--------------------------------------------
+ENDPOINT_MASTER_CARD = "/auth_transactions_mock/mastercard"
+ENDPOINT_AMEX_CARD_REGISTER = "/auth_transactions/authorize"
+ENDPOINT_AMEXCARD_AUTH = "/auth_transactions/amex"

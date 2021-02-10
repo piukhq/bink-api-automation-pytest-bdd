@@ -155,7 +155,6 @@ iceland_membership_card = {
     "transactions": "6",
     "transaction_status": "active",
     "transaction_currency": "GBP",
-
 }
 
 # iceland_membership_card = {
@@ -251,4 +250,12 @@ db_details = {
     "host": "127.0.0.1",
     "port": "5432",
     "database": "hermes",
+}
+
+harmonia_db_details = {
+    "user": "common@bink-uksouth-staging-common",
+    "password": "",
+    "host": "127.0.0.1",
+    "port": "5432",
+    "database": "harmonia",
 }
