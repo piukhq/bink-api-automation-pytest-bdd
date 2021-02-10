@@ -41,7 +41,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "FatFace" membership card
     And I perform DELETE request to delete the payment card
 
-  @enrol 
+  @enrol
   Scenario: Join Journey_FatFace
 
     Given I register with bink service as a new customer
