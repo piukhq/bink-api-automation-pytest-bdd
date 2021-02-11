@@ -21,15 +21,13 @@ class TransactionMatching(Endpoint):
         payload = TransactionMatchingPaymentFileDetails.import_amex_auth_payment_card()
         response = Endpoint.call(url, header, "POST", payload)
         TestTransactionMatchingContext.amex_token = response.json().get("api_key")
-        print(TestTransactionMatchingContext.amex_token)
-        return Endpoint.call(url, header, "POST", payload)
+        Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
     def get_amex_auth_csv(mid):
-        url = Endpoint.BASE_URL + api.ENDPOINT_AMEXCARD_AUTH
+        url = Endpoint.BASE_URL + api.ENDPOINT_AMEX_CARD
         headers = TransactionMatching_Endpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
         payload = TransactionMatchingPaymentFileDetails.get_amex_auth_data(mid)
-        print(payload)
         return Endpoint.call(url, headers, "POST", payload)
 
     @staticmethod
@@ -42,4 +40,4 @@ class TransactionMatching(Endpoint):
 
     @staticmethod
     def get_visa_url():
-        return Endpoint.BASE_URL + api.ENDPOINT_MASTER_CARD
+        return Endpoint.BASE_URL + api.ENDPOINT_VISA_CARD

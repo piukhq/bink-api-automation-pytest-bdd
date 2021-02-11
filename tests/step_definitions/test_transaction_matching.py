@@ -41,7 +41,7 @@ def import_payment_file(payment_card_provider, mid):
 
     logging.info("The response of POST/import Payment Auth File is: \n\n"
                  + json.dumps(response_json, indent=4))
-    assert response.status_code == 201 or 200, "Payment file addition is not successful"
+    assert response.status_code == 201 or 200, "Payment file is not successful"
 
     logging.info("Waitting for the pods To match the transaction....and Export the Files")
     time.sleep(90)
