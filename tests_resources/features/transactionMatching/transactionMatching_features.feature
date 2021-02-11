@@ -5,7 +5,7 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
   So I can offer a near real time transaction matching service to merchants.
 
   @transactionMatchingIceland @bink_regression
-  Scenario Outline: Verify export csv file for Iceland - mastercard_auth
+  Scenario Outline: Verify transaction matching for iceland with payment provider
 
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet

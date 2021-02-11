@@ -24,4 +24,5 @@ ENDPOINT_PAYMENT_CARDS = "/ubiquity/payment_cards"
 # --------------------Transaction Matching API--------------------------------------------
 ENDPOINT_MASTER_CARD = "/auth_transactions_mock/mastercard"
 ENDPOINT_AMEX_CARD_REGISTER = "/auth_transactions/authorize"
-ENDPOINT_AMEXCARD_AUTH = "/auth_transactions/amex"
+ENDPOINT_AMEX_CARD = "/auth_transactions/amex"
+ENDPOINT_VISA_CARD = "/auth_transactions/visa"
