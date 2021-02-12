@@ -5,7 +5,7 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
   So I can offer a near real time transaction matching service to merchants.
 
   @transactionMatchingIceland @bink_regression
-  Scenario Outline: Verify transaction matching for iceland with payment provider
+  Scenario Outline: Verify transaction matching for iceland with payment provider - Mastercard - Auth
 
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet
@@ -18,9 +18,8 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
 
     Examples:
     | payment_card_provider|merchant_container| mid      | cardIdentity             |
-    |          amex        |scheme/iceland/   |9445909831| Amex                     |
+#    |          amex        |scheme/iceland/   |9445909831| Amex                     |
     |          master      |scheme/iceland/   |22776952  |MasterCard/MasterCard One |
-
 
   @transactionMatchingFatFace
   Scenario Outline: Verify export Csv file for Fatface - mastercard_auth
