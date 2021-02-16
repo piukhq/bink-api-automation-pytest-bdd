@@ -29,16 +29,14 @@ scenarios("transactionMatching/")
 def import_payment_file(payment_card_provider, mid):
     if payment_card_provider == 'master':
         response = TransactionMatching.get_master_auth_csv(mid)
-        response_json = response.json()
     elif payment_card_provider == 'amex':
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
-        response_json = response.json()
     else:
         TransactionMatching.get_amex_register_payment_csv()
-        response = TransactionMatching.get_amex_auth_csv()
-        response_json = response.json()
+        response = TransactionMatching.get_amex_auth_csv(mid)
 
+    response_json = response.json()
     logging.info("The response of POST/import Payment Auth File is: \n\n"
                  + json.dumps(response_json, indent=4))
     assert response.status_code == 201 or 200, "Payment file is not successful"
