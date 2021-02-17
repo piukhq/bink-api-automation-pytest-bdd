@@ -11,7 +11,6 @@ import time
 import io
 
 from azure.storage.blob import BlobServiceClient
-from datetime import datetime
 from tests.helpers.database.query_harmonia import QueryHarmonia
 from tests.helpers.test_helpers import PaymentCardTestData
 import tests.helpers.constants as constants
@@ -87,7 +86,8 @@ def import_merchant_file(merchant_container, payment_card_provider, mid, cardIde
     merchant_writer.writerow(TestTransactionMatchingContext.iceland_file_header)
     merchant_writer.writerow([PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS),
                               PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS),
-                              '01/80', '3', cardIdentity, mid, datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                              '01/80', '3', cardIdentity, mid,
+                              TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
                               TestTransactionMatchingContext.transaction_matching_amount, 'GBP', '.00', 'GBP',
                               TestTransactionMatchingContext.transaction_matching_id,
                               TestTransactionMatchingContext.transaction_matching_uuid])
