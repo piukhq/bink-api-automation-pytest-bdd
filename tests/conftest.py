@@ -6,6 +6,7 @@ from requests.exceptions import HTTPError
 
 import config
 import tests.helpers.constants as constants
+from tests.api.transactionmatching_base import TransactionMatching_Endpoint
 from tests.requests.service import CustomerAccount
 from tests.requests.payment_cards import PaymentCards
 from tests.requests.membership_cards import MembershipCards
@@ -74,6 +75,7 @@ def env(pytestconfig):
 @pytest.fixture(scope="session", autouse=True)
 def set_environment(env):
     Endpoint.set_environment(env)
+    TransactionMatching_Endpoint.set_environment(env)
     logging.info("Environment Setup ready")
     TestDataUtils.set_test_data(env)
 
