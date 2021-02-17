@@ -4,11 +4,12 @@ import config
 
 
 class TransactionMatching_Endpoint:
-    BASE_URL = ""
+    TRANSACTION_MATCHING_BASE_URL = ""
 
     @staticmethod
     def set_environment(env):
-        TransactionMatching_Endpoint.BASE_URL = getattr(config, env.upper()).base_url
+        TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL = \
+            getattr(config, env.upper()).transaction_matching_base_url
 
     @staticmethod
     def request_header_mastercard():
