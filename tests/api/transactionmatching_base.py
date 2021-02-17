@@ -8,7 +8,8 @@ class TransactionMatching_Endpoint:
 
     @staticmethod
     def set_environment(env):
-        TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL = getattr(config, env.upper()).transaction_matching_base_url
+        TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL = \
+            getattr(config, env.upper()).transaction_matching_base_url
 
     @staticmethod
     def request_header_mastercard():
