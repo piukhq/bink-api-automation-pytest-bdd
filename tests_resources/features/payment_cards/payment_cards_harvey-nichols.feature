@@ -19,7 +19,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their payment card 
     | payment_card_provider|
     |          amex        |
     |          master      |
-#    |          visa        |
+    |          visa        |
 
      @bink_regression @bmb_regression
     Scenario: PLL Link by PATCH_(mcard_pcard)_HarveyNichols

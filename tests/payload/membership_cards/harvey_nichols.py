@@ -24,11 +24,18 @@ class HarveyNicholsCard:
             value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.ID)
             data_type = "Valid data"
 
-        if TestContext.channel_name == config.BINK.channel_name:
-            pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
-        elif TestContext.channel_name == config.BARCLAYS.channel_name:
-            pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
         sensitive_value = TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.PASSWORD)
+
+        if TestContext.flag_encrypt == "true":
+            if TestContext.channel_name == config.BINK.channel_name:
+                pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
+            elif TestContext.channel_name == config.BARCLAYS.channel_name:
+                pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
+
+            password = RSACipher().encrypt(sensitive_value, pub_key)
+
+        elif TestContext.flag_encrypt == "false":
+            password = sensitive_value
 
         payload = {
             "account": {
@@ -38,7 +45,7 @@ class HarveyNicholsCard:
                      },
                     {
                         "column": "Password",
-                        "value": RSACipher().encrypt(sensitive_value, pub_key)
+                        "value": password
                     }
                 ]
             },

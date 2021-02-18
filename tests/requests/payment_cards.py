@@ -15,8 +15,11 @@ class PaymentCards(Endpoint):
     def add_payment_card(token, card_provider):
         url = PaymentCards.get_url()
         header = Endpoint.request_header(token)
-        # payload = PaymentCardDetails.add_payment_card_payload_unencrypted(card_provider)
-        payload = PaymentCardDetails.add_payment_card_payload_encrypted(card_provider)
+        if TestContext.flag_encrypt == "true":
+            payload = PaymentCardDetails.add_payment_card_payload_encrypted(card_provider)
+        elif TestContext.flag_encrypt == "false":
+            payload = PaymentCardDetails.add_payment_card_payload_unencrypted(card_provider)
+
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
@@ -75,7 +78,7 @@ class PaymentCards(Endpoint):
         And the url should contain 'hash-'
         And the hash value shouldn't contain any special chars"""
         hash_val = TestContext.payment_card_hash
-        url = Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARD.format("hash-"+hash_val)
+        url = Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARD.format("hash-" + hash_val)
         header = Endpoint.request_header(token)
         response = Endpoint.call(url, header, "DELETE")
         return response
