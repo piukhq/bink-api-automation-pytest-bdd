@@ -17,3 +17,6 @@ class TestContext:
     payment_card_1 = ""
     payment_card_2 = ""
     payment_card_3 = ""
+
+    """Variable that decides encryption is required / not"""
+    flag_encrypt = ""

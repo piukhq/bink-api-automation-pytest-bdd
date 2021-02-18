@@ -8,7 +8,7 @@ visa_payment_card = {
     "month": 10,
     "year": 2026,
     "fingerprint": "b0548a5e26030ccd853fcb70e9011fb79577",
-    "hash": "pytest7117",
+    "hash": "pytest2001",
     "status": "active",
     "active_link": True
 }
@@ -21,7 +21,7 @@ amex_payment_card = {
     "month": 1,
     "year": 2044,
     "fingerprint": "pytest7118",
-    "hash": "pytest7118",
+    "hash": "pytestsamplehash20",
     "status": "active",
     "active_link": True
 }
@@ -33,8 +33,8 @@ master_payment_card = {
     "name_on_card": "master_staging_test",
     "month": 1,
     "year": 2044,
-    "fingerprint": "pytest4011",
-    "hash": "pytest4011",
+    "fingerprint": "pytest2002",
+    "hash": "pytest4012",
     "status": "active",
     "active_link": True
 }

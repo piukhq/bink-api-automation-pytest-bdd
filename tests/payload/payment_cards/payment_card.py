@@ -2,6 +2,7 @@ import logging
 import json
 import config
 import arrow
+from faker import Faker
 
 from tests.helpers.test_helpers import PaymentCardTestData
 
@@ -26,7 +27,7 @@ class PaymentCardDetails:
 
     @staticmethod
     def add_payment_card_payload_encrypted(card_provider):
-        TestContext.payment_card_hash = PaymentCardTestData.get_data(card_provider).get(constants.HASH)
+
         payment_card = PaymentCardDetails.get_card(card_provider)
         if TestContext.channel_name == config.BINK.channel_name:
             pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
@@ -39,9 +40,12 @@ class PaymentCardDetails:
 
     @staticmethod
     def get_card(card_provider):
+        faker = Faker()
+        TestContext.payment_card_hash = \
+            PaymentCardTestData.get_data(card_provider).get(constants.HASH)+str(faker.random_int())
         return {
             "card": {
-                "hash": PaymentCardTestData.get_data(card_provider).get(constants.HASH),
+                "hash": TestContext.payment_card_hash,
                 "token": PaymentCardTestData.get_data(card_provider).get(constants.TOKEN),
                 "last_four_digits": PaymentCardTestData.get_data(card_provider).get(constants.LAST_FOUR_DIGITS),
                 "first_six_digits": PaymentCardTestData.get_data(card_provider).get(constants.FIRST_SIX_DIGITS),
@@ -71,14 +75,17 @@ class PaymentCardDetails:
         return payment_card
 
     @staticmethod
-    def add_payment_card_payload_unencrypted(email, card_provider):
+    def add_payment_card_payload_unencrypted(card_provider):
+        faker = Faker()
+        TestContext.payment_card_hash = \
+            PaymentCardTestData.get_data(card_provider).get(constants.HASH) + str(faker.random_int())
         payload = {
             "card": {
-                "hash": PaymentCardTestData.get_data(card_provider).get(constants.HASH),
+                "hash":  TestContext.payment_card_hash,
                 "token": PaymentCardTestData.get_data(card_provider).get(constants.TOKEN),
                 "last_four_digits": PaymentCardTestData.get_data(card_provider).get(constants.LAST_FOUR_DIGITS),
                 "first_six_digits": PaymentCardTestData.get_data(card_provider).get(constants.FIRST_SIX_DIGITS),
-                "name_on_card": email.split("@")[0],
+                "name_on_card": PaymentCardTestData.get_data(card_provider).get(constants.NAME_ON_CARD),
                 "month": PaymentCardTestData.get_data(card_provider).get(constants.MONTH),
                 "year": PaymentCardTestData.get_data(card_provider).get(constants.YEAR),
                 "fingerprint": PaymentCardTestData.get_data(card_provider).get(constants.FINGERPRINT),

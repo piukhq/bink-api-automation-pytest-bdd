@@ -233,6 +233,7 @@ def delete_all_payment_cards():
 @then("I perform DELETE request to delete the payment card by hash")
 def delete_payment_card():
     response = PaymentCards.delete_payment_card_with_hash(TestContext.token)
+    logging.info("response.status_code" + response.status_code.__str__())
     assert response.status_code == 200, "Payment card deletion by hash is not successful"
     logging.info(f"Payment card '{TestContext.current_payment_card_id}' is deleted by hash")
 
