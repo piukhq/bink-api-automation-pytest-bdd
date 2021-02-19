@@ -27,6 +27,13 @@
     },
     "images": [
         {
+            "id": 1320,
+            "type": 9,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/whsmith-alt-hero.png",
+            "description": "WHSmith Alternative Hero",
+            "encoding": "png"
+        },
+        {
             "id": 1291,
             "type": 0,
             "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/WHSmith_Logo_Block_PMS_287.png",
