@@ -18,7 +18,7 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
 
     Examples:
     | payment_card_provider|merchant_container| mid      | cardIdentity             |
-    |          amex        |scheme/iceland/   |9445909831| Amex                     |
+#    |          amex        |scheme/iceland/   |9445909831| Amex                     |
     |          master      |scheme/iceland/   |22776952  |MasterCard/MasterCard One |
 
   @transactionMatchingFatFace
