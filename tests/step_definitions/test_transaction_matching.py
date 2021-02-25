@@ -1,3 +1,9 @@
+import uuid
+import random
+from decimal import Decimal
+from datetime import datetime
+from pytz import timezone
+
 from pytest_bdd import (
     scenarios,
     then,
@@ -84,6 +90,7 @@ def import_merchant_file(merchant_container, payment_card_provider, mid, cardIde
     buf = io.StringIO()
     merchant_writer = csv.writer(buf, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     merchant_writer.writerow(TestTransactionMatchingContext.iceland_file_header)
+    getNewFileDataToImport()
     merchant_writer.writerow([PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS),
                               PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS),
                               '01/80', '3', cardIdentity, mid,
@@ -95,3 +102,12 @@ def import_merchant_file(merchant_container, payment_card_provider, mid, cardIde
     blob_client = bbs.get_blob_client(TestTransactionMatchingContext.container_name, merchant_container
                                       + f"{TestTransactionMatchingContext.file_name}")
     blob_client.upload_blob(buf.getvalue().encode())
+
+
+def getNewFileDataToImport():
+    TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
+    TestTransactionMatchingContext.transaction_matching_uuid = random.randint(100000, 999999)
+    TestTransactionMatchingContext.transaction_matching_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+    TestTransactionMatchingContext.transaction_matching_currentTimeStamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone('MST')).strftime(
+        '%Y-%m-%d %H:%M:%S')
