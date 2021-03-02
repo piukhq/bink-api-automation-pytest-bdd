@@ -10,7 +10,7 @@ class TestTransactionMatchingContext:
     transaction_matching_currentTimeStamp = ""
     transaction_matching_amexTimeStamp = ""
     container_name = "harmonia-imports"
-    file_name = "iceland-bonus-card" + datetime.now().strftime('%Y%m%d-%H%M%S') + ".csv"
+    file_name = ""
 
     iceland_file_header = ['TransactionCardFirst6', 'TransactionCardLast4', 'TransactionCardExpiry',
                            'TransactionCardSchemeId', 'TransactionCardScheme', 'TransactionStore_Id',
