@@ -1,6 +1,3 @@
-from datetime import datetime
-
-
 class TestTransactionMatchingContext:
     """ Transaction matching """
     amex_token = ""
