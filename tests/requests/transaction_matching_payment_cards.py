@@ -26,9 +26,10 @@ class TransactionMatching(Endpoint):
 
     @staticmethod
     def get_amex_auth_csv(mid):
-        url = TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL + api.ENDPOINT_AMEX_CARD
+        url = TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_CARD
         headers = TransactionMatching_Endpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
         payload = TransactionMatchingPaymentFileDetails.get_amex_auth_data(mid)
+        print(payload)
         response = Endpoint.call(url, headers, "POST", payload)
         return response
 
@@ -38,8 +39,8 @@ class TransactionMatching(Endpoint):
 
     @staticmethod
     def get_amex_register_url():
-        return TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL + api.ENDPOINT_AMEX_CARD_REGISTER
+        return TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_CARD_REGISTER
 
     @staticmethod
     def get_visa_url():
-        return TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL + api.ENDPOINT_VISA_CARD
+        return TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_VISA_CARD

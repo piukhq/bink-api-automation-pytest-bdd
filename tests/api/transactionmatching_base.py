@@ -5,11 +5,15 @@ import config
 
 class TransactionMatching_Endpoint:
     TRANSACTION_MATCHING_BASE_URL = ""
+    TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS = ""
+
 
     @staticmethod
     def set_environment(env):
         TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL = \
             getattr(config, env.upper()).transaction_matching_base_url
+        TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS = \
+            getattr(config, env.upper()).transaction_matching_base_url_zephyrus
 
     @staticmethod
     def request_header_mastercard():
