@@ -8,58 +8,68 @@ from tests_resources.test_data import testdata_preprod
 
 
 class EnvironmentDetails:
-    def __init__(self, base_url, test_data, transaction_matching_base_url):
+    def __init__(self, base_url, test_data, transaction_matching_base_url, transaction_matching_base_url_zephyrus):
         self.base_url = base_url
         self.test_data = test_data
         self.transaction_matching_base_url = transaction_matching_base_url
+        self.transaction_matching_base_url_zephyrus = transaction_matching_base_url_zephyrus
 
 
 if "KUBERNETES_SERVICE_HOST" in environ:
     DEV = EnvironmentDetails(
         base_url="http://hermes-api",
         test_data=testdata_dev,
-        transaction_matching_base_url="http://skiron"
+        transaction_matching_base_url="http://skiron",
+        transaction_matching_base_url_zephyrus="http://zephyrus"
     )
     STAGING = EnvironmentDetails(
         base_url="http://hermes-api",
         test_data=testdata_staging,
-        transaction_matching_base_url="http://skiron"
+        transaction_matching_base_url="http://skiron",
+        transaction_matching_base_url_zephyrus="http://zephyrus"
     )
     PROD = EnvironmentDetails(
         base_url="http://hermes-api",
         test_data=testdata_prod,
-        transaction_matching_base_url="http://skiron"
+        transaction_matching_base_url="http://skiron",
+        transaction_matching_base_url_zephyrus="http://zephyrus"
     )
 else:
     DEV = EnvironmentDetails(
         base_url="https://api.dev.gb.bink.com",
         test_data=testdata_dev,
-        transaction_matching_base_url="https://api.dev.gb.bink.com"
+        transaction_matching_base_url="https://api.dev.gb.bink.com",
+        transaction_matching_base_url_zephyrus="https://api.dev.gb.bink.com"
     )
     STAGING = EnvironmentDetails(
         base_url="https://api.staging.gb.bink.com",
         test_data=testdata_staging,
-        transaction_matching_base_url="https://api.staging.gb.bink.com"
+        transaction_matching_base_url="https://api.staging.gb.bink.com",
+        transaction_matching_base_url_zephyrus="https://api.staging.gb.bink.com"
     )
     PROD = EnvironmentDetails(
         base_url="https://api.gb.bink.com",
         test_data=testdata_prod,
-        transaction_matching_base_url="https://api.gb.bink.com"
+        transaction_matching_base_url="https://api.gb.bink.com",
+        transaction_matching_base_url_zephyrus="https://api.gb.bink.com"
     )
     SIT = EnvironmentDetails(
         base_url="https://api.sandbox.gb.bink.com",
         test_data=testdata_sit,
-        transaction_matching_base_url="https://api.sandbox.gb.bink.com"
+        transaction_matching_base_url="https://api.sandbox.gb.bink.com",
+        transaction_matching_base_url_zephyrus="https://api.sandbox.gb.bink.com"
     )
     OAT = EnvironmentDetails(
         base_url="https://oat.sandbox.gb.bink.com",
         test_data=testdata_oat,
-        transaction_matching_base_url="https://oat.sandbox.gb.bink.com"
+        transaction_matching_base_url="https://oat.sandbox.gb.bink.com",
+        transaction_matching_base_url_zephyrus="https://oat.sandbox.gb.bink.com"
     )
     PREPROD = EnvironmentDetails(
         base_url="https://api.preprod.gb.bink.com",
         test_data=testdata_preprod,
-        transaction_matching_base_url="https://api.preprod.gb.bink.com"
+        transaction_matching_base_url="https://api.preprod.gb.bink.com",
+        transaction_matching_base_url_zephyrus="https://api.preprod.gb.bink.com"
     )
 
 
