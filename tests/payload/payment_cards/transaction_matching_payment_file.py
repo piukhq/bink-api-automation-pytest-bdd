@@ -1,12 +1,8 @@
-import logging
-import json
 import uuid
 import base64
 
-from tests.api.transactionmatching_base import TransactionMatching_Endpoint
 from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_helpers import PaymentCardTestData
-import tests.api as api
 import tests.helpers.constants as constants
 from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
 
@@ -16,9 +12,6 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def import_master_auth_payment_card(mid):
         import_payment_file = TransactionMatchingPaymentFileDetails.get_mastercard_auth_data(mid)
-        logging.info("The Request to import payment card is : \n\n"
-                     + TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL + api.ENDPOINT_MASTER_CARD + "\n\n" +
-                     json.dumps(import_payment_file, indent=4))
         return import_payment_file
 
     @staticmethod
@@ -35,9 +28,6 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def import_amex_auth_payment_card():
         import_amex_register_file = TransactionMatchingPaymentFileDetails.get_amex_auth_regirster_data()
-        logging.info("The Request to Register Amex Auth payment card is : \n\n" +
-                     TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL + api.ENDPOINT_AMEX_CARD_REGISTER +
-                     "\n\n" + json.dumps(import_amex_register_file, indent=4))
         return import_amex_register_file
 
     @staticmethod
