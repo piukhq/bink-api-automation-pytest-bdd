@@ -20,7 +20,7 @@ if "KUBERNETES_SERVICE_HOST" in environ:
         base_url="http://hermes-api",
         test_data=testdata_dev,
         transaction_matching_base_url="http://skiron",
-        transaction_matching_base_url_zephyrus = "http://zephyrus"
+        transaction_matching_base_url_zephyrus="http://zephyrus"
     )
     STAGING = EnvironmentDetails(
         base_url="http://hermes-api",

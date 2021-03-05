@@ -7,7 +7,6 @@ class TransactionMatching_Endpoint:
     TRANSACTION_MATCHING_BASE_URL = ""
     TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS = ""
 
-
     @staticmethod
     def set_environment(env):
         TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL = \
