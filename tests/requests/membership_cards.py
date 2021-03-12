@@ -156,3 +156,14 @@ class MembershipCards(Endpoint):
         header = Endpoint.request_header(token)
         payload = Merchant.get_merchant(merchant).enrol_delete_add_membership_card_payload(email)
         return Endpoint.call(url, header, "POST", payload)
+
+    @staticmethod
+    def delete_existing_scheme_account(token):
+        url = MembershipCards.get_url()
+        header = Endpoint.request_header(token)
+        response = Endpoint.call(url, header, "GET")
+        response_json = response.json()
+        if(response_json != []):
+            for current_membership_card in response_json:
+                MembershipCards.delete_scheme_account(token, current_membership_card.get("id"))
+        return response_json
