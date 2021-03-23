@@ -157,6 +157,10 @@ iceland_membership_card = {
     "transaction_currency": "GBP",
 }
 
+iceland_ghost_membership_card = {
+    "card_num": "6332041231231230001",
+}
+
 # iceland_membership_card = {
 #     "card_num": "6332040030555532506",
 #     "barcode": "633204003055553250600085",

@@ -46,6 +46,22 @@ def add_membership_card(merchant):
             get(constants.REASON_CODE_PENDING_ADD)
     ), ("Add Journey for " + merchant + " failed")
 
+@when(parsers.parse('I perform POST request to add {Iceland} ghost membership card'))
+def add_ghost_membership_card(merchant):
+    response = MembershipCards.add_ghost_card(TestContext.token, merchant)
+    response_json = response_to_json(response)
+    TestContext.current_scheme_account_id = response_json.get("id")
+    logging.info(
+        "The response of Add Journey (POST) is:"
+        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n"
+        + json.dumps(response_json, indent=4))
+    assert (
+            response.status_code == 201
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states()
+            .get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING_ADD)
+    ), ("Add Journey for " + merchant + " failed")
 
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card with "{invalid_data}"'))
 def add_invalid_membership_card(merchant, invalid_data):
