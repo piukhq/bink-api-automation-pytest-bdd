@@ -1,11 +1,10 @@
 import logging
 import json
 
-import faker
+from faker import Faker
 
 from tests.api.base import Endpoint
 import tests.api as api
-from tests.helpers.test_context import TestContext
 from tests.helpers.test_data_utils import TestDataUtils
 import tests.helpers.constants as constants
 
@@ -49,6 +48,7 @@ class IcelandCard:
 
     @staticmethod
     def enrol_membership_scheme_payload(email, env=None, channel=None, invalid_data=None):
+        faker = Faker()
         enrol_consent = "Consent 1"
         if invalid_data:
             value = TestDataUtils.TEST_DATA.iceland_invalid_data.get(constants.EMAIL)
@@ -90,32 +90,23 @@ class IcelandCard:
         return payload
 
     @staticmethod
-    def add_ghost_membership_card_payload(invalid_data=None):
-        # if invalid_data:
-        #     value = TestDataUtils.TEST_DATA.iceland_invalid_data.get(constants.POSTCODE)
-        #     logging.info("Invalid data is: " + value)
-        #     data_type = "Invalid data"
-        # else:
-        #     value = TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
-        #     data_type = "Valid data"
-        ghost_card_lastname = faker.name()
-        ghost_card_postcode = faker.postcode()
+    def add_ghost_membership_card_payload():
         payload = {
             "account": {
                 "add_fields": [
                     {
                         "column": "Bonus card number",
-                        "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.CARD_NUM),
+                        "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.CARD_NUM)
                     }
                 ],
                 "authorise_fields": [
                     {
                         "column": "Last name",
-                        "value": TestContext.ghost_card_lastname
+                        "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.LAST_NAME)
                     },
                     {
                         "column": "Postcode",
-                        "value": TestContext.ghost_card_postcode
+                        "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.POSTCODE)
                     }
                 ]
             },

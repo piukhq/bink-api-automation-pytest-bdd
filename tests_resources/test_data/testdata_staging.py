@@ -158,7 +158,16 @@ iceland_membership_card = {
 }
 
 iceland_ghost_membership_card = {
-    "card_num": "6332041231231230001",
+    "card_num": "6332040031231230001",
+    "barcode": "6332040031231230001",
+    "last_name": "qa_Ghost_card",
+    "postcode": "rg6 6av",
+    "points": 1480,
+    "currency": "GBP",
+    "description": "Placeholder Balance Description",
+    "transactions": "6",
+    "transaction_status": "active",
+    "transaction_currency": "GBP",
 }
 
 # iceland_membership_card = {

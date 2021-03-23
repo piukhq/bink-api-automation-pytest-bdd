@@ -158,11 +158,8 @@ class MembershipCards(Endpoint):
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
-    def add_ghost_card(token, merchant, invalid_data=None):
-        url = MembershipCards.get_url()
+    def add_ghost_card(token, merchant):
+        url = MembershipCards.get_url(token)
         header = Endpoint.request_header(token)
-        # if not invalid_data:
-        #     payload = Merchant.get_merchant(merchant).add_membership_card_payload()
-        # else:
         payload = Merchant.get_merchant(merchant).add_ghost_membership_card_payload()
         return Endpoint.call(url, header, "POST", payload)

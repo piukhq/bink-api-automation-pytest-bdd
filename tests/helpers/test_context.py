@@ -6,8 +6,6 @@ class TestContext:
     response = ""
     payment_card_hash = ""
     card_number = ""
-    ghost_card_lastname = ""
-    ghost_card_postcode = ""
     """Below variables are used to ensure complete execution
      and deletion of membership& payment cards after ubiquity scenarios"""
 
