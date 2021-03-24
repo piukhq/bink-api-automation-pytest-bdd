@@ -163,10 +163,10 @@ def enrol_membership_account(merchant, test_email, env, channel):
 """Step Definations - Register ghost membership_card"""
 
 
-@when(parsers.parse('I perform POST request to create a "{merchant}" ghost membership account with enrol credentials'))
-def register_ghost_membership_account(merchant, test_email):
+@when(parsers.parse('I perform PATCH request to create a "{merchant}" ghost membership account with enrol credentials'))
+def register_ghost_membership_account(merchant, test_email, env, channel):
     response = MembershipCards.register_ghost_card(TestContext.token, merchant,
-                                                   test_email, TestContext.current_scheme_account_id)
+                                                   test_email, TestContext.current_scheme_account_id, env, channel)
     response_json = response_to_json(response)
     TestContext.current_scheme_account_id = response_json.get("id")
     logging.info(

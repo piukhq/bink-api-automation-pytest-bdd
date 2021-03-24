@@ -118,8 +118,17 @@ class IcelandCard:
         return payload
 
     @staticmethod
-    def enrol_ghost_membership_scheme_payload(email, scheme_id):
+    def enrol_ghost_membership_scheme_payload(email, scheme_id, env, channel=None):
         faker = Faker()
+        enrol_consent = "Consent 1"
+        if channel == "barclays":
+            if env == "dev":
+                enrol_consent = "Consent 1"
+            elif env == "staging":
+                enrol_consent = "Consent 2"
+        elif channel == "bink":
+            enrol_consent = "Enrol Consent 1"
+
         payload = {
             "account": {
                 "registration_fields": [
@@ -134,7 +143,7 @@ class IcelandCard:
                     {"column": "City", "value": faker.city()},
                     {"column": "County", "value": faker.country()},
                     {"column": "Postcode", "value": faker.postcode()},
-                    {"column": "Enrol Consent 1", "value": constants.CONSENT},
+                    {"column": enrol_consent, "value": constants.CONSENT},
                 ]
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
