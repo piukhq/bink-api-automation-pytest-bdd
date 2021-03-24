@@ -247,7 +247,7 @@ membership_card_status_reason_codes = {
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
 
 bink_user_accounts = {
-    "uid": "pytest_staging@bink.com",
+    "uid": "pytest_staging_auto@bink.com",
     "pwd": "Password1",
 }
 
