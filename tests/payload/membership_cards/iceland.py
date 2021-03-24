@@ -116,3 +116,29 @@ class IcelandCard:
         logging.info("The Request for Add Ghost Journey with  :\n\n"
                      + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
+
+    @staticmethod
+    def enrol_ghost_membership_scheme_payload(email, scheme_id):
+        faker = Faker()
+        payload = {
+            "account": {
+                "registration_fields": [
+                    {"column": "Title", "value": constants.TITLE},
+                    {"column": "First name", "value": faker.name()},
+                    {"column": "Last name", "value": faker.name()},
+                    {"column": "Date of birth", "value": constants.DATE_OF_BIRTH},
+                    {"column": "Email", "value": email},
+                    {"column": "Phone", "value": faker.phone_number()},
+                    {"column": "House name or number", "value": faker.building_number()},
+                    {"column": "Street name", "value": faker.street_address()},
+                    {"column": "City", "value": faker.city()},
+                    {"column": "County", "value": faker.country()},
+                    {"column": "Postcode", "value": faker.postcode()},
+                    {"column": "Enrol Consent 1", "value": constants.CONSENT},
+                ]
+            },
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
+        }
+        logging.info("The Request for Register Ghost Journey with  :\n\n" + Endpoint.BASE_URL +
+                     api.ENDPOINT_MEMBERSHIP_CARD.format(scheme_id) + "\n\n" + json.dumps(payload, indent=4))
+        return payload
