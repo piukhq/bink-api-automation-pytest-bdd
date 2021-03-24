@@ -47,6 +47,24 @@ def add_membership_card(merchant):
     ), ("Add Journey for " + merchant + " failed")
 
 
+@when(parsers.parse('I perform POST request to add "{merchant}" ghost membership card'))
+def add_ghost_membership_card(merchant):
+    response = MembershipCards.add_ghost_card(TestContext.token, merchant)
+    response_json = response_to_json(response)
+    TestContext.current_scheme_account_id = response_json.get("id")
+    logging.info(
+        "The response of Add Ghost Journey (POST) is:"
+        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n"
+        + json.dumps(response_json, indent=4))
+    assert (
+            response.status_code == 201
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states()
+            .get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING_ADD)
+    ), ("Add Ghost Journey for " + merchant + " failed")
+
+
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card with "{invalid_data}"'))
 def add_invalid_membership_card(merchant, invalid_data):
     response = MembershipCards.add_card(TestContext.token, merchant, invalid_data)
@@ -127,7 +145,6 @@ def patch_request_to_update_membership_card_details(merchant):
 
 @when(parsers.parse('I perform POST request to create a "{merchant}" membership account with enrol credentials'))
 def enrol_membership_account(merchant, test_email, env, channel):
-
     response = MembershipCards.enrol_customer(TestContext.token, merchant, test_email, env, channel)
     response_json = response_to_json(response)
     TestContext.current_scheme_account_id = response_json.get("id")
@@ -137,6 +154,27 @@ def enrol_membership_account(merchant, test_email, env, channel):
         json.dumps(response_json, indent=4))
     assert (
             response.status_code == 201
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING_ENROL)
+    ), ("Enrol journey for " + merchant + " failed")
+
+
+"""Step Definations - Register ghost membership_card"""
+
+
+@when(parsers.parse('I perform PATCH request to create a "{merchant}" ghost membership account with enrol credentials'))
+def register_ghost_membership_account(merchant, test_email, env, channel):
+    response = MembershipCards.register_ghost_card(TestContext.token, merchant,
+                                                   test_email, TestContext.current_scheme_account_id, env, channel)
+    response_json = response_to_json(response)
+    TestContext.current_scheme_account_id = response_json.get("id")
+    logging.info(
+        "The response of Register ghost Journey (PATCH) is:\n\n"
+        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS.format(TestContext.current_scheme_account_id) + "\n\n" +
+        json.dumps(response_json, indent=4))
+    assert (
+            response.status_code == 200
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
             get(constants.REASON_CODE_PENDING_ENROL)
@@ -229,7 +267,7 @@ def verify_membership_card_is_created(merchant):
     response_json = response_to_json(response)
     TestContext.card_number = response_json["card"]["membership_id"]
     logging.info(
-        "The response of GET/MembershipCard after Enrol Journey is:\n\n"
+        "The response of GET/MembershipCard after Register Ghost Journey is:\n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(TestContext.current_scheme_account_id) + "\n\n"
         + json.dumps(response_json, indent=4))
     assert (
@@ -325,6 +363,24 @@ def verify_invalid_membership_card_is_created(merchant):
             get(constants.REASON_CODE_FAILED_ENROL) or TestData.get_membership_card_status_reason_codes().
             get(constants.REASON_CODE_FAILED_INVALID_ENROL)
     ), ("Validations in GET/membership_cards with invalid data for  " + merchant + " failed with reason code" +
+        response_json["status"]["reason_codes"][0])
+
+
+@when(parsers.parse('I perform GET request to verify the "{merchant}" ghost membership card is added to the wallet'))
+def verify_ghost_membership_card_is_created(merchant):
+    response = MembershipCards.get_scheme_account(TestContext.token, TestContext.current_scheme_account_id)
+    response_json = response_to_json(response)
+    logging.info(
+        "The response of GET/MembershipCard request is:\n\n"
+        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(TestContext.current_scheme_account_id) + "\n\n"
+        + json.dumps(response_json, indent=4))
+    assert (
+            response.status_code == 200
+            and response_json["id"] == TestContext.current_scheme_account_id
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.FAILED)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_GHOST_FAILED)
+    ), ("Validations in GET/membership_cards " + merchant + " failed with reason code" +
         response_json["status"]["reason_codes"][0])
 
 

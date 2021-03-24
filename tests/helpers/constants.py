@@ -58,6 +58,7 @@ REASON_CODE_FAILED = "reason_code_failed"
 REASON_CODE_FAILED_ENROL = "reason_code_failed_enrol"
 REASON_CODE_FAILED_INVALID_ENROL = "reason_code_invalid_failed_enrol"
 REASON_CODE_ADD_FAILED = "reason_code_add_failed"
+REASON_CODE_GHOST_FAILED = "reason_code_ghost_failed"
 
 """ Payment Cards Constant"""
 FIRST_SIX_DIGITS = "first_six_digits"

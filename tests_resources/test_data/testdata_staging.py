@@ -157,6 +157,19 @@ iceland_membership_card = {
     "transaction_currency": "GBP",
 }
 
+iceland_ghost_membership_card = {
+    "card_num": "6332040031231230001",
+    "barcode": "6332040031231230001",
+    "last_name": "QAUsertest11",
+    "postcode": "rg6 6bb",
+    "points": 1480,
+    "currency": "GBP",
+    "description": "Placeholder Balance Description",
+    "transactions": "6",
+    "transaction_status": "active",
+    "transaction_currency": "GBP",
+}
+
 # iceland_membership_card = {
 #     "card_num": "6332040030555532506",
 #     "barcode": "633204003055553250600085",
@@ -229,7 +242,8 @@ membership_card_status_reason_codes = {
     "reason_code_failed": "X303",
     "reason_code_failed_enrol": "X201",
     "reason_code_invalid_failed_enrol": "X202",
-    "reason_code_add_failed": "X102"
+    "reason_code_add_failed": "X102",
+    "reason_code_ghost_failed": "X105"
 }
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
 
