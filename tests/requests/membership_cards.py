@@ -60,11 +60,6 @@ class MembershipCards(Endpoint):
         payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email, env, channel)
         return Endpoint.call(url, header, "PUT", payload)
 
-    @staticmethod
-    def register_ghost_card(token, merchant):
-        # url = MembershipCards.get_url()
-        pass
-
     # ---------------------------------------- Ghost Card Registration -------------------------------------------
     @staticmethod
     def patch_ghost_card(token, merchant):
@@ -156,3 +151,18 @@ class MembershipCards(Endpoint):
         header = Endpoint.request_header(token)
         payload = Merchant.get_merchant(merchant).enrol_delete_add_membership_card_payload(email)
         return Endpoint.call(url, header, "POST", payload)
+
+    @staticmethod
+    def add_ghost_card(token, merchant):
+        url = MembershipCards.get_url()
+        header = Endpoint.request_header(token)
+        payload = Merchant.get_merchant(merchant).add_ghost_membership_card_payload()
+        return Endpoint.call(url, header, "POST", payload)
+
+    @staticmethod
+    def register_ghost_card(token, merchant, email, scheme_account_id, env, channel):
+        url = MembershipCards.get_url(scheme_account_id)
+        header = Endpoint.request_header(token)
+        payload = Merchant.get_merchant(merchant).enrol_ghost_membership_scheme_payload(email,
+                                                                                        scheme_account_id, env, channel)
+        return Endpoint.call(url, header, "PATCH", payload)
