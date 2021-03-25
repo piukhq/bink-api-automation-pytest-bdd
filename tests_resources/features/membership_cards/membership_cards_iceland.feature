@@ -96,7 +96,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
   And I perform DELETE request to delete the payment card
 
   @ghost_journey @bink_regression @bmb_regression
-  Scenario: Ghost Journey Iceland
+  Scenario: Ghost card Journey Iceland
 
     Given I am a Bink user
     When I perform POST request to add "Iceland" ghost membership card
