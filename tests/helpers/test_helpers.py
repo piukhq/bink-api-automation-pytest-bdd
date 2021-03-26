@@ -140,6 +140,10 @@ class TestData:
         }
         return switcher.get(merchant)
 
+    @staticmethod
+    def get_vop_status():
+        return TestDataUtils.TEST_DATA.vop_status
+
 
 class PaymentCardTestData:
     """This function is for future use - when more testing in payment cards"""
