@@ -228,6 +228,16 @@ membership_plan_id = {
     "whsmith": 280,
     "wasabi": 281,
 }
+
+
+# ----------------------------------------PAYMENT CARD STATES  --------------------------------------------------- #
+vop_status ={
+    "activating": 1,
+    "deactivating": 2,
+    "activated": 3,
+    "deactivated": 4,
+}
+
 # ----------------------------------------MEMBERSHIP ACCOUNT STATES & REASON_CODES ---------------------------------- #
 
 membership_card_status_states = {

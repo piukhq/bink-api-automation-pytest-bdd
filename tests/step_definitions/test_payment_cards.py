@@ -11,6 +11,7 @@ import tests.api as api
 
 from requests.exceptions import HTTPError
 
+from tests.helpers.database.query_hermes import QueryHermes
 from tests.requests.payment_cards import PaymentCards
 from tests.api.base import Endpoint
 from json import JSONDecodeError
