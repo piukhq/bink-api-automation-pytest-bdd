@@ -47,9 +47,9 @@ def verify_vop_activation_details(activated, merchant, env):
     payment_account = QueryHermes.get_vop_status(TestContext.current_payment_card_id)
     assert payment_account.status == TestData.get_vop_status().get(activated), \
         f"Payment Account is not '{activated}' and the status is '{payment_account.status}'"
-    logging.info(f"The scheme account is '{activated}' with status '{payment_account.status}'")
+    logging.info(f"The payment card is '{activated}' with status '{payment_account.status}'")
 
     assert (payment_account.payment_card_account_id == TestContext.current_payment_card_id
             and payment_account.status == TestData.get_vop_status().get(activated)
             and payment_account.scheme_id == TestData.get_membership_plan_id(merchant)), \
-        f"Details of payment account '{payment_account.payment_card_account_id}'in DB is not as expected"
+        f"Details of payment card '{payment_account.payment_card_account_id}'in DB is not as expected"
