@@ -15,6 +15,7 @@ class SchemeAccountRecord:
     link_or_join_date: datetime.datetime
     main_answer: str
 
+
 @dataclass
 class PaymentAccountRecord:
     id: int
@@ -22,6 +23,7 @@ class PaymentAccountRecord:
     status: int
     payment_card_account_id: str
     scheme_id: int
+
 
 @dataclass
 class CredentialAns:
@@ -59,23 +61,18 @@ class QueryHermes:
     def get_vop_status(payment_card_account_id):
         connection = db.connect_db()
 
-        query_payment_account = """SELECT * from hermes.public.ubiquity_vopactivation where payment_card_account_id='%s'""" % payment_card_account_id
+        query_payment_account = """SELECT * from hermes.public.ubiquity_vopactivation
+                     where payment_card_account_id='%s'""" % payment_card_account_id
         record = db.execute_query_fetch_one(connection, query_payment_account)
         if record is None:
             raise Exception(f"'{payment_card_account_id}' is an Invalid Scheme account id")
         else:
-            payment_account_record = PaymentAccountRecord(record[0],
-                                                        record[1],
-                                                        record[2],
-                                                        record[3],
-                                                        record[4])
+            payment_account_record = PaymentAccountRecord(record[0], record[1], record[2], record[3], record[4])
         db.clear_db(connection)
         return payment_account_record
 
-
     @staticmethod
     def fetch_credential_ans(merchant, scheme_account_id):
-
         """Query all credential answers for the current scheme"""
         connection = db.connect_db()
         query_credential_ans = """SELECT * FROM hermes.public.scheme_schemeaccountcredentialanswer
@@ -109,7 +106,6 @@ class QueryHermes:
 
             db.clear_db(connection)
             return CredentialAns
-
 
     @staticmethod
     def fetch_payment_account_status(journey_type, payment_account_id):

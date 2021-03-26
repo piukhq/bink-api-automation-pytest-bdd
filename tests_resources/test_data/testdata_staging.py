@@ -231,7 +231,8 @@ membership_plan_id = {
 
 
 # ----------------------------------------PAYMENT CARD STATES  --------------------------------------------------- #
-vop_status ={
+
+vop_status = {
     "activating": 1,
     "deactivating": 2,
     "activated": 3,
