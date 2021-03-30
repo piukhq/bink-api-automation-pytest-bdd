@@ -108,7 +108,8 @@ def getNewFileDataToImport():
     TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
     TestTransactionMatchingContext.transaction_matching_uuid = random.randint(100000, 999999)
     TestTransactionMatchingContext.transaction_matching_amount = int(Decimal(str(random.choice(range(10, 1000)))))
-    TestTransactionMatchingContext.transaction_matching_currentTimeStamp = datetime.now(timezone('Europe/London')).strftime('%Y-%m-%d %H:%M:%S')
+    TestTransactionMatchingContext.transaction_matching_currentTimeStamp = datetime.now(timezone('Europe/London'))\
+        .strftime('%Y-%m-%d %H:%M:%S')
     TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone('MST')).strftime(
         '%Y-%m-%d %H:%M:%S')
     TestTransactionMatchingContext.file_name = "iceland-bonus-card" + datetime.now().strftime('%Y%m%d-%H%M%S') + ".csv"
