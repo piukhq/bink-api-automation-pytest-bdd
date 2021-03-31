@@ -218,7 +218,7 @@
             },
             {
                 "column": "Phone",
-                "validation": "^(?:0|\\+?44)(?:\\d-?\\s?){1,16}$",
+                "validation": "^(?:0|\\+?44)(?:\\d-?\\s?){9,15}$",
                 "description": "01234 123456",
                 "common_name": "phone",
                 "type": 0,
@@ -319,7 +319,7 @@
             },
             {
                 "column": "Phone",
-                "validation": "^(?:0|\\+?44)(?:\\d-?\\s?){1,16}$",
+                "validation": "^(?:0|\\+?44)(?:\\d-?\\s?){9,15}$",
                 "description": "01234 123456",
                 "common_name": "phone",
                 "type": 0,
@@ -387,4 +387,3 @@
         }
     ]
 }
-
