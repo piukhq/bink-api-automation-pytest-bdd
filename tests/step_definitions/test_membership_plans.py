@@ -14,7 +14,6 @@ from tests.helpers.test_helpers import TestData
 from tests.helpers.test_context import TestContext
 import tests.helpers.constants as constants
 
-
 scenarios("membership_plans/")
 
 
@@ -25,7 +24,6 @@ def customer_can_view_membership_plan():
 
 @when("I perform GET request to view all available membership plans")
 def view_all_available_membership_plans():
-
     response = MembershipPlans.get_all_membership_plans(TestContext.token)
     logging.info("Membership_Plans response is \n\n" + json.dumps(response_to_json(response), indent=4))
     if response is not None:
@@ -75,4 +73,3 @@ def response_to_json(response):
     except JSONDecodeError or Exception:
         raise Exception(f"Empty response and the response Status Code is {str(response.status_code)}")
     return response_json
-
