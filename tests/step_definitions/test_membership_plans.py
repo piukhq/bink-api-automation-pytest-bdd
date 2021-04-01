@@ -7,12 +7,12 @@ from pytest_bdd import (
 import json
 import logging
 from json_diff import Comparator
+from json import JSONDecodeError
 
 from tests.requests.membership_plans import MembershipPlans
 from tests.helpers.test_helpers import TestData
 from tests.helpers.test_context import TestContext
 import tests.helpers.constants as constants
-
 
 scenarios("membership_plans/")
 
@@ -24,9 +24,8 @@ def customer_can_view_membership_plan():
 
 @when("I perform GET request to view all available membership plans")
 def view_all_available_membership_plans():
-
     response = MembershipPlans.get_all_membership_plans(TestContext.token)
-    logging.info("Membership_Plans response is \n\n" + json.dumps(response.json(), indent=4))
+    logging.info("Membership_Plans response is \n\n" + json.dumps(response_to_json(response), indent=4))
     if response is not None:
         logging.info("GET/Membership_plans is working as expected")
 
@@ -37,7 +36,7 @@ def ensure_the_merchants_plan_details_match_with_expected_data(merchant, env, ch
      expected membership plan of that merchant"""
 
     response = MembershipPlans.get_membership_plan(TestContext.token, merchant)
-    logging.info("The Membership plan for " + merchant + " is: \n" + json.dumps(response.json(), indent=4))
+    logging.info("The Membership plan for " + merchant + " is: \n" + json.dumps(response_to_json(response), indent=4))
     with open(TestData.get_expected_membership_plan_json(merchant, env, channel)) as json_file:
         json_data = json.load(json_file)
     stored_json = json.dumps(json_data)
@@ -66,3 +65,11 @@ def json_compare(actual_membership_plan, expected_membership_plan):
     expected_membership_plan = open(constants.JSON_DIFF_EXPECTED_JSON, "r")
     engine = Comparator(actual_membership_plan, expected_membership_plan)
     return engine.compare_dicts()
+
+
+def response_to_json(response):
+    try:
+        response_json = response.json()
+    except JSONDecodeError or Exception:
+        raise Exception(f"Empty response and the response Status Code is {str(response.status_code)}")
+    return response_json
