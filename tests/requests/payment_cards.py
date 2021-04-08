@@ -26,7 +26,6 @@ class PaymentCards(Endpoint):
     def get_payment_card(token, payment_card_id):
         url = PaymentCards.get_url(payment_card_id)
         header = Endpoint.request_header(token)
-        time.sleep(3)
 
         for i in range(1, 30):
             response = Endpoint.call(url, header, "GET")
@@ -40,7 +39,7 @@ class PaymentCards(Endpoint):
                 logging.info(
                     "The response text:  " + response.text + "\n The response Status Code: " +
                     str(response.status_code))
-                time.sleep(1)
+                time.sleep(i)
                 logging.info("No response generated for end point " + url)
         return response
 
