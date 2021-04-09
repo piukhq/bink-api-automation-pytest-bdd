@@ -1,3 +1,5 @@
+import json
+
 import pytest
 import logging
 import time
@@ -110,12 +112,20 @@ def register_user(test_email, channel, env):
         response_consent = CustomerAccount.service_consent_bink_user(TestContext.token, test_email)
         assert response_consent.status_code == 201, "User Registration _ service consent is not successful"
         logging.info("User registration is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
+        logging.info(f"POST Login  response: {response.json()}")
         return TestContext.token
     elif channel == config.BARCLAYS.channel_name:
         response = CustomerAccount.service_consent_banking_user(test_email)
         logging.info("Banking user subscription to Bink is successful and the token is: \n\n" +
                      TestContext.token + "\n")
+        logging.info(f"POST service consent response status code: {response.status_code} ")
+        logging.info(f"POST service consent actual response: {response.json()}")
+        timestamp = response.json().get("consent").get("timestamp")
+        expected_user_consent = expected_user_consent_json(test_email,timestamp)
+        actual_user_consent = response.json()
+        logging.info(f"expected response: {expected_user_consent}")
         assert response.status_code == 201, "Banking user subscription to Bink is not successful"
+        assert expected_user_consent == actual_user_consent
         return TestContext.token
 
 
@@ -128,13 +138,20 @@ def login_user(channel, env):
         response = CustomerAccount.login_bink_user()
         logging.info("Token is: \n\n" + TestContext.token + "\n")
         assert response.status_code == 200, "User login in Bink Channel is not successful"
+        logging.info(f"POST Login response: {response.json()} ")
         return TestContext.token
     elif channel == config.BARCLAYS.channel_name:
         response = CustomerAccount.service_consent_banking_user(
             TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.USER_ID))
+        timestamp = response.json().get("consent").get("timestamp")
+        expected_existing_user_consent = expected_existing_user_consent_json(timestamp)
+        actual_user_consent = response.json()
+        logging.info(f"actual BMB user service consent response : {response.json()}" +
+                     f"expected service consent response: {expected_existing_user_consent}")
         logging.info("The JWT Token is: \n\n" +
                      TestContext.token + "\n")
         assert response.status_code == 200, "Banking user subscription to Bink is not successful"
+        assert expected_existing_user_consent == actual_user_consent
         return TestContext.token
 
 
@@ -181,3 +198,27 @@ def delete_scheme_account(merchant=None):
 
     except HTTPError as network_response:
         assert network_response.response.status_code == 404 or 400
+
+
+def expected_user_consent_json(test_email, timestamp):
+    response = {
+        "consent": {
+            "email": test_email,
+            "timestamp": timestamp,
+            "latitude": 0.0123,
+            "longitude": 12.345
+        }
+    }
+    return response
+
+
+def expected_existing_user_consent_json(timestamp):
+    response = {
+        "consent": {
+            "email": TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.USER_ID),
+            "timestamp": timestamp,
+            "latitude": 0.0,
+            "longitude": 12.345
+        }
+    }
+    return response
