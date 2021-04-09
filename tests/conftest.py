@@ -1,5 +1,3 @@
-import json
-
 import pytest
 import logging
 import time
@@ -121,11 +119,11 @@ def register_user(test_email, channel, env):
         logging.info(f"POST service consent response status code: {response.status_code} ")
         logging.info(f"POST service consent actual response: {response.json()}")
         timestamp = response.json().get("consent").get("timestamp")
-        expected_user_consent = expected_user_consent_json(test_email,timestamp)
+        expected_user_consent = expected_user_consent_json(test_email, timestamp)
         actual_user_consent = response.json()
         logging.info(f"expected response: {expected_user_consent}")
-        assert response.status_code == 201, "Banking user subscription to Bink is not successful"
-        assert expected_user_consent == actual_user_consent
+        assert response.status_code == 201 and expected_user_consent == actual_user_consent, \
+            "Banking user subscription is not successful"
         return TestContext.token
 
 
@@ -150,8 +148,8 @@ def login_user(channel, env):
                      f"expected service consent response: {expected_existing_user_consent}")
         logging.info("The JWT Token is: \n\n" +
                      TestContext.token + "\n")
-        assert response.status_code == 200, "Banking user subscription to Bink is not successful"
-        assert expected_existing_user_consent == actual_user_consent
+        assert response.status_code == 200 and expected_existing_user_consent == actual_user_consent, \
+            "Banking user subscription is not successful"
         return TestContext.token
 
 
