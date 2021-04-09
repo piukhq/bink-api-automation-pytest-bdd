@@ -1,3 +1,5 @@
+import json
+import logging
 import time
 import tests.helpers.constants as constants
 from tests.helpers.test_data_utils import TestDataUtils
@@ -13,6 +15,7 @@ class UserDetails:
             "client_id": client_id,
             "bundle_id": bundle_id,
         }
+        logging.info("Request body for POST Login" + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
@@ -26,7 +29,7 @@ class UserDetails:
                 "longitude": 12.345
             }
         }
-
+        logging.info("Request body for POST consent" + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
@@ -38,10 +41,11 @@ class UserDetails:
             "client_id": client_id,
             "bundle_id": bundle_id,
         }
+        logging.info("Request body for POST Login" + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
-    def register_bearer_user_payload(email, latitude=0.0, longitude=12.345):
+    def register_bearer_user_payload(email, latitude=0.0123, longitude=12.345):
         """Banking User Subscription to Bink"""
         payload = {
             "consent": {
@@ -51,4 +55,5 @@ class UserDetails:
                 "timestamp": int(time.time())
             }
         }
+        logging.info("Request body for POST Service consent" + json.dumps(payload, indent=4))
         return payload
