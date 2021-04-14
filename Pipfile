@@ -26,10 +26,9 @@ faker = "*"
 psycopg2-binary = "*"
 json-diff = "*"
 arrow = "==0.16.0"
-shared-config-storage = "*"
 pyjwt = "*"
 apscheduler = "*"
 azure-storage-blob = "*"
-
-[requires]
-python_version = "3.8"
+azure-identity = "*"
+azure-keyvault-secrets = "*"
+shared-config-storage = "*"
