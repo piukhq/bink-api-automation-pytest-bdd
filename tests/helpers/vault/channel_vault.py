@@ -22,7 +22,6 @@ class KeyType(str, Enum):
     PUBLIC_KEY = "public_key"
 
 
-
 class KeyVaultError(Exception):
     pass
 
