@@ -21,4 +21,4 @@ class GenerateJWToken:
         }
 
     def get_token(self):
-        return 'bearer {}'.format(jwt.encode(self.payload, self.secret, algorithm="HS512").decode("UTF-8"))
+        return 'bearer {}'.format(jwt.encode(self.payload, self.secret, algorithm="HS512"))

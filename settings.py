@@ -12,5 +12,6 @@ logger.setLevel(logging.DEBUG)
 
 LOCAL_CHANNELS = env_var("LOCAL_CHANNELS", False)
 LOCAL_SECRETS_PATH = env_var("LOCAL_SECRETS_PATH", "tests/helpers/vault/local_channels.json")
-VAULT_URL = env_var("VAULT_URL", "http://localhost:8200")
+VAULT_URL = env_var("VAULT_URL", "https://bink-uksouth-staging-com.vault.azure.net")
+CHANNEL_SECRET_NAME = env_var("CHANNEL_SECRET_NAME", "channels")
 CHANNEL_VAULT_PATH = env_var("CHANNEL_VAULT_PATH", "/channels")
