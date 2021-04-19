@@ -18,6 +18,10 @@ To set up this project on your local machine:
     3. * Optional Step : For Django Web UI tests, install the appropriate browser and WebDriver executable
         * Current Django tests use Chrome and
          [chromedriver](https://chromedriver.chromium.org/downloads) 
+    4. Install Azure CLI and login to Azure for Key Vault access
+        `brew install azure-cli`
+        `az login`
+
        
 # Running Tests
     1. Test Execution:
