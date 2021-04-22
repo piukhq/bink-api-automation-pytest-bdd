@@ -16,6 +16,7 @@ _bundle_secrets = {}
 logging.basicConfig(level=logging.INFO)
 logging.getLogger("azure").setLevel(logging.ERROR)
 
+
 class KeyType(str, Enum):
     PRIVATE_KEY = "private_key"
     PUBLIC_KEY = "public_key"
