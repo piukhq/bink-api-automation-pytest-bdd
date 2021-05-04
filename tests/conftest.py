@@ -96,7 +96,7 @@ def handle_optional_encryption(encryption):
 def test_email():
     # return constants.EMAIL_TEMPLATE.replace("email", str(time.time()))
     faker = Faker()
-    return constants.EMAIL_TEMPLATE.replace("email", str(faker.random_int()))
+    return constants.EMAIL_TEMPLATE.replace("email", str(faker.random_int(100, 999999)))
 
 
 """Shared  Steps"""
@@ -107,25 +107,33 @@ def register_user(test_email, channel, env):
     TestContext.channel_name = channel
     if channel == config.BINK.channel_name:
         response = CustomerAccount.register_bink_user(test_email)
-        response_consent = CustomerAccount.service_consent_bink_user(TestContext.token, test_email)
-        assert response_consent.status_code == 201, "User Registration _ service consent is not successful"
-        logging.info("User registration is successful and the token is: \n\n" + response.json().get("api_key") + "\n")
-        logging.info(f"POST Login  response: {response.json()}")
-        return TestContext.token
+        if response is not None:
+            try:
+                response_consent = CustomerAccount.service_consent_bink_user(TestContext.token, test_email)
+                assert response_consent.status_code == 201, "User Registration _ service consent is not successful"
+                logging.info("User registration is successful and the token is: \n\n" + TestContext.token + "\n\n"
+                             + f"POST Login  response: {response.json()}")
+                return TestContext.token
+            except Exception as e:
+                logging.info(f"Gateway Timeout error :{e}")
+
     elif channel == config.BARCLAYS.channel_name:
         response = CustomerAccount.service_consent_banking_user(test_email)
-        logging.info("Banking user subscription to Bink is successful and the token is: \n\n" +
-                     TestContext.token + "\n")
-        logging.info(f"POST service consent response status code: {response.status_code} ")
-        logging.info(f"POST service consent actual response: {response.json()}")
-        timestamp = response.json().get("consent").get("timestamp")
-        expected_user_consent = expected_user_consent_json(test_email, timestamp)
-        actual_user_consent = response.json()
-        logging.info(f"expected response: {expected_user_consent}")
-        assert response.status_code == 201 and expected_user_consent == actual_user_consent, \
-            "Banking user subscription is not successful"
-        return TestContext.token
-
+        if response is not None:
+            try:
+                logging.info("Banking user subscription to Bink is successful and the token is: \n\n" +
+                             TestContext.token + "\n")
+                logging.info(f"POST service consent response status code: {response.status_code} \n\n" +
+                             f"POST service consent actual response: {response.json()}")
+                timestamp = response.json().get("consent").get("timestamp")
+                expected_user_consent = expected_user_consent_json(test_email, timestamp)
+                actual_user_consent = response.json()
+                logging.info(f"expected response: {expected_user_consent}")
+                assert response.status_code == 201 and expected_user_consent == actual_user_consent, \
+                    "Banking user subscription is not successful"
+                return TestContext.token
+            except Exception as e:
+                logging.info(f"Gateway Timeout error :{e}")
 
 @given("I am a customer who is subscribing to Bink or I am Bink app user")
 @given("I am a Bink user")
@@ -134,23 +142,30 @@ def login_user(channel, env):
     TestContext.channel_name = channel
     if channel == config.BINK.channel_name:
         response = CustomerAccount.login_bink_user()
-        logging.info("Token is: \n\n" + TestContext.token + "\n")
-        assert response.status_code == 200, "User login in Bink Channel is not successful"
-        logging.info(f"POST Login response: {response.json()} ")
-        return TestContext.token
+        if response is not None:
+            try:
+                logging.info("Token is: \n\n" + TestContext.token + "\n" + f"POST Login response: {response.json()} ")
+                assert response.status_code == 200, "User login in Bink Channel is not successful"
+                return TestContext.token
+            except Exception as e:
+                logging.info(f"Gateway Timeout error :{e}")
     elif channel == config.BARCLAYS.channel_name:
         response = CustomerAccount.service_consent_banking_user(
             TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.USER_ID))
-        timestamp = response.json().get("consent").get("timestamp")
-        expected_existing_user_consent = expected_existing_user_consent_json(timestamp)
-        actual_user_consent = response.json()
-        logging.info(f"actual BMB user service consent response : {response.json()}" +
-                     f"expected service consent response: {expected_existing_user_consent}")
-        logging.info("The JWT Token is: \n\n" +
-                     TestContext.token + "\n")
-        assert response.status_code == 200 and expected_existing_user_consent == actual_user_consent, \
-            "Banking user subscription is not successful"
-        return TestContext.token
+        if response is not None:
+            try:
+                timestamp = response.json().get("consent").get("timestamp")
+                expected_existing_user_consent = expected_existing_user_consent_json(timestamp)
+                actual_user_consent = response.json()
+                logging.info(f"actual BMB user service consent response : {response.json()}" +
+                             f"expected service consent response: {expected_existing_user_consent}")
+                logging.info("The JWT Token is: \n\n" +
+                             TestContext.token + "\n")
+                assert response.status_code == 200 and expected_existing_user_consent == actual_user_consent, \
+                    "Banking user subscription is not successful"
+                return TestContext.token
+            except Exception as e:
+                logging.info(f"Gateway Timeout error :{e}")
 
 
 @then("I perform DELETE request to delete the customer")
