@@ -135,6 +135,7 @@ def register_user(test_email, channel, env):
             except Exception as e:
                 logging.info(f"Gateway Timeout error :{e}")
 
+
 @given("I am a customer who is subscribing to Bink or I am Bink app user")
 @given("I am a Bink user")
 @given("I am a customer in channel_1")
