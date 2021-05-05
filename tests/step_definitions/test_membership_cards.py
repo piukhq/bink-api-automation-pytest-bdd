@@ -302,7 +302,7 @@ def verify_add_and_link_membership_card(merchant):
             if current_payment_card["id"] == TestContext.current_payment_card_id:
                 payment_card_present = "yes"
         assert (
-                response.status_code == 200
+                response.status_code == 200 or 201
                 and response_json["id"] == TestContext.current_scheme_account_id
                 and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
                 and response_json["status"]["state"] == TestData.get_membership_card_status_states().

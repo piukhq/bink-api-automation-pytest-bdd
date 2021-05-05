@@ -143,7 +143,7 @@ def login_user(channel, env):
     TestContext.channel_name = channel
     if channel == config.BINK.channel_name:
         response = CustomerAccount.login_bink_user()
-        if response is not None:
+        if response.status_code != 504:
             try:
                 logging.info("Token is: \n\n" + TestContext.token + "\n" + f"POST Login response: {response.json()} ")
                 assert response.status_code == 200, "User login in Bink Channel is not successful"
@@ -153,7 +153,7 @@ def login_user(channel, env):
     elif channel == config.BARCLAYS.channel_name:
         response = CustomerAccount.service_consent_banking_user(
             TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.USER_ID))
-        if response is not None:
+        if response.status_code != 504:
             try:
                 timestamp = response.json().get("consent").get("timestamp")
                 expected_existing_user_consent = expected_existing_user_consent_json(timestamp)
