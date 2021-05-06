@@ -4,7 +4,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
   I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider BurgerKing & check its details successfully
 
-  @add @bink_regression
+  @add @bink_regression1
   Scenario: Add Journey_BurgerKing
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
