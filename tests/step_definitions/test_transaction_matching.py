@@ -30,19 +30,22 @@ from tests.step_definitions import test_membership_cards
 scenarios("transactionMatching/")
 
 
-@when('I send matching "<payment_card_provider> <mid>" Authorisation')
-def import_payment_file(payment_card_provider, mid):
-    if payment_card_provider == 'master':
+@when('I send matching "<payment_card_transaction> <mid>" Authorisation')
+def import_payment_file(payment_card_transaction, mid):
+    if payment_card_transaction == 'master':
         response = TransactionMatching.get_master_auth_csv(mid)
-    elif payment_card_provider == 'amex':
+    elif payment_card_transaction == 'amex':
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
+    elif payment_card_transaction == 'amex-settlement':
+        TransactionMatching.get_amex_register_payment_csv()
+        response = TransactionMatching.get_amex_settlement_csv(mid)
     else:
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
 
     response_json = response.json()
-    logging.info("The response of POST/import Payment Auth File is: \n\n"
+    logging.info("The response of POST/import Payment File is: \n\n"
                  + json.dumps(response_json, indent=4))
     assert response.status_code == 201 or 200, "Payment file is not successful"
 
