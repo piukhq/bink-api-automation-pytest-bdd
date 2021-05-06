@@ -56,9 +56,10 @@ class TransactionMatchingPaymentFileDetails:
             "approvalCode": str(TestTransactionMatchingContext.transaction_matching_uuid),
             "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "currencyCode": "840",
-            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX" +
-                    PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
-            "merchantNumber" : mid,
+            "dpan": PaymentCardTestData.get_data("amex").get(
+                constants.FIRST_SIX_DIGITS) + "XXXXX" + PaymentCardTestData.get_data("amex").get(
+                constants.LAST_FOUR_DIGITS),
+            "merchantNumber": mid,
             "offerId": "0",
             "partnerId": "AADP0050",
             "recordId": f"{base64.b64encode(str(uuid.uuid4()).encode()).decode()}AADP00400",
