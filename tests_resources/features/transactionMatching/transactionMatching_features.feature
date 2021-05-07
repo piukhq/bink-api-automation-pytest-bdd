@@ -19,8 +19,8 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
     Examples:
     | payment_card_provider|merchant_container| mid      | cardIdentity             |payment_card_transaction|
     |          amex        |scheme/iceland/   |9421802109| Amex                     |amex-settlement         |
-    |          amex        |scheme/iceland/   |9445909831| Amex                     |amex|
-    |          master      |scheme/iceland/   |22776952  |MasterCard/MasterCard One |master|
+    |          amex        |scheme/iceland/   |9445909831| Amex                     |amex-auth               |
+    |          master      |scheme/iceland/   |22776952  |MasterCard/MasterCard One |master-auth             |
 
   @transactionMatchingFatFace
   Scenario Outline: Verify export Csv file for Fatface - mastercard_auth
