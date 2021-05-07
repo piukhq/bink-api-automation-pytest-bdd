@@ -32,9 +32,9 @@ scenarios("transactionMatching/")
 
 @when('I send matching "<payment_card_transaction> <mid>" Authorisation')
 def import_payment_file(payment_card_transaction, mid):
-    if payment_card_transaction == 'master':
+    if payment_card_transaction == 'master-auth':
         response = TransactionMatching.get_master_auth_csv(mid)
-    elif payment_card_transaction == 'amex':
+    elif payment_card_transaction == 'amex-auth':
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
     elif payment_card_transaction == 'amex-settlement':
