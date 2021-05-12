@@ -31,7 +31,7 @@ def view_all_available_membership_plans():
         if response is not None:
             logging.info("GET/Membership_plans is working as expected")
     except Exception as e:
-            logging.info(f"Gateway Timeout error :{e}")
+        logging.info(f"Gateway Timeout error :{e}")
     else:
         time.sleep(2)
         response = MembershipPlans.get_all_membership_plans(TestContext.token)
