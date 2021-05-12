@@ -1,5 +1,6 @@
 {
     "id": 281,
+    "plan_popularity": 3,
     "status": "active",
     "feature_set": {
         "authorisation_required": true,
