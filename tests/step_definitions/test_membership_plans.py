@@ -13,6 +13,7 @@ from tests.requests.membership_plans import MembershipPlans
 from tests.helpers.test_helpers import TestData
 from tests.helpers.test_context import TestContext
 import tests.helpers.constants as constants
+import time
 
 scenarios("membership_plans/")
 
@@ -26,8 +27,15 @@ def customer_can_view_membership_plan():
 def view_all_available_membership_plans():
     response = MembershipPlans.get_all_membership_plans(TestContext.token)
     logging.info("Membership_Plans response is \n\n" + json.dumps(response_to_json(response), indent=4))
-    if response is not None:
-        logging.info("GET/Membership_plans is working as expected")
+    try:
+        if response is not None:
+            logging.info("GET/Membership_plans is working as expected")
+    except Exception as e:
+        logging.info(f"Gateway Timeout error :{e}")
+    else:
+        time.sleep(2)
+        response = MembershipPlans.get_all_membership_plans(TestContext.token)
+        logging.info("Retry Membership_Plans response is \n\n" + json.dumps(response_to_json(response), indent=4))
 
 
 @then(parsers.parse('I can ensure the "{merchant}" plan details match with expected data'))
