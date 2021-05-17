@@ -39,8 +39,8 @@ def context():
 
 
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card'))
-def add_membership_card(merchant, login_user, context):
-    context["token"] = login_user
+def add_membership_card(merchant, context):
+    context["token"] = TestContext.get_token()
     response = MembershipCards.add_card(context["token"], merchant)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
@@ -58,8 +58,8 @@ def add_membership_card(merchant, login_user, context):
 
 
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card with "{invalid_data}"'))
-def add_invalid_membership_card(merchant, login_user, context, invalid_data):
-    context["token"] = login_user
+def add_invalid_membership_card(merchant, context, invalid_data):
+    context["token"] = TestContext.get_token()
     response = MembershipCards.add_card(context["token"], merchant, invalid_data)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
@@ -79,8 +79,8 @@ def add_invalid_membership_card(merchant, login_user, context, invalid_data):
     'I perform POST request to add "{merchant}" membership card with invalid "{email_address} and "{password}"'
 )
 )
-def add_membership_card_invalid_credentials(merchant, login_user, context, email_address, password):
-    context["token"] = login_user
+def add_membership_card_invalid_credentials(merchant, context, email_address, password):
+    context["token"] = TestContext.get_token()
     response = MembershipCards.add_card(context["token"], merchant)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
@@ -97,8 +97,8 @@ def add_membership_card_invalid_credentials(merchant, login_user, context, email
 
 
 @when(parsers.parse('I perform POST request to add & auto link an existing "{merchant}" membership card'))
-def add_existing_membership_card(merchant, login_user, context):
-    context["token"] = login_user
+def add_existing_membership_card(merchant, context):
+    context["token"] = TestContext.get_token()
     response = MembershipCards.add_card_auto_link(context["token"], merchant)
     response_json = response.json()
     context["scheme_account_id"] = response_json.get("id")
