@@ -26,10 +26,10 @@ def customer_can_view_membership_plan():
 @when("I perform GET request to view all available membership plans")
 def view_all_available_membership_plans():
     response = MembershipPlans.get_all_membership_plans(TestContext.token)
-    logging.info("Membership_Plans response is \n\n" + json.dumps(response_to_json(response), indent=4))
     try:
         if response is not None:
-            logging.info("GET/Membership_plans is working as expected")
+            logging.info("GET/Membership_plans is working as expected \n\n" +
+                         json.dumps(response_to_json(response), indent=4))
     except Exception as e:
         logging.info(f"Gateway Timeout error :{e}")
     else:
