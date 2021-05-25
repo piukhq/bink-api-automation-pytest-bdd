@@ -204,9 +204,9 @@
             },
             {
                 "column": "Password",
-                "validation": "^([A-z0-9!\"#$\u00a3%&'()*+,\\-./:;<=>?@\\[\\\\\\]^_`{|}~]){6,255}$",
-                "description": "Password (min 6 characters)",
-                "common_name": "password",
+                "validation": "^([A-z0-9!\"#$\u00a3%&'()*+,\\-./:;<=>?@\\[\\\\\\]^_`{|}~]){7,255}$",
+                "description": "Password (min 7 characters)",
+                "common_name": "password_2",
                 "type": 1,
                 "choice": []
             },
