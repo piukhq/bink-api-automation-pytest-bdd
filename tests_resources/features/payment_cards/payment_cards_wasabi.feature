@@ -6,7 +6,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their payment card & link i
   I want to utilise payment_cards endpoint
   So I can add my payment card and can link to Wasabi membership card & check the details successfully
 
-  @bink_regression
+  @bink_regression @bmb_regression
   Scenario Outline: ADD & LINK Journey_Wasabi
 
     Given I am a Bink user
@@ -19,9 +19,9 @@ Feature: Merchant Wasabi - Ensure a customer can add their payment card & link i
     | payment_card_provider|
     |          amex        |
     |          master      |
-#    |          visa        |
+    |          visa        |
 
-    @patch_mcard_pcard @bink_regression 
+    @patch_mcard_pcard @bink_regression @bmb_regression
     Scenario: PLL Link by PATCH_(mcard_pcard)_Wasabi
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -37,7 +37,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their payment card & link i
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
 
-    @patch_pcard_mcard @bink_regression 
+    @patch_pcard_mcard @bink_regression @bmb_regression
     Scenario: PLL Link by PATCH_(pcard_mcard)_Wasabi
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
