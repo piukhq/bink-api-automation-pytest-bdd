@@ -15,7 +15,7 @@ class UserDetails:
             "client_id": client_id,
             "bundle_id": bundle_id,
         }
-        logging.info("Request body for POST Login" + json.dumps(payload, indent=4))
+        logging.info("Request body for POST Registeration" + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
@@ -30,6 +30,36 @@ class UserDetails:
             }
         }
         logging.info("Request body for POST consent" + json.dumps(payload, indent=4))
+        return payload
+
+    @staticmethod
+    def without_consent_user_payload():
+        """Consent for Bink User"""
+        payload = {
+        }
+        logging.info("Request body for POST without the 'consent' field : " + json.dumps(payload, indent=4))
+        return payload
+
+    @staticmethod
+    def without_consent_key_user_payload():
+        """Consent for Bink User"""
+        payload = {
+                "email": "pytest_automation_barclays@testbink.com",
+                "latitude": 0.0123,
+                "longitude": 12.345,
+                "timestamp": 1618489226
+        }
+        logging.info("Request body for POST without the 'consent' field : " + json.dumps(payload, indent=4))
+        return payload
+
+    @staticmethod
+    def without_mandatory_consent_field():
+        """Consent for Bink User"""
+        payload = {
+                "longitude": 12.345,
+                "timestamp": 1618489226
+        }
+        logging.info("Request body for POST without the 'consent' field : " + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod

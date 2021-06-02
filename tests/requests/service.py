@@ -29,6 +29,27 @@ class CustomerAccount:
         return Endpoint.call(url, headers, "POST", payload)
 
     @staticmethod
+    def without_service_consent_bink_user(token):
+        url = Endpoint.BASE_URL + api.ENDPOINT_SERVICE
+        headers = Endpoint.request_header(token)
+        payload = UserDetails.without_consent_user_payload()
+        return Endpoint.call(url, headers, "POST", payload)
+
+    @staticmethod
+    def without_consent_key_bink_user(token):
+        url = Endpoint.BASE_URL + api.ENDPOINT_SERVICE
+        headers = Endpoint.request_header(token)
+        payload = UserDetails.without_consent_key_user_payload()
+        return Endpoint.call(url, headers, "POST", payload)
+
+    @staticmethod
+    def without_mandatory_consent_field(token):
+        url = Endpoint.BASE_URL + api.ENDPOINT_SERVICE
+        headers = Endpoint.request_header(token)
+        payload = UserDetails.without_mandatory_consent_field()
+        return Endpoint.call(url, headers, "POST", payload)
+
+    @staticmethod
     def login_bink_user():
         url = Endpoint.BASE_URL + api.ENDPOINT_LOGIN
         headers = Endpoint.request_header()
@@ -58,6 +79,14 @@ class CustomerAccount:
         headers = Endpoint.request_header(bearer_token)
         payload = UserDetails.register_bearer_user_payload(test_email)
         return Endpoint.call(url, headers, "POST", payload)
+
+    @staticmethod
+    def without_service_consent_banking_user(test_email):
+        jwt_secret = channel_vault.get_jwt_secret(config.BARCLAYS.bundle_id)
+        bearer_token = GenerateJWToken(config.BARCLAYS.organisation_id, jwt_secret, config.BARCLAYS.bundle_id,
+                                       test_email).get_token()
+        TestContext.token = bearer_token
+        return TestContext.token
 
     @staticmethod
     def get_secret_key(env):
