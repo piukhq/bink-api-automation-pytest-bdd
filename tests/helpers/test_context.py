@@ -6,6 +6,7 @@ class TestContext:
     response = ""
     payment_card_hash = ""
     card_number = ""
+    status_code = ""
     """Below variables are used to ensure complete execution
      and deletion of membership& payment cards after ubiquity scenarios"""
 
