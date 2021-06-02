@@ -30,6 +30,13 @@
     },
     "images": [
         {
+            "id": 1323,
+            "type": 7,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Iceland_Promo_1968x732.png",
+            "description": "Iceland Promotion 1",
+            "encoding": "png"
+        },
+        {
             "id": 1303,
             "type": 2,
             "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Iceland_Offer_Greggs.jpg",
@@ -211,7 +218,7 @@
             },
             {
                 "column": "Email",
-                "validation": "^(?=[^@]{1,100}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
+                "validation": "^(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
                 "description": "example@mydomain.com",
                 "common_name": "email",
                 "type": 0,
@@ -312,7 +319,7 @@
             },
             {
                 "column": "Email",
-                "validation": "^(?=[^@]{1,100}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
+                "validation": "^(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
                 "description": "example@mydomain.com",
                 "common_name": "email",
                 "type": 0,
@@ -385,6 +392,10 @@
         {
             "column": "Enrol_Help_Text",
             "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
+        },
+        {
+            "column": "Promo_Text_1",
+            "value": "Free delivery when you spend \u00a335+ at iceland.co.uk"
         }
     ]
 }

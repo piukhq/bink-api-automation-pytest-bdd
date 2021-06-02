@@ -28,6 +28,13 @@
     },
     "images": [
         {
+            "id": 1324,
+            "type": 7,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Wasabi_Promo_1968x732.png",
+            "description": "Wasabi Promotion 1",
+            "encoding": "png"
+        },
+        {
             "id": 1319,
             "type": 2,
             "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Offer_tile_5_CVAeqUv.png",
@@ -186,6 +193,10 @@
         {
             "column": "Voucher_Cancelled_Detail",
             "value": "Your\u00a0voucher\u00a0has\u00a0been\u00a0cancelled. If you believe we have made a mistake please contact enquiries@wasabi.uk.com."
+        },
+        {
+            "column": "Promo_Text_1",
+            "value": "EVERYONE GETS \u00a37 OFF IN WASABI CLUB!"
         }
     ]
 }
