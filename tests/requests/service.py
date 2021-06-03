@@ -50,6 +50,33 @@ class CustomerAccount:
         return Endpoint.call(url, headers, "POST", payload)
 
     @staticmethod
+    def longitude_as_alphabet(token, test_email):
+        url = Endpoint.BASE_URL + api.ENDPOINT_SERVICE
+        headers = Endpoint.request_header(token)
+        payload = UserDetails.longitude_with_alphabet(test_email)
+        return Endpoint.call(url, headers, "POST", payload)
+
+    @staticmethod
+    def optional_consent_field(token, input, test_email):
+        if input == "timestamp":
+            url = Endpoint.BASE_URL + api.ENDPOINT_SERVICE
+            headers = Endpoint.request_header(token)
+            payload = UserDetails.timestamp_with_quote(test_email)
+            return Endpoint.call(url, headers, "POST", payload)
+
+        elif input == "latitude":
+            url = Endpoint.BASE_URL + api.ENDPOINT_SERVICE
+            headers = Endpoint.request_header(token)
+            payload = UserDetails.without_latitude(test_email)
+            return Endpoint.call(url, headers, "POST", payload)
+
+        elif input == "longitude":
+            url = Endpoint.BASE_URL + api.ENDPOINT_SERVICE
+            headers = Endpoint.request_header(token)
+            payload = UserDetails.without_longitude(test_email)
+            return Endpoint.call(url, headers, "POST", payload)
+
+    @staticmethod
     def login_bink_user():
         url = Endpoint.BASE_URL + api.ENDPOINT_LOGIN
         headers = Endpoint.request_header()
