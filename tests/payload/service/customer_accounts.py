@@ -42,7 +42,7 @@ class UserDetails:
 
     @staticmethod
     def without_consent_key_user_payload():
-        """Consent for Bink User without consent filed"""
+        """Consent for Bink User without consent field"""
         payload = {
                 "email": "pytest_automation_barclays@testbink.com",
                 "latitude": 0.0123,
