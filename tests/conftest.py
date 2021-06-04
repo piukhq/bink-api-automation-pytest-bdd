@@ -7,6 +7,7 @@ from requests.exceptions import HTTPError
 import config
 import tests.helpers.constants as constants
 from tests.api.transactionmatching_base import TransactionMatching_Endpoint
+from tests.payload.service.customer_accounts import UserDetails
 from tests.requests.service import CustomerAccount
 from tests.requests.payment_cards import PaymentCards
 from tests.requests.membership_cards import MembershipCards
@@ -126,7 +127,7 @@ def register_user(test_email, channel, env):
                 logging.info(f"POST service consent response status code: {response.status_code} \n\n" +
                              f"POST service consent actual response: {response.json()}")
                 timestamp = response.json().get("consent").get("timestamp")
-                expected_user_consent = expected_user_consent_json(test_email, timestamp)
+                expected_user_consent = UserDetails.expected_user_consent_json(test_email, timestamp)
                 actual_user_consent = response.json()
                 logging.info(f"expected response: {expected_user_consent}")
                 assert response.status_code == 201 and expected_user_consent == actual_user_consent, \
@@ -156,7 +157,7 @@ def login_user(channel, env):
         if response is not None:
             try:
                 timestamp = response.json().get("consent").get("timestamp")
-                expected_existing_user_consent = expected_existing_user_consent_json(timestamp)
+                expected_existing_user_consent = UserDetails.expected_existing_user_consent_json(timestamp)
                 actual_user_consent = response.json()
                 logging.info(f"actual BMB user service consent response : {response.json()}" +
                              f"expected service consent response: {expected_existing_user_consent}")
@@ -212,27 +213,3 @@ def delete_scheme_account(merchant=None):
 
     except HTTPError as network_response:
         assert network_response.response.status_code == 404 or 400
-
-
-def expected_user_consent_json(test_email, timestamp):
-    response = {
-        "consent": {
-            "email": test_email,
-            "timestamp": timestamp,
-            "latitude": 0.0123,
-            "longitude": 12.345
-        }
-    }
-    return response
-
-
-def expected_existing_user_consent_json(timestamp):
-    response = {
-        "consent": {
-            "email": TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.USER_ID),
-            "timestamp": timestamp,
-            "latitude": 0.0,
-            "longitude": 12.345
-        }
-    }
-    return response
