@@ -68,7 +68,7 @@ Feature: Verify /service endpoint is working as expected
     And I perform DELETE request to delete the customer
 
   @serviceConsent07 @LOY1678 @bink_regression @bmb_regression
-  Scenario Outline: Verify without longitude in the request body
+  Scenario Outline: Verify longitude as alphabet
 
     Given I register with bink as a new customer
     When I send a POST service request "longitude" as alphabet
