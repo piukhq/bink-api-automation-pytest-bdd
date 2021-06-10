@@ -10,6 +10,13 @@ flake8:
     - pip install flake8
     - flake8
 
+allure:
+  stage: tests
+  image: binkhq/python:3.9
+  script:
+    - pip install allure-pytest-bdd
+    - pytest -m alluredir=reports
+    - allure serve reports
 develop:
   stage: develop
   image: docker:latest
