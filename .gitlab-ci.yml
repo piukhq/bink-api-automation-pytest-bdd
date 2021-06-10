@@ -14,7 +14,7 @@ allure:
   stage: develop
   image: binkhq/python:3.9
   script:
-    - pipenv install
+    - pip install pipenv
     - pipenv sync --dev
     - pip install allure-pytest-bdd
     - pytest -m alluredir=reports
