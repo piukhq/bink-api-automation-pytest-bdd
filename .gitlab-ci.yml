@@ -12,11 +12,10 @@ flake8:
 
 
 allure:
-  stage: tests
+  stage: develop
   image: binkhq/python:3.9
   script:
     - pip install allure-pytest-bdd
-    - pip install requests
     - pytest -m alluredir=reports
     - allure serve reports
 
