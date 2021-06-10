@@ -16,6 +16,7 @@ allure:
   image: binkhq/python:3.9
   script:
     - pip install allure-pytest-bdd
+    - pip instal requests
     - pytest -m alluredir=reports
     - allure serve reports
 
