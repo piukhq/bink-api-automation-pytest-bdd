@@ -43,7 +43,7 @@ def upload(filename):
     blob = BlobClient.from_connection_string(
         conn_str=blob_storage_dsn,
         container_name="qareports",
-        blob_name=f"{datetime.now().strftime('%Y%m%d-%H%M')}-{suffix}.html",
+        blob_name=f"pytest_report/{datetime.now().strftime('%Y%m%d-%H%M')}-{suffix}.html",
     )
     with open(filename, "rb") as f:
         blob.upload_blob(f, content_settings=ContentSettings(content_type="text/html"))
