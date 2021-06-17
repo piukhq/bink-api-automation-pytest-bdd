@@ -116,7 +116,7 @@ def patch_pcard_mcard():
     response_json = response_to_json(response)
 
     logging.info(
-        "The response of DELETE/membership_card/payment_card is :\n\n"
+        "The response of PATCH/membership_card/payment_card is :\n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_PATCH_PAYMENT_MEMBERSHIP.format(TestContext.current_payment_card_id,
                                                                            TestContext.current_scheme_account_id) +
         "\n\n" + json.dumps(response_json, indent=4))

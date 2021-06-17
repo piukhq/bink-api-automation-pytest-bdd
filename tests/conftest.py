@@ -103,6 +103,7 @@ def test_email():
 """Shared  Steps"""
 
 
+@given("I am a new customer who is subscribing to Bink or I am Bink app user")
 @given("I register with bink service as a new customer")
 def register_user(test_email, channel, env):
     TestContext.channel_name = channel

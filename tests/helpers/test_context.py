@@ -1,7 +1,10 @@
 class TestContext:
     current_scheme_account_id = ""
     current_payment_card_id = ""
+    new_payment_card_id = ""
+    new_scheme_account_id = ""
     token = ""
+    different_wallet_token = ""
     transaction_id = ""
     response = ""
     payment_card_hash = ""

@@ -21,8 +21,8 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their payment card 
     |          master      |
     |          visa        |
 
-     @bink_regression @bmb_regression
-    Scenario: PLL Link by PATCH_(mcard_pcard)_HarveyNichols
+  @bink_regression @bmb_regression
+  Scenario: PLL Link by PATCH_(mcard_pcard)_HarveyNichols
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
     When I perform POST request to add "master" payment card to wallet
@@ -37,8 +37,8 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their payment card 
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
 
-     @bink_regression @bmb_regression
-    Scenario: PLL Link by PATCH_(pcard_mcard)_HarveyNichols
+  @bink_regression @bmb_regression
+  Scenario: PLL Link by PATCH_(pcard_mcard)_HarveyNichols
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
     When I perform POST request to add "master" payment card to wallet

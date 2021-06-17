@@ -22,6 +22,15 @@ class CustomerAccount:
         return response
 
     @staticmethod
+    def register_different_bink_user(test_email):
+        url = Endpoint.BASE_URL + api.ENDPOINT_REGISTER
+        headers = Endpoint.request_header()
+        payload = UserDetails.register_user_payload(test_email, config.BINK.client_id, config.BINK.bundle_id)
+        response = Endpoint.call(url, headers, "POST", payload)
+        TestContext.different_wallet_token = response.json().get("api_key")
+        return response
+
+    @staticmethod
     def service_consent_bink_user(token, test_email):
         url = Endpoint.BASE_URL + api.ENDPOINT_SERVICE
         headers = Endpoint.request_header(token)
