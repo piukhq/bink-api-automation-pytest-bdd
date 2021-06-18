@@ -92,4 +92,30 @@ Feature: Merchant Harvey Nichols - Ensure a customer can use Bink's Ubiquity fea
     And I perform PATCH request update the ghost card registration details
     Then I perform a GET request to verify both the scheme accounts are returned
 
+  @loy-1642
+  Scenario Outline: Delete PLL Link by PATCH_(pcard_mcard)_HarveyNichols for last standing user functionality
+
+    Given I am a new customer who is subscribing to Bink or I am Bink app user
+    When I perform POST request to add "master" payment card to wallet
+    And I perform the GET request to verify the payment card has been added successfully to the wallet
+    When I perform POST request to add "HarveyNichols" membership card to my wallet
+    And I perform GET request to verify the "HarveyNichols" membership card is added to the wallet
+    And I perform PATCH request to link payment card to membership card
+      #    And I perform GET request to verify the "HarveyNichols" membership card is linked successfully in the wallet
+      #    And I perform GET/payment_card/id request to verify the membership card is linked to the payment card
+
+    When I am a another customer who is subscribing to Bink or I am Bink app user
+    When I perform POST request to add existing "master" payment card to wallet
+    And I perform the GET request to verify the existing payment card has been added successfully to the wallet
+    When I perform POST request to add existing "HarveyNichols" membership card to my wallet
+    And I perform GET request to verify the existing "HarveyNichols" membership card is added to the wallet
+    Then I perform DELETE request to delete the link between payment_card & membership_card which is exist into another wallet
+    And I verify the "<error_message>"
+
+    Then I perform DELETE request to delete the "HarveyNichols" membership card
+    And I perform DELETE request to delete the customer
+
+    Examples:
+    |error_message|
+    |Unable to remove link. Payment and Loyalty card combination exists in other wallets|
 
