@@ -18,6 +18,7 @@ import tests.helpers.constants as constants
 from tests.helpers.test_context import TestContext
 from tests.helpers.test_helpers import PaymentCardTestData
 import tests.step_definitions.test_membership_cards as test_membership_cards
+from tests.step_definitions import test_visa_vop
 
 scenarios("payment_cards/")
 
@@ -32,6 +33,19 @@ def add_payment_card(payment_card_provider="master"):
         f"Payment card addition for '{payment_card_provider}' is not successful"
     response_json = response_to_json(response)
     logging.info(f"The response of POST/PaymentCard '{payment_card_provider}' is: \n\n"
+                 + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n"
+                 + json.dumps(response_json, indent=4))
+    TestContext.current_payment_card_id = response_json.get("id")
+    return TestContext.current_payment_card_id
+
+
+@when('I perform POST request to enrol new "<payment_card_provider>" payment card to wallet')
+def enrol_new_payment_card(payment_card_provider="master"):
+    response = PaymentCards.enrol_payment_card(TestContext.token, payment_card_provider)
+    assert response.status_code == 201, \
+        f"Payment card enorlment for '{payment_card_provider}' is not successful"
+    response_json = response_to_json(response)
+    logging.info(f"The response of new POST/PaymentCard '{payment_card_provider}' is: \n\n"
                  + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n"
                  + json.dumps(response_json, indent=4))
     TestContext.current_payment_card_id = response_json.get("id")
@@ -274,6 +288,10 @@ def verify_mcard_link(merchant):
     """Function call to get_membership_cards in test_membership_cards"""
     test_membership_cards.verify_add_and_link_membership_card(merchant)
 
+
+@then(parsers.parse('I verify status of paymentcard is "{activated}" for "{merchant}"'))
+def verify_vop_status(activated,merchant):
+    test_visa_vop.verify_vop_activation_details(activated, merchant)
 
 @when(parsers.parse(
     'I perform GET request to verify the "{merchant}" membership card is added & linked to all payment cards')
