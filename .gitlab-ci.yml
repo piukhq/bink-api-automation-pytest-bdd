@@ -24,6 +24,8 @@ allure:
     paths:
       - allure-results/
     expire_in: 2 weeks
+  only:
+    - develop
 
 
 allure-generate:
