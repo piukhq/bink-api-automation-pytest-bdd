@@ -290,8 +290,9 @@ def verify_mcard_link(merchant):
 
 
 @then(parsers.parse('I verify status of paymentcard is "{activated}" for "{merchant}"'))
-def verify_vop_status(activated,merchant):
+def verify_vop_status(activated, merchant):
     test_visa_vop.verify_vop_activation_details(activated, merchant)
+
 
 @when(parsers.parse(
     'I perform GET request to verify the "{merchant}" membership card is added & linked to all payment cards')

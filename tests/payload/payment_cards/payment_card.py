@@ -113,29 +113,28 @@ class PaymentCardDetails:
                      + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
 
-
     @staticmethod
     def enrol_payment_card_payload_unencrypted(card_provider):
         faker = Faker()
-        TestContext.payment_card_hash = \
-        PaymentCardTestData.get_data(card_provider).get(constants.HASH) + str(faker.random_int())
+        TestContext.payment_card_hash = PaymentCardTestData.get_data(card_provider).get(constants.HASH) + str(
+            faker.random_int())
         payload = {
             "card": {
-            "hash": TestContext.payment_card_hash,
-            "token": constants.TOKEN + "_pytest" + str(faker.random_int(100, 999999)),
-            "last_four_digits": PaymentCardTestData.get_data(card_provider).get(constants.LAST_FOUR_DIGITS),
-            "first_six_digits": PaymentCardTestData.get_data(card_provider).get(constants.FIRST_SIX_DIGITS),
-            "name_on_card": faker.first_name(),
-            "month": PaymentCardTestData.get_data(card_provider).get(constants.MONTH),
-            "year": PaymentCardTestData.get_data(card_provider).get(constants.YEAR),
-            "fingerprint": constants.FINGERPRINT + "_pytest"+ str(faker.random_int(100, 999999)),
+                "hash": TestContext.payment_card_hash,
+                "token": constants.TOKEN + "_pytest" + str(faker.random_int(100, 999999)),
+                "last_four_digits": PaymentCardTestData.get_data(card_provider).get(constants.LAST_FOUR_DIGITS),
+                "first_six_digits": PaymentCardTestData.get_data(card_provider).get(constants.FIRST_SIX_DIGITS),
+                "name_on_card": faker.first_name(),
+                "month": PaymentCardTestData.get_data(card_provider).get(constants.MONTH),
+                "year": PaymentCardTestData.get_data(card_provider).get(constants.YEAR),
+                "fingerprint": constants.FINGERPRINT + "_pytest" + str(faker.random_int(100, 999999)),
             },
             "account": {
-               "consents": [{"latitude": 51.405372, "longitude": -0.678357, "timestamp": arrow.utcnow().timestamp,
-                          "type": 1}]
-             }
+                "consents": [{"latitude": 51.405372, "longitude": -0.678357, "timestamp": arrow.utcnow().timestamp,
+                              "type": 1}]
+            }
         }
 
         logging.info("The Request to enrol new payment card is : \n\n"
-                 + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n" + json.dumps(payload, indent=4))
+                     + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
