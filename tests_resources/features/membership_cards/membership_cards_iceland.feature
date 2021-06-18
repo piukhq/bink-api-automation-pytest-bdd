@@ -52,7 +52,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "Iceland" membership card
     And I perform DELETE request to delete the payment card
 
-  @bink_regression @bmb_regression 
+  @bink_regression @bmb_regression
     Scenario:  Add_Journey with Invalid Credentials_Iceland
 
     Given I am a Bink user
