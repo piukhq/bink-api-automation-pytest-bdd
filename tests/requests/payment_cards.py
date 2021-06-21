@@ -23,7 +23,7 @@ class PaymentCards(Endpoint):
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
-    def enrol_payment_card(token, card_provider):
+    def add_new_payment_card(token, card_provider):
         url = PaymentCards.get_url()
         header = Endpoint.request_header(token)
         if TestContext.flag_encrypt == "true":

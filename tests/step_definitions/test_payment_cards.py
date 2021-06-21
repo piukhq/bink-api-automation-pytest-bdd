@@ -40,8 +40,8 @@ def add_payment_card(payment_card_provider="master"):
 
 
 @when('I perform POST request to enrol new "<payment_card_provider>" payment card to wallet')
-def enrol_new_payment_card(payment_card_provider="master"):
-    response = PaymentCards.enrol_payment_card(TestContext.token, payment_card_provider)
+def add_new_payment_card(payment_card_provider="master"):
+    response = PaymentCards.add_new_payment_card(TestContext.token, payment_card_provider)
     assert response.status_code == 201, \
         f"Payment card enorlment for '{payment_card_provider}' is not successful"
     response_json = response_to_json(response)

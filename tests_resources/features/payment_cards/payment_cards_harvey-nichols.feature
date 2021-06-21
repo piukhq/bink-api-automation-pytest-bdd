@@ -51,7 +51,6 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their payment card 
     And I perform GET/membership_card/id request to verify the payment card is unlinked from "HarveyNichols" membership card
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
-#    Below scenario run when staging is pointing to pelops only
   @enrol_new_paymentcard @bink_regression @bmb_regression
   Scenario Outline: Enrol & LINK Journey_HarveyNichols
 
@@ -67,7 +66,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their payment card 
     |          amex        |
     |          master      |
 
-#    Below scenario run when staging is pointing to pelops only
+#    Below paymentcard scenario run when staging is pointing to pelops only
   @enrol_new_paymentcard @bink_regression @bmb_regression
   Scenario Outline: Enrol link and unlink the visa vop in pelops
 
