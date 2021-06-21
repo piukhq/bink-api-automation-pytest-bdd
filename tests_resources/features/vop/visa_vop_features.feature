@@ -12,9 +12,9 @@ Feature: VOP Verification - Ensure Visa Vop features are working as expected
     And I perform the GET request to verify the payment card has been added successfully to the wallet
     When I perform POST request to add & auto link "HarveyNichols" membership card
     And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
-    Then I verify status of paymentcard is "activated"
+    Then I verify status of paymentcard is "activated" for "HarveyNichols"
     And I perform DELETE request to delete the payment card
-    And I verify status of paymentcard is "deactivated"
+    And I verify status of paymentcard is "deactivated" for "HarveyNichols"
 
     Examples:
     | payment_card_provider|

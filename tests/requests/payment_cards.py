@@ -23,6 +23,17 @@ class PaymentCards(Endpoint):
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
+    def add_new_payment_card(token, card_provider):
+        url = PaymentCards.get_url()
+        header = Endpoint.request_header(token)
+        if TestContext.flag_encrypt == "true":
+            payload = PaymentCardDetails.enrol_payment_card_payload_encrypted(card_provider)
+        elif TestContext.flag_encrypt == "false":
+            payload = PaymentCardDetails.enrol_payment_card_payload_unencrypted(card_provider)
+
+        return Endpoint.call(url, header, "POST", payload)
+
+    @staticmethod
     def get_payment_card(token, payment_card_id):
         url = PaymentCards.get_url(payment_card_id)
         header = Endpoint.request_header(token)

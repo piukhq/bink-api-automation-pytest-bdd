@@ -42,8 +42,8 @@ def get_add_and_link(merchant):
     test_membership_cards.verify_add_and_link_membership_card(merchant)
 
 
-@then(parsers.parse('I verify status of paymentcard is "{activated}"'))
-def verify_vop_activation_details(activated, merchant, env):
+@then(parsers.parse('I verify status of paymentcard is "{activated}" for "{merchant}"'))
+def verify_vop_activation_details(activated, merchant):
     payment_account = QueryHermes.get_vop_status(TestContext.current_payment_card_id)
     assert payment_account.status == TestData.get_vop_status().get(activated), \
         f"Payment Account is not '{activated}' and the status is '{payment_account.status}'"
