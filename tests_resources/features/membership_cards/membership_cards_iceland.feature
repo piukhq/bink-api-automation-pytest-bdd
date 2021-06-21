@@ -5,7 +5,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
   So I can add my card, with the scheme provider Iceland & check its details successfully
 
 
-  @add @bink_regression @bmb_regression
+  @add1 @bink_regression @bmb_regression
   Scenario: Add Journey_Iceland
 
     Given I am a Bink user
