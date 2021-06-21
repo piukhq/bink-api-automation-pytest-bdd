@@ -64,6 +64,8 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their payment card 
     Examples:
     | payment_card_provider|
     |          visa        |
+    |          amex        |
+    |          master      |
 
 #    Below scenario run when staging is pointing to pelops only
   @enrol_new_paymentcard @bink_regression @bmb_regression

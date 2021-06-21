@@ -21,8 +21,8 @@ Feature: Merchant BurgerKing - Ensure a customer can add their payment card & li
     |          master      |
 #    |          visa        |
 
-    @patch_mcard_pcard @bink_regression
-    Scenario: PLL Link by PATCH_(mcard_pcard)_BurgerKing
+  @patch_mcard_pcard @bink_regression
+  Scenario: PLL Link by PATCH_(mcard_pcard)_BurgerKing
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
     When I perform POST request to add "master" payment card to wallet
@@ -37,8 +37,8 @@ Feature: Merchant BurgerKing - Ensure a customer can add their payment card & li
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
 
-    @patch_pcard_mcard @bink_regression
-    Scenario: PLL Link by PATCH_(pcard_mcard)_BurgerKing
+  @patch_pcard_mcard @bink_regression
+  Scenario: PLL Link by PATCH_(pcard_mcard)_BurgerKing
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
     When I perform POST request to add "master" payment card to wallet
@@ -51,3 +51,37 @@ Feature: Merchant BurgerKing - Ensure a customer can add their payment card & li
     Then I perform DELETE request to delete the link between payment_card & membership_card
     And I perform GET/membership_card/id request to verify the payment card is unlinked from "BurgerKing" membership card
     And I perform GET/payment_card/id request to verify the membership card is unlinked
+
+
+#    Below scenario run when staging is pointing to pelops only
+  @enrol_new_paymentcard @bink_regression
+  Scenario Outline: Enrol & LINK Journey_HarveyNichols
+
+    Given I am a Bink user
+    When I perform POST request to enrol new "<payment_card_provider>" payment card to wallet
+    And I perform the GET request to verify the payment card has been added successfully to the wallet
+    When I perform POST request to add & auto link "BurgerKing" membership card
+    Then I perform GET request to verify the "BurgerKing" membership card is added & linked successfully in the wallet
+
+    Examples:
+    | payment_card_provider|
+    |          visa        |
+    |          amex        |
+    |          master      |
+
+
+  @enrol_new_paymentcard @bink_regression
+  Scenario Outline: Enrol link and unlink the visa vop in pelops
+
+    Given I am a Bink user
+    When I perform POST request to enrol new "<payment_card_provider>" payment card to wallet
+    And I perform the GET request to verify the payment card has been added successfully to the wallet
+    When I perform POST request to add & auto link "BurgerKing" membership card
+    Then I perform GET request to verify the "BurgerKing" membership card is added & linked successfully in the wallet
+    Then I verify status of paymentcard is "activated" for "BurgerKing"
+    And I perform DELETE request to delete the payment card
+    And I verify status of paymentcard is "deactivated" for "BurgerKing"
+
+    Examples:
+    | payment_card_provider|
+    |          visa        |
