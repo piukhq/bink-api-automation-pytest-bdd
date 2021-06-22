@@ -10,7 +10,11 @@ visa_payment_card = {
     "fingerprint": "b0548a5e26030ccd853fcb70e9011fb79577",
     "hash": "pytest2001",
     "status": "active",
-    "active_link": True
+    "active_link": True,
+    "payment_provider": "Visa",
+    "payment_encoding": "png",
+    "payment_discription": "Visa Card Image",
+    "payment_url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Visa-Payment_Eq81MWN.png"
 }
 
 amex_payment_card = {
@@ -23,7 +27,11 @@ amex_payment_card = {
     "fingerprint": "pytest7118",
     "hash": "pytestsamplehash20",
     "status": "active",
-    "active_link": True
+    "active_link": True,
+    "payment_provider": "American Express",
+    "payment_encoding": "png",
+    "payment_discription": "Amex Card Image",
+    "payment_url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Amex-Payment.png"
 }
 
 master_payment_card = {
@@ -36,7 +44,12 @@ master_payment_card = {
     "fingerprint": "pytest2002",
     "hash": "pytest4012",
     "status": "active",
-    "active_link": True
+    "active_link": True,
+    "payment_provider": "Mastercard",
+    "payment_encoding": "png",
+    "payment_discription": "Mastercard Hero",
+    "payment_url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Mastercard-Payment_1goHQYv.png"
+
 }
 
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #

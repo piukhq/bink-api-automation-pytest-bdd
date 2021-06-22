@@ -16,7 +16,7 @@ from tests.api.base import Endpoint
 from json import JSONDecodeError
 import tests.helpers.constants as constants
 from tests.helpers.test_context import TestContext
-from tests.helpers.test_helpers import PaymentCardTestData
+from tests.helpers.test_helpers import PaymentCardTestData, TestData
 import tests.step_definitions.test_membership_cards as test_membership_cards
 from tests.step_definitions import test_visa_vop
 
@@ -42,9 +42,37 @@ def add_payment_card(payment_card_provider="master"):
 @when('I perform POST request to enrol new "<payment_card_provider>" payment card to wallet')
 def add_new_payment_card(payment_card_provider="master"):
     response = PaymentCards.add_new_payment_card(TestContext.token, payment_card_provider)
-    assert response.status_code == 201, \
-        f"Payment card enorlment for '{payment_card_provider}' is not successful"
     response_json = response_to_json(response)
+    assert (response.status_code == 201
+            and response_json["membership_cards"] == []
+            and response_json["status"] == TestData.get_membership_card_status_states().get(constants.PENDING)
+            and response_json["card"]["first_six_digits"] == PaymentCardTestData.get_data(payment_card_provider).get(
+                constants.FIRST_SIX_DIGITS)
+            and response_json["card"]["last_four_digits"] == PaymentCardTestData.get_data(payment_card_provider).get(
+                constants.LAST_FOUR_DIGITS)
+            and response_json["card"]["month"] == PaymentCardTestData.get_data(payment_card_provider).get(
+                constants.MONTH)
+            and response_json["card"]["year"] == PaymentCardTestData.get_data(payment_card_provider).get(constants.YEAR)
+            and response_json["card"]["country"] == "UK"
+            and response_json["card"]["currency_code"] == "GBP"
+            and response_json["card"]["name_on_card"] == TestContext.name_on_payment_card
+            and response_json["card"]["provider"] == PaymentCardTestData.get_data(payment_card_provider).get(
+                constants.PAYMENT_PROVIDER)
+            and response_json["card"]["type"] == "debit"
+            and response_json["images"][0]["url"] == PaymentCardTestData.get_data(payment_card_provider).get(
+                constants.PAYMENT_URL)
+            and response_json["images"][0]["type"] == 0
+            and response_json["images"][0]["encoding"] == PaymentCardTestData.get_data(payment_card_provider).get(
+                constants.PAYMENT_ENCODING)
+            and response_json["images"][0]["description"] == PaymentCardTestData.get_data(payment_card_provider).get(
+                constants.PAYMENT_DISCRIPTION)
+            and response_json["account"]["verification_in_progress"] == False
+            and response_json["account"]["status"] == 1
+            and response_json["account"]["consents"][0]["latitude"] == 51.405372
+            and response_json["account"]["consents"][0]["longitude"] == -0.678357
+            and response_json["account"]["consents"][0]["timestamp"] == TestContext.payment_account_timestamp
+            and response_json["account"]["consents"][0]["type"] == 1), \
+        f"Adding New Payment card for '{payment_card_provider}' is not successful"
     logging.info(f"The response of new POST/PaymentCard '{payment_card_provider}' is: \n\n"
                  + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS + "\n\n"
                  + json.dumps(response_json, indent=4))

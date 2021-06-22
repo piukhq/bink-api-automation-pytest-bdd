@@ -8,6 +8,9 @@ class TestContext:
     card_number = ""
     status_code = ""
     timestamp = ""
+    name_on_payment_card = ""
+    finger_print = ""
+    payment_account_timestamp = ""
     """Below variables are used to ensure complete execution
      and deletion of membership& payment cards after ubiquity scenarios"""
 
