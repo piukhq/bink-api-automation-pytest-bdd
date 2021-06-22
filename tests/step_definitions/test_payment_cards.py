@@ -66,7 +66,8 @@ def add_new_payment_card(payment_card_provider="master"):
                 constants.PAYMENT_ENCODING)
             and response_json["images"][0]["description"] == PaymentCardTestData.get_data(payment_card_provider).get(
                 constants.PAYMENT_DISCRIPTION)
-            and response_json["account"]["verification_in_progress"] == False
+            and response_json["account"]["verification_in_progress"] == PaymentCardTestData.get_data(
+                payment_card_provider).get(constants.PAYMENT_VERIFICATION)
             and response_json["account"]["status"] == 1
             and response_json["account"]["consents"][0]["latitude"] == 51.405372
             and response_json["account"]["consents"][0]["longitude"] == -0.678357

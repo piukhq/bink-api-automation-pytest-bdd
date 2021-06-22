@@ -75,6 +75,7 @@ PAYMENT_PROVIDER = "payment_provider"
 PAYMENT_URL = "payment_url"
 PAYMENT_ENCODING = "payment_encoding"
 PAYMENT_DISCRIPTION = "payment_discription"
+PAYMENT_VERIFICATION = "payment_verification"
 
 """Base Path of expected membership plans and membership plans used for comparison in json_diff"""
 EXPECTED_MEMBERSHIP_PLANS_PATH = "tests_resources/test_data/membership_plan"

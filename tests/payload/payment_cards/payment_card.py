@@ -133,8 +133,9 @@ class PaymentCardDetails:
                 "fingerprint": TestContext.finger_print,
             },
             "account": {
-                "consents": [{"latitude": 51.405372, "longitude": -0.678357, "timestamp": TestContext.payment_account_timestamp,
-                              "type": 1}]
+                "consents": [
+                    {"latitude": 51.405372, "longitude": -0.678357, "timestamp": TestContext.payment_account_timestamp,
+                     "type": 1}]
             }
         }
 

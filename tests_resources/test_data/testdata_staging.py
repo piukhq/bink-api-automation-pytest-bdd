@@ -14,7 +14,8 @@ visa_payment_card = {
     "payment_provider": "Visa",
     "payment_encoding": "png",
     "payment_discription": "Visa Card Image",
-    "payment_url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Visa-Payment_Eq81MWN.png"
+    "payment_url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Visa-Payment_Eq81MWN.png",
+    "payment_verification": False
 }
 
 amex_payment_card = {
@@ -31,7 +32,8 @@ amex_payment_card = {
     "payment_provider": "American Express",
     "payment_encoding": "png",
     "payment_discription": "Amex Card Image",
-    "payment_url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Amex-Payment.png"
+    "payment_url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Amex-Payment.png",
+    "payment_verification": False
 }
 
 master_payment_card = {
@@ -48,8 +50,8 @@ master_payment_card = {
     "payment_provider": "Mastercard",
     "payment_encoding": "png",
     "payment_discription": "Mastercard Hero",
-    "payment_url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Mastercard-Payment_1goHQYv.png"
-
+    "payment_url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Mastercard-Payment_1goHQYv.png",
+    "payment_verification": False
 }
 
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #
