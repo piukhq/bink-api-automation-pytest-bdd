@@ -41,6 +41,38 @@ To set up this project on your local machine:
        Commands used for nighly regression in bink in staging
         - pytest -m "bmb_regression" --env staging --channel barclays     
 
+# Running Allure Reports
+
+Ensure you have the following installed:
+
+- allure-pytest-bdd==2.943 or  (latest stable version)
+- allure-python-commons==2.9.43 or (latest stable version)
+
+Please ensure you are in the root directory before running any reports to avoid path issues.
+
+Step 1 - Create Test Run with Allure:
+
+In the terminal, enter test command - Example Test Command Run:
+
+    1. Commands used for nighly regression in bink in staging
+    - pytest -m "bink_regression" --env staging --alluredir=<new_destination_folder_name>
+     Commands used for nighly regression in bink in staging
+    - pytest -m "bmb_regression" --env staging --channel barclays  --alluredir=<new_destination_folder_name> 
+
+Step 2 - Spin up the Allure results in the Browser
+
+In the terminal, enter: 
+
+- allure serve <new_destination_folder_name>
+
+This should automatically collect the generated results from the destination folder, then 
+open a browser window displaying the allure report.
+
+
+*IMPORTANT*
+if you have issues with using the allure command e.g. 'allure commnad not found' - you may need do brew install allure.
+If issues persist you may need to check your path, project interpreter.
+
 # Running inside Kubernetes
 
 The project requires the following Environment Variables to function correctly:
