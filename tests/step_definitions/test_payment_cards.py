@@ -342,10 +342,10 @@ def response_to_json(response):
     return response_json
 
 
-@when('I perform the GET request to verify the new payment card "<payment_card_provider>" has been added successfully to the wallet')
+@when('I perform the GET request to verify the new payment card "<payment_card_provider>" has been '
+      'added successfully to the wallet')
 def get_new_payment_provider(payment_card_provider="master"):
-    response = PaymentCards.get_payment_card(TestContext.token,
-                                             TestContext.current_payment_card_id)
+    response = PaymentCards.get_payment_card(TestContext.token, TestContext.current_payment_card_id)
     response_json = response.json()
     logging.info("The response of GET/PaymentCard/id is: \n\n"
                  + Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARD.format(TestContext.current_payment_card_id)
@@ -355,28 +355,28 @@ def get_new_payment_provider(payment_card_provider="master"):
             and response_json["id"] == TestContext.current_payment_card_id
             and response_json["membership_cards"] == []
             and response_json["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
-            and response_json["card"]["first_six_digits"] == PaymentCardTestData.get_data(payment_card_provider).get(
-        constants.FIRST_SIX_DIGITS)
-            and response_json["card"]["last_four_digits"] == PaymentCardTestData.get_data(payment_card_provider).get(
-        constants.LAST_FOUR_DIGITS)
-            and response_json["card"]["month"] == PaymentCardTestData.get_data(payment_card_provider).get(
-        constants.MONTH)
+            and response_json["card"]["first_six_digits"] == PaymentCardTestData.get_data(payment_card_provider).
+            get(constants.FIRST_SIX_DIGITS)
+            and response_json["card"]["last_four_digits"] == PaymentCardTestData.get_data(payment_card_provider).
+            get(constants.LAST_FOUR_DIGITS)
+            and response_json["card"]["month"] == PaymentCardTestData.get_data(payment_card_provider).
+            get(constants.MONTH)
             and response_json["card"]["year"] == PaymentCardTestData.get_data(payment_card_provider).get(constants.YEAR)
             and response_json["card"]["country"] == "UK"
             and response_json["card"]["currency_code"] == "GBP"
             and response_json["card"]["name_on_card"] == TestContext.name_on_payment_card
-            and response_json["card"]["provider"] == PaymentCardTestData.get_data(payment_card_provider).get(
-        constants.PAYMENT_PROVIDER)
+            and response_json["card"]["provider"] == PaymentCardTestData.get_data(payment_card_provider).
+            get(constants.PAYMENT_PROVIDER)
             and response_json["card"]["type"] == "debit"
-            and response_json["images"][0]["url"] == PaymentCardTestData.get_data(payment_card_provider).get(
-        constants.PAYMENT_URL)
+            and response_json["images"][0]["url"] == PaymentCardTestData.get_data(payment_card_provider).
+            get(constants.PAYMENT_URL)
             and response_json["images"][0]["type"] == 0
-            and response_json["images"][0]["encoding"] == PaymentCardTestData.get_data(payment_card_provider).get(
-        constants.PAYMENT_ENCODING)
-            and response_json["images"][0]["description"] == PaymentCardTestData.get_data(payment_card_provider).get(
-        constants.PAYMENT_DISCRIPTION)
-            and response_json["account"]["verification_in_progress"] == PaymentCardTestData.get_data(
-        payment_card_provider).get(constants.PAYMENT_VERIFICATION)
+            and response_json["images"][0]["encoding"] == PaymentCardTestData.get_data(payment_card_provider).
+            get(constants.PAYMENT_ENCODING)
+            and response_json["images"][0]["description"] == PaymentCardTestData.get_data(payment_card_provider).
+            get(constants.PAYMENT_DISCRIPTION)
+            and response_json["account"]["verification_in_progress"] == PaymentCardTestData.
+            get_data(payment_card_provider).get(constants.PAYMENT_VERIFICATION)
             and response_json["account"]["status"] == 1
             and response_json["account"]["consents"][0]["latitude"] == 51.405372
             and response_json["account"]["consents"][0]["longitude"] == -0.678357
