@@ -5,7 +5,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
   So I can add my card, with the scheme provider Iceland & check its details successfully
 
 
-  @add1 @bink_regression @bmb_regression
+  @add @bink_regression @bmb_regression
   Scenario: Add Journey_Iceland
 
     Given I am a Bink user
@@ -29,7 +29,6 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
 
 
   @add_patch @bink_regression @bmb_regression
-
   Scenario: Add Journey_PATCH_Iceland
 
     Given I am a Bink user
@@ -53,7 +52,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the payment card
 
   @bink_regression @bmb_regression 
-    Scenario:  Add_Journey with Invalid Credentials_Iceland
+  Scenario:  Add_Journey with Invalid Credentials_Iceland
 
     Given I am a Bink user
     When I perform POST request to add "Iceland" membership card with "invalid_data"
@@ -62,8 +61,8 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "Iceland" membership card
 
 
-   @enrol
-    Scenario: Join Journey_Iceland
+  @enrol @bink_regression @bmb_regression
+  Scenario: Join Journey_Iceland
 
     Given I register with bink service as a new customer
     When I perform POST request to create a "Iceland" membership account with enrol credentials
@@ -75,6 +74,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
 
   @enrol_put
   Scenario: Join Journey_PUT_Iceland
+
     Given I register with bink service as a new customer
     When I perform POST request to create a "Iceland" membership account with "invalid" enrol credentials
     And I perform GET request to verify the "Iceland" membership account is created with invalid data
@@ -87,13 +87,13 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
   @add_always_link
   Scenario: Adding payments cards to always auto-link_Iceland
 
-  Given I am a Bink user
-  When I perform POST request to add "Iceland" membership card
-  And I perform POST request to add payment card to wallet
-  And I perform the GET request to verify the payment card has been added successfully
-  And I perform GET request to verify the "Iceland" membership card is added & linked successfully in the wallet
-  Then I perform DELETE request to delete the "Iceland" membership card
-  And I perform DELETE request to delete the payment card
+    Given I am a Bink user
+    When I perform POST request to add "Iceland" membership card
+    And I perform POST request to add payment card to wallet
+    And I perform the GET request to verify the payment card has been added successfully
+    And I perform GET request to verify the "Iceland" membership card is added & linked successfully in the wallet
+    Then I perform DELETE request to delete the "Iceland" membership card
+    And I perform DELETE request to delete the payment card
 
   @ghost_journey @bink_regression @bmb_regression
   Scenario: Ghost card Journey Iceland
