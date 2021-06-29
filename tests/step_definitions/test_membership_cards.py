@@ -40,10 +40,17 @@ def add_membership_card(merchant):
         + json.dumps(response_json, indent=4))
     assert (
             response.status_code == 201
+            and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
+            and response_json["payment_cards"] == []
+            and response_json["membership_transactions"] == []
             and response_json["status"]["state"] == TestData.get_membership_card_status_states()
             .get(constants.PENDING)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
             get(constants.REASON_CODE_PENDING_ADD)
+            and response_json["card"] is not None
+            and response_json["images"] is not None
+            and response_json["account"]["tier"] == 0
+            and response_json["balances"] == []
     ), ("Add Journey for " + merchant + " failed")
 
 
@@ -154,9 +161,16 @@ def enrol_membership_account(merchant, test_email, env, channel):
         json.dumps(response_json, indent=4))
     assert (
             response.status_code == 201
+            and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
+            and response_json["payment_cards"] == []
+            and response_json["membership_transactions"] == []
             and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
             get(constants.REASON_CODE_PENDING_ENROL)
+            and response_json["card"] is not None
+            and response_json["images"] is not None
+            and response_json["account"]["tier"] == 0
+            and response_json["balances"] == []
     ), ("Enrol journey for " + merchant + " failed")
 
 
