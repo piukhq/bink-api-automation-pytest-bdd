@@ -6,7 +6,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
 
 # fatface testdata used by ba so db verification dates comming different. once confirm testdata remove db commented line
 
-  @add  @bink_regression
+  @add @bink_regression
   Scenario: Add Journey_FatFace
 
     Given I am a Bink user
@@ -16,7 +16,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "FatFace" membership card
 
 
-  @add_patch  @bink_regression
+  @add_patch @bink_regression
   Scenario: PATCH membership card details_FatFace
 
     Given I am a Bink user
@@ -28,7 +28,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "FatFace" membership card
 
 
-  @add_and_link  @bink_regression
+  @add_and_link @bink_regression
   Scenario: ADD & LINK Journey_FatFace
 
     Given I am a Bink user

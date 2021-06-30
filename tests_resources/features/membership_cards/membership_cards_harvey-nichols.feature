@@ -38,7 +38,6 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     And I perform DELETE request to delete the "HarveyNichols" membership card
 
   @add_and_link @bink_regression @bmb_regression 
-
   Scenario: ADD & LINK Journey_HarveyNichols
 
     Given I am a Bink user
@@ -50,16 +49,16 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the payment card
 
-    @bink_regression @bmb_regression 
-    Scenario:  Add_Journey with Invalid Credentials_Harvey Nichols
+  @bink_regression @bmb_regression
+  Scenario:  Add_Journey with Invalid Credentials_Harvey Nichols
 
     Given I am a Bink user
     When I perform POST request to add "HarveyNichols" membership card with "invalid_data"
     And I perform GET request to verify the "HarveyNichols" membership card is added to the wallet with invalid data
     Then I perform DELETE request to delete the "HarveyNichols" membership card
 
-  @enrol
-    Scenario: Join Journey_HarveyNichols
+  @enrol @bmb_regression
+  Scenario: Join Journey_HarveyNichols
 
     Given I register with bink service as a new customer
     When I perform POST request to create a "HarveyNichols" membership account with enrol credentials
@@ -80,27 +79,25 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the customer
 
+  @add_always_link
+  Scenario: Adding payments cards to always auto-link
 
-
-@add_always_link
-Scenario: Adding payments cards to always auto-link
-
-  Given I am a Bink user
-  When I perform POST request to add "HarveyNichols" membership card
-  And I perform POST request to add payment card to wallet
-  And I perform the GET request to verify the payment card has been added successfully
-  And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
-  Then I perform DELETE request to delete the "HarveyNichols" membership card
-  And I perform DELETE request to delete the payment card
+    Given I am a Bink user
+    When I perform POST request to add "HarveyNichols" membership card
+    And I perform POST request to add payment card to wallet
+    And I perform the GET request to verify the payment card has been added successfully
+    And I perform GET request to verify the "HarveyNichols" membership card is added & linked successfully in the wallet
+    Then I perform DELETE request to delete the "HarveyNichols" membership card
+    And I perform DELETE request to delete the payment card
 
 #  This scenario won't work due to an existing defect
-@add_always_link
-Scenario: Adding payments cards with autolink false should not link membership card
+  @add_always_link
+  Scenario: Adding payments cards with autolink false should not link membership card
 
-  Given I am a Bink user
-  When I perform POST request to add "HarveyNichols" membership card
-  And I perform POST request to add "master" payment card to wallet with autolink false
-  And I perform the GET request to verify the payment card has been added successfully
-  And  I perform GET request to verify the "HarveyNichols" membership card is added & not linked in the wallet
-  And I perform DELETE request to delete the "HarveyNichols" membership card
-  And I perform DELETE request to delete the payment card
+    Given I am a Bink user
+    When I perform POST request to add "HarveyNichols" membership card
+    And I perform POST request to add "master" payment card to wallet with autolink false
+    And I perform the GET request to verify the payment card has been added successfully
+    And  I perform GET request to verify the "HarveyNichols" membership card is added & not linked in the wallet
+    And I perform DELETE request to delete the "HarveyNichols" membership card
+    And I perform DELETE request to delete the payment card
