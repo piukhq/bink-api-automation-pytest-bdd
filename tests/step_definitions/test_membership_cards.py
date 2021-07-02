@@ -258,8 +258,12 @@ def verify_get_membership_card(merchant):
             get(constants.AUTHORIZED)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
             get(constants.REASON_CODE_AUTHORIZED)
-            and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
-            or TestContext.card_number
+            and ((response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)) or (
+                response_json["card"]["membership_id"] == TestContext.card_number))
+            and response_json["card"] is not None
+            and response_json["images"] is not None
+            and ((response_json["account"]["tier"] == 0) or (response_json["account"]["tier"] == 1))
+            and response_json["balances"] is not None
     ), ("Validations in GET/membership_cards for " + merchant + " failed with reason code " +
         response_json["status"]["reason_codes"][0])
     if merchant in ("HarveyNichols", "Iceland"):
@@ -292,6 +296,12 @@ def verify_membership_card_is_created(merchant):
             get(constants.AUTHORIZED)
             and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
             get(constants.REASON_CODE_AUTHORIZED)
+            and ((response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)) or (
+                response_json["card"]["membership_id"] == TestContext.card_number))
+            and response_json["card"] is not None
+            and response_json["images"] is not None
+            and ((response_json["account"]["tier"] == 0) or (response_json["account"]["tier"] == 1))
+            and response_json["balances"] is not None
     ), ("Validations in GET/membership_cards for " + merchant + " failed")
 
 
