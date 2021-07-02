@@ -46,7 +46,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then verify the data stored in DB after "Add" journey for "BurgerKing"
     And I perform DELETE request to delete the "BurgerKing" membership card
 
-  @add_and_link @bink_regression
+  @add_and_link @bink_regression1
   Scenario: ADD & LINK Journey_BurgerKing
 
     Given I am a Bink user
