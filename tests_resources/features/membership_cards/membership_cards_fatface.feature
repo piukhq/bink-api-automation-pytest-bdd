@@ -1,4 +1,4 @@
-@fatface @dev
+@FatFace @dev
 Feature: Merchant FatFace - Ensure a customer can add their membership card & view its details
   As a customer
   I want to utilise membership_cards endpoint of the Banking API
@@ -101,6 +101,6 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     And I perform GET request to verify the "FatFace" membership account is created
     Then I perform DELETE request to delete the "FatFace" membership card
     When I perform POST request to add "FatFace" membership card after enrol deleted
-    And I perform GET request to verify the "Wasabi" membership card is added to the wallet
+    And I perform GET request to verify the "FatFace" membership card is added to the wallet
     Then verify the data stored in DB after "Enrol" journey for "FatFace"
     Then I perform DELETE request to delete the customer

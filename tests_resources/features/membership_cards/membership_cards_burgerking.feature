@@ -1,10 +1,10 @@
-@burgerking @dev
+@BurgerKing @dev
 Feature: Merchant BurgerKing - Ensure a customer can add & link their membership card and enrol for a new membership card & view its details
   As a customer
   I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider BurgerKing & check its details successfully
 
-  @add @bink_regression
+  @add
   Scenario: Add Journey_BurgerKing
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -14,7 +14,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then I perform DELETE request to delete the "BurgerKing" membership card
 
 
-  @balances_transactions @bink_regression
+  @balances_transactions
   Scenario: Balances and Burgerking
 
     Given I am a Bink user
@@ -26,7 +26,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then verify the data stored in DB after "Add" journey for "BurgerKing"
     And I perform DELETE request to delete the "BurgerKing" membership card
 
-  @vouchers @bink_regression
+  @vouchers
   Scenario: Add Journey BurgerKing and verify vouchers
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -35,7 +35,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then verify the data stored in DB after "Add" journey for "BurgerKing"
     Then I perform DELETE request to delete the "BurgerKing" membership card
 
-  @add_patch @bink_regression
+  @add_patch
   Scenario: PATCH membership card details_BurgerKing
 
     Given I am a Bink user
@@ -46,7 +46,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then verify the data stored in DB after "Add" journey for "BurgerKing"
     And I perform DELETE request to delete the "BurgerKing" membership card
 
-  @add_and_link @bink_regression
+  @add_and_link
   Scenario: ADD & LINK Journey_BurgerKing
 
     Given I am a Bink user
@@ -59,7 +59,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then I perform DELETE request to delete the "BurgerKing" membership card
     And I perform DELETE request to delete the payment card
 
-  @enrol @bink_regression
+  @enrol
   Scenario: Join Journey_BurgerKing
 
     Given I register with bink service as a new customer
@@ -69,7 +69,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
     Then I perform DELETE request to delete the "BurgerKing" membership card
     And I perform DELETE request to delete the customer
 
-  @enrol_put @bink_regression
+  @enrol_put
   Scenario: Join Journey_PUT_BurgerKing
 
     Given I register with bink service as a new customer
@@ -91,7 +91,7 @@ Feature: Merchant BurgerKing - Ensure a customer can add & link their membership
    And I perform GET request to verify the "BurgerKing" membership card is added & linked successfully in the wallet
    Then I perform DELETE request to delete the payment card
 
-  @enrol_add @bink_regression
+  @enrol_add
   Scenario: Verify join burgerking then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
 
     Given I register with bink service as a new customer
