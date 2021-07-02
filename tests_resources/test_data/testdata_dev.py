@@ -10,7 +10,12 @@ visa_payment_card = {
     "fingerprint": "b0548a5e26030ccd853fcb70e9011fb79577",
     "hash": "pytest7117",
     "status": "active",
-    "active_link": True
+    "active_link": True,
+    "payment_provider": "Visa",
+    "payment_encoding": "png",
+    "payment_discription": "Visa Card Image",
+    "payment_url": "https://api.dev.gb.bink.com/content/media/hermes/schemes/Visa-Payment_DWQzhta.png",
+    "payment_verification": False
 }
 
 amex_payment_card = {
@@ -23,7 +28,12 @@ amex_payment_card = {
     "fingerprint": "pytest7117",
     "hash": "pytest7117",
     "status": "active",
-    "active_link": True
+    "active_link": True,
+    "payment_provider": "American Express",
+    "payment_encoding": "png",
+    "payment_discription": "American Express Card Image",
+    "payment_url": "https://api.dev.gb.bink.com/content/media/hermes/schemes/Amex-Payment.png",
+    "payment_verification": False
 }
 
 master_payment_card = {
@@ -36,7 +46,12 @@ master_payment_card = {
     "fingerprint": "pytest4011",
     "hash": "pytest4011",
     "status": "active",
-    "active_link": True
+    "active_link": True,
+    "payment_provider": "Mastercard",
+    "payment_encoding": "png",
+    "payment_discription": "Mastercard Card Image",
+    "payment_url": "https://api.dev.gb.bink.com/content/media/hermes/schemes/Mastercard-Payment_1goHQYv.png",
+    "payment_verification": False
 }
 
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #
@@ -116,14 +131,26 @@ harvey_nichols_invalid_data = {
 }
 
 iceland_membership_card = {
-    "card_num": "5555555555555555555",
-    "barcode": "5555555555555555555",
-    "last_name": "five",
-    "postcode": "rg5 5aa",
+    "card_num": "6332040023001122330",
+    "barcode": "6332040023001122330",
+    "last_name": "qa",
+    "postcode": "qa1 1qa",
     "points": 380.01,
     "currency": "GBP",
     "description": "Placeholder Balance Description",
     "transactions": "5",
+    "transaction_status": "active",
+    "transaction_currency": "GBP",
+}
+iceland_ghost_membership_card = {
+    "card_num": "6332040031231230001",
+    "barcode": "6332040031231230001",
+    "last_name": "QAUsertest11",
+    "postcode": "rg6 6bb",
+    "points": 1480,
+    "currency": "GBP",
+    "description": "Placeholder Balance Description",
+    "transactions": "6",
     "transaction_status": "active",
     "transaction_currency": "GBP",
 }
@@ -133,8 +160,8 @@ iceland_invalid_data = {
     "postcode": "fail",
 }
 wasabi_membership_card = {
-    "card_num": "1048172852",
-    "email": "binktestuser14@wasabi.com",
+    "card_num": "1049108528",
+    "email": "BinkBundleAuto_1625235298057@bink.com",
     "points": 6,
     "currency": "stamps",
     "description": "",
@@ -185,7 +212,8 @@ membership_card_status_reason_codes = {
     "reason_code_failed": "X303",
     "reason_code_failed_enrol": "X201",
     "reason_code_invalid_failed_enrol": "X202",
-    "reason_code_add_failed": "X102"
+    "reason_code_add_failed": "X102",
+    "reason_code_ghost_failed": "X105"
 }
 
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #

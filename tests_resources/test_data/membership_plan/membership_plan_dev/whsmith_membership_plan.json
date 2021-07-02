@@ -29,7 +29,7 @@
         {
             "id": 627,
             "type": 3,
-            "url": "https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/WHSmith_Logo_Block_PMS_287_2aBgzmT.png",
+            "url": "https://api.dev.gb.bink.com/content/media/hermes/schemes/WHSmith_Logo_Block_PMS_287_2aBgzmT.png",
             "description": "WHSmith Icon",
             "encoding": "png"
         }
@@ -41,14 +41,6 @@
         "plan_summary": "Receive a Reward stamp every time you spend more than \u00a35 using a linked payment card in store or online. Once you have collected 5 stamps you will receive a \u00a32.50 Reward voucher to redeem online or in store. See T&C's for excluded stores & products.",
         "plan_description": "From Books and stationary to snacks and drinks, in store or online you can start collecting WHSmith Rewards. Receive a Reward stamp every time you spend more than \u00a35 when you use a linked payment card. For every 5 stamps collected you will receive a \u00a32.50 Reward voucher to spend online or in store at WHSmith. Thank you for joining WHSmith Rewards. See T&C\u2019s for excluded stores and products.",
         "plan_documents": [
-            {
-                "name": "Terms & conditions",
-                "url": "https://policies.staging.gb.bink.com/whsmith/tc.html",
-                "display": [
-                    "VOUCHER"
-                ],
-                "checkbox": false
-            },
             {
                 "name": "Retailer terms and conditions",
                 "description": "I accept the",
@@ -64,6 +56,14 @@
                 "url": "https://policies.staging.gb.bink.com/whsmith/pp.html",
                 "display": [
                     "ENROL"
+                ],
+                "checkbox": false
+            },
+            {
+                "name": "Terms & conditions",
+                "url": "https://policies.staging.gb.bink.com/whsmith/tc.html",
+                "display": [
+                    "VOUCHER"
                 ],
                 "checkbox": false
             }
@@ -83,7 +83,13 @@
                 "choice": []
             }
         ],
-        "registration_fields": [],
+        "registration_fields": [
+            {
+                "column": "Consent 1",
+                "description": "Hear about the latest offers from WHSmith by email and SMS",
+                "type": 3
+            }
+        ],
         "enrol_fields": [
             {
                 "column": "Email",
