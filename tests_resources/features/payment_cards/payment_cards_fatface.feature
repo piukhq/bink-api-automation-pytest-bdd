@@ -53,7 +53,7 @@ Feature: Merchant FatFace - Ensure a customer can add their payment card & link 
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
   @enrol_new_paymentcard @bink_regression
-  Scenario Outline: Enrol & LINK Journey_HarveyNichols
+  Scenario Outline: Enrol new paymentcard and link to fatface
 
     Given I am a Bink user
     When I perform POST request to enrol new "<payment_card_provider>" payment card to wallet
@@ -70,7 +70,7 @@ Feature: Merchant FatFace - Ensure a customer can add their payment card & link 
 
 #    Below visa paymentcard scenario run when staging is pointing to pelops only
   @enrol_new_paymentcard @bink_regression
-  Scenario Outline: Enrol link and unlink the visa vop in pelops
+  Scenario Outline: Enrol link and unlink the visa vop in pelops for fatface
 
     Given I am a Bink user
     When I perform POST request to enrol new "<payment_card_provider>" payment card to wallet
