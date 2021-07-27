@@ -37,21 +37,20 @@ class PaymentCards(Endpoint):
     def get_payment_card(token, payment_card_id):
         url = PaymentCards.get_url(payment_card_id)
         header = Endpoint.request_header(token)
-        time.sleep(3)
 
-        for i in range(1, 30):
+        for i in range(1, 10):
             response = Endpoint.call(url, header, "GET")
             try:
                 response_json = response.json()
                 if not response_json["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS):
-                    time.sleep(1)
+                    time.sleep(i)
+                    continue
                 else:
                     break
             except (JSONDecodeError, KeyError):
                 logging.info(
                     "The response text:  " + response.text + "\n The response Status Code: " +
                     str(response.status_code))
-                time.sleep(1)
                 logging.info("No response generated for end point " + url)
         return response
 
@@ -59,19 +58,19 @@ class PaymentCards(Endpoint):
     def get_payment_cards(token):
         url = PaymentCards.get_url()
         header = Endpoint.request_header(token)
-        for i in range(1, 30):
+        for i in range(1, 10):
             response = Endpoint.call(url, header, "GET")
             try:
                 response_json = response.json()
                 if not response_json[0]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS):
-                    time.sleep(1)
+                    time.sleep(i)
+                    continue
                 else:
                     break
             except (JSONDecodeError, KeyError):
                 logging.info(
                     "The response text:  " + response.text + "\n The response Status Code: " +
                     str(response.status_code))
-                time.sleep(1)
                 logging.info("No response generated for end point " + url)
         return response
 

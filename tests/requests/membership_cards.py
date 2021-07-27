@@ -5,6 +5,7 @@ from tests.helpers.test_helpers import Merchant
 from tests.helpers.test_helpers import TestData
 from tests.api.base import Endpoint
 import tests.helpers.constants as constants
+from json import JSONDecodeError
 
 
 class MembershipCards(Endpoint):
@@ -68,24 +69,27 @@ class MembershipCards(Endpoint):
 
     @staticmethod
     def get_scheme_account(token, scheme_account_id):
-        time.sleep(10)
-        """Waiting max up to 30 sec to change status from Pending to Authorized"""
-        for i in range(1, 30):
+        """Waiting max up to 10 sec to change status from Pending to Authorized"""
+        for i in range(1, 10):
             url = MembershipCards.get_url(scheme_account_id)
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
-            response_json = response.json()
-            if response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING):
-                time.sleep(1)
-            else:
-                break
+            try:
+                response_json = response.json()
+                if response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
+                        constants.PENDING):
+                    time.sleep(i)
+                    continue
+                else:
+                    break
+            except JSONDecodeError or Exception:
+                raise Exception(f"Empty response and the response Status Code is {str(response.status_code)}")
         return response
 
     @staticmethod
     def get_scheme_account_auto_link(token, scheme_account_id, is_autolink=None):
-        """Waiting max up to 30 sec to change status from Pending to Authorized"""
-        time.sleep(5)
-        for i in range(1, 30):
+        """Waiting max up to 10 sec to change status from Pending to Authorized"""
+        for i in range(1, 10):
             url = MembershipCards.get_url(scheme_account_id)
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
@@ -95,18 +99,21 @@ class MembershipCards(Endpoint):
                     return response
                 else:
                     if not response_json["payment_cards"][0]["active_link"]:
-                        time.sleep(1)
+                        time.sleep(i)
+                        continue
                     else:
                         break
             except IndexError:
-                time.sleep(1)
-                logging.info("Wait for payment card array to populate")
+                time.sleep(i)
+                logging.info("Wait for payment card to populate")
+            except JSONDecodeError or Exception:
+                raise Exception(f"Empty response and the response Status Code is {str(response.status_code)}")
         return response
 
     @staticmethod
     def get_membership_card_balance(token, scheme_account_id):
-        """Waiting max up to 30 sec to change status from Pending to Authorized"""
-        for i in range(1, 30):
+        """Waiting max up to 10 sec to change status from Pending to Authorized"""
+        for i in range(1, 10):
             ele_present = "no"
             current_membership_card_response = ""
             url = Endpoint.BASE_URL + api.ENDPOINT_CHECK_MEMBERSHIP_CARDS_BALANCE
@@ -118,7 +125,7 @@ class MembershipCards(Endpoint):
                 if current_membership_card["id"] == scheme_account_id:
                     if current_membership_card["status"]["state"] == TestData.get_membership_card_status_states(). \
                             get(constants.PENDING):
-                        time.sleep(1)
+                        time.sleep(i)
                         break
                     else:
                         ele_present = "yes"
