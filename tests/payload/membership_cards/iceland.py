@@ -151,3 +151,116 @@ class IcelandCard:
         logging.info("The Request for Register Ghost Journey with  :\n\n" + Endpoint.BASE_URL +
                      api.ENDPOINT_MEMBERSHIP_CARD.format(scheme_id) + "\n\n" + json.dumps(payload, indent=4))
         return payload
+
+    @staticmethod
+    def add_membership_card_payload_without_field(field):
+        if (field == 'account'):
+            payload = {
+                "add_fields": [
+                    {
+                        "column": "Bonus card number",
+                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CARD_NUM),
+                    }
+                ],
+                "authorise_fields": [
+                    {
+                        "column": "Last name",
+                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+                    },
+                    {
+                        "column": "Postcode",
+                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
+                    }], "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland")}
+
+        elif (field == 'membership_plan'):
+            payload = {
+                "account": {
+                    "add_fields": [
+                        {
+                            "column": "Bonus card number",
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CARD_NUM),
+                        }
+                    ],
+                    "authorise_fields": [
+                        {
+                            "column": "Last name",
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+                        },
+                        {
+                            "column": "Postcode",
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
+                        }
+                    ]
+                }
+            }
+
+        elif (field == 'lastname'):
+            payload = {
+                "account": {
+                    "add_fields": [
+                        {
+                            "column": "Bonus card number",
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CARD_NUM),
+                        }
+                    ],
+                    "authorise_fields": [
+                        {
+                            "column": "lastname",
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+                        },
+                        {
+                            "column": "Postcode",
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
+                        }
+                    ]
+                },
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
+            }
+
+        elif (field == 'postcode'):
+            payload = {
+                "account": {
+                    "add_fields": [
+                        {
+                            "column": "Bonus card number",
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CARD_NUM),
+                        }
+                    ],
+                    "authorise_fields": [
+                        {
+                            "column": "Last name",
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+                        },
+                        {
+                            "column": "postcode",
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
+                        }
+                    ]
+                },
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
+            }
+
+        elif (field == "token"):
+            payload = {
+                "account": {
+                    "add_fields": [
+                        {
+                            "column": "Bonus card number",
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CARD_NUM),
+                        }
+                    ],
+                    "authorise_fields": [
+                        {
+                            "column": "Last name",
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+                        },
+                        {
+                            "column": "Postcode",
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
+                        }
+                    ]
+                },
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
+            }
+
+        return payload

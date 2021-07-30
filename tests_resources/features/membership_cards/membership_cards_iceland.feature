@@ -15,7 +15,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the "Iceland" membership card
 
 #   Use below commented line for production execution once iceland test data with transactions is ready
-  @balances_transactions @bink_regression @bmb_regression 
+  @balances_transactions @bink_regression @bmb_regression
   Scenario: Balances verification_Iceland
 
     Given I am a Bink user
@@ -51,7 +51,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "Iceland" membership card
     And I perform DELETE request to delete the payment card
 
-  @bink_regression @bmb_regression 
+  @bink_regression @bmb_regression
   Scenario:  Add_Journey with Invalid Credentials_Iceland
 
     Given I am a Bink user
@@ -104,3 +104,73 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     When I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
     And I perform GET request to verify the "Iceland" membership account is created
     Then I perform DELETE request to delete the "Iceland" membership card
+
+  @negative_scenario @loy1975_1 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without account field_Iceland
+    Given I am a Bink user
+    When I perform POST request to add "Iceland" membership card without "account"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message      |
+      | Malformed request. |
+
+  @negative_scenario @loy1975_6 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without plan field_Iceland
+    Given I am a Bink user
+    When I perform POST request to add "Iceland" membership card without "membership_plan"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message                             |
+      | required field membership_plan is missing |
+
+  @negative_scenario @loy1975_4 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards with key value lastname instead of Last name_Iceland
+    Given I am a Bink user
+    When I perform POST request to add "Iceland" membership card without "lastname"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message      |
+      | Malformed request. |
+
+  @negative_scenario @loy1975_4 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards with key value postcode instead of Postcode_Iceland
+    Given I am a Bink user
+    When I perform POST request to add "Iceland" membership card without "postcode"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message      |
+      | Malformed request. |
+
+  @negative_scenario @loy1975_8 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without token_Iceland
+    Given I am a Bink user
+    When I perform POST request to add "Iceland" membership card without "token" header
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message                                  |
+      | Invalid token header. No credentials provided. |
+
+  @negative_scenario @loy1975_9 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without payload_Iceland
+    Given I am a Bink user
+    When I perform POST request to add "Iceland" membership card without "payload" header
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message                             |
+      | required field membership_plan is missing |
+
+## This scenario required to comment out once bug been resolve
+##  @negative_scenario @loy1975_2 @bink_regression @bmb_regression
+##  Scenario Outline: Negative test scenario for POST/membership_cards without authorise_fields field_Iceland
+##    Given I am a Bink user
+##    When I perform POST request to add "Iceland" membership card without "authorise_fields"
+##    Then I should receive error message "<error_message>"
+##    Examples:
+##      | error_message      |
+##      | Malformed request. |

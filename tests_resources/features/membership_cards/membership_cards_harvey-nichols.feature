@@ -26,7 +26,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then verify the data stored in DB after "Add" journey for "HarveyNichols"
     And I perform DELETE request to delete the "HarveyNichols" membership card
 
-  @add_patch @bink_regression @bmb_regression 
+  @add_patch @bink_regression @bmb_regression
   Scenario:  Add Journey_PATCH_HarveyNichols
 
     Given I am a Bink user
@@ -37,7 +37,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     Then verify the data stored in DB after "Add" journey for "HarveyNichols"
     And I perform DELETE request to delete the "HarveyNichols" membership card
 
-  @add_and_link @bink_regression @bmb_regression 
+  @add_and_link @bink_regression @bmb_regression
   Scenario: ADD & LINK Journey_HarveyNichols
 
     Given I am a Bink user
@@ -101,3 +101,103 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     And  I perform GET request to verify the "HarveyNichols" membership card is added & not linked in the wallet
     And I perform DELETE request to delete the "HarveyNichols" membership card
     And I perform DELETE request to delete the payment card
+
+  @negative_scenario @loy1975_1 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without account field_HarveyNichols
+    Given I am a Bink user
+    When I perform POST request to add "HarveyNichols" membership card without "account"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message      |
+      | Malformed request. |
+
+  @negative_scenario @loy1975_6 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without plan field_HarveyNichols
+    Given I am a Bink user
+    When I perform POST request to add "HarveyNichols" membership card without "membership_plan"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message                             |
+      | required field membership_plan is missing |
+
+  @negative_scenario @loy1975_4 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without account field for enrol_HarveyNichols
+    Given I am a Bink user
+    When I perform POST request to add "HarveyNichols" membership card without "enrol_account"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message      |
+      | Malformed request. |
+
+  @negative_scenario @loy1975_5 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without email
+    Given I am a Bink user
+    When I perform POST request to add "HarveyNichols" membership card with wrong "email"
+    Then I should receive error message "<error_message>" for email missing
+
+    Examples:
+      | error_message                |
+      | This field may not be blank. |
+
+  @negative_scenario @loy1975_5 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without email_HarveyNichols
+    Given I am a Bink user
+    When I perform POST request to add "HarveyNichols" membership card with wrong "email_address"
+    Then I should receive error message "<error_message>" for email missing
+
+    Examples:
+      | error_message                |
+      | Enter a valid email address. |
+
+  @negative_scenario @loy1975_7 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards with email value in coloumn instead of Email_HarveyNichols
+    Given I am a Bink user
+    When I perform POST request to add "HarveyNichols" membership card without "email_coloumn_value"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message      |
+      | Malformed request. |
+
+  @negative_scenario @loy1975_7 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards with password value in coloumn instead of Password_HarveyNichols
+    Given I am a Bink user
+    When I perform POST request to add "HarveyNichols" membership card without "password_coloumn_value"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message      |
+      | Malformed request. |
+
+  @negative_scenario @loy1975_8 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without token_HarveyNichols
+    Given I am a Bink user
+    When I perform POST request to add "HarveyNichols" membership card without "token" header
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message                                  |
+      | Invalid token header. No credentials provided. |
+
+  @negative_scenario @loy1975_9 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without payload_HarveyNichols
+    Given I am a Bink user
+    When I perform POST request to add "HarveyNichols" membership card without "payload" header
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message                             |
+      | required field membership_plan is missing |
+
+# ## This scenario required to comment out once bug been resolve
+#  @negative_scenario @loy1975_2 @bink_regression @bmb_regression
+#  Scenario Outline: Negative test scenario for POST/membership_cards without authorise_fields field_HarveyNichols
+#    Given I am a Bink user
+#    When I perform POST request to add "HarveyNichols" membership card without "authorise_fields"
+#    Then I should receive error message "<error_message>"
+#    Examples:
+#      | error_message      |
+#      | Malformed request. |

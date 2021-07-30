@@ -38,7 +38,7 @@ class PaymentCards(Endpoint):
         url = PaymentCards.get_url(payment_card_id)
         header = Endpoint.request_header(token)
 
-        for i in range(1, 10):
+        for i in range(1, 30):
             response = Endpoint.call(url, header, "GET")
             try:
                 response_json = response.json()
@@ -58,7 +58,8 @@ class PaymentCards(Endpoint):
     def get_payment_cards(token):
         url = PaymentCards.get_url()
         header = Endpoint.request_header(token)
-        for i in range(1, 10):
+
+        for i in range(1, 30):
             response = Endpoint.call(url, header, "GET")
             try:
                 response_json = response.json()

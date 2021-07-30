@@ -664,3 +664,50 @@ def verify_membership_card_vouchers(merchant, env):
     logging.info("actual_voucher_response:" + json.dumps(actual_response['vouchers'], indent=4))
     assert (expected_response['vouchers'] == actual_response['vouchers']), "Voucher verification failed"
     logging.info("Voucher verification is successful")
+
+
+@when(parsers.parse('I perform POST request to add "{merchant}" membership card without "{field_value}"'))
+def add_membership_card_without_field_value(merchant, field_value):
+    response = MembershipCards.add_card_without_correct_field(TestContext.token, merchant, field_value)
+    response_json = response_to_json(response)
+    TestContext.detail = response_json["detail"]
+    logging.info(
+        "The response of Add Journey (POST) is without " + field_value + ":\n\n" + json.dumps(response_json, indent=4))
+    assert (response.status_code == 400), ("Add Journey for " + merchant + " succeded")
+    return response_json
+
+
+@then('I should receive error message "<error_message>"')
+def error_message_without_field_value(error_message):
+    assert (TestContext.detail == error_message), ("Add Journey succeded")
+
+
+@then('I should receive error message "<error_message>" for email missing')
+def error_message_email_missing(error_message):
+    assert (TestContext.email == error_message), ("Add Journey succeded")
+
+
+@when(parsers.parse('I perform POST request to add "{merchant}" membership card with wrong "{field_value}"'))
+def add_membership_card_withwrong_field_value(merchant, field_value, channel):
+    response = MembershipCards.add_card_without_correct_field(TestContext.token, merchant, field_value)
+    response_json = response_to_json(response)
+    TestContext.email = response_json["email"][0]
+    logging.info("The response of Add Journey (POST) is with wrong " + field_value + ":\n\n" + json.dumps(response_json,
+                                                                                                          indent=4))
+    assert (response.status_code == 400), ("Add Journey for " + merchant + " succeded")
+    return response_json
+
+
+@when(parsers.parse('I perform POST request to add "{merchant}" membership card without "{field_value}" header'))
+def add_membership_card_without_token(merchant, field_value):
+    if(field_value == "token"):
+        response = MembershipCards.add_card_without_token(merchant, field_value)
+    elif(field_value == "payload"):
+        response = MembershipCards.add_card_without_payload(TestContext.token)
+    response_json = response_to_json(response)
+    TestContext.detail = response_json["detail"]
+    logging.info(
+        "The response of Add Journey (POST) is without " + field_value + ":\n\n" + json.dumps(response_json, indent=4))
+    """ wrong token = 401 and empty_payload = 400 """
+    assert (response.status_code == 401 or 400), ("Add Journey for " + merchant + " succeded")
+    return response_json
