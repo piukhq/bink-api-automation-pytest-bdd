@@ -302,15 +302,13 @@ def verify_invalid_membership_card_is_added_to_wallet(merchant, context):
         "The response of GET/MembershipCard with invalid data in the request is:\n\n"
         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD.format(context["scheme_account_id"]) + "\n\n"
         + json.dumps(response_json, indent=4))
-    assert (
-            response.status_code == 200
-            and response_json["id"] == context["scheme_account_id"]
-            and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.FAILED)
-            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().get(
-        constants.REASON_CODE_FAILED) or TestData.get_membership_card_status_reason_codes().get(
-        constants.REASON_CODE_ADD_FAILED)
-    ), ("Validations in GET/membership_cards with invalid data for  " + merchant + " failed with reason code" +
-        response_json["status"]["reason_codes"][0])
+    assert (response.status_code == 200 and response_json["id"] == context["scheme_account_id"] and
+            response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.FAILED) and
+            response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().get(
+                constants.REASON_CODE_FAILED) or TestData.get_membership_card_status_reason_codes().get(
+                constants.REASON_CODE_ADD_FAILED)), (
+                "Validations in GET/membership_cards with invalid data for  " + merchant + " failed with reason code" +
+                response_json["status"]["reason_codes"][0])
 
 
 @when(parsers.parse('I perform GET request to verify the "{merchant}" membership account is created with invalid data'))
