@@ -7,14 +7,14 @@ stages:
 
 flake8:
   stage: tests
-  image: binkhq/python:3.9
+  image: ghcr.io/binkhq/python:3.9
   script:
     - pip install flake8
     - flake8
 
 allure:
   stage: tests
-  image: binkhq/python:3.9
+  image: ghcr.io/binkhq/python:3.9
   script:
     - pip install pipenv
     - pipenv sync --dev
