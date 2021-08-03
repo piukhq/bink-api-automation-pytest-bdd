@@ -89,8 +89,8 @@
         "plan_name": "Iceland Bonus Card",
         "plan_name_card": "Card",
         "plan_url": "https://goo.gl/u72nN9",
-        "plan_summary": "With Iceland’s Bonus Card programme, you can easily save and spend when you shop. Iceland will give you £1 for every £20 you save on your Bonus Card. Iceland makes saving easy with their Bonus Card programme.",
-        "plan_description": "At checkout, simply tell the cashier how much money you would like to save, present your digital Bonus Card within this app and scan it using the customer facing scanners, as you normally would with your physical card. You will also be able to see your savings balance on your phone. For every £20 you save, Iceland give you £1 absolutely free. Additional benefits include free home delivery when you spend over £25, and exclusive bonuses and offers only for Bonus Cardholders.",
+        "plan_summary": "With Iceland\u2019s Bonus Card programme, you can easily save and spend when you shop. Iceland will give you \u00a31 for every \u00a320 you save on your Bonus Card. Iceland makes saving easy with their Bonus Card programme.",
+        "plan_description": "At checkout, simply tell the cashier how much money you would like to save, present your digital Bonus Card within this app and scan it using the customer facing scanners, as you normally would with your physical card. You will also be able to see your savings balance on your phone. For every \u00a320 you save, Iceland give you \u00a31 absolutely free. Additional benefits include free home delivery when you spend over \u00a325, and exclusive bonuses and offers only for Bonus Cardholders.",
         "plan_documents": [
             {
                 "name": "Retailer terms and conditions",
@@ -114,7 +114,7 @@
             }
         ],
         "barcode_redeem_instructions": "At checkout, simply tell the cashier how much money you would like to save or redeem, present the barcode below and scan it using the customer facing scanners, as you normally would with your physical card.",
-        "plan_register_info": "You have added a temporary card. You’ll need to register it to enjoy the full benefits of the programme.",
+        "plan_register_info": "You have added a temporary card. You\u2019ll need to register it to enjoy the full benefits of the programme.",
         "company_name": "Iceland",
         "enrol_incentive": "Placeholder Enrol Incentive",
         "category": "Household",
@@ -145,7 +145,7 @@
         "authorise_fields": [
             {
                 "column": "Last name",
-                "validation":"^(((?=.{1,40}$)[A-Za-z\\-\À-\ÿ])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
@@ -177,7 +177,7 @@
             },
             {
                 "column": "First name",
-                "validation":"^(((?=.{1,20}$)[A-Za-z\\-\À-\ÿ])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,20}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "description": "Enter first name",
                 "common_name": "first_name",
                 "type": 0,
@@ -185,7 +185,7 @@
             },
             {
                 "column": "Last name",
-                "validation":"^(((?=.{1,40}$)[A-Za-z\\-\À-\ÿ])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
@@ -193,7 +193,7 @@
             },
             {
                 "column": "Date of birth",
-                "validation": "^(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[012])[\/](19|20)\\d\\d$",
+                "validation": "^(0[1-9]|[12][0-9]|3[01])[\\/](0[1-9]|1[012])[\\/](19|20)\\d\\d$",
                 "description": "DD/MM/YYYY",
                 "common_name": "date_of_birth",
                 "type": 0,
@@ -278,7 +278,7 @@
             },
             {
                 "column": "First name",
-                "validation":"^(((?=.{1,20}$)[A-Za-z\\-\À-\ÿ])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,20}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "description": "Enter first name",
                 "common_name": "first_name",
                 "type": 0,
@@ -286,7 +286,7 @@
             },
             {
                 "column": "Last name",
-                "validation":"^(((?=.{1,40}$)[A-Za-z\\-\À-\ÿ])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,40}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
                 "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
@@ -294,7 +294,7 @@
             },
             {
                 "column": "Date of birth",
-                "validation": "^(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[012])[\/](19|20)\\d\\d$",
+                "validation": "^(0[1-9]|[12][0-9]|3[01])[\\/](0[1-9]|1[012])[\\/](19|20)\\d\\d$",
                 "description": "DD/MM/YYYY",
                 "common_name": "date_of_birth",
                 "type": 0,
@@ -367,18 +367,18 @@
     "balances": [
         {
             "currency": "GBP",
-            "prefix": "£",
+            "prefix": "\u00a3",
             "description": "Placeholder Balance Description"
         }
     ],
     "content": [
         {
             "column": "Enrol_Help_Text",
-            "value": "Please enter your details to register with the retailer. We won’t save or store any of the information you provide or edit below."
+            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
         },
         {
             "column": "Promo_Text_1",
-            "value": "Free delivery when you spend £35+ at iceland.co.uk"
+            "value": "Free delivery when you spend \u00a335+ at iceland.co.uk"
         }
     ]
 }
