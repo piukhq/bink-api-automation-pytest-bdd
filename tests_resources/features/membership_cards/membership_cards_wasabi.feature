@@ -92,3 +92,83 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     And I perform GET request to verify the "Wasabi" membership card is added to the wallet
     Then verify the data stored in DB after "Enrol" journey for "Wasabi"
     And I perform DELETE request to delete the customer
+
+  @negative_scenario @loy1975_1 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without account field_Wasabi
+    Given I am a Bink user
+    When I perform POST request to add "Wasabi" membership card without "account"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message      |
+      | Malformed request. |
+
+  @negative_scenario @loy1975_6 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without plan field_Wasabi
+    Given I am a Bink user
+    When I perform POST request to add "Wasabi" membership card without "membership_plan"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message                             |
+      | required field membership_plan is missing |
+
+  @negative_scenario @loy1975_4 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards with key value email instead of Email_Wasabi
+    Given I am a Bink user
+    When I perform POST request to add "Wasabi" membership card without "email"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message      |
+      | Malformed request. |
+
+  @negative_scenario @loy1975_4 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards with key value Membership card number instead of Membershipcard_number_Wasabi
+    Given I am a Bink user
+    When I perform POST request to add "Wasabi" membership card without "Membershipcard_number"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message      |
+      | Malformed request. |
+
+  @negative_scenario @loy1975_4 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without account field for enrol_HarveyNichols
+    Given I am a Bink user
+    When I perform POST request to add "Wasabi" membership card without "enrol_account"
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message      |
+      | Malformed request. |
+
+  @negative_scenario @loy1975_8 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without token_Wasabi
+    Given I am a Bink user
+    When I perform POST request to add "Wasabi" membership card without "token" header
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message                                  |
+      | Invalid token header. No credentials provided. |
+
+  @negative_scenario @loy1975_9 @bink_regression @bmb_regression
+  Scenario Outline: Negative test scenario for POST/membership_cards without payload_Wasabi
+    Given I am a Bink user
+    When I perform POST request to add "Wasabi" membership card without "payload" header
+    Then I should receive error message "<error_message>"
+
+    Examples:
+      | error_message                             |
+      | required field membership_plan is missing |
+
+## This scenario required to comment out once bug been resolve
+##  @negative_scenario @loy1975_2 @bink_regression @bmb_regression
+##  Scenario Outline: Negative test scenario for POST/membership_cards without authorise_fields field_Wasabi
+##    Given I am a Bink user
+##    When I perform POST request to add "Wasabi" membership card without "authorise_fields"
+##    Then I should receive error message "<error_message>"
+##    Examples:
+##      | error_message      |
+##      | Malformed request. |

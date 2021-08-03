@@ -69,8 +69,8 @@ class MembershipCards(Endpoint):
 
     @staticmethod
     def get_scheme_account(token, scheme_account_id):
-        """Waiting max up to 10 sec to change status from Pending to Authorized"""
-        for i in range(1, 10):
+        """Waiting max up to 30 sec to change status from Pending to Authorized"""
+        for i in range(1, 30):
             url = MembershipCards.get_url(scheme_account_id)
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
@@ -88,8 +88,8 @@ class MembershipCards(Endpoint):
 
     @staticmethod
     def get_scheme_account_auto_link(token, scheme_account_id, is_autolink=None):
-        """Waiting max up to 10 sec to change status from Pending to Authorized"""
-        for i in range(1, 10):
+        """Waiting max up to 30 sec to change status from Pending to Authorized"""
+        for i in range(1, 30):
             url = MembershipCards.get_url(scheme_account_id)
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
@@ -112,8 +112,8 @@ class MembershipCards(Endpoint):
 
     @staticmethod
     def get_membership_card_balance(token, scheme_account_id):
-        """Waiting max up to 10 sec to change status from Pending to Authorized"""
-        for i in range(1, 10):
+        """Waiting max up to 30 sec to change status from Pending to Authorized"""
+        for i in range(1, 30):
             ele_present = "no"
             current_membership_card_response = ""
             url = Endpoint.BASE_URL + api.ENDPOINT_CHECK_MEMBERSHIP_CARDS_BALANCE
@@ -173,3 +173,24 @@ class MembershipCards(Endpoint):
         payload = Merchant.get_merchant(merchant).enrol_ghost_membership_scheme_payload(email,
                                                                                         scheme_account_id, env, channel)
         return Endpoint.call(url, header, "PATCH", payload)
+
+    @staticmethod
+    def add_card_without_correct_field(token, merchant, field_value):
+        url = MembershipCards.get_url()
+        header = Endpoint.request_header(token)
+        payload = Merchant.get_merchant(merchant).add_membership_card_payload_without_field(field_value)
+        return Endpoint.call(url, header, "POST", payload)
+
+    @staticmethod
+    def add_card_without_token(merchant, field_value):
+        url = MembershipCards.get_url()
+        header = Endpoint.request_header()
+        payload = Merchant.get_merchant(merchant).add_membership_card_payload_without_field(field_value)
+        return Endpoint.call(url, header, "POST", payload)
+
+    @staticmethod
+    def add_card_without_payload(token):
+        url = MembershipCards.get_url()
+        header = Endpoint.request_header(token)
+        payload = {}
+        return Endpoint.call(url, header, "POST", payload)

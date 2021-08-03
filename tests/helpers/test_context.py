@@ -4,6 +4,8 @@ class TestContext:
     token = ""
     transaction_id = ""
     response = ""
+    detail = ""
+    email = ""
     payment_card_hash = ""
     card_number = ""
     status_code = ""
