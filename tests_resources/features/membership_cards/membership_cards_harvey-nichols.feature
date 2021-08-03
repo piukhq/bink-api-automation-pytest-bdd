@@ -135,7 +135,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
   @negative_scenario @loy1975_5 @bink_regression @bmb_regression
   Scenario Outline: Negative test scenario for POST/membership_cards without email
     Given I am a Bink user
-    When I perform POST request to add "HarveyNichols" membership card with wrong "email"
+    When I perform POST request to add "HarveyNichols" membership card with wrong format "email"
     Then I should receive error message "<error_message>" for email missing
 
     Examples:
@@ -145,7 +145,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
   @negative_scenario @loy1975_5 @bink_regression @bmb_regression
   Scenario Outline: Negative test scenario for POST/membership_cards without email_HarveyNichols
     Given I am a Bink user
-    When I perform POST request to add "HarveyNichols" membership card with wrong "email_address"
+    When I perform POST request to add "HarveyNichols" membership card with wrong format "email_address"
     Then I should receive error message "<error_message>" for email missing
 
     Examples:

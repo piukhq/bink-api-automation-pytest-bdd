@@ -687,7 +687,7 @@ def error_message_email_missing(error_message):
     assert (TestContext.email == error_message), ("Add Journey succeded")
 
 
-@when(parsers.parse('I perform POST request to add "{merchant}" membership card with wrong "{field_value}"'))
+@when(parsers.parse('I perform POST request to add "{merchant}" membership card with wrong format "{field_value}"'))
 def add_membership_card_withwrong_field_value(merchant, field_value, channel):
     response = MembershipCards.add_card_without_correct_field(TestContext.token, merchant, field_value)
     response_json = response_to_json(response)
