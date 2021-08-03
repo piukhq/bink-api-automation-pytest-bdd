@@ -87,13 +87,13 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
 
 
   @dev @staging @prod
-  Scenario:  Add_Journey with Invalid Credentials_Iceland
+  Scenario:  Add_Journey with Invalid Credentials_wasabi
 
     Given I am a Bink user
-    When I perform POST request to add "Iceland" membership card with "invalid_data"
-    And I perform GET request to verify the "Iceland" membership card is added to the wallet with invalid data
+    When I perform POST request to add "Wasabi" membership card with "invalid_data"
+    And I perform GET request to verify the "Wasabi" membership card is added to the wallet with invalid data
 #    Then Verify the card status as "Invalid Credentials" in Django
-    Then I perform DELETE request to delete the "Iceland" membership card
+    Then I perform DELETE request to delete the "Wasabi" membership card
 
 
 

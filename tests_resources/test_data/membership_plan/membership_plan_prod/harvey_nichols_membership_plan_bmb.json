@@ -21,8 +21,7 @@
                 "app_store_url": "https://play.google.com/store/apps/details?id=com.harveynichols.rewards&hl=en_GB&utm_source=bink&utm_medium=android&utm_campaign=store",
                 "app_type": 1
             }
-        ],
-        "has_vouchers": false
+        ]
     },
     "card": {
         "barcode_type": 7,
@@ -91,8 +90,8 @@
         "plan_name": "Rewards by Harvey Nichols",
         "plan_name_card": "Account",
         "plan_url": "https://www.harveynichols.com",
-        "plan_summary": "Rewards by Harvey Nichols is your fast track pass to exclusive benefits and complimentary services. Earn 1 point for every \u00a31 spent on harveynichols.com, in-stores and dining at any of our establishments.",
-        "plan_description": "As your purchases inch you up the points ladder, you will unlock ever-increasingly spectacular rewards \u2013 think cases of premium wine or a private canape party hosted at the OXO Tower Restaurant. Our programme is the only one of its kind to offer a choice of rewards every 3 months, rather than once a year. The hardest part will be choosing which to redeem. Please note, Payment Linked Loyalty is currently not available in Harvey Nichols restaurants and online.",
+        "plan_summary": "Rewards by Harvey Nichols is your fast track pass to exclusive benefits and complimentary services. Earn 1 point for every £1 spent on harveynichols.com, in-stores and dining at any of our establishments.",
+        "plan_description": "As your purchases inch you up the points ladder, you will unlock ever-increasingly spectacular rewards – think cases of premium wine or a private canape party hosted at the OXO Tower Restaurant. Our programme is the only one of its kind to offer a choice of rewards every 3 months, rather than once a year. The hardest part will be choosing which to redeem. Please note, Payment Linked Loyalty is currently not available in Harvey Nichols restaurants and online.",
         "plan_documents": [
             {
                 "name": "Retailer terms and conditions",
@@ -149,7 +148,7 @@
             },
             {
                 "column": "Password",
-                "validation": "^([A-z0-9!\"#$\u00a3%&'()*+,\\-./:;<=>?@\\[\\\\\\]^_`{|}~]){6,255}$",
+                "validation": "^([A-z0-9!\"#$£%&'()*+,\\-./:;<=>?@\\[\\\\\\]^_`{|}~]){6,255}$",
                 "description": "Password (min 6 characters)",
                 "common_name": "password",
                 "type": 1,
@@ -179,7 +178,7 @@
             },
             {
                 "column": "First name",
-                "validation": "^(((?=.{1,255}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
+                "validation":"^(((?=.{1,255}$)[A-Za-z\\-\À-\ÿ])+\\s*){1,4}$",
                 "description": "Enter first name",
                 "common_name": "first_name",
                 "type": 0,
@@ -187,7 +186,7 @@
             },
             {
                 "column": "Last name",
-                "validation": "^(((?=.{1,255}$)[A-Za-z\\-\\u00C0-\\u00FF])+\\s*){1,4}$",
+                "validation":"^(((?=.{1,255}$)[A-Za-z\\-\À-\ÿ])+\\s*){1,4}$",
                 "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
@@ -203,7 +202,7 @@
             },
             {
                 "column": "Password",
-                "validation": "^([A-z0-9!\"#$\u00a3%&'()*+,\\-./:;<=>?@\\[\\\\\\]^_`{|}~]){7,255}$",
+                "validation": "^([A-z0-9!\"#$£%&'()*+,\\-./:;<=>?@\\[\\\\\\]^_`{|}~]){7,255}$",
                 "description": "Password (min 7 characters)",
                 "common_name": "password_2",
                 "type": 1,
@@ -218,24 +217,17 @@
                 "choice": []
             },
             {
-                "column": "Consent 2",
+                "column": "Consent 1",
                 "description": "Check this box for email marketing from Harvey Nichols - if you change your mind, you can opt out anytime via the retailer.",
                 "type": 3
             }
-        ],
-        "fees": []
+        ]
     },
     "balances": [
         {
             "currency": "Points",
             "suffix": "pts",
             "description": "Placeholder Balance Description"
-        }
-    ],
-    "content": [
-        {
-            "column": "Enrol_Help_Text",
-            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
         }
     ]
 }
