@@ -4,8 +4,13 @@ import time
 from enum import Enum
 
 import requests
-from settings import LOCAL_SECRETS_PATH, LOCAL_CHANNELS, VAULT_URL, CHANNEL_VAULT_PATH
-from shared_config_storage.vault.secrets import VaultError, read_vault
+
+from settings import LOCAL_SECRETS_PATH, LOCAL_CHANNELS, VAULT_URL, CHANNEL_SECRET_NAME
+
+from azure.core.exceptions import ServiceRequestError, ResourceNotFoundError, HttpResponseError
+from azure.identity import DefaultAzureCredential
+from azure.keyvault.secrets import SecretClient
+
 
 logger = logging.getLogger(__name__)
 loaded = False
@@ -17,14 +22,22 @@ class KeyType(str, Enum):
     PUBLIC_KEY = "public_key"
 
 
+class KeyVaultError(Exception):
+    pass
+
+
 def retry_get_secrets_from_vault():
     retries = 3
     exception = RuntimeError("Failed to get secrets from Vault")
     for _ in range(retries):
         try:
-            bundle_secrets = read_vault(CHANNEL_VAULT_PATH, VAULT_URL, "")
-            return bundle_secrets
-        except (VaultError, ValueError) as e:
+            client = SecretClient(vault_url=VAULT_URL, credential=DefaultAzureCredential())
+            secret = client.get_secret(CHANNEL_SECRET_NAME)
+            try:
+                return json.loads(secret.value)
+            except json.decoder.JSONDecodeError:
+                return secret.value
+        except (ServiceRequestError, ResourceNotFoundError, HttpResponseError) as e:
             exception = e
             time.sleep(3)
 
@@ -64,7 +77,7 @@ def load_secrets():
         except requests.RequestException as e:
             err_msg = f"JWT bundle secrets - Vault Exception {e}"
             logger.exception(err_msg)
-            raise VaultError(err_msg) from e
+            raise KeyVaultError(err_msg) from e
 
         # logger.info(f"JWT bundle secrets - Found secrets for {[bundle_id for bundle_id in bundle_secrets]}")
         _bundle_secrets = bundle_secrets
@@ -81,7 +94,7 @@ def get_jwt_secret(bundle_id):
     try:
         return _bundle_secrets[bundle_id]['jwt_secret']
     except KeyError as e:
-        raise VaultError(f"No JWT secret found for bundle: {bundle_id}") from e
+        raise KeyVaultError(f"No JWT secret found for bundle: {bundle_id}") from e
 
 
 def get_key(bundle_id, key_type: str):
@@ -89,4 +102,4 @@ def get_key(bundle_id, key_type: str):
     try:
         return _bundle_secrets[bundle_id][key_type]
     except KeyError as e:
-        raise VaultError(f"Unable to locate {key_type} in vault for bundle {bundle_id}") from e
+        raise KeyVaultError(f"Unable to locate {key_type} in vault for bundle {bundle_id}") from e

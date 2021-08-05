@@ -76,8 +76,10 @@ class TestData:
             else:
                 return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_STAGING + "/" + merchant_key + "_membership_plan.json"
         elif env == "prod":
-            if merchant == "Iceland" and channel == "Barclays":
+            if merchant == "Iceland" and channel == "barclays":
                 return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD + "/iceland_membership_plan_bmb.json"
+            elif merchant == "HarveyNichols" and channel == "barclays":
+                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD + "/harvey_nichols_membership_plan_bmb.json"
             else:
                 return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD + "/" + merchant_key + "_membership_plan.json"
 

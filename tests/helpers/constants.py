@@ -36,6 +36,7 @@ REASON_CODE_PENDING_ADD = "reason_code_pending_add"
 REASON_CODE_PENDING_ENROL = "reason_code_pending_enrol"
 REASON_CODE_AUTHORIZED = "reason_code_authorised"
 REASON_CODE_FAILED = "reason_code_failed"
+REASON_CODE_ADD_FAILED = "reason_code_add_failed"
 REASON_CODE_FAILED_ENROL = "reason_code_failed_enrol"
 
 

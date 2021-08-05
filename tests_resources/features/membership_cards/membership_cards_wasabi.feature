@@ -5,7 +5,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
   So I can add my card, with the scheme provider Wasabi & check its details successfully
 
 
-  @add
+  @add @prod
   Scenario: Add Journey_Wasabi
 
     Given I am a Bink user
@@ -14,8 +14,19 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify membership account Link date, Card Number and Merchant identifier populated in Django
     And I perform DELETE request to delete the "Wasabi" membership card
 
+  @balances_transactions @dev @staging @prod
+  Scenario: Balances and Transactions_Wasabi
 
-  @add_patch
+    Given I am a Bink user
+    When I perform POST request to add "Wasabi" membership card
+    And I perform GET request to verify the "Wasabi" membership card is added to the wallet
+    And I perform GET request to view balance for recently added "Wasabi" membership card
+    When I perform GET request to view all transactions made using the recently added "Wasabi" membership card
+#    Then I perform GET request to view a specific transaction made using the recently added "HarveyNichols" membership card
+    Then verify membership account Link date, Card Number and Merchant identifier populated in Django
+    And I perform DELETE request to delete the "Wasabi" membership card
+
+  @add_patch @prod
   Scenario:  PATCH membership card details_Wasabi
 
     Given I am a Bink user
@@ -74,6 +85,15 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify membership account Join date, Card Number and Merchant identifier populated in Django
     Then I perform DELETE request to delete the "Wasabi" membership card
 
+
+  @dev @staging @prod
+  Scenario:  Add_Journey with Invalid Credentials_wasabi
+
+    Given I am a Bink user
+    When I perform POST request to add "Wasabi" membership card with "invalid_data"
+    And I perform GET request to verify the "Wasabi" membership card is added to the wallet with invalid data
+#    Then Verify the card status as "Invalid Credentials" in Django
+    Then I perform DELETE request to delete the "Wasabi" membership card
 
 
 

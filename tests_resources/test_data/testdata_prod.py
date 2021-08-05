@@ -121,8 +121,21 @@ iceland_invalid_data = {
 }
 
 wasabi_membership_card = {
-    "card_num": "",
+    "card_num": "1048177906",
+    "email": "rpatel@bink.com",
+    "points": 2,
+    "currency": "stamps",
+    "description": "",
+    "transactions": "",
+    "transaction_status": "active",
+    "transaction_currency": "stamps",
 }
+
+wasabi_invalid_data = {
+    "card_num": "",
+    "email": "fail@unknown.com",
+}
+
 whsmith_membership_card = {
     "card_num": "FF00000004827176",
 }
@@ -140,7 +153,7 @@ membership_plan_id = {
     "harvey_nichols": 124,
     "iceland": 105,
     "whsmith": 280,
-    "wasabi": 281,
+    "wasabi": 215,
 }
 # ----------------------------------------MEMBERSHIP ACCOUNT STATES & REASON_CODES ---------------------------------- #
 
@@ -154,12 +167,17 @@ membership_card_status_reason_codes = {
     "reason_code_pending_enrol": "X200",
     "reason_code_authorised": "X300",
     "reason_code_failed": "X303",
+    "reason_code_add_failed": "X102",
     "reason_code_failed_enrol": "X201",
 }
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
 
+# bink_user_accounts = {
+#     "uid": "drtesting_qa@testbink.com",
+#     "pwd": "Password01",
+# }
 bink_user_accounts = {
-    "uid": "drtesting_qa@testbink.com",
+    "uid": "rupal.patel0@e2e.bink.com",
     "pwd": "Password01",
 }
 
