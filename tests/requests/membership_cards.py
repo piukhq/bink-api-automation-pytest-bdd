@@ -81,6 +81,7 @@ class MembershipCards(Endpoint):
                     time.sleep(i)
                     continue
                 else:
+                    time.sleep(i)
                     break
             except JSONDecodeError or Exception:
                 raise Exception(f"Empty response and the response Status Code is {str(response.status_code)}")
