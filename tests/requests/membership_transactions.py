@@ -39,14 +39,15 @@ class MembershipTransactions(Endpoint):
             try:
                 response_json = response.json()
                 if not response_json[0]["status"] == "active":
-                    time.sleep(1)
+                    time.sleep(i)
+                    continue
                 else:
                     break
             except JSONDecodeError:
                 logging.info(
                     "The response text:  " + response.text + "\n The response Status Code: " +
                     str(response.status_code))
-                time.sleep(1)
+                time.sleep(i)
                 logging.info("No response generated for end point " + url)
         return response
 
