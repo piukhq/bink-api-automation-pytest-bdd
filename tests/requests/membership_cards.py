@@ -111,7 +111,7 @@ class MembershipCards(Endpoint):
                         break
             except IndexError:
                 time.sleep(i)
-                logging.info("Wait for payment card to populate")
+                logging.info("Wait for membership card to populate")
             except JSONDecodeError or Exception:
                 raise Exception(f"Empty response and the response Status Code is {str(response.status_code)}")
         return response
