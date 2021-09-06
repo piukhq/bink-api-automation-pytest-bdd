@@ -81,7 +81,12 @@ class MembershipCards(Endpoint):
                     time.sleep(i)
                     continue
                 else:
-                    time.sleep(i+1)
+                    if response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
+                            constants.AUTHORIZED):
+                        if response_json["balances"] == []:
+                            response = Endpoint.call(url, header, "GET")
+                            time.sleep(i)
+                            break
                     break
             except JSONDecodeError or Exception:
                 raise Exception(f"Empty response and the response Status Code is {str(response.status_code)}")
