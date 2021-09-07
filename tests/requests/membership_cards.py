@@ -83,6 +83,7 @@ class MembershipCards(Endpoint):
                 else:
                     if response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
                             constants.AUTHORIZED):
+                        time.sleep(i)
                         if response_json["balances"] == []:
                             response = Endpoint.call(url, header, "GET")
                             time.sleep(i)
