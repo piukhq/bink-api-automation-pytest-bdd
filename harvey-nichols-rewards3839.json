@@ -1,0 +1,21 @@
+{
+  "transactions" : [
+    {
+      "alt_id" : "",
+      "amount" : {
+        "unit" : "GBP",
+        "value" : 38.39
+      },
+      "auth_code" : "00214201",
+      "card" : {
+        "expiry" : "0",
+        "first_6" : "520082",
+        "last_4" : "8210",
+        "scheme" : "MASTERCARD"
+      },
+      "id" : "25277E60-5C03-4F01-9A3E-9C620232AF07",
+      "store_id" : "3163221",
+      "timestamp" : "2021-07-29T17:05:22"
+    }
+  ]
+}
