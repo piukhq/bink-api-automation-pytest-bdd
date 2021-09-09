@@ -6,7 +6,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
 
 # fatface testdata used by ba so db verification dates comming different. once confirm testdata remove db commented line
 
-  @add @bink_regression
+  @add
   Scenario: Add Journey_FatFace
 
     Given I am a Bink user
@@ -16,7 +16,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "FatFace" membership card
 
 
-  @add_patch @bink_regression
+  @add_patch
   Scenario: PATCH membership card details_FatFace
 
     Given I am a Bink user
@@ -28,7 +28,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "FatFace" membership card
 
 
-  @add_and_link @bink_regression
+  @add_and_link
   Scenario: ADD & LINK Journey_FatFace
 
     Given I am a Bink user
@@ -63,7 +63,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "FatFace" membership card
     And I perform DELETE request to delete the customer
 
-  @balances_transactions  @bink_regression
+  @balances_transactions
   Scenario: Balances and Transactions_Fatface
 
     Given I am a Bink user
@@ -94,7 +94,7 @@ Feature: Merchant FatFace - Ensure a customer can add their membership card & vi
   Then I perform DELETE request to delete the "FatFace" membership card
   Then I perform DELETE request to delete the payment card
 
-  @enrol_add @bink_regression
+  @enrol_add
   Scenario: Verify join Fatface then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
     Given I register with bink service as a new customer
     When I perform POST request to create a "FatFace" membership account with enrol credentials
