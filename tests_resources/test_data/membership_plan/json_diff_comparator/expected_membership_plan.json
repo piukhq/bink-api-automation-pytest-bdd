@@ -49,16 +49,16 @@
         }
     ],
     "account": {
-        "plan_name": "Burger King Rewards",
+        "plan_name": "Wasabi Club",
         "plan_name_card": "Card",
-        "plan_url": "https://www.burgerking.co.uk",
-        "plan_summary": "Spend \u00a35 or over in any Scotland Burger King store and you will earn a stamp.\r\n\r\nCollect 5 stamps and you will earn a free Whopper voucher that you can redeem in any Scotland Burger King store.",
-        "plan_description": "Spend \u00a35 or over in any Scotland Burger King store and you will earn a stamp.  \r\n\r\nCollect 5 stamps and you will earn a free Whopper voucher that you can redeem in any Scotland Burger King store.",
+        "plan_url": "https://www.wasabi.uk.com",
+        "plan_summary": "Collect 7 stamps for a \u00a37 OFF Meal Voucher. One stamp can be earned per customer per transaction when the qualifying spend in a single transaction for food & drink purchases totals \u00a37.00 or more in a participating Wasabi store. Ts and Cs apply.",
+        "plan_description": "Please note that your vouchers are single-use and cannot be used twice. Show your Wasabi Club reward code in store to redeem \u00a37 off your next meal.\r\nThe voucher will be available to redeem 2 months from the date it is collected. This voucher is non-refundable and cannot be exchanged for cash in part or full and is valid for a single transaction only.",
         "plan_documents": [
             {
-                "name": "Burger King privacy policy",
+                "name": "Wasabi privacy policy",
                 "description": "Please read the",
-                "url": "https://policies.staging.gb.bink.com/burger_king/pp.html",
+                "url": "https://policies.staging.gb.bink.com/wasabi/pp.html",
                 "display": [
                     "ENROL"
                 ],
@@ -67,7 +67,7 @@
             {
                 "name": "Retailer terms and conditions",
                 "description": "I accept the",
-                "url": "https://policies.staging.gb.bink.com/burger_king/tc.html",
+                "url": "https://policies.staging.gb.bink.com/wasabi/tc.html",
                 "display": [
                     "ENROL"
                 ],
@@ -75,24 +75,33 @@
             },
             {
                 "name": "Terms & conditions",
-                "description": "I accept the",
-                "url": "https://policies.staging.gb.bink.com/burger_king/tc.html",
+                "url": "https://policies.staging.gb.bink.com/wasabi/tc.html",
                 "display": [
                     "VOUCHER"
                 ],
                 "checkbox": false
             }
         ],
-        "company_name": "Burger King",
-        "company_url": "https://www.burgerking.co.uk",
+        "company_name": "Wasabi",
+        "company_url": "https://www.wasabi.uk.com",
         "category": "Food & Drink",
         "tiers": [],
-        "add_fields": [],
+        "add_fields": [
+            {
+                "column": "Membership card number",
+                "validation": "^[0-9]{10}$",
+                "description": "10 digit card number",
+                "common_name": "card_number",
+                "type": 0,
+                "choice": []
+            }
+        ],
         "authorise_fields": [
             {
-                "column": "Rewards number",
-                "validation": "^(BK)[0-9]{14}$",
-                "common_name": "card_number",
+                "column": "Email",
+                "validation": "^(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
+                "description": "example@mydomain.com",
+                "common_name": "email",
                 "type": 0,
                 "choice": []
             }
@@ -117,56 +126,62 @@
             },
             {
                 "column": "Email",
-                "validation": "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$",
+                "validation": "^(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
                 "description": "example@mydomain.com",
                 "common_name": "email",
                 "type": 0,
                 "choice": []
             },
             {
-                "column": "Phone",
-                "validation": "^[0-9]{9,11}$",
-                "description": "01234 123456",
-                "common_name": "phone",
+                "column": "Date of birth",
+                "validation": "^(0[1-9]|[12][0-9]|3[01])[\\/](0[1-9]|1[012])[\\/](19|20)\\d\\d$",
+                "description": "DD/MM/YYYY",
+                "common_name": "date_of_birth",
                 "type": 0,
                 "choice": []
             },
             {
-                "column": "Postcode",
-                "validation": "^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$",
-                "description": "Enter post code",
-                "common_name": "postcode",
-                "type": 0,
-                "choice": []
+                "column": "Consent 1",
+                "description": "Check this box to receive the latest news and offers from Wasabi - if you change your mind, you can opt out anytime via the retailer.",
+                "type": 3
             }
         ],
         "fees": []
     },
     "balances": [
         {
-            "currency": "stamps"
+            "currency": "stamps",
+            "suffix": "stamps"
         }
     ],
     "content": [
         {
-            "column": "Voucher_Inprogress_Detail",
-            "value": "Spend \u00a35 or more to get a stamp. Collect 5 Stamps and get a FREE Whopper."
-        },
-        {
-            "column": "Enrol_Help_Text",
-            "value": "Please enter your details below to join the scheme."
-        },
-        {
             "column": "Voucher_Redeemed_Detail",
-            "value": "Your FREE Whopper voucher was redeemed."
+            "value": "Your FREE meal voucher was redeemed."
         },
         {
             "column": "Voucher_Expired_Detail",
-            "value": "Your FREE Whopper voucher has expired."
+            "value": "Your FREE meal voucher has expired."
+        },
+        {
+            "column": "Enrol_Help_Text",
+            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
         },
         {
             "column": "Voucher_Issued_Detail",
-            "value": "Use the code above to redeem your reward. You will get a FREE Whopper off your next purchase in one of our participating Burger King restaurants."
+            "value": "Show your Wasabi Club reward code in store to redeem \u00a37 off your next meal."
+        },
+        {
+            "column": "Voucher_Inprogress_Detail",
+            "value": "Spend \u00a37.00 or more to get a stamp. Collect 7 stamps to get a Meal Voucher of up to \u00a37 off your next meal."
+        },
+        {
+            "column": "Voucher_Cancelled_Detail",
+            "value": "Your\u00a0voucher\u00a0has\u00a0been\u00a0cancelled. If you believe we have made a mistake please contact enquiries@wasabi.uk.com."
+        },
+        {
+            "column": "Promo_Text_1",
+            "value": "EVERYONE GETS \u00a37 OFF IN WASABI CLUB!"
         }
     ]
 }
