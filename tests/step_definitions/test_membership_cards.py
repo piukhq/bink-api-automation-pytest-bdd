@@ -500,6 +500,7 @@ def verify_membership_card_single_transaction_detail(merchant):
 """Step definitions - DB Verifications"""
 
 
+@when(parsers.parse('verify the data stored in DB after only add field "{journey_type}" journey for "{merchant}"'))
 @then(parsers.parse('verify the data stored in DB after "{journey_type}" journey for "{merchant}"'))
 def verify_db_details(journey_type, merchant, env):
     if env in ("dev", "staging", "prod"):
@@ -534,6 +535,11 @@ def verify_db_details(journey_type, merchant, env):
 
         elif journey_type == "Enrol":
             logging.info(f"The Join Date for scheme_account '{scheme_account.id}' is "
+                         f"{scheme_account.link_or_join_date}'")
+
+        elif journey_type == "Add_auth":
+            assert (scheme_account.status == TestData.get_loyalty_status().get("wallet_only"))
+            logging.info(f"The Skip_auth for scheme_account '{scheme_account.id}' is "
                          f"{scheme_account.link_or_join_date}'")
 
 
@@ -709,3 +715,51 @@ def add_membership_card_without_token(merchant, field_value):
     """ wrong token = 401 and empty_payload = 400 """
     assert (response.status_code == 401 or 400), ("Add Journey for " + merchant + " succeded")
     return response_json
+
+
+@when(parsers.parse('I perform POST request to add "{merchant}" membership card without auth_credentail'))
+def verify_skip_auth_functionality(merchant):
+    response = MembershipCards.skip_auth_card(TestContext.token, merchant)
+    response_json = response_to_json(response)
+    TestContext.current_scheme_account_id = response_json.get("id")
+    logging.info(
+            "The response of Add Journey (POST) is:\n\n"
+            + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n"
+            + json.dumps(response_json, indent=4))
+    assert (response.status_code == 201
+            and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
+            and response_json["payment_cards"] == []
+            and response_json["membership_transactions"] == []
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states()
+            .get(constants.UNAUTHORIZED)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_SKIP_AUTH)
+            and response_json["card"] is not None
+            and response_json["images"] is not None
+            and response_json["account"]["tier"] == 0
+            and response_json["balances"] == []), ("Add Journey for " + merchant + " failed")
+
+
+@when(parsers.parse('I perform POST request to add and auth "{merchant}" membership card'))
+def add_and_auth_membership_card(merchant):
+    response = MembershipCards.add_card(TestContext.token, merchant)
+    response_json = response_to_json(response)
+    TestContext.current_scheme_account_id = response_json.get("id")
+    logging.info(
+        "The response of Add Journey (POST) is:\n\n"
+        + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n"
+        + json.dumps(response_json, indent=4))
+    assert (
+            response.status_code == 200
+            and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
+            and response_json["payment_cards"] == []
+            and response_json["membership_transactions"] == []
+            and response_json["status"]["state"] == TestData.get_membership_card_status_states()
+            .get(constants.PENDING)
+            and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().
+            get(constants.REASON_CODE_PENDING_ADD)
+            and response_json["card"] is not None
+            and response_json["images"] is not None
+            and response_json["account"]["tier"] == 0
+            and response_json["balances"] == []
+    ), ("Add Journey for " + merchant + " failed")

@@ -264,3 +264,21 @@ class IcelandCard:
             }
 
         return payload
+
+    @staticmethod
+    def add_field_only_membership_card_payload():
+        payload = {
+            "account": {
+                "add_fields": [
+                    {
+                        "column": "Bonus card number",
+                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CARD_NUM),
+                    }
+                ]
+            },
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
+        }
+
+        logging.info("The Request for Add only_field Journey with : "
+                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        return payload

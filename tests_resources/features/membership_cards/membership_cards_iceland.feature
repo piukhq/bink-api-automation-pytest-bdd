@@ -174,3 +174,13 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
 ##    Examples:
 ##      | error_message      |
 ##      | Malformed request. |
+
+  @skip_auth @bink_regression @bmb_regression @loy_1953
+  Scenario: Verify skip_auth functionality
+    Given I am a Bink user
+    When I perform POST request to add "Iceland" membership card without auth_credentail
+    And verify the data stored in DB after only add field "Add_auth" journey for "Iceland"
+    And I perform POST request to add and auth "Iceland" membership card
+    And I perform GET request to verify the "Iceland" membership card is added to the wallet
+    Then verify the data stored in DB after "Add_auth" journey for "Iceland"
+    And I perform DELETE request to delete the "Iceland" membership card
