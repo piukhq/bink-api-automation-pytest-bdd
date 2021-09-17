@@ -144,6 +144,10 @@ class TestData:
     def get_vop_status():
         return TestDataUtils.TEST_DATA.vop_status
 
+    @staticmethod
+    def get_loyalty_status():
+        return TestDataUtils.TEST_DATA.scheme_status
+
 
 class PaymentCardTestData:
     """This function is for future use - when more testing in payment cards"""
