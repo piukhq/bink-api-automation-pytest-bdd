@@ -254,12 +254,16 @@ vop_status = {
     "deactivated": 4,
 }
 
+scheme_status = {
+    "wallet_only" : 10,
+}
 # ----------------------------------------MEMBERSHIP ACCOUNT STATES & REASON_CODES ---------------------------------- #
 
 membership_card_status_states = {
     "state_pending": "pending",
     "state_authorised": "authorised",
     "state_failed": "failed",
+    "state_unauthorised": "unauthorised"
 }
 membership_card_status_reason_codes = {
     "reason_code_pending_add": "X100",
@@ -269,7 +273,8 @@ membership_card_status_reason_codes = {
     "reason_code_failed_enrol": "X201",
     "reason_code_invalid_failed_enrol": "X202",
     "reason_code_add_failed": "X102",
-    "reason_code_ghost_failed": "X105"
+    "reason_code_ghost_failed": "X105",
+    "reason_code_skip_auth": "X103"
 }
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
 
