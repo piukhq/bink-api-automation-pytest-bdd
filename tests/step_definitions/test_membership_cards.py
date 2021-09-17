@@ -28,6 +28,7 @@ scenarios("membership_cards/")
 
 """Step definitions - Add Journey """
 
+
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card'))
 def add_membership_card(merchant):
     response = MembershipCards.add_card(TestContext.token, merchant)
@@ -498,6 +499,7 @@ def verify_membership_card_single_transaction_detail(merchant):
 
 """Step definitions - DB Verifications"""
 
+
 @when(parsers.parse('verify the data stored in DB after only add field "{journey_type}" journey for "{merchant}"'))
 @then(parsers.parse('verify the data stored in DB after "{journey_type}" journey for "{merchant}"'))
 def verify_db_details(journey_type, merchant, env):
@@ -735,12 +737,11 @@ def verify_skip_auth_functionality(merchant):
             and response_json["card"] is not None
             and response_json["images"] is not None
             and response_json["account"]["tier"] == 0
-            and response_json["balances"] == []
-        ), ("Add Journey for " + merchant + " failed")
+            and response_json["balances"] == []), ("Add Journey for " + merchant + " failed")
 
 
 @when(parsers.parse('I perform POST request to add and auth "{merchant}" membership card'))
-def add_membership_card(merchant):
+def add_and_auth_membership_card(merchant):
     response = MembershipCards.add_card(TestContext.token, merchant)
     response_json = response_to_json(response)
     TestContext.current_scheme_account_id = response_json.get("id")

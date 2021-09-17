@@ -255,7 +255,7 @@ vop_status = {
 }
 
 scheme_status = {
-    "wallet_only" : 10,
+    "wallet_only": 10,
 }
 # ----------------------------------------MEMBERSHIP ACCOUNT STATES & REASON_CODES ---------------------------------- #
 
