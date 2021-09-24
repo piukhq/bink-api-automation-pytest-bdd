@@ -37,3 +37,19 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
     Examples:
     | payment_card_provider|mid        |
     |          master      |  338681531889 |
+
+  @transactionMatchingHarvey-nichols @bink_regression
+  Scenario Outline: Verify transaction matching for harvey-nichols with payment provider - Mastercard - Auth
+
+    Given I am a Bink user
+    When I perform POST request to add "<payment_card_provider>" payment card to wallet
+    And I perform the GET request to verify the payment card has been added successfully to the wallet
+    When I perform POST request to add & auto link "HarveyNichols" membership card
+    Then I perform GET request to verify the "HarveyNichols" membershipcard is added & linked successfully in the wallet
+    When I send merchant Tlog file with "<merchant_container> <payment_card_provider> <mid> <cardIdentity>" and send to bink
+    And I send matching "<payment_card_transaction> <mid>" Authorisation
+    Then I verify 1 reward transaction is exported
+
+    Examples:
+    | payment_card_provider|merchant_container       | mid      | cardIdentity             |payment_card_transaction|
+    |          master      |scheme/harvey-nichols/   |19410201  |MasterCard/MasterCard One |master-auth             |
