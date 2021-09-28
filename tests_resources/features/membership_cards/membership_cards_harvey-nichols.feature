@@ -57,7 +57,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can add their membership ca
     And I perform GET request to verify the "HarveyNichols" membership card is added to the wallet with invalid data
     Then I perform DELETE request to delete the "HarveyNichols" membership card
 
-  @enrol @bmb_regression
+  @enrol
   Scenario: Join Journey_HarveyNichols
 
     Given I register with bink service as a new customer
