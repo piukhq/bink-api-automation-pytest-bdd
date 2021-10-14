@@ -16,26 +16,49 @@ TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now
     '%Y-%m-%d %H:%M:%S')
 
 
-def harvey_nichols_merchant_mastercard_file(payment_card_provider, mid):
-    data = {
-        "transactions": [
-            {
-                "alt_id": "",
-                "amount": {
-                    "unit": "GBP",
-                    "value": TestTransactionMatchingContext.transaction_matching_amount
-                },
-                "auth_code": transaction_matching_auth_code,
-                "card": {
-                    "expiry": "12",
-                    "first_6": PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS),
-                    "last_4": PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS),
-                    "scheme": "MASTERCARD"
-                },
-                "id": str(TestTransactionMatchingContext.transaction_matching_id),
-                "store_id": mid,
-                "timestamp": (datetime.now().strftime('%Y-%m-%dT''%H:%M:%S'))
-            }
-        ]
-    }
-    return data
+def harvey_nichols_merchant_mastercard_file(payment_card_provider, mid, scheme):
+    if scheme == "MASTERCARD":
+        data = {
+            "transactions": [
+                {
+                    "alt_id": "",
+                    "amount": {
+                        "unit": "GBP",
+                        "value": TestTransactionMatchingContext.transaction_matching_amount
+                    },
+                    "auth_code": transaction_matching_auth_code,
+                    "card": {
+                        "expiry": "1",
+                        "first_6": PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS),
+                        "last_4": PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS),
+                        "scheme": scheme
+                    },
+                    "id": str(TestTransactionMatchingContext.transaction_matching_id),
+                    "store_id": mid,
+                    "timestamp": (datetime.now().strftime('%Y-%m-%dT''%H:%M:%S'))
+                }
+            ]
+        }
+        return data
+    elif scheme == "AMEX":
+        return {
+            "transactions": [
+                {
+                    "alt_id": "",
+                    "amount": {
+                        "unit": "GBP",
+                        "value": TestTransactionMatchingContext.transaction_matching_amount
+                    },
+                    "auth_code": transaction_matching_auth_code,
+                    "card": {
+                        "expiry": "1",
+                        "first_6": PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS),
+                        "last_4": PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS),
+                        "scheme": scheme
+                    },
+                    "id": str(TestTransactionMatchingContext.transaction_matching_id),
+                    "store_id": mid,
+                    "timestamp": (datetime.now().strftime('%Y-%m-%dT''%H:%M:%S'))
+                }
+            ]
+        }

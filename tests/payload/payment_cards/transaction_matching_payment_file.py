@@ -1,6 +1,8 @@
 import uuid
 import base64
-
+from datetime import datetime
+from pytz import timezone
+from harvey_nichols_transaction_matching_files import transaction_matching_auth_code
 from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_helpers import PaymentCardTestData
 import tests.helpers.constants as constants
@@ -33,21 +35,23 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def get_amex_auth_regirster_data():
         return {
-                "client_id": "8UXGKh7ihjAeqZldlIBqlcnmoljug5ZznluEDLd6z33s9W7ZXP",
-                "client_secret": "w9IgmvHABKgvwGgsnAof66hFZQlvxvyiR82PR3ZOcnlHWFdHO9"
-            }
+            "client_id": "8UXGKh7ihjAeqZldlIBqlcnmoljug5ZznluEDLd6z33s9W7ZXP",
+            "client_secret": "w9IgmvHABKgvwGgsnAof66hFZQlvxvyiR82PR3ZOcnlHWFdHO9"
+        }
 
     @staticmethod
     def get_amex_auth_data(mid):
         return {
-                "approval_code": str(TestTransactionMatchingContext.transaction_matching_uuid),
-                "cm_alias": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
-                "merchant_number": mid,
-                "offer_id": "0",
-                "transaction_amount": str(TestTransactionMatchingContext.transaction_matching_amount),
-                "transaction_currency": "UKL",
-                "transaction_id": str(TestTransactionMatchingContext.transaction_matching_id),
-                "transaction_time": TestTransactionMatchingContext.transaction_matching_amexTimeStamp
+            # "approval_code": TestTransactionMatchingContext.transaction_matching_uuid,
+            "approval_code": transaction_matching_auth_code[-6:],
+            "cm_alias": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
+            "merchant_number": mid,
+            "offer_id": "0",
+            "transaction_amount": str(TestTransactionMatchingContext.transaction_matching_amount),
+            "transaction_currency": "UKL",
+            "transaction_id": str(TestTransactionMatchingContext.transaction_matching_id),
+            # "transaction_time": TestTransactionMatchingContext.transaction_matching_amexTimeStamp
+            "transaction_time":datetime.now(timezone('MST')).strftime('%Y-%m-%d'" "'%H:%M:%S')
         }
 
     @staticmethod
