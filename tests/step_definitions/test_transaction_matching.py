@@ -27,7 +27,6 @@ from tests.helpers.test_transaction_matching_context import TestTransactionMatch
 from tests.requests.transaction_matching_payment_cards import TransactionMatching
 from tests.step_definitions import test_membership_cards
 
-
 scenarios("transactionMatching/")
 
 
@@ -89,8 +88,8 @@ def get_transaction_matching_add_and_link(merchant):
 
 
 @when('I send merchant Tlog file with "<merchant_container> '
-      '<payment_card_provider> <mid> <cardIdentity>" and send to bink')
-def import_merchant_file(merchant_container, payment_card_provider, mid, cardIdentity):
+      '<payment_card_provider> <mid> <cardIdentity> <scheme>" and send to bink')
+def import_merchant_file(merchant_container, payment_card_provider, mid, cardIdentity, scheme):
     if merchant_container == 'scheme/iceland/':
         buf = io.StringIO()
         merchant_writer = csv.writer(buf, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -110,8 +109,9 @@ def import_merchant_file(merchant_container, payment_card_provider, mid, cardIde
 
     elif merchant_container == 'scheme/harvey-nichols/':
         json_file = json.dumps(harvey_nichols_transaction_matching_files.
-                               harvey_nichols_merchant_mastercard_file(mid=mid,
-                                                                       payment_card_provider=payment_card_provider))
+                               harvey_nichols_merchant_file(mid=mid,
+                                                            payment_card_provider=payment_card_provider,
+                                                            scheme=scheme))
         file = json.loads(json_file)
         file_name = "harvey-nichols" + datetime.now().strftime('%Y%m%d-%H%M%S') + ".json"
         bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
