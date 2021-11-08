@@ -23,7 +23,7 @@ def connect_harmonia_db():
         logging.info("Connected to Harmonia")
 
     except Exception as error:
-        raise Exception(f"Error while connecting to Hermes '{str(error)}'")
+        raise Exception(f"Error while connecting to Harmonia '{str(error)}'")
     return connection
 
 
