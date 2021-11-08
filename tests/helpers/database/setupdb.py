@@ -2,8 +2,7 @@ import psycopg2
 import logging
 
 from tests.helpers.test_data_utils import TestDataUtils
-from settings import HERMES_DATABASE_URI
-from settings import HARMONIA_DATABASE_URI
+from settings import HERMES_DATABASE_URI, HARMONIA_DATABASE_URI
 
 
 def connect_db():
