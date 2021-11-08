@@ -5,6 +5,7 @@ from tests.helpers.test_data_utils import TestDataUtils
 from settings import HERMES_DATABASE_URI
 from settings import HARMONIA_DATABASE_URI
 
+
 def connect_db():
     """Connect to Hermes"""
     try:
