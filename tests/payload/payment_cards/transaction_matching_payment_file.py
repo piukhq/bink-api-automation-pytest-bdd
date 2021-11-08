@@ -40,7 +40,7 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def get_amex_auth_data(mid):
         return {
-                "approval_code": str(TestTransactionMatchingContext.transaction_matching_uuid),
+                "approval_code": str(TestTransactionMatchingContext.transaction_matching_auth_code)[-6:],
                 "cm_alias": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
                 "merchant_number": mid,
                 "offer_id": "0",
