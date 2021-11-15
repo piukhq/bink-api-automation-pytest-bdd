@@ -5,8 +5,8 @@ from tests.payload.membership_cards.cooperative import CoopCard
 from tests.payload.membership_cards.fatface import FatFaceCard
 from tests.payload.membership_cards.harvey_nichols import HarveyNicholsCard
 from tests.payload.membership_cards.iceland import IcelandCard
-from tests.payload.membership_cards.whsmith import WHSmithCard
 from tests.payload.membership_cards.wasabi import WasabiCard
+from tests.payload.membership_cards.whsmith import WHSmithCard
 
 
 class Merchant:
@@ -43,6 +43,7 @@ class Merchant:
 
 class TestData:
     """Functions used to supply expected data to pytest test_ classes"""
+
     """Below functions read test data as "object" from test_data_sheet
      and retrieve the data from object inside the test class"""
 
@@ -90,7 +91,7 @@ class TestData:
     @staticmethod
     def get_mem_plan_path(env):
         """return the base path of stored membership plan json
-            for any merchant based on environment"""
+        for any merchant based on environment"""
 
         switcher = {
             "dev": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_DEV,
@@ -98,7 +99,7 @@ class TestData:
             "prod": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD,
             "sit": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_SIT,
             "oat": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_OAT,
-            "preprod": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PREPROD
+            "preprod": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PREPROD,
         }
         return switcher.get(env)
 
@@ -112,7 +113,7 @@ class TestData:
     @staticmethod
     def get_membership_card_path(env):
         """return the base path of stored membership plan json
-            for any merchant based on environment"""
+        for any merchant based on environment"""
 
         switcher = {
             "dev": constants.MEMBERSHIP_CARD_DEV,
@@ -120,7 +121,7 @@ class TestData:
             "prod": constants.MEMBERSHIP_CARD_PROD,
             "sit": constants.MEMBERSHIP_CARD_SIT,
             "oat": constants.MEMBERSHIP_CARD_OAT,
-            "preprod": constants.MEMBERSHIP_CARD_PREPROD
+            "preprod": constants.MEMBERSHIP_CARD_PREPROD,
         }
         return switcher.get(env)
 

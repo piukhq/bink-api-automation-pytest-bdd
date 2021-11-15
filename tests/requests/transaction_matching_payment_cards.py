@@ -1,12 +1,11 @@
 import tests.api as api
+from tests.api.base import Endpoint
 from tests.api.transactionmatching_base import TransactionMatching_Endpoint
 from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
-from tests.api.base import Endpoint
 from tests.payload.payment_cards.transaction_matching_payment_file import TransactionMatchingPaymentFileDetails
 
 
 class TransactionMatching(Endpoint):
-
     @staticmethod
     def get_master_auth_csv(mid):
         url = TransactionMatching.get_mastrcard_url()

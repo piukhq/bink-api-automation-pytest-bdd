@@ -1,14 +1,11 @@
-from pytest_bdd import (
-    scenarios,
-    then,
-    when,
-    parsers,
-)
 import logging
+
+from pytest_bdd import parsers, scenarios, then, when
+
+import tests.step_definitions.test_membership_cards as test_membership_cards
 from tests.helpers.database.query_hermes import QueryHermes
 from tests.helpers.test_context import TestContext
 from tests.helpers.test_helpers import TestData
-import tests.step_definitions.test_membership_cards as test_membership_cards
 from tests.step_definitions import test_payment_cards
 
 scenarios("vop/")
@@ -33,9 +30,11 @@ def post_add_and_link(merchant):
     test_membership_cards.add_and_link_membership_card(merchant)
 
 
-@when(parsers.parse(
-    'I perform GET request to verify the "{merchant}" membership card is added & linked successfully '
-    "in the wallet")
+@when(
+    parsers.parse(
+        'I perform GET request to verify the "{merchant}" membership card is added & linked successfully '
+        "in the wallet"
+    )
 )
 def get_add_and_link(merchant):
     """Function call to get_membership_cards in test_membership_cards"""
@@ -45,11 +44,13 @@ def get_add_and_link(merchant):
 @then(parsers.parse('I verify status of paymentcard is "{status}" for "{merchant}"'))
 def verify_vop_activation_details(status, merchant):
     payment_account = QueryHermes.get_vop_status(TestContext.current_payment_card_id)
-    assert payment_account.status == TestData.get_vop_status().get(status), \
-        f"Payment Account is not '{status}' and the status is '{payment_account.status}'"
+    assert payment_account.status == TestData.get_vop_status().get(
+        status
+    ), f"Payment Account is not '{status}' and the status is '{payment_account.status}'"
     logging.info(f"The payment card is '{status}' with status '{payment_account.status}'")
 
-    assert (payment_account.payment_card_account_id == TestContext.current_payment_card_id
-            and payment_account.status == TestData.get_vop_status().get(status)
-            and payment_account.scheme_id == TestData.get_membership_plan_id(merchant)), \
-        f"Details of payment card '{payment_account.payment_card_account_id}'in DB is not as expected"
+    assert (
+        payment_account.payment_card_account_id == TestContext.current_payment_card_id
+        and payment_account.status == TestData.get_vop_status().get(status)
+        and payment_account.scheme_id == TestData.get_membership_plan_id(merchant)
+    ), f"Details of payment card '{payment_account.payment_card_account_id}'in DB is not as expected"

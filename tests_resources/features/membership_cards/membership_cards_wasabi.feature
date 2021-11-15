@@ -153,7 +153,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
       | error_message                                  |
       | Invalid token header. No credentials provided. |
 
-  @negative_scenario @loy1975_9 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_9 @bink_regression @bmb_regression1
   Scenario Outline: Negative test scenario for POST/membership_cards without payload_Wasabi
     Given I am a Bink user
     When I perform POST request to add "Wasabi" membership card without "payload" header
