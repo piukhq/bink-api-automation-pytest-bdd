@@ -16,7 +16,7 @@ scenarios("vop/")
 """Step definitions - Add Payment Card """
 
 
-@when('I perform POST request to add "<payment_card_provider>" payment card to wallet')
+@when(parsers.parse('I perform POST request to add "{payment_card_provider}" payment card to wallet'))
 def add_transaction_paymentCard(payment_card_provider):
     """Function call to get_membership_cards in test_membership_cards"""
     test_payment_cards.add_payment_card(payment_card_provider)
@@ -42,14 +42,14 @@ def get_add_and_link(merchant):
     test_membership_cards.verify_add_and_link_membership_card(merchant)
 
 
-@then(parsers.parse('I verify status of paymentcard is "{activated}" for "{merchant}"'))
-def verify_vop_activation_details(activated, merchant):
+@then(parsers.parse('I verify status of paymentcard is "{status}" for "{merchant}"'))
+def verify_vop_activation_details(status, merchant):
     payment_account = QueryHermes.get_vop_status(TestContext.current_payment_card_id)
-    assert payment_account.status == TestData.get_vop_status().get(activated), \
-        f"Payment Account is not '{activated}' and the status is '{payment_account.status}'"
-    logging.info(f"The payment card is '{activated}' with status '{payment_account.status}'")
+    assert payment_account.status == TestData.get_vop_status().get(status), \
+        f"Payment Account is not '{status}' and the status is '{payment_account.status}'"
+    logging.info(f"The payment card is '{status}' with status '{payment_account.status}'")
 
     assert (payment_account.payment_card_account_id == TestContext.current_payment_card_id
-            and payment_account.status == TestData.get_vop_status().get(activated)
+            and payment_account.status == TestData.get_vop_status().get(status)
             and payment_account.scheme_id == TestData.get_membership_plan_id(merchant)), \
         f"Details of payment card '{payment_account.payment_card_account_id}'in DB is not as expected"

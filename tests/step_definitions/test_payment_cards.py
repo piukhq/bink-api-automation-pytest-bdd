@@ -26,7 +26,6 @@ scenarios("payment_cards/")
 
 
 @when(parsers.parse('I perform POST request to add "{payment_card_provider}" payment card to wallet'))
-@when('I perform POST request to add "<payment_card_provider>" payment card to wallet')
 def add_payment_card(payment_card_provider="master"):
     response = PaymentCards.add_payment_card(TestContext.token, payment_card_provider)
     assert response.status_code == 201 or 200, \
@@ -39,7 +38,7 @@ def add_payment_card(payment_card_provider="master"):
     return TestContext.current_payment_card_id
 
 
-@when('I perform POST request to enrol new "<payment_card_provider>" payment card to wallet')
+@when(parsers.parse('I perform POST request to enrol new "{payment_card_provider}" payment card to wallet'))
 def add_new_payment_card(payment_card_provider="master"):
     response = PaymentCards.add_new_payment_card(TestContext.token, payment_card_provider)
     response_json = response_to_json(response)
@@ -275,6 +274,7 @@ def delete_all_payment_cards():
 
 @then("I perform DELETE request to delete the payment card by hash")
 def delete_payment_card():
+    time.sleep(2)
     response = PaymentCards.delete_payment_card_with_hash(TestContext.token)
     logging.info("response.status_code" + response.status_code.__str__())
     assert response.status_code == 200, "Payment card deletion by hash is not successful"
@@ -318,9 +318,9 @@ def verify_mcard_link(merchant):
     test_membership_cards.verify_add_and_link_membership_card(merchant)
 
 
-@then(parsers.parse('I verify status of paymentcard is "{activated}" for "{merchant}"'))
-def verify_vop_status(activated, merchant):
-    test_visa_vop.verify_vop_activation_details(activated, merchant)
+@then(parsers.parse('I verify status of paymentcard is "{status}" for "{merchant}"'))
+def verify_vop_status(status, merchant):
+    test_visa_vop.verify_vop_activation_details(status, merchant)
 
 
 @when(parsers.parse(
@@ -342,8 +342,8 @@ def response_to_json(response):
     return response_json
 
 
-@when('I perform the GET request to verify the new payment card "<payment_card_provider>" has been '
-      'added successfully to the wallet')
+@when(parsers.parse('I perform the GET request to verify the new payment card "{payment_card_provider}" has been '
+      'added successfully to the wallet'))
 def get_new_payment_provider(payment_card_provider="master"):
     response = PaymentCards.get_payment_card(TestContext.token, TestContext.current_payment_card_id)
     response_json = response.json()

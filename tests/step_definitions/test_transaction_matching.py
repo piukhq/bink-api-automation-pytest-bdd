@@ -30,7 +30,7 @@ from tests.step_definitions import test_membership_cards
 scenarios("transactionMatching/")
 
 
-@when('I send matching "<payment_card_transaction> <mid>" Authorisation')
+@when(parsers.parse('I send matching "{payment_card_transaction}" "{mid}" Authorisation'))
 def import_payment_file(payment_card_transaction, mid):
     if payment_card_transaction == 'master-auth':
         response = TransactionMatching.get_master_auth_csv(mid)
@@ -63,7 +63,7 @@ def verify_into_database():
     logging.info(f"The Transaction got matched : '{matched_count.count}'")
 
 
-@when('I perform POST request to add "<payment_card_provider>" payment card to wallet')
+@when(parsers.parse('I perform POST request to add "{payment_card_provider}" payment card to wallet'))
 def add_transaction_paymentCard(payment_card_provider):
     """Function call to get_membership_cards in test_membership_cards"""
     test_payment_cards.add_payment_card(payment_card_provider)
@@ -87,8 +87,8 @@ def get_transaction_matching_add_and_link(merchant):
     test_membership_cards.verify_add_and_link_membership_card(merchant)
 
 
-@when('I send merchant Tlog file with "<merchant_container> '
-      '<payment_card_provider> <mid> <cardIdentity> <scheme>" and send to bink')
+@when(parsers.parse('I send merchant Tlog file with "{merchant_container}" '
+      '"{payment_card_provider}" "{mid}" "{cardIdentity}" "{scheme}" and send to bink'))
 def import_merchant_file(merchant_container, payment_card_provider, mid, cardIdentity, scheme):
     if merchant_container == 'scheme/iceland/':
         buf = io.StringIO()
