@@ -1,10 +1,9 @@
-import json
 import logging
+import json
 
 from faker import Faker
-
-import tests.helpers.constants as constants
 from tests.helpers.test_data_utils import TestDataUtils
+import tests.helpers.constants as constants
 
 
 class WHSmithCard:
@@ -17,8 +16,15 @@ class WHSmithCard:
             value = TestDataUtils.TEST_DATA.whsmith_membership_card.get(constants.CARD_NUM)
 
         payload = {
-            "account": {"authorise_fields": [{"column": "Rewards number", "value": value}]},
-            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("whsmith"),
+            "account": {
+                "authorise_fields": [
+                    {
+                        "column": "Rewards number",
+                        "value": value
+                    }
+                ]
+            },
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("whsmith")
         }
         logging.info("The Request for Add Journey : \n" + json.dumps(payload, indent=4))
         return payload

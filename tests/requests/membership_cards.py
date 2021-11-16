@@ -1,11 +1,11 @@
-import logging
-import time
-from json import JSONDecodeError
-
 import tests.api as api
-import tests.helpers.constants as constants
+import time
+import logging
+from tests.helpers.test_helpers import Merchant
+from tests.helpers.test_helpers import TestData
 from tests.api.base import Endpoint
-from tests.helpers.test_helpers import Merchant, TestData
+import tests.helpers.constants as constants
+from json import JSONDecodeError
 
 
 class MembershipCards(Endpoint):
@@ -42,7 +42,7 @@ class MembershipCards(Endpoint):
     # ---------------------------------------- Enrol Journey---------------------------------------------------
     @staticmethod
     def enrol_customer(token, merchant, email, env=None, channel=None, invalid_data=None):
-        """ "Including channel as an input as for iceland the enrol is different for
+        """"Including channel as an input as for iceland the enrol is different for
         Bink & Barclays"""
 
         url = MembershipCards.get_url()
@@ -77,12 +77,11 @@ class MembershipCards(Endpoint):
             try:
                 response_json = response.json()
                 if response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
-                    constants.PENDING
-                ):
+                        constants.PENDING):
                     time.sleep(i)
                     continue
                 else:
-                    time.sleep(i + 1)
+                    time.sleep(i+1)
                     break
             except JSONDecodeError or Exception:
                 raise Exception(f"Empty response and the response Status Code is {str(response.status_code)}")
@@ -125,9 +124,8 @@ class MembershipCards(Endpoint):
             response_json = response.json()
             for current_membership_card in response_json:
                 if current_membership_card["id"] == scheme_account_id:
-                    if current_membership_card["status"]["state"] == TestData.get_membership_card_status_states().get(
-                        constants.PENDING
-                    ):
+                    if current_membership_card["status"]["state"] == TestData.get_membership_card_status_states(). \
+                            get(constants.PENDING):
                         time.sleep(i)
                         break
                     else:
@@ -149,7 +147,7 @@ class MembershipCards(Endpoint):
     @staticmethod
     def get_url(scheme_account_id=None):
         """Return URL for membership_cards and
-        membership_card/scheme_account_id"""
+         membership_card/scheme_account_id"""
         if scheme_account_id is None:
             return Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS
         else:
@@ -173,9 +171,8 @@ class MembershipCards(Endpoint):
     def register_ghost_card(token, merchant, email, scheme_account_id, env, channel):
         url = MembershipCards.get_url(scheme_account_id)
         header = Endpoint.request_header(token)
-        payload = Merchant.get_merchant(merchant).enrol_ghost_membership_scheme_payload(
-            email, scheme_account_id, env, channel
-        )
+        payload = Merchant.get_merchant(merchant).enrol_ghost_membership_scheme_payload(email,
+                                                                                        scheme_account_id, env, channel)
         return Endpoint.call(url, header, "PATCH", payload)
 
     @staticmethod
