@@ -25,7 +25,7 @@ from tests.step_definitions import test_membership_cards
 scenarios("transactionMatching/")
 
 
-@when(parsers.parse('I send matching {payment_card_transaction} {mid} Authorisation'))
+@when(parsers.parse('I send matching "{payment_card_transaction}" "{mid}" Authorisation'))
 def import_payment_file(payment_card_transaction, mid):
     if payment_card_transaction == "master-auth":
         response = TransactionMatching.get_master_auth_csv(mid)
