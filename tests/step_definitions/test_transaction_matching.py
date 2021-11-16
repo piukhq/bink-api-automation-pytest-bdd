@@ -86,8 +86,8 @@ def get_transaction_matching_add_and_link(merchant):
 
 @when(
     parsers.parse(
-        'I send merchant Tlog file with {merchant_container} '
-        '{payment_card_provider} {mid} {cardIdentity} {scheme} and send to bink'
+        'I send merchant Tlog file with "{merchant_container}" '
+        '"{payment_card_provider}" "{mid}" "{cardIdentity}" "{scheme}" and send to bink'
     )
 )
 def import_merchant_file(merchant_container, payment_card_provider, mid, cardIdentity, scheme):
