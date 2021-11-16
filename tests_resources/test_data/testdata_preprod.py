@@ -9,7 +9,7 @@ visa_payment_card = {
     "year": 2044,
     "fingerprint": "auto1093448038331testbinkcom",
     "status": "active",
-    "active_link": True
+    "active_link": True,
 }
 
 amex_payment_card = {
@@ -21,7 +21,7 @@ amex_payment_card = {
     "year": 2044,
     "fingerprint": "auto1093448038331testbinkcom",
     "status": "active",
-    "active_link": True
+    "active_link": True,
 }
 
 master_payment_card = {
@@ -30,7 +30,7 @@ master_payment_card = {
     "month": 1,
     "year": 2044,
     "status": "active",
-    "active_link": True
+    "active_link": True,
 }
 
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #
@@ -106,11 +106,8 @@ harvey_nichols_membership_card_2 = {
     "transactions": "0 ",
     "transaction_status": "",
     "transaction_currency": "",
-
 }
-harvey_nichols_invalid_data = {
-    "id": "fail@unknown.com"
-}
+harvey_nichols_invalid_data = {"id": "fail@unknown.com"}
 
 # iceland_membership_card = {
 #     "card_num": "6332040030473324721",

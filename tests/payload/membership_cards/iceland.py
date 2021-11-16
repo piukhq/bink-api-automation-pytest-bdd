@@ -1,12 +1,12 @@
-import logging
 import json
+import logging
 
 from faker import Faker
 
-from tests.api.base import Endpoint
 import tests.api as api
-from tests.helpers.test_data_utils import TestDataUtils
 import tests.helpers.constants as constants
+from tests.api.base import Endpoint
+from tests.helpers.test_data_utils import TestDataUtils
 
 
 class IcelandCard:
@@ -31,19 +31,23 @@ class IcelandCard:
                 "authorise_fields": [
                     {
                         "column": "Last name",
-                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME),
                     },
-                    {
-                        "column": "Postcode",
-                        "value": value
-                    }
-                ]
+                    {"column": "Postcode", "value": value},
+                ],
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
         }
 
-        logging.info("The Request for Add Journey with " + data_type + " :\n\n"
-                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Add Journey with "
+            + data_type
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload
 
     @staticmethod
@@ -85,8 +89,15 @@ class IcelandCard:
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
         }
-        logging.info("The Request for Enrol Journey with " + data_type + " :\n\n"
-                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Enrol Journey with "
+            + data_type
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload
 
     @staticmethod
@@ -96,25 +107,30 @@ class IcelandCard:
                 "add_fields": [
                     {
                         "column": "Bonus card number",
-                        "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.CARD_NUM)
+                        "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.CARD_NUM),
                     }
                 ],
                 "authorise_fields": [
                     {
                         "column": "Last name",
-                        "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.LAST_NAME)
+                        "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.LAST_NAME),
                     },
                     {
                         "column": "Postcode",
-                        "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.POSTCODE)
-                    }
-                ]
+                        "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.POSTCODE),
+                    },
+                ],
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
         }
 
-        logging.info("The Request for Add Ghost Journey with  :\n\n"
-                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Add Ghost Journey with  :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload
 
     @staticmethod
@@ -148,13 +164,18 @@ class IcelandCard:
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
         }
-        logging.info("The Request for Register Ghost Journey with  :\n\n" + Endpoint.BASE_URL +
-                     api.ENDPOINT_MEMBERSHIP_CARD.format(scheme_id) + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Register Ghost Journey with  :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARD.format(scheme_id)
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload
 
     @staticmethod
     def add_membership_card_payload_without_field(field):
-        if (field == 'account'):
+        if field == "account":
             payload = {
                 "add_fields": [
                     {
@@ -165,14 +186,17 @@ class IcelandCard:
                 "authorise_fields": [
                     {
                         "column": "Last name",
-                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME),
                     },
                     {
                         "column": "Postcode",
-                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
-                    }], "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland")}
+                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE),
+                    },
+                ],
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
+            }
 
-        elif (field == 'membership_plan'):
+        elif field == "membership_plan":
             payload = {
                 "account": {
                     "add_fields": [
@@ -184,17 +208,17 @@ class IcelandCard:
                     "authorise_fields": [
                         {
                             "column": "Last name",
-                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME),
                         },
                         {
                             "column": "Postcode",
-                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
-                        }
-                    ]
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE),
+                        },
+                    ],
                 }
             }
 
-        elif (field == 'lastname'):
+        elif field == "lastname":
             payload = {
                 "account": {
                     "add_fields": [
@@ -206,18 +230,18 @@ class IcelandCard:
                     "authorise_fields": [
                         {
                             "column": "lastname",
-                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME),
                         },
                         {
                             "column": "Postcode",
-                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
-                        }
-                    ]
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE),
+                        },
+                    ],
                 },
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
             }
 
-        elif (field == 'postcode'):
+        elif field == "postcode":
             payload = {
                 "account": {
                     "add_fields": [
@@ -229,18 +253,18 @@ class IcelandCard:
                     "authorise_fields": [
                         {
                             "column": "Last name",
-                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME),
                         },
                         {
                             "column": "postcode",
-                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
-                        }
-                    ]
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE),
+                        },
+                    ],
                 },
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
             }
 
-        elif (field == "token"):
+        elif field == "token":
             payload = {
                 "account": {
                     "add_fields": [
@@ -252,13 +276,13 @@ class IcelandCard:
                     "authorise_fields": [
                         {
                             "column": "Last name",
-                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME),
                         },
                         {
                             "column": "Postcode",
-                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE)
-                        }
-                    ]
+                            "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE),
+                        },
+                    ],
                 },
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
             }

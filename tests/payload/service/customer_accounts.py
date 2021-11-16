@@ -1,6 +1,7 @@
 import json
 import logging
 import time
+
 import tests.helpers.constants as constants
 from tests.helpers.test_data_utils import TestDataUtils
 
@@ -22,12 +23,7 @@ class UserDetails:
     def consent_user_payload(test_email):
         """Consent for Bink User"""
         payload = {
-            "consent": {
-                "email": test_email,
-                "timestamp": int(time.time()),
-                "latitude": 0.0,
-                "longitude": 12.345
-            }
+            "consent": {"email": test_email, "timestamp": int(time.time()), "latitude": 0.0, "longitude": 12.345}
         }
         logging.info("Request body for POST consent" + json.dumps(payload, indent=4))
         return payload
@@ -35,8 +31,7 @@ class UserDetails:
     @staticmethod
     def without_consent_user_payload():
         """Consent for Bink User with empty request"""
-        payload = {
-        }
+        payload = {}
         logging.info("Request body for POST without the 'consent' field : " + json.dumps(payload, indent=4))
         return payload
 
@@ -44,10 +39,10 @@ class UserDetails:
     def without_consent_key_user_payload():
         """Consent for Bink User without consent field"""
         payload = {
-                "email": "pytest_automation_barclays@testbink.com",
-                "latitude": 0.0123,
-                "longitude": 12.345,
-                "timestamp": 1618489226
+            "email": "pytest_automation_barclays@testbink.com",
+            "latitude": 0.0123,
+            "longitude": 12.345,
+            "timestamp": 1618489226,
         }
         logging.info("Request body for POST without the 'consent' field : " + json.dumps(payload, indent=4))
         return payload
@@ -55,47 +50,27 @@ class UserDetails:
     @staticmethod
     def without_mandatory_consent_field():
         """Consent for Bink User without mandatory field"""
-        payload = {
-                "longitude": 12.345,
-                "timestamp": 1618489226
-        }
+        payload = {"longitude": 12.345, "timestamp": 1618489226}
         logging.info("Request body for POST without the 'consent' field : " + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
     def timestamp_with_quote(test_email):
         payload = {
-                "consent": {
-                    "email": test_email,
-                    "timestamp": str(time.time()),
-                    "latitude": 0.0123,
-                    "longitude": 12.345
-                }
+            "consent": {"email": test_email, "timestamp": str(time.time()), "latitude": 0.0123, "longitude": 12.345}
         }
         logging.info("Request body for POST without the 'consent' field : \n" + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
     def without_latitude(test_email):
-        payload = {
-                "consent": {
-                    "email": test_email,
-                    "timestamp": int(time.time()),
-                    "longitude": 12.345
-                }
-        }
+        payload = {"consent": {"email": test_email, "timestamp": int(time.time()), "longitude": 12.345}}
         logging.info("Request body for POST without the latitude field : \n" + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
     def without_longitude(test_email):
-        payload = {
-                "consent": {
-                    "email": test_email,
-                    "timestamp": int(time.time()),
-                    "latitude": 0.0123
-                }
-        }
+        payload = {"consent": {"email": test_email, "timestamp": int(time.time()), "latitude": 0.0123}}
         logging.info("Request body for POST without the longitude field : \n" + json.dumps(payload, indent=4))
         return payload
 
@@ -103,12 +78,7 @@ class UserDetails:
     def longitude_with_alphabet(test_email):
         """Longitude with Alphabet in consent"""
         payload = {
-            "consent": {
-                "email": test_email,
-                "latitude": 0.0123,
-                "longitude": "alphabet",
-                "timestamp": int(time.time())
-            }
+            "consent": {"email": test_email, "latitude": 0.0123, "longitude": "alphabet", "timestamp": int(time.time())}
         }
         logging.info("Request body for POST longitude as alphabet  : \n" + json.dumps(payload, indent=4))
         return payload
@@ -129,26 +99,14 @@ class UserDetails:
     def register_bearer_user_payload(email, latitude=0.0123, longitude=12.345):
         """Banking User Subscription to Bink"""
         payload = {
-            "consent": {
-                "email": email,
-                "latitude": latitude,
-                "longitude": longitude,
-                "timestamp": int(time.time())
-            }
+            "consent": {"email": email, "latitude": latitude, "longitude": longitude, "timestamp": int(time.time())}
         }
         logging.info("Request body for POST Service consent" + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
     def expected_user_consent_json(test_email, timestamp):
-        response = {
-            "consent": {
-                "email": test_email,
-                "timestamp": timestamp,
-                "latitude": 0.0123,
-                "longitude": 12.345
-            }
-        }
+        response = {"consent": {"email": test_email, "timestamp": timestamp, "latitude": 0.0123, "longitude": 12.345}}
         return response
 
     @staticmethod
@@ -168,7 +126,7 @@ class UserDetails:
                 "email": TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.USER_ID),
                 "timestamp": timestamp,
                 "latitude": 0.0,
-                "longitude": 12.345
+                "longitude": 12.345,
             }
         }
         return response
