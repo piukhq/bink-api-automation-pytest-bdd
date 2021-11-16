@@ -1,6 +1,11 @@
+from pytest_bdd import (
+    scenarios,
+    then,
+    when,
+    given,
+    parsers,
+)
 import logging
-
-from pytest_bdd import given, parsers, scenarios, then, when
 
 import config
 from tests.helpers.test_context import TestContext
@@ -18,12 +23,8 @@ def register_new_user(test_email, channel, env):
     if channel == config.BINK.channel_name:
         response = CustomerAccount.register_bink_user(test_email)
         assert response.status_code == 201, "User Registration_service consent is not successful"
-        logging.info(
-            "User registration is successful and the token is: \n\n"
-            + TestContext.token
-            + "\n\n"
-            + f"POST registeration  response: {response.json()}"
-        )
+        logging.info("User registration is successful and the token is: \n\n" + TestContext.token + "\n\n"
+                     + f"POST registeration  response: {response.json()}")
         return TestContext.token
 
     elif channel == config.BARCLAYS.channel_name:
@@ -31,7 +32,7 @@ def register_new_user(test_email, channel, env):
         logging.info("User registration service token is: \n\n" + TestContext.token)
 
 
-@when(parsers.parse("I send a POST service request without the consent field"))
+@when(parsers.parse('I send a POST service request without the consent field'))
 def user_sent_empty_consent():
     response_consent = CustomerAccount.without_service_consent_bink_user(TestContext.token)
     TestContext.response = response_consent.json().__str__()
@@ -39,7 +40,7 @@ def user_sent_empty_consent():
     logging.info(f"User registration is not successful and bad request occured: \n\n {TestContext.response} \n")
 
 
-@when(parsers.parse("I send a POST service request without the consent key into request"))
+@when(parsers.parse('I send a POST service request without the consent key into request'))
 def user_sent_without_consent():
     response_consent = CustomerAccount.without_consent_key_bink_user(TestContext.token)
     TestContext.response = response_consent.json().__str__()
@@ -47,7 +48,7 @@ def user_sent_without_consent():
     logging.info(f"User registration is not successful and bad request occured: \n\n {TestContext.response} \n")
 
 
-@when(parsers.parse("I send a POST service request without the consent mandatory field into request"))
+@when(parsers.parse('I send a POST service request without the consent mandatory field into request'))
 def user_sent_without_mandatory_field():
     response_consent = CustomerAccount.without_mandatory_consent_field(TestContext.token)
     TestContext.response = response_consent.json().__str__()
@@ -81,55 +82,41 @@ def user_sent_optional_field(input, test_email):
     logging.info(f"User registration is not successful and bad request occured: \n\n {TestContext.response} \n")
 
 
-@then(parsers.parse('I should receive an HTTP "{statuscode}" with a "{errordetail}"'))
+@then('I should receive an HTTP "<statuscode>" with a "<errordetail>"')
 def consent_error_message(statuscode, errordetail):
-    assert (
-        TestContext.status_code == int(statuscode) and TestContext.response == errordetail
-    ), "User Registration_service consent is Invalid"
+    assert (TestContext.status_code == int(statuscode) and
+            TestContext.response == errordetail), ("User Registration_service consent is Invalid")
 
 
-@then(parsers.parse('I should receive an HTTP "{statuscode}" and success response'))
+@then('I should receive an HTTP "<statuscode>" and success response')
 def consent_response(test_email, statuscode):
     expected_user_consent_json = UserDetails.expected_user_consent_json(test_email, TestContext.timestamp)
     actual_user_consent = TestContext.response
-    logging.info(
-        f"Actual user service consent response : {actual_user_consent}"
-        + f"Expected service consent response: {expected_user_consent_json}"
-    )
-    assert (
-        TestContext.status_code == int(statuscode) and expected_user_consent_json == actual_user_consent
-    ), "Banking user subscription is not successful"
+    logging.info(f"Actual user service consent response : {actual_user_consent}" +
+                 f"Expected service consent response: {expected_user_consent_json}")
+    assert TestContext.status_code == int(statuscode) and expected_user_consent_json == actual_user_consent, \
+        "Banking user subscription is not successful"
     return TestContext.token
 
 
 @then(parsers.parse('I should receive an statuscode and success response with email and timestamp without "{input}"'))
 def consent_without_latitude(test_email, input):
     if input == "latitude":
-        expected_user_consent_json = UserDetails.expected_user_consent_with_optional_field(
-            test_email, TestContext.timestamp
-        )
+        expected_user_consent_json = \
+            UserDetails.expected_user_consent_with_optional_field(test_email, TestContext.timestamp)
         actual_user_consent = TestContext.response
-        logging.info(
-            f"Actual user service consent response : {actual_user_consent}"
-            + "\n\n"
-            + f"Expected service consent response: {expected_user_consent_json}"
-        )
-        assert (
-            TestContext.status_code == 201 and expected_user_consent_json == actual_user_consent
-        ), "Banking user subscription is not successful"
+        logging.info(f"Actual user service consent response : {actual_user_consent}" + "\n\n" +
+                     f"Expected service consent response: {expected_user_consent_json}")
+        assert TestContext.status_code == 201 and \
+               expected_user_consent_json == actual_user_consent, "Banking user subscription is not successful"
 
     elif input == "longitude":
-        expected_user_consent_json = UserDetails.expected_user_consent_with_optional_field(
-            test_email, TestContext.timestamp
-        )
+        expected_user_consent_json = \
+            UserDetails.expected_user_consent_with_optional_field(test_email, TestContext.timestamp)
         actual_user_consent = TestContext.response
-        logging.info(
-            f"Actual user service consent response : {actual_user_consent}"
-            + "\n\n"
-            + f"Expected service consent response: {expected_user_consent_json}"
-        )
-        assert (
-            TestContext.status_code == 201 and expected_user_consent_json == actual_user_consent
-        ), "User subscription is not successful"
+        logging.info(f"Actual user service consent response : {actual_user_consent}" + "\n\n" +
+                     f"Expected service consent response: {expected_user_consent_json}")
+        assert TestContext.status_code == 201 and \
+               expected_user_consent_json == actual_user_consent, "User subscription is not successful"
 
     return TestContext.token

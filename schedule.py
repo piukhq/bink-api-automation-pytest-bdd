@@ -1,21 +1,20 @@
 import os
-import random
 import string
+import random
+import requests
 import subprocess
 from datetime import datetime
-
-import requests
-from apscheduler.schedulers.blocking import BlockingScheduler
-from apscheduler.triggers.cron import CronTrigger
 from azure.storage.blob import BlobClient, ContentSettings
+from apscheduler.triggers.cron import CronTrigger
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 name = os.getenv("FRIENDLY_NAME")
 blob_storage_dsn = os.getenv("BLOB_STORAGE_DSN")
 teams_webhook = os.getenv("TEAMS_WEBHOOK")
 schedule = os.getenv("SCHEDULE")
 command = os.getenv("COMMAND")
-alert_on_success = os.getenv("ALERT_ON_SUCCESS", True)
-alert_on_failure = os.getenv("ALERT_ON_FAILURE", True)
+alert_on_success = os.getenv('ALERT_ON_SUCCESS', True)
+alert_on_failure = os.getenv('ALERT_ON_FAILURE', True)
 
 
 def run_test():

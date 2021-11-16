@@ -1,5 +1,5 @@
-import logging
 import time
+import logging
 from json.decoder import JSONDecodeError
 
 import tests.api as api
@@ -7,6 +7,7 @@ from tests.api.base import Endpoint
 
 
 class MembershipTransactions(Endpoint):
+
     @staticmethod
     def get_all_membership_transactions(token):
         url = Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_TRANSACTIONS
@@ -21,12 +22,11 @@ class MembershipTransactions(Endpoint):
                     break
             except JSONDecodeError:
                 logging.info(
-                    "The response text:  " + response.text + "\n The response Status Code: " + str(response.status_code)
-                )
+                    "The response text:  " + response.text + "\n The response Status Code: " +
+                    str(response.status_code))
                 time.sleep(1)
-                logging.info(
-                    "No response generated for end point " + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_TRANSACTIONS
-                )
+                logging.info("No response generated for end point " +
+                             Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_TRANSACTIONS)
 
         return response
 
@@ -45,8 +45,8 @@ class MembershipTransactions(Endpoint):
                     break
             except JSONDecodeError:
                 logging.info(
-                    "The response text:  " + response.text + "\n The response Status Code: " + str(response.status_code)
-                )
+                    "The response text:  " + response.text + "\n The response Status Code: " +
+                    str(response.status_code))
                 time.sleep(i)
                 logging.info("No response generated for end point " + url)
         return response

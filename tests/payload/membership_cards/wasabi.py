@@ -1,13 +1,12 @@
-import json
 import logging
-
+import json
 from faker import Faker
 
-import tests.api as api
-import tests.helpers.constants as constants
 from tests.api.base import Endpoint
-from tests.helpers.test_context import TestContext
+import tests.api as api
 from tests.helpers.test_data_utils import TestDataUtils
+import tests.helpers.constants as constants
+from tests.helpers.test_context import TestContext
 
 
 class WasabiCard:
@@ -32,15 +31,8 @@ class WasabiCard:
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("wasabi"),
         }
-        logging.info(
-            "The Request for Add Journey with "
-            + data_type
-            + " :\n\n"
-            + Endpoint.BASE_URL
-            + api.ENDPOINT_MEMBERSHIP_CARDS
-            + "\n\n"
-            + json.dumps(payload, indent=4)
-        )
+        logging.info("The Request for Add Journey with " + data_type + " :\n\n"
+                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
@@ -67,15 +59,8 @@ class WasabiCard:
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("wasabi"),
         }
 
-        logging.info(
-            "The Request for Enrol Journey with "
-            + data_type
-            + " :\n\n"
-            + Endpoint.BASE_URL
-            + api.ENDPOINT_MEMBERSHIP_CARDS
-            + "\n\n"
-            + json.dumps(payload, indent=4)
-        )
+        logging.info("The Request for Enrol Journey with " + data_type + " :\n\n"
+                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
@@ -92,22 +77,15 @@ class WasabiCard:
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("wasabi"),
         }
-        logging.info(
-            "The Request for Add Journey with "
-            + TestContext.card_number
-            + " :\n\n"
-            + Endpoint.BASE_URL
-            + api.ENDPOINT_MEMBERSHIP_CARDS
-            + "\n\n"
-            + json.dumps(payload, indent=4)
-        )
+        logging.info("The Request for Add Journey with " + TestContext.card_number + " :\n\n"
+                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
 
     @staticmethod
     def add_membership_card_payload_without_field(field):
         value = TestDataUtils.TEST_DATA.wasabi_membership_card.get(constants.EMAIL)
         faker = Faker()
-        if field == "account":
+        if (field == 'account'):
             payload = {
                 "add_fields": [
                     {
@@ -116,10 +94,10 @@ class WasabiCard:
                     }
                 ],
                 "authorise_fields": [{"column": "Email", "value": value}],
-                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("wasabi"),
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("wasabi")
             }
 
-        elif field == "membership_plan":
+        elif (field == 'membership_plan'):
             payload = {
                 "account": {
                     "add_fields": [
@@ -132,7 +110,7 @@ class WasabiCard:
                 }
             }
 
-        elif field == "email":
+        elif (field == 'email'):
             payload = {
                 "account": {
                     "add_fields": [
@@ -146,7 +124,7 @@ class WasabiCard:
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("wasabi"),
             }
 
-        elif field == "Membershipcard_number":
+        elif (field == 'Membershipcard_number'):
             payload = {
                 "account": {
                     "add_fields": [
@@ -160,19 +138,17 @@ class WasabiCard:
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("wasabi"),
             }
 
-        elif field == "enrol_account":
+        elif (field == 'enrol_account'):
             payload = {
                 "enrol_fields": [
                     {"column": "First name", "value": faker.name()},
                     {"column": "Last name", "value": faker.name()},
                     {"column": "Email", "value": value},
                     {"column": "Date of birth", "value": constants.DATE_OF_BIRTH},
-                    {"column": "Consent 1", "value": constants.CONSENT},
-                ],
-                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("wasabi"),
-            }
+                    {"column": "Consent 1", "value": constants.CONSENT}],
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("wasabi"), }
 
-        elif field == "token":
+        elif (field == "token"):
             payload = {
                 "account": {
                     "add_fields": [

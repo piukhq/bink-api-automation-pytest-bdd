@@ -1,13 +1,13 @@
-import logging
 import time
+import logging
 from json.decoder import JSONDecodeError
 
 import tests.api as api
 import tests.helpers.constants as constants
+from tests.payload.payment_cards.payment_card import PaymentCardDetails
 from tests.api.base import Endpoint
 from tests.helpers.test_context import TestContext
 from tests.helpers.test_helpers import PaymentCardTestData
-from tests.payload.payment_cards.payment_card import PaymentCardDetails
 
 
 class PaymentCards(Endpoint):
@@ -49,8 +49,8 @@ class PaymentCards(Endpoint):
                     break
             except (JSONDecodeError, KeyError):
                 logging.info(
-                    "The response text:  " + response.text + "\n The response Status Code: " + str(response.status_code)
-                )
+                    "The response text:  " + response.text + "\n The response Status Code: " +
+                    str(response.status_code))
                 logging.info("No response generated for end point " + url)
         return response
 
@@ -70,8 +70,8 @@ class PaymentCards(Endpoint):
                     break
             except (JSONDecodeError, KeyError):
                 logging.info(
-                    "The response text:  " + response.text + "\n The response Status Code: " + str(response.status_code)
-                )
+                    "The response text:  " + response.text + "\n The response Status Code: " +
+                    str(response.status_code))
                 logging.info("No response generated for end point " + url)
         return response
 
@@ -97,7 +97,8 @@ class PaymentCards(Endpoint):
     @staticmethod
     def patch_mcard_pcard(token, membership_card_id, payment_card_id):
 
-        url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_MEMBERSHIP_PAYMENT.format(membership_card_id, payment_card_id)
+        url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_MEMBERSHIP_PAYMENT.format(membership_card_id,
+                                                                               payment_card_id)
         header = Endpoint.request_header(token)
         response = Endpoint.call(url, header, "PATCH")
         return response
@@ -105,7 +106,8 @@ class PaymentCards(Endpoint):
     @staticmethod
     def patch_pcard_mcard(token, payment_card_id, membership_card_id):
 
-        url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_PAYMENT_MEMBERSHIP.format(payment_card_id, membership_card_id)
+        url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_PAYMENT_MEMBERSHIP.format(payment_card_id,
+                                                                               membership_card_id)
         header = Endpoint.request_header(token)
         response = Endpoint.call(url, header, "PATCH")
         return response
@@ -113,7 +115,8 @@ class PaymentCards(Endpoint):
     @staticmethod
     def delete_mcard_pcard(token, membership_card_id, payment_card_id):
 
-        url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_MEMBERSHIP_PAYMENT.format(membership_card_id, payment_card_id)
+        url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_MEMBERSHIP_PAYMENT.format(membership_card_id,
+                                                                               payment_card_id)
         header = Endpoint.request_header(token)
         response = Endpoint.call(url, header, "DELETE")
         return response
@@ -121,7 +124,8 @@ class PaymentCards(Endpoint):
     @staticmethod
     def delete_pcard_mcard(token, payment_card_id, membership_card_id):
 
-        url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_PAYMENT_MEMBERSHIP.format(payment_card_id, membership_card_id)
+        url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_PAYMENT_MEMBERSHIP.format(payment_card_id,
+                                                                               membership_card_id)
         header = Endpoint.request_header(token)
         response = Endpoint.call(url, header, "DELETE")
         return response
