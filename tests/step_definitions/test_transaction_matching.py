@@ -27,12 +27,12 @@ scenarios("transactionMatching/")
 
 @when(parsers.parse('I send matching {payment_card_transaction} {mid} Authorisation'))
 def import_payment_file(payment_card_transaction, mid):
-    if payment_card_transaction == "master-auth":
+    if payment_card_transaction == 'master-auth':
         response = TransactionMatching.get_master_auth_csv(mid)
-    elif payment_card_transaction == "amex-auth":
+    elif payment_card_transaction == 'amex-auth':
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
-    elif payment_card_transaction == "amex-settlement":
+    elif payment_card_transaction == 'amex-settlement':
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_settlement_csv(mid)
     else:
@@ -44,15 +44,15 @@ def import_payment_file(payment_card_transaction, mid):
     assert response.status_code == 201 or 200, "Payment file is not successful"
 
     logging.info("Waitting for the pods To match the transaction....and Export the Files")
-    time.sleep(90)
+    time.sleep(100)
     return response_json
 
 
-@then(parsers.parse("I verify 1 reward transaction is exported"))
+@then(parsers.parse('I verify 1 reward transaction is exported'))
 def verify_into_database():
     matched_count = QueryHarmonia.fetch_match_transaction_count(
         TestTransactionMatchingContext.transaction_matching_id,
-        (TestTransactionMatchingContext.transaction_matching_amount * 100),
+        (TestTransactionMatchingContext.transaction_matching_amount * 100)
     )
     assert matched_count.count == 1, f"Transaction didnt match and the status is '{matched_count.count}'"
     logging.info(f"The Transaction got matched : '{matched_count.count}'")
@@ -76,60 +76,47 @@ def post_transaction_add_and_link(merchant):
 
 @then(
     parsers.parse(
-        'I perform GET request to verify the "{merchant}" membershipcard is added & linked successfully '
-        "in the wallet"
-    )
+        'I perform GET request to verify the "{merchant}" membershipcard is added & linked successfully in the wallet')
 )
 def get_transaction_matching_add_and_link(merchant):
     test_membership_cards.verify_add_and_link_membership_card(merchant)
 
 
+
 @when(
     parsers.parse(
-        'I send merchant Tlog file with {merchant_container} '
-        '{payment_card_provider} {mid} {cardIdentity} {scheme} and send to bink'
+        'I send merchant Tlog file with {merchant_container} {payment_card_provider} {mid} {card_identity} '
+        '{scheme} and send to bink'
     )
 )
-def import_merchant_file(merchant_container, payment_card_provider, mid, cardIdentity, scheme):
-    if merchant_container == "scheme/iceland/":
+def import_merchant_file(merchant_container, payment_card_provider, mid, card_identity, scheme):
+    if merchant_container == 'scheme/iceland/':
         buf = io.StringIO()
-        merchant_writer = csv.writer(buf, delimiter=",", quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        merchant_writer = csv.writer(buf, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         merchant_writer.writerow(TestTransactionMatchingContext.iceland_file_header)
         getNewFileDataToImport()
-        merchant_writer.writerow(
-            [
-                PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS),
-                PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS),
-                "01/80",
-                "3",
-                cardIdentity,
-                mid,
-                TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
-                TestTransactionMatchingContext.transaction_matching_amount,
-                "GBP",
-                ".00",
-                "GBP",
-                TestTransactionMatchingContext.transaction_matching_id,
-                TestTransactionMatchingContext.transaction_matching_uuid,
-            ]
-        )
+        merchant_writer.writerow([PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS),
+                                  PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS),
+                                  '01/80', '3', card_identity, int(mid),
+                                  TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
+                                  TestTransactionMatchingContext.transaction_matching_amount, 'GBP', '.00', 'GBP',
+                                  TestTransactionMatchingContext.transaction_matching_id,
+                                  TestTransactionMatchingContext.transaction_matching_uuid])
         bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
-        blob_client = bbs.get_blob_client(
-            TestTransactionMatchingContext.container_name,
-            merchant_container + f"{TestTransactionMatchingContext.file_name}",
-        )
+        blob_client = bbs.get_blob_client(TestTransactionMatchingContext.container_name, merchant_container
+                                          + f"{TestTransactionMatchingContext.file_name}")
         blob_client.upload_blob(buf.getvalue().encode())
 
-    elif merchant_container == "scheme/harvey-nichols/":
-        json_file = json.dumps(
-            harvey_nichols_transaction_matching_files.harvey_nichols_merchant_file(
-                mid=mid, payment_card_provider=payment_card_provider, scheme=scheme
-            )
-        )
+
+    elif merchant_container == 'scheme/harvey-nichols/':
+        json_file = json.dumps(harvey_nichols_transaction_matching_files.
+                               harvey_nichols_merchant_file(mid=mid, payment_card_provider=payment_card_provider,
+                                                            scheme=scheme))
         file = json.loads(json_file)
-        file_name = "harvey-nichols" + datetime.now().strftime("%Y%m%d-%H%M%S") + ".json"
+        file_name = "harvey-nichols" + datetime.now().strftime('%Y%m%d-%H%M%S') + ".json"
         bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
-        blob_client = bbs.get_blob_client(TestTransactionMatchingContext.container_name, merchant_container + file_name)
+        blob_client = bbs.get_blob_client(TestTransactionMatchingContext.container_name,
+                                          merchant_container + file_name)
         blob_client.upload_blob(json.dumps(file, indent=2))
         logging.info(f" This is the Merchant file sent to blob storage  : '{json.dumps(file, indent=2)}'")
 
@@ -138,10 +125,8 @@ def getNewFileDataToImport():
     TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
     TestTransactionMatchingContext.transaction_matching_uuid = random.randint(100000, 999999)
     TestTransactionMatchingContext.transaction_matching_amount = int(Decimal(str(random.choice(range(10, 1000)))))
-    TestTransactionMatchingContext.transaction_matching_currentTimeStamp = datetime.now(
-        timezone("Europe/London")
-    ).strftime("%Y-%m-%d %H:%M:%S")
-    TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
-        "%Y-%m-%d %H:%M:%S"
-    )
-    TestTransactionMatchingContext.file_name = "iceland-bonus-card" + datetime.now().strftime("%Y%m%d-%H%M%S") + ".csv"
+    TestTransactionMatchingContext.transaction_matching_currentTimeStamp = datetime.now(timezone('Europe/London')) \
+        .strftime('%Y-%m-%d %H:%M:%S')
+    TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone('MST')).strftime(
+        '%Y-%m-%d %H:%M:%S')
+    TestTransactionMatchingContext.file_name = "iceland-bonus-card" + datetime.now().strftime('%Y%m%d-%H%M%S') + ".csv"
