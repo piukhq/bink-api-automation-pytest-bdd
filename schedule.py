@@ -1,25 +1,26 @@
 import os
-import string
 import random
-import requests
+import string
 import subprocess
 from datetime import datetime
-from azure.storage.blob import BlobClient, ContentSettings
-from apscheduler.triggers.cron import CronTrigger
+
+import requests
 from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.triggers.cron import CronTrigger
+from azure.storage.blob import BlobClient, ContentSettings
 
 name = os.getenv("FRIENDLY_NAME")
 blob_storage_dsn = os.getenv("BLOB_STORAGE_DSN")
 teams_webhook = os.getenv("TEAMS_WEBHOOK")
 schedule = os.getenv("SCHEDULE")
 command = os.getenv("COMMAND")
-alert_on_success = os.getenv('ALERT_ON_SUCCESS', True)
-alert_on_failure = os.getenv('ALERT_ON_FAILURE', True)
+alert_on_success = os.getenv("ALERT_ON_SUCCESS", True)
+alert_on_failure = os.getenv("ALERT_ON_FAILURE", True)
 
 
 def run_test():
     try:
-        process = subprocess.run(command.split(" "), timeout=2400, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process = subprocess.run(command.split(" "), timeout=7200, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except subprocess.TimeoutExpired:
         print("Timeout occurred, skipping run")
         return

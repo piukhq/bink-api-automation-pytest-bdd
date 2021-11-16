@@ -37,7 +37,7 @@
         {
             "id": 1319,
             "type": 2,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Offer_tile_5_CVAeqUv.png",
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Offer_tile_5_CVAeqUv_naFzo9T.png",
             "description": "Wasabi Test Offer",
             "encoding": "png"
         },
@@ -200,3 +200,4 @@
         }
     ]
 }
+

@@ -15,3 +15,5 @@ LOCAL_SECRETS_PATH = env_var("LOCAL_SECRETS_PATH", "tests/helpers/vault/local_ch
 VAULT_URL = env_var("VAULT_URL", "https://bink-uksouth-staging-com.vault.azure.net")
 CHANNEL_SECRET_NAME = env_var("CHANNEL_SECRET_NAME", "channels")
 BLOB_STORAGE_DSN = env_var("BLOB_STORAGE_DSN")
+HERMES_DATABASE_URI = env_var("HERMES_DATABASE_URI")
+HARMONIA_DATABASE_URI = env_var("HARMONIA_DATABASE_URI")

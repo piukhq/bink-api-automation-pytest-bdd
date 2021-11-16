@@ -2,12 +2,13 @@ import json
 import logging
 import time
 from enum import Enum
-import requests
-from settings import LOCAL_SECRETS_PATH, LOCAL_CHANNELS, VAULT_URL, CHANNEL_SECRET_NAME
 
-from azure.core.exceptions import ServiceRequestError, ResourceNotFoundError, HttpResponseError
+import requests
+from azure.core.exceptions import HttpResponseError, ResourceNotFoundError, ServiceRequestError
 from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
+
+from settings import CHANNEL_SECRET_NAME, LOCAL_CHANNELS, LOCAL_SECRETS_PATH, VAULT_URL
 
 logger = logging.getLogger(__name__)
 loaded = False
@@ -90,7 +91,7 @@ def check_and_load_vault():
 def get_jwt_secret(bundle_id):
     check_and_load_vault()
     try:
-        return _bundle_secrets[bundle_id]['jwt_secret']
+        return _bundle_secrets[bundle_id]["jwt_secret"]
     except KeyError as e:
         raise KeyVaultError(f"No JWT secret found for bundle: {bundle_id}") from e
 

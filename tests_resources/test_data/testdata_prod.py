@@ -10,7 +10,7 @@ visa_payment_card = {
     "year": 2044,
     "fingerprint": "auto1093448038331testbinkcom",
     "status": "active",
-    "active_link": True
+    "active_link": True,
 }
 
 amex_payment_card = {
@@ -22,7 +22,7 @@ amex_payment_card = {
     "year": 2044,
     "fingerprint": "auto1093448038331testbinkcom",
     "status": "active",
-    "active_link": True
+    "active_link": True,
 }
 
 master_payment_card = {
@@ -31,7 +31,7 @@ master_payment_card = {
     "month": 1,
     "year": 2044,
     "status": "active",
-    "active_link": True
+    "active_link": True,
 }
 
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #
@@ -84,7 +84,7 @@ fat_face_invalid_data = {
 harvey_nichols_membership_card = {
     "id": "andyjameshill@gmail.com",
     "password": "BinkTest",
-    "password_encrypted": "pCgQ7bkUK12JaexMoKGtPjJAg6JazmUg4HHygjwUzT/2pEx9g4H3ps0wYa6koNBGkz1+mDmMsT5n/Ju8uAXRY+FVTxFJAfKNpANv2P52CEHLnKopK/z3E5dSSKRXiTo4jn66uaXByGOz5f12igYj+k84opM8lgsOVwIySWyqveRONGUFk/cA6xz38LldZL+WWxskFEbXMDsuJzlr1DV9lwNK153r+2Rc0IbRJTPnJfchgj9qxVBQhBZzPsDajOJHEs9gcUjHq1MZqtPPcMueQuuxr3OWnnWgAv2Rp8rJ59HoV+3MRX+FKVZEOs/0ImYmebrtrw0/TbdcyWqx4pTXMp+iUDD/AocTxwh8+hwG1VUjNXdNLZPtmxWWq7/3u/uUt+wzJowil/mjxqeX0f4U/YKL20Q/Le92XsZpA54BzDL/IhEuiPuMMC0ix9UAYD/y1y+a5mxrrHYuYzuPQ3iltqYpQP1n24RntBP+siYllNdXnQ74lUhK5hbgF4bgroku0AnsCert79FBEtRTYYDvWuGRdxl0TDkf0ADUsmYpTbvU6sbNEGgpfmB37GcK9dvJDkY00R5l0uq1dA1q/CqydBTVb9YpRm13rSqx6t5U/GHAps50uZx7/jzSET1fk3kG+2PzKsHHFPSaizzEeWtv/tjobtkVsqcl2qqEE1hVvrs=", # noqa
+    "password_encrypted": "pCgQ7bkUK12JaexMoKGtPjJAg6JazmUg4HHygjwUzT/2pEx9g4H3ps0wYa6koNBGkz1+mDmMsT5n/Ju8uAXRY+FVTxFJAfKNpANv2P52CEHLnKopK/z3E5dSSKRXiTo4jn66uaXByGOz5f12igYj+k84opM8lgsOVwIySWyqveRONGUFk/cA6xz38LldZL+WWxskFEbXMDsuJzlr1DV9lwNK153r+2Rc0IbRJTPnJfchgj9qxVBQhBZzPsDajOJHEs9gcUjHq1MZqtPPcMueQuuxr3OWnnWgAv2Rp8rJ59HoV+3MRX+FKVZEOs/0ImYmebrtrw0/TbdcyWqx4pTXMp+iUDD/AocTxwh8+hwG1VUjNXdNLZPtmxWWq7/3u/uUt+wzJowil/mjxqeX0f4U/YKL20Q/Le92XsZpA54BzDL/IhEuiPuMMC0ix9UAYD/y1y+a5mxrrHYuYzuPQ3iltqYpQP1n24RntBP+siYllNdXnQ74lUhK5hbgF4bgroku0AnsCert79FBEtRTYYDvWuGRdxl0TDkf0ADUsmYpTbvU6sbNEGgpfmB37GcK9dvJDkY00R5l0uq1dA1q/CqydBTVb9YpRm13rSqx6t5U/GHAps50uZx7/jzSET1fk3kG+2PzKsHHFPSaizzEeWtv/tjobtkVsqcl2qqEE1hVvrs=",  # noqa
     # noqa
     "card_num": "1000000962497",
     "barcode": "1000000962497",
@@ -96,9 +96,7 @@ harvey_nichols_membership_card = {
     "transaction_currency": "Points",
 }
 
-harvey_nichols_invalid_data = {
-    "id": "fail@unknown.com"
-}
+harvey_nichols_invalid_data = {"id": "fail@unknown.com"}
 
 iceland_membership_card = {
     # "card_num": "6332040030555532506",

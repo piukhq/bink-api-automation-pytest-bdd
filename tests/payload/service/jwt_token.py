@@ -16,9 +16,9 @@ class GenerateJWToken:
             "organisation_id": self.organisation_id,
             "bundle_id": self.bundle_id,
             "user_id": email or "test@binktest.com",
-            "property_id": 'not currently used for authentication',
-            "iat": arrow.utcnow().timestamp
+            "property_id": "not currently used for authentication",
+            "iat": arrow.utcnow().timestamp,
         }
 
     def get_token(self):
-        return 'bearer {}'.format(jwt.encode(self.payload, self.secret, algorithm="HS512"))
+        return "bearer {}".format(jwt.encode(self.payload, self.secret, algorithm="HS512"))
