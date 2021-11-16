@@ -1,6 +1,5 @@
 import logging
 from dataclasses import dataclass
-
 import tests.helpers.database.setupdb as db
 
 
@@ -24,9 +23,7 @@ class QueryHarmonia:
 
 
 def get_matched_query(transaction_id, amount):
-    transaction_query_account = (
-        "SELECT count(*) FROM harmonia.public.matched_transaction WHERE transaction_id='{}' "
-        "and spend_amount={}".format(transaction_id, amount)
-    )
+    transaction_query_account = "SELECT count(*) FROM harmonia.public.matched_transaction WHERE transaction_id='{}' " \
+                                "and spend_amount={}".format(transaction_id, amount)
     logging.info(transaction_query_account)
     return transaction_query_account

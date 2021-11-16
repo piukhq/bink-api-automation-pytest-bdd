@@ -15,7 +15,7 @@ visa_payment_card = {
     "payment_encoding": "png",
     "payment_discription": "Visa Card Image",
     "payment_url": "https://api.dev.gb.bink.com/content/media/hermes/schemes/Visa-Payment_DWQzhta.png",
-    "payment_verification": False,
+    "payment_verification": False
 }
 
 amex_payment_card = {
@@ -33,7 +33,7 @@ amex_payment_card = {
     "payment_encoding": "png",
     "payment_discription": "American Express Card Image",
     "payment_url": "https://api.dev.gb.bink.com/content/media/hermes/schemes/Amex-Payment.png",
-    "payment_verification": False,
+    "payment_verification": False
 }
 
 master_payment_card = {
@@ -51,7 +51,7 @@ master_payment_card = {
     "payment_encoding": "png",
     "payment_discription": "Mastercard Card Image",
     "payment_url": "https://api.dev.gb.bink.com/content/media/hermes/schemes/Mastercard-Payment_1goHQYv.png",
-    "payment_verification": False,
+    "payment_verification": False
 }
 
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #
@@ -89,7 +89,11 @@ coop_invalid_data = {
     "email": "fail@unknown.com",
 }
 
-fat_face_membership_card = {"card_num": "FF00000059702811", "points": 0, "currency": "GBP"}
+fat_face_membership_card = {
+    "card_num": "FF00000059702811",
+    "points": 0,
+    "currency": "GBP"
+}
 
 fat_face_invalid_data = {
     "card_num": "FF00000059702810",
@@ -106,6 +110,7 @@ harvey_nichols_membership_card = {
     "transactions": "5",
     "transaction_status": "active",
     "transaction_currency": "Points",
+
 }
 
 harvey_nichols_membership_card_2 = {
@@ -119,8 +124,11 @@ harvey_nichols_membership_card_2 = {
     "transactions": "0 ",
     "transaction_status": "",
     "transaction_currency": "",
+
 }
-harvey_nichols_invalid_data = {"id": "fail@unknown.com"}
+harvey_nichols_invalid_data = {
+    "id": "fail@unknown.com"
+}
 
 iceland_membership_card = {
     "card_num": "6332040023001122330",
@@ -171,7 +179,7 @@ whsmith_membership_card = {
     "card_num": "WHS00000009523459",
     "points": 0,
     "currency": "stamps",
-    "description": "Customer earns one stamp for every valid transaction.",
+    "description": "Customer earns one stamp for every valid transaction."
 }
 
 whsmith_invalid_data = {
@@ -205,7 +213,7 @@ membership_card_status_reason_codes = {
     "reason_code_failed_enrol": "X201",
     "reason_code_invalid_failed_enrol": "X202",
     "reason_code_add_failed": "X102",
-    "reason_code_ghost_failed": "X105",
+    "reason_code_ghost_failed": "X105"
 }
 
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
