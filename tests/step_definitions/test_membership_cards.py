@@ -677,7 +677,7 @@ def add_membership_card_without_field_value(merchant, field_value):
     return response_json
 
 
-@then('I should receive error message "<error_message>"')
+@then(parsers.parse('I should receive error message "{error_message}"'))
 def error_message_without_field_value(error_message):
     assert (TestContext.detail == error_message), ("Add Journey succeded")
 
