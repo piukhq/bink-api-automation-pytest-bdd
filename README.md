@@ -39,7 +39,20 @@ To set up this project on your local machine:
     3. Commands used for nighly regression in bink in staging
         - pytest -m "bink_regression" --env staging 
        Commands used for nighly regression in bink in staging
-        - pytest -m "bmb_regression" --env staging --channel barclays     
+        - pytest -m "bmb_regression" --env staging --channel barclays 
+
+# Running Transaction Matching Scenario
+    
+    1. Required .env file in local
+        -get blob_dsn variable from azure
+    2. Once the varaible setup then Run Trasaction Matching sceanrio
+
+# Work with database query
+    Run command to hermes and harmonia to work locally
+    export HERMES_DATABASE_URI=$(echo $(kubectl get secret azure-pgfs -o json | jq -r .data.common_hermes | base64 --decode) | sed s/bink-uksouth-staging\.postgres\.database\.azure\.com/127\.0\.0\.1/)
+    export HARMONIA_DATABASE_URI=$(echo $(kubectl get secret azure-pgfs -o json | jq -r .data.common_harmonia | base64 --decode) | sed s/bink-uksouth-staging\.postgres\.database\.azure\.com/127\.0\.0\.1/)
+
+
 
 # Running Allure Reports
 
