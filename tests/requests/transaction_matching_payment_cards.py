@@ -1,3 +1,5 @@
+import logging
+
 import tests.api as api
 from tests.api.transactionmatching_base import TransactionMatching_Endpoint
 from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
@@ -22,6 +24,7 @@ class TransactionMatching(Endpoint):
         payload = TransactionMatchingPaymentFileDetails.import_amex_auth_payment_card()
         response = Endpoint.call(url, header, "POST", payload)
         TestTransactionMatchingContext.amex_token = response.json().get("api_key")
+        logging.info(TestTransactionMatchingContext.amex_token)
         Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
@@ -37,7 +40,9 @@ class TransactionMatching(Endpoint):
     def get_amex_settlement_csv(mid):
         url = TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
         headers = TransactionMatching_Endpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
+        logging.info(mid)
         payload = TransactionMatchingPaymentFileDetails.get_amex_settlement_data(mid)
+        logging.info(payload)
         response = Endpoint.call(url, headers, "POST", payload)
         return response
 
