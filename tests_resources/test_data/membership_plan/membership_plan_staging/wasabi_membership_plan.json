@@ -24,16 +24,10 @@
     },
     "card": {
         "colour": "#ccd400",
+        "text_colour": "#000000",
         "scan_message": "Scanning not required"
     },
     "images": [
-        {
-            "id": 1324,
-            "type": 7,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Wasabi_Promo_1968x732.png",
-            "description": "Wasabi Promotion 1",
-            "encoding": "png"
-        },
         {
             "id": 1319,
             "type": 2,
@@ -42,10 +36,17 @@
             "encoding": "png"
         },
         {
-            "id": 1298,
-            "type": 9,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Wasabi_Alternate_Hero.png",
-            "description": "Wasabi Alternative Hero",
+            "id": 1324,
+            "type": 7,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Wasabi_Promo_1968x732.png",
+            "description": "Wasabi Promotion 1",
+            "encoding": "png"
+        },
+        {
+            "id": 1296,
+            "type": 0,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Wasabi_Card.png",
+            "description": "Wasabi Hero",
             "encoding": "png"
         },
         {
@@ -56,10 +57,10 @@
             "encoding": "png"
         },
         {
-            "id": 1296,
-            "type": 0,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Wasabi_Card.png",
-            "description": "Wasabi Hero",
+            "id": 1298,
+            "type": 9,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Wasabi_Alternate_Hero.png",
+            "description": "Wasabi Alternative Hero",
             "encoding": "png"
         }
     ],
@@ -200,4 +201,3 @@
         }
     ]
 }
-
