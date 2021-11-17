@@ -18,8 +18,8 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
 
     Examples:
     | payment_card_provider|merchant_container| mid      | cardIdentity             |payment_card_transaction| scheme |
-#    |          amex        |scheme/iceland/   |9421802109| Amex                     |amex-settlement         |  AMEX  |
-#    |          amex        |scheme/iceland/   |9445909831| Amex                     |amex-auth               |   AMEX     |
+    |          amex        |scheme/iceland/   |9421802109| Amex                     |amex-settlement         |  AMEX  |
+    |          amex        |scheme/iceland/   |9445909831| Amex                     |amex-auth               |   AMEX     |
     |          master      |scheme/iceland/   |22776952  |MasterCard/MasterCard One |master-auth             |  MASTERCARD      |
 
   @transactionMatchingFatFace
@@ -53,5 +53,5 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
 
     Examples:
     | payment_card_provider|merchant_container       | mid      | cardIdentity             |payment_card_transaction| scheme   |
-#    |          master      |scheme/harvey-nichols/   |19410201  |MasterCard/MasterCard One |master-auth             |MASTERCARD|
+    |          master      |scheme/harvey-nichols/   |19410201  |MasterCard/MasterCard One |master-auth             |MASTERCARD|
     |          amex        |scheme/harvey-nichols/   |9600360903| Amex                     |amex-auth               | AMEX     |

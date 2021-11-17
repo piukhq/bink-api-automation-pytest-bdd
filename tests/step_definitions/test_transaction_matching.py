@@ -34,9 +34,13 @@ scenarios("transactionMatching/")
 def import_payment_file(payment_card_transaction, mid):
     if payment_card_transaction == 'master-auth':
         response = TransactionMatching.get_master_auth_csv(mid)
+        logging.info(response)
+
     elif payment_card_transaction == 'amex-auth':
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
+        logging.info(response)
+
     elif payment_card_transaction == 'amex-settlement':
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_settlement_csv(mid)
@@ -44,6 +48,7 @@ def import_payment_file(payment_card_transaction, mid):
     else:
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
+        logging.info(response)
 
     response_json = response.json()
     logging.info("The response of POST/import Payment File is: \n\n"
@@ -51,7 +56,7 @@ def import_payment_file(payment_card_transaction, mid):
     assert response.status_code == 201 or 200, "Payment file is not successful"
 
     logging.info("Waitting for the pods To match the transaction....and Export the Files")
-    time.sleep(30)
+    time.sleep(90)
     return response_json
 
 
