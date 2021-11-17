@@ -6,7 +6,6 @@ from pytest_bdd import (
 )
 import json
 import logging
-from json_diff import Comparator
 from json import JSONDecodeError
 
 from tests.requests.membership_plans import MembershipPlans
@@ -14,6 +13,8 @@ from tests.helpers.test_helpers import TestData
 from tests.helpers.test_context import TestContext
 import tests.helpers.constants as constants
 import time
+from deepdiff import DeepDiff
+
 
 scenarios("membership_plans/")
 
@@ -71,8 +72,8 @@ def json_compare(actual_membership_plan, expected_membership_plan):
     json.dump(expected_membership_plan, open(constants.JSON_DIFF_EXPECTED_JSON, "w"), indent=4)
     actual_membership_plan = open(constants.JSON_DIFF_ACTUAL_JSON, "r")
     expected_membership_plan = open(constants.JSON_DIFF_EXPECTED_JSON, "r")
-    engine = Comparator(actual_membership_plan, expected_membership_plan)
-    return engine.compare_dicts()
+    engine = DeepDiff(actual_membership_plan, expected_membership_plan, ignore_order=True)
+    return engine
 
 
 def response_to_json(response):

@@ -26,7 +26,7 @@ scenarios("payment_cards/")
 
 
 @when(parsers.parse('I perform POST request to add "{payment_card_provider}" payment card to wallet'))
-@when('I perform POST request to add "<payment_card_provider>" payment card to wallet')
+@when(parsers.parse('I perform POST request to add {payment_card_provider} payment card to wallet'))
 def add_payment_card(payment_card_provider="master"):
     response = PaymentCards.add_payment_card(TestContext.token, payment_card_provider)
     assert response.status_code == 201 or 200, \
@@ -39,7 +39,7 @@ def add_payment_card(payment_card_provider="master"):
     return TestContext.current_payment_card_id
 
 
-@when('I perform POST request to enrol new "<payment_card_provider>" payment card to wallet')
+@when(parsers.parse('I perform POST request to enrol new "{payment_card_provider}" payment card to wallet'))
 def add_new_payment_card(payment_card_provider="master"):
     response = PaymentCards.add_new_payment_card(TestContext.token, payment_card_provider)
     response_json = response_to_json(response)
@@ -342,8 +342,8 @@ def response_to_json(response):
     return response_json
 
 
-@when('I perform the GET request to verify the new payment card "<payment_card_provider>" has been '
-      'added successfully to the wallet')
+@when(parsers.parse('I perform the GET request to verify the new payment card "{payment_card_provider}" has been '
+      'added successfully to the wallet'))
 def get_new_payment_provider(payment_card_provider="master"):
     response = PaymentCards.get_payment_card(TestContext.token, TestContext.current_payment_card_id)
     response_json = response.json()
