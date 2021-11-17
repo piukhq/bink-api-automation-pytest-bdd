@@ -82,13 +82,13 @@ def user_sent_optional_field(input, test_email):
     logging.info(f"User registration is not successful and bad request occured: \n\n {TestContext.response} \n")
 
 
-@then('I should receive an HTTP "<statuscode>" with a "<errordetail>"')
+@then(parsers.parse('I should receive an HTTP "{statuscode}" with a "{errordetail}"'))
 def consent_error_message(statuscode, errordetail):
     assert (TestContext.status_code == int(statuscode) and
             TestContext.response == errordetail), ("User Registration_service consent is Invalid")
 
 
-@then('I should receive an HTTP "<statuscode>" and success response')
+@then(parsers.parse('I should receive an HTTP "{statuscode}" and success response'))
 def consent_response(test_email, statuscode):
     expected_user_consent_json = UserDetails.expected_user_consent_json(test_email, TestContext.timestamp)
     actual_user_consent = TestContext.response

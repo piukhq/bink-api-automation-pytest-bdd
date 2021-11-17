@@ -16,7 +16,7 @@ scenarios("vop/")
 """Step definitions - Add Payment Card """
 
 
-@when('I perform POST request to add "<payment_card_provider>" payment card to wallet')
+@when(parsers.parse('I perform POST request to add "{payment_card_provider}" payment card to wallet'))
 def add_transaction_paymentCard(payment_card_provider):
     """Function call to get_membership_cards in test_membership_cards"""
     test_payment_cards.add_payment_card(payment_card_provider)
