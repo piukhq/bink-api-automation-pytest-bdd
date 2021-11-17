@@ -12,8 +12,8 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
     And I perform the GET request to verify the payment card has been added successfully to the wallet
     When I perform POST request to add & auto link "Iceland" membership card
     Then I perform GET request to verify the "Iceland" membershipcard is added & linked successfully in the wallet
-    When I send merchant Tlog file with "<merchant_container> <payment_card_provider> <mid> <cardIdentity> <scheme>" and send to bink
-    And I send matching "<payment_card_transaction> <mid>" Authorisation
+    When I send merchant Tlog file with <merchant_container> <payment_card_provider> <mid> <cardIdentity> <scheme> and send to bink
+    And I send matching <payment_card_transaction> <mid> Authorisation
     Then I verify 1 reward transaction is exported
 
     Examples:
@@ -46,8 +46,8 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
     And I perform the GET request to verify the payment card has been added successfully to the wallet
     When I perform POST request to add & auto link "HarveyNichols" membership card
     Then I perform GET request to verify the "HarveyNichols" membershipcard is added & linked successfully in the wallet
-    When I send merchant Tlog file with "<merchant_container> <payment_card_provider> <mid> <cardIdentity> <scheme>" and send to bink
-    And I send matching "<payment_card_transaction> <mid>" Authorisation
+    When I send merchant Tlog file with <merchant_container> <payment_card_provider> <mid> <cardIdentity> <scheme> and send to bink
+    And I send matching <payment_card_transaction> <mid> Authorisation
     Then I verify 1 reward transaction is exported
 
 

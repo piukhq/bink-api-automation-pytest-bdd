@@ -30,19 +30,25 @@ from tests.step_definitions import test_membership_cards
 scenarios("transactionMatching/")
 
 
-@when('I send matching "<payment_card_transaction> <mid>" Authorisation')
+@when(parsers.parse('I send matching {payment_card_transaction} {mid} Authorisation'))
 def import_payment_file(payment_card_transaction, mid):
     if payment_card_transaction == 'master-auth':
         response = TransactionMatching.get_master_auth_csv(mid)
+        logging.info(response)
+
     elif payment_card_transaction == 'amex-auth':
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
+        logging.info(response)
+
     elif payment_card_transaction == 'amex-settlement':
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_settlement_csv(mid)
+        logging.info(response)
     else:
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
+        logging.info(response)
 
     response_json = response.json()
     logging.info("The response of POST/import Payment File is: \n\n"
@@ -59,11 +65,12 @@ def verify_into_database():
     matched_count = QueryHarmonia.fetch_match_transaction_count(
         TestTransactionMatchingContext.transaction_matching_id,
         (TestTransactionMatchingContext.transaction_matching_amount * 100))
+    logging.info(matched_count)
     assert matched_count.count == 1, f"Transaction didnt match and the status is '{matched_count.count}'"
     logging.info(f"The Transaction got matched : '{matched_count.count}'")
 
 
-@when('I perform POST request to add "<payment_card_provider>" payment card to wallet')
+@when(parsers.parse('I perform POST request to add "{payment_card_provider}" payment card to wallet'))
 def add_transaction_paymentCard(payment_card_provider):
     """Function call to get_membership_cards in test_membership_cards"""
     test_payment_cards.add_payment_card(payment_card_provider)
@@ -87,15 +94,27 @@ def get_transaction_matching_add_and_link(merchant):
     test_membership_cards.verify_add_and_link_membership_card(merchant)
 
 
-@when('I send merchant Tlog file with "<merchant_container> '
-      '<payment_card_provider> <mid> <cardIdentity> <scheme>" and send to bink')
+@when(parsers.parse('I send merchant Tlog file with {merchant_container} '
+      '{payment_card_provider} {mid} {cardIdentity} {scheme} and send to bink'))
 def import_merchant_file(merchant_container, payment_card_provider, mid, cardIdentity, scheme):
     if merchant_container == 'scheme/iceland/':
         buf = io.StringIO()
         merchant_writer = csv.writer(buf, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         merchant_writer.writerow(TestTransactionMatchingContext.iceland_file_header)
         getNewFileDataToImport()
+        logging.info("first6")
+        logging.info(PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS))
+        logging.info(PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS))
+        logging.info(TestTransactionMatchingContext.transaction_matching_currentTimeStamp)
         merchant_writer.writerow([PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS),
+                                  PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS),
+                                  '01/80', '3', cardIdentity, mid,
+                                  TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
+                                  TestTransactionMatchingContext.transaction_matching_amount, 'GBP', '.00', 'GBP',
+                                  TestTransactionMatchingContext.transaction_matching_id,
+                                  TestTransactionMatchingContext.transaction_matching_uuid])
+        logging.info("/////////////")
+        logging.info([PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS),
                                   PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS),
                                   '01/80', '3', cardIdentity, mid,
                                   TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
@@ -105,6 +124,7 @@ def import_merchant_file(merchant_container, payment_card_provider, mid, cardIde
         bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
         blob_client = bbs.get_blob_client(TestTransactionMatchingContext.container_name, merchant_container
                                           + f"{TestTransactionMatchingContext.file_name}")
+        logging.info(buf.getvalue().encode())
         blob_client.upload_blob(buf.getvalue().encode())
 
     elif merchant_container == 'scheme/harvey-nichols/':
@@ -117,7 +137,9 @@ def import_merchant_file(merchant_container, payment_card_provider, mid, cardIde
         bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
         blob_client = bbs.get_blob_client(TestTransactionMatchingContext.container_name,
                                           merchant_container + file_name)
+        logging.info(blob_client)
         blob_client.upload_blob(json.dumps(file, indent=2))
+
         logging.info(f" This is the Merchant file sent to blob storage  : '{json.dumps(file, indent=2)}'")
 
 

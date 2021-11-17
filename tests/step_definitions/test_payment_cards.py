@@ -26,7 +26,7 @@ scenarios("payment_cards/")
 
 
 @when(parsers.parse('I perform POST request to add "{payment_card_provider}" payment card to wallet'))
-@when('I perform POST request to add "<payment_card_provider>" payment card to wallet')
+@when(parsers.parse('I perform POST request to add {payment_card_provider} payment card to wallet'))
 def add_payment_card(payment_card_provider="master"):
     response = PaymentCards.add_payment_card(TestContext.token, payment_card_provider)
     assert response.status_code == 201 or 200, \
