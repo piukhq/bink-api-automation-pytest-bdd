@@ -26,6 +26,7 @@
     "card": {
         "barcode_type": 0,
         "colour": "#d50724",
+        "text_colour": "#000000",
         "scan_message": "Please turn over to scan barcode"
     },
     "images": [
