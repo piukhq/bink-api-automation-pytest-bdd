@@ -299,6 +299,7 @@ def verify_membership_card_is_created(merchant):
             and ((response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)) or (
                 response_json["card"]["membership_id"] == TestContext.card_number))
             and response_json["card"] is not None
+            and response_json["card"]["text_colour"] is not None
             and response_json["images"] is not None
             and ((response_json["account"]["tier"] == 0) or (response_json["account"]["tier"] == 1))
             and response_json["balances"] is not None
