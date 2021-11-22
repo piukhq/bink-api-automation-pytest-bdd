@@ -23,6 +23,15 @@ class TransactionMatching_Endpoint:
         return header
 
     @staticmethod
+    def request_header_visa():
+        header = {
+            "Content-Type": "application/json",
+            "Authorization": "Basic VmlzYVR4VGVzdEB0ZXN0Ymluay5jb206N1RhcV9lLVZZOUtV",
+            "Cookie": "sessionid=w9diqhj7pi96rmn0asmvzme28mtzmt3n"
+        }
+        return header
+
+    @staticmethod
     def request_register_amex():
         header = {
             "Content-Type": "application/json",

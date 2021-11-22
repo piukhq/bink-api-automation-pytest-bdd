@@ -40,6 +40,8 @@ def import_payment_file(payment_card_transaction, mid):
     elif payment_card_transaction == 'amex-settlement':
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_settlement_csv(mid)
+    elif payment_card_transaction == 'visa-auth':
+        response = TransactionMatching.get_visa_auth_csv(mid)
     else:
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
