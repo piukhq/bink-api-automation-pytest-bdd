@@ -1,3 +1,5 @@
+import json
+
 import tests.api as api
 from tests.api.transactionmatching_base import TransactionMatching_Endpoint
 from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
@@ -13,6 +15,15 @@ class TransactionMatching(Endpoint):
         header = TransactionMatching_Endpoint.request_header_mastercard()
         payload = TransactionMatchingPaymentFileDetails.import_master_auth_payment_card(mid)
         response = Endpoint.call(url, header, "POST", payload)
+        return response
+
+    @staticmethod
+    def get_visa_auth_csv(mid):
+        url = TransactionMatching.get_visa_url()
+        header = TransactionMatching_Endpoint.request_header_visa()
+        payload = TransactionMatchingPaymentFileDetails.get_visa_auth_data(mid)
+        response = Endpoint.call(url, header, "POST", payload)
+        print(json.dumps(payload, indent=4))
         return response
 
     @staticmethod
