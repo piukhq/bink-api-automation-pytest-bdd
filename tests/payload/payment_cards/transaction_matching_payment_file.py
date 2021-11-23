@@ -77,8 +77,6 @@ class TransactionMatchingPaymentFileDetails:
         result_str = ''.join((random.choice(letters_and_digits) for i in range(length)))
         return result_str
 
-    get_random_alphanumeric_string(48)
-
     @staticmethod
     def get_visa_auth_data(mid):
         return {
