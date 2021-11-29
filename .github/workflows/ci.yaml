@@ -2,11 +2,9 @@ name: ci
 
 on:
   push:
-    branches: [ develop, master ]
+    branches: [ develop ]
   pull_request:
-    branches: [ develop, master ]
-  release:
-    types: [ published ]
+    branches: [ develop ]
 
 jobs:
   tests:
