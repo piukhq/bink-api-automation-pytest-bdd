@@ -79,6 +79,11 @@ class MembershipCards(Endpoint):
                 if response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
                         constants.PENDING):
                     time.sleep(i)
+                    if response_json["balances"] == []:
+                        url = MembershipCards.get_url(scheme_account_id)
+                        header = Endpoint.request_header(token)
+                        response = Endpoint.call(url, header, "GET")
+                        time.sleep(i+2)
                     continue
                 else:
                     time.sleep(i+1)
