@@ -93,9 +93,8 @@ The project requires the following Environment Variables to function correctly:
 - `NAME` - The Human Readable Name which should be sent with reports
   - Example: `Dev - Barclays`
 - `TEAMS_WEBHOOK` - The Location to Alert to on Success/Failure
-  - "Solutions Delivery/Alerts - Production" - `https://outlook.office.com/webhook/bf220ac8-d509-474f-a568-148982784d19@a6e2367a-92ea-4e5a-b565-723830bcc095/IncomingWebhook/7ae4116d366e4e5a92a65d9135a0664d/48aca6b1-4d56-4a15-bc92-8aa9d97300df`
-  - "Solutions Delivery/Alerts - QA" - `https://outlook.office.com/webhook/bf220ac8-d509-474f-a568-148982784d19@a6e2367a-92ea-4e5a-b565-723830bcc095/IncomingWebhook/0856493823a1484b9adfa37c942d2da4/48aca6b1-4d56-4a15-bc92-8aa9d97300df`
-  - "Solutions Delivery/QA" - `https://outlook.office.com/webhook/bf220ac8-d509-474f-a568-148982784d19@a6e2367a-92ea-4e5a-b565-723830bcc095/IncomingWebhook/5d25733db5994811b6ee4049ef74713e/48aca6b1-4d56-4a15-bc92-8aa9d97300df`
+-  "Solutions Delivery/Alerts - Production" - https://hellobink.webhook.office.com/webhookb2/bf220ac8-d509-474f-a568-148982784d19@a6e2367a-92ea-4e5a-b565-723830bcc095/IncomingWebhook/7ae4116d366e4e5a92a65d9135a0664d/48aca6b1-4d56-4a15-bc92-8aa9d97300df
+-  "Solutions Delivery/Alerts - QA" - https://hellobink.webhook.office.com/webhookb2/bf220ac8-d509-474f-a568-148982784d19@a6e2367a-92ea-4e5a-b565-723830bcc095/IncomingWebhook/0856493823a1484b9adfa37c942d2da4/48aca6b1-4d56-4a15-bc92-8aa9d97300df
 - `SCHEDULE` - Uses Cron Syntax, use [crontab guru](https://crontab.guru) for help
   - Run at 22:05: `5 22 * * *`
   - Run at 22:00 on Mondays: `0 22 * * 1`

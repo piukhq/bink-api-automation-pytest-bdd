@@ -659,9 +659,7 @@ def verify_membership_card_vouchers(merchant, env):
     logging.info("Response for" + merchant + "vouchers details" + json.dumps(response_json, indent=4))
     with open(TestData.get_expected_membership_card_json(merchant, env)) as json_file:
         expected_response = json.load(json_file)
-    logging.info("expected_Voucher_response:" + json.dumps(expected_response['vouchers'], indent=4))
     actual_response = response_json
-    logging.info("actual_voucher_response:" + json.dumps(actual_response['vouchers'], indent=4))
     assert (expected_response['vouchers'] == actual_response['vouchers']), "Voucher verification failed"
     logging.info("Voucher verification is successful")
 
