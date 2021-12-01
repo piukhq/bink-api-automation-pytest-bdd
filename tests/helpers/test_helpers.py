@@ -5,6 +5,7 @@ from tests.payload.membership_cards.cooperative import CoopCard
 from tests.payload.membership_cards.fatface import FatFaceCard
 from tests.payload.membership_cards.harvey_nichols import HarveyNicholsCard
 from tests.payload.membership_cards.iceland import IcelandCard
+from tests.payload.membership_cards.square_meal import SquareMealCard
 from tests.payload.membership_cards.whsmith import WHSmithCard
 from tests.payload.membership_cards.wasabi import WasabiCard
 
@@ -23,6 +24,7 @@ class Merchant:
             "Iceland": IcelandCard,
             "WHSmith": WHSmithCard,
             "Wasabi": WasabiCard,
+            "SquareMeal": SquareMealCard,
         }
         return switcher.get(merchant)
 
@@ -37,6 +39,7 @@ class Merchant:
             "Iceland": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CARD_NUM),
             "WHSmith": TestDataUtils.TEST_DATA.whsmith_membership_card.get(constants.CARD_NUM),
             "Wasabi": TestDataUtils.TEST_DATA.wasabi_membership_card.get(constants.CARD_NUM),
+            "SquareMeal": TestDataUtils.TEST_DATA.square_meal_membership_card.get(constants.CARD_NUM),
         }
         return switcher.get(merchant)
 
@@ -64,6 +67,7 @@ class TestData:
             "Iceland": TestDataUtils.TEST_DATA.iceland_membership_card,
             "WHSmith": TestDataUtils.TEST_DATA.whsmith_membership_card,
             "Wasabi": TestDataUtils.TEST_DATA.wasabi_membership_card,
+            "SquareMeal": TestDataUtils.TEST_DATA.square_meal_membership_card,
         }
         return switcher.get(merchant)
 
@@ -137,6 +141,7 @@ class TestData:
             "Iceland": "iceland",
             "WHSmith": "whsmith",
             "Wasabi": "wasabi",
+            "SquareMeal": "square_meal",
         }
         return switcher.get(merchant)
 

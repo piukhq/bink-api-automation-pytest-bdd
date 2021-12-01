@@ -151,6 +151,19 @@ harvey_nichols_invalid_data = {
     "id": "fail@unknown.com"
 }
 
+square_meal_membership_card = {
+    "id": "bink01@bink.com",
+    "password": "BinkTesting",
+    "card_num": "1000000729992",
+    "barcode": "10000007296992",
+    "points": 1896,
+    "currency": "Points",
+    "description": "Placeholder Balance Description",
+    "transactions": "0 ",
+    "transaction_status": "",
+    "transaction_currency": "",
+
+}
 # iceland_membership_card = {
 #     "card_num": "6332040030473324721",
 #     "last_name": "Bransden",
@@ -242,6 +255,7 @@ membership_plan_id = {
     "iceland": 105,
     "whsmith": 280,
     "wasabi": 281,
+    "square_meal": 286,
 }
 
 
