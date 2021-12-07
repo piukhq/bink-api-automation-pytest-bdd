@@ -1,3 +1,5 @@
+import time
+
 from pytest_bdd import (
     scenarios,
     then,
@@ -44,6 +46,7 @@ def get_add_and_link(merchant):
 
 @then(parsers.parse('I verify status of paymentcard is "{activated}" for "{merchant}"'))
 def verify_vop_activation_details(activated, merchant):
+    time.sleep(3)
     payment_account = QueryHermes.get_vop_status(TestContext.current_payment_card_id)
     assert payment_account.status == TestData.get_vop_status().get(activated), \
         f"Payment Account is not '{activated}' and the status is '{payment_account.status}'"
