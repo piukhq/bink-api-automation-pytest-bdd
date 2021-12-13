@@ -151,17 +151,30 @@ harvey_nichols_invalid_data = {
     "id": "fail@unknown.com"
 }
 
-square_meal_membership_card = {
-    "id": "bink01@bink.com",
-    "password": "BinkTesting",
-    "card_num": "1000000729992",
-    "barcode": "10000007296992",
-    "points": 1896,
+square_meal_membership_card1 = {
+    "id": "bola_staging_auto@bink.com",
+    "password": "Password1",
+    "card_num": "100680911",
+    "barcode": "100680911",
+    "points": 100,
     "currency": "Points",
     "description": "Placeholder Balance Description",
-    "transactions": "0 ",
-    "transaction_status": "",
-    "transaction_currency": "",
+    "transactions": "1",
+    "transaction_status": "active",
+    "transaction_currency": "Points",
+
+}
+square_meal_membership_card = {
+    "id": "sm_auto01@testbink.com",
+    "password": "Pass01sm",
+    "card_num": "100460668",
+    "barcode": "100460668",
+    "points": 100,
+    "currency": "Points",
+    "description": "Placeholder Balance Description",
+    "transactions": "1",
+    "transaction_status": "active",
+    "transaction_currency": "Points",
 
 }
 # iceland_membership_card = {

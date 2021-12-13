@@ -15,4 +15,12 @@ Feature: Merchant Square-meal - Ensure a customer can add their membership card 
     And I perform DELETE request to delete the customer
 
 
+  @add @bink_regression @bmb_regression @add_sm
+  Scenario: Add Journey_SquareMeal
+
+    Given I am a Bink user
+    When I perform POST request to add "SquareMeal" membership card
+    And I perform GET request to verify the "SquareMeal" membership card is added to the wallet
+    Then verify the data stored in DB after "Add" journey for "SquareMeal"
+    And I perform DELETE request to delete the "SquareMeal" membership card
 
