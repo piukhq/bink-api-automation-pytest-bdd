@@ -21,6 +21,26 @@ class QueryHarmonia:
         db.clear_db(connection)
         return matched_transaction_record
 
+    @staticmethod
+    def fetch_spotted_transaction_count(transaction_id, spend_amount):
+        """Fetch the spotted account details using spotted_transaction_id and amount """
+        connection = db.connect_harmonia_db()
+        record = db.execute_query_fetch_one(connection, get_spotted_transaction(transaction_id, spend_amount))
+        if record is None:
+            raise Exception(f"'{transaction_id}' is an Invalid transaction_id")
+        else:
+            spotted_transaction_record = MatchedTransactionRecord(record[0])
+        db.clear_db(connection)
+        return spotted_transaction_record
+
+
+def get_spotted_transaction(transaction_id, amount):
+    spotted_transaction = "SELECT count(*) from harmonia.public.export_transaction " \
+                          "WHERE transaction_id = '{}'" \
+                          "and spend_amount = {}".format(transaction_id, amount)
+    logging.info(spotted_transaction)
+    return spotted_transaction
+
 
 def get_matched_query(transaction_id, amount):
     transaction_query_account = "SELECT count(*) FROM harmonia.public.matched_transaction WHERE transaction_id='{}' " \

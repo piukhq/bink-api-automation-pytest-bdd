@@ -27,6 +27,24 @@ class TransactionMatching(Endpoint):
         return response
 
     @staticmethod
+    def get_visa_spotting_merchant_auth_file(mid):
+        url = TransactionMatching.get_visa_url()
+        header = TransactionMatching_Endpoint.request_header_visa()
+        payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_auth_data(mid)
+        response = Endpoint.call(url, header, "POST", payload)
+        print(json.dumps(payload, indent=4))
+        return response
+
+    @staticmethod
+    def get_visa_spotting_merchant_settlement_file(mid):
+        url = TransactionMatching.get_visa_url()
+        header = TransactionMatching_Endpoint.request_header_visa()
+        payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_settlement_data(mid)
+        response = Endpoint.call(url, header, "POST", payload)
+        print(json.dumps(payload, indent=4))
+        return response
+
+    @staticmethod
     def get_amex_register_payment_csv():
         url = TransactionMatching.get_amex_register_url()
         header = TransactionMatching_Endpoint.request_register_amex()
