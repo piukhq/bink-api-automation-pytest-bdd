@@ -1,5 +1,4 @@
 import random
-from decimal import Decimal
 
 
 class TestTransactionMatchingContext:
@@ -14,7 +13,7 @@ class TestTransactionMatchingContext:
     container_name = "harmonia-imports"
     file_name = ""
     transaction_id = ""
-    spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+    spend_amount = ""
     transaction_auth_code = random.randint(100000, 999999)
 
     iceland_file_header = ['TransactionCardFirst6', 'TransactionCardLast4', 'TransactionCardExpiry',

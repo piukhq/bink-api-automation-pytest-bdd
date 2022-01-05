@@ -57,16 +57,12 @@ def import_payment_file(payment_card_transaction, mid):
 
     if payment_card_transaction == 'visa-auth-spotting':
         logging.info("Waitting for transaction to be spotted and exported")
-        time.sleep(90)
-        return response_json
     elif payment_card_transaction == 'visa-settlement-spotting':
         logging.info("Waitting for transaction to be spotted and exported")
-        time.sleep(90)
-        return response_json
     else:
         logging.info("Waitting for the pods To match the transaction....and Export the Files")
-        time.sleep(90)
-        return response_json
+    time.sleep(90)
+    return response_json
 
 
 @then(parsers.parse('I verify 1 reward transaction is exported'))
@@ -82,7 +78,7 @@ def verify_into_database():
 def verify_spotted_transaction():
     spotted_transaction_count = QueryHarmonia.fetch_spotted_transaction_count(
         TestTransactionMatchingContext.transaction_id, (TestTransactionMatchingContext.spend_amount * 100))
-    assert spotted_transaction_count.count == 1, f"Transaction not spotted and the status is not exported"
+    assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
     logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 
 

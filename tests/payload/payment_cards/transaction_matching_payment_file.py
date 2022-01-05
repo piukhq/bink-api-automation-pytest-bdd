@@ -1,9 +1,9 @@
-import datetime
 import random
 import string
 import uuid
 import base64
 from decimal import Decimal
+
 from pytz import timezone
 
 from tests.helpers.test_data_utils import TestDataUtils
@@ -208,7 +208,6 @@ class TransactionMatchingPaymentFileDetails:
         TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone('Europe/London')) \
             .strftime('%Y-%m-%d %H:%M:%S')
         return {
-            # "CardId": TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48),
             "CardId": TestTransactionMatchingContext.transaction_id,
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
             "MessageElementsCollection": [
