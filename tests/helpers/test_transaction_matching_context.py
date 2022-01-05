@@ -1,3 +1,6 @@
+import random
+
+
 class TestTransactionMatchingContext:
     """ Transaction matching """
     amex_token = ""
@@ -9,6 +12,9 @@ class TestTransactionMatchingContext:
     transaction_matching_amexTimeStamp = ""
     container_name = "harmonia-imports"
     file_name = ""
+    transaction_id = ""
+    spend_amount = ""
+    transaction_auth_code = random.randint(100000, 999999)
 
     iceland_file_header = ['TransactionCardFirst6', 'TransactionCardLast4', 'TransactionCardExpiry',
                            'TransactionCardSchemeId', 'TransactionCardScheme', 'TransactionStore_Id',

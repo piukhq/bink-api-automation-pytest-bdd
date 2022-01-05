@@ -42,6 +42,10 @@ def import_payment_file(payment_card_transaction, mid):
         response = TransactionMatching.get_amex_settlement_csv(mid)
     elif payment_card_transaction == 'visa-auth':
         response = TransactionMatching.get_visa_auth_csv(mid)
+    elif payment_card_transaction == 'visa-auth-spotting':
+        response = TransactionMatching.get_visa_spotting_merchant_auth_file(mid)
+    elif payment_card_transaction == 'visa-settlement-spotting':
+        response = TransactionMatching.get_visa_spotting_merchant_settlement_file(mid)
     else:
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
@@ -51,7 +55,12 @@ def import_payment_file(payment_card_transaction, mid):
                  + json.dumps(response_json, indent=4))
     assert response.status_code == 201 or 200, "Payment file is not successful"
 
-    logging.info("Waitting for the pods To match the transaction....and Export the Files")
+    if payment_card_transaction == 'visa-auth-spotting':
+        logging.info("Waitting for transaction to be spotted and exported")
+    elif payment_card_transaction == 'visa-settlement-spotting':
+        logging.info("Waitting for transaction to be spotted and exported")
+    else:
+        logging.info("Waitting for the pods To match the transaction....and Export the Files")
     time.sleep(90)
     return response_json
 
@@ -63,6 +72,14 @@ def verify_into_database():
         (TestTransactionMatchingContext.transaction_matching_amount * 100))
     assert matched_count.count == 1, f"Transaction didnt match and the status is '{matched_count.count}'"
     logging.info(f"The Transaction got matched : '{matched_count.count}'")
+
+
+@then(parsers.parse('I verify transaction is spotted and exported'))
+def verify_spotted_transaction():
+    spotted_transaction_count = QueryHarmonia.fetch_spotted_transaction_count(
+        TestTransactionMatchingContext.transaction_id, (TestTransactionMatchingContext.spend_amount * 100))
+    assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
+    logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 
 
 @when(parsers.parse('I perform POST request to add "{payment_card_provider}" payment card to wallet'))
