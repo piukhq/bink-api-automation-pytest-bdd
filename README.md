@@ -13,7 +13,7 @@ This project requires an up-to-date version of Python 3 (Currently using Python 
 
 To set up this project on your local machine:
 
-    1. Clone it from this GitLab repository [QA GitLab](https://git.bink.com/QA/bink-api-automation-pytest-bdd)
+    1. Clone it from this GitLab repository [QA GitHub](https://github.com/binkhq/bink-api-automation-pytest-bdd)
     2. Run `pipenv install` from the project's root directory.
     3. * Optional Step : For Django Web UI tests, install the appropriate browser and WebDriver executable
         * Current Django tests use Chrome and
