@@ -4,7 +4,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
   I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider WHSmith & check its details successfully
 
-  @add @bink_regression
+  @add
   Scenario: Add Journey_WHSmith
 
     Given I am a Bink user
@@ -13,7 +13,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     Then verify the data stored in DB after "Add" journey for "WHSmith"
     And I perform DELETE request to delete the "WHSmith" membership card
 
-  @add_patch @bink_regression
+  @add_patch
   Scenario:  PATCH membership card details_WHSmith
 
     Given I am a Bink user
@@ -24,7 +24,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     Then verify the data stored in DB after "Add" journey for "WHSmith"
     And I perform DELETE request to delete the "WHSmith" membership card
 
-  @add_and_link @bink_regression
+  @add_and_link
   Scenario: ADD & LINK Journey_WHSmith
 
     Given I am a Bink user
@@ -37,7 +37,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "WHSmith" membership card
     And I perform DELETE request to delete the payment card
 
-  @enrol @bink_regression
+  @enrol
   Scenario: Join Journey_WHSmith
 
     Given I register with bink service as a new customer
@@ -47,7 +47,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "WHSmith" membership card
     Then I perform DELETE request to delete the customer
 
-  @enrol_put @bink_regression
+  @enrol_put
   Scenario: Join Journey_PUT_WHSmith
 
     Given I register with bink service as a new customer
@@ -59,7 +59,7 @@ Feature: Merchant WHSmith - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "WHSmith" membership card
     Then I perform DELETE request to delete the customer
 
-  @balances_transactions @bink_regression
+  @balances_transactions
   Scenario: Balances and Transactions_WHSmith
 
     Given I am a Bink user
