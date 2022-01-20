@@ -24,6 +24,7 @@
     },
     "card": {
         "colour": "#ccd400",
+        "text_colour": "#7289da",
         "scan_message": "Scanning not required"
     },
     "images": [
@@ -67,8 +68,8 @@
         "plan_name": "Wasabi Club",
         "plan_name_card": "Card",
         "plan_url": "https://www.wasabi.uk.com",
-        "plan_summary": "Collect 7 stamps for a \u00a37 OFF Meal Voucher. One stamp can be earned per customer per transaction when the qualifying spend in a single transaction for food & drink purchases totals \u00a37.00 or more in a participating Wasabi store. Ts and Cs apply.",
-        "plan_description": "Please note that your vouchers are single-use and cannot be used twice. Show your Wasabi Club reward code in store to redeem \u00a37 off your next meal.\r\nThe voucher will be available to redeem 2 months from the date it is collected. This voucher is non-refundable and cannot be exchanged for cash in part or full and is valid for a single transaction only.",
+        "plan_summary": "Collect 7 stamps for a £7 OFF Meal Voucher. One stamp can be earned per customer per transaction when the qualifying spend in a single transaction for food & drink purchases totals £7.00 or more in a participating Wasabi store. Ts and Cs apply.",
+        "plan_description": "Please note that your vouchers are single-use and cannot be used twice. Show your Wasabi Club reward code in store to redeem £7 off your next meal.\r\nThe voucher will be available to redeem 2 months from the date it is collected. This voucher is non-refundable and cannot be exchanged for cash in part or full and is valid for a single transaction only.",
         "plan_documents": [
             {
                 "name": "Wasabi privacy policy",
@@ -180,23 +181,23 @@
         },
         {
             "column": "Enrol_Help_Text",
-            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
+            "value": "Please enter your details to register with the retailer. We won’t save or store any of the information you provide or edit below."
         },
         {
             "column": "Voucher_Issued_Detail",
-            "value": "Show your Wasabi Club reward code in store to redeem \u00a37 off your next meal."
+            "value": "Show your Wasabi Club reward code in store to redeem £7 off your next meal."
         },
         {
             "column": "Voucher_Inprogress_Detail",
-            "value": "Spend \u00a37.00 or more to get a stamp. Collect 7 stamps to get a Meal Voucher of up to \u00a37 off your next meal."
+            "value": "Spend £7.00 or more to get a stamp. Collect 7 stamps to get a Meal Voucher of up to £7 off your next meal."
         },
         {
             "column": "Voucher_Cancelled_Detail",
-            "value": "Your\u00a0voucher\u00a0has\u00a0been\u00a0cancelled. If you believe we have made a mistake please contact enquiries@wasabi.uk.com."
+            "value": "Your voucher has been cancelled. If you believe we have made a mistake please contact enquiries@wasabi.uk.com."
         },
         {
             "column": "Promo_Text_1",
-            "value": "EVERYONE GETS \u00a37 OFF IN WASABI CLUB!"
+            "value": "EVERYONE GETS £7 OFF IN WASABI CLUB!"
         }
     ]
 }
