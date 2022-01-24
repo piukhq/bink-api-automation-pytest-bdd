@@ -4,7 +4,7 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @transactionMatchingIceland @bink_regression
+  @transactionMatchingIceland @bink_regression @mer
   Scenario Outline: Verify transaction matching for iceland with payment provider
 
     Given I am a Bink user
@@ -59,7 +59,7 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
     |          amex        |scheme/harvey-nichols/   |9600360903| Amex                     |amex-auth               | AMEX     |
 
 
-  @transactionMatchingSquareMeal @bink_regression @ts
+  @transactionMatchingSquareMeal @bink_regression @ts @mer
     Scenario Outline: Verify transaction streaming for squaremeal
 
     Given I am a Bink user
@@ -68,10 +68,11 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
     When I perform POST request to add & auto link "SquareMeal" membership card
     Then I perform GET request to verify the "SquareMeal" membershipcard is added & linked successfully in the wallet
     When I send matching "<payment_card_transaction>" "<mid>" Authorisation
-    Then I verify transaction is spotted and exported
+    Then I verify transaction is spotted and exported <feed_type>
 
 
     Examples:
-    | payment_card_provider|     mid       |payment_card_transaction |
-    |          visa        |  29047531     |visa-auth-spotting       |
-    |          visa        |  29047531     |visa-settlement-spotting |
+    | payment_card_provider|     mid       |payment_card_transaction | feed_type |
+    |          visa        |  29047531     |visa-auth-spotting       | AUTH      |
+    |          visa        |  29047531     |visa-settlement-spotting | SETTLED   |
+    |          visa        |  29047531     |visa-refund-spotting     | REFUND    |
