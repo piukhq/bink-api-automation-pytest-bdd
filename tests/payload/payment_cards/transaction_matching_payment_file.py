@@ -3,9 +3,7 @@ import string
 import uuid
 import base64
 from decimal import Decimal
-
 from pytz import timezone
-
 from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_helpers import PaymentCardTestData
 import tests.helpers.constants as constants
@@ -445,6 +443,100 @@ class TransactionMatchingPaymentFileDetails:
                 {
                     "Key": "TransactionType",
                     "Value": "Settle"
+                }
+            ],
+            "UserProfileId": str(uuid.uuid4())
+        }
+
+    @staticmethod
+    def get_visa_spotting_merchant_refund_data(mid):
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000))))) / 100
+        TestTransactionMatchingContext.transaction_id = TransactionMatchingPaymentFileDetails. \
+            get_random_alphanumeric_string(48)
+        TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
+        TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone('Europe/London')) \
+            .strftime('%Y-%m-%d %H:%M:%S')
+        return {
+
+            "CardId": TestTransactionMatchingContext.transaction_id,
+            "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
+            "MessageElementsCollection": [
+                {
+                    "Key": "ReturnTransaction.CardAcceptorIdCode",
+                    "Value": mid
+                },
+                {
+                    "Key": "ReturnTransaction.AcquirerBIN",
+                    "Value": "3423432"
+                },
+                {
+                    "Key": "ReturnTransaction.Amount",
+                    "Value": TestTransactionMatchingContext.spend_amount
+                },
+                {
+                    "Key": "ReturnTransaction.VipTransactionId",
+                    "Value": TestTransactionMatchingContext.transaction_id
+                },
+                {
+                    "Key": "ReturnTransaction.SettlementId",
+                    "Value": TestTransactionMatchingContext.transaction_id
+                },
+                {
+                    "Key": "ReturnTransaction.VisaMerchantName",
+                    "Value": ""
+                },
+                {
+                    "Key": "ReturnTransaction.VisaMerchantId",
+                    "Value": ""
+                },
+                {
+                    "Key": "ReturnTransaction.VisaStoreName",
+                    "Value": ""
+                },
+                {
+                    "Key": "ReturnTransaction.VisaStoreId",
+                    "Value": ""
+                },
+                {
+                    "Key": "ReturnTransaction.AcquirerAmount",
+                    "Value": TestTransactionMatchingContext.spend_amount
+                },
+                {
+                    "Key": "ReturnTransaction.AcquirerCurrencyCode",
+                    "Value": "840"
+                },
+                {
+                    "Key": "ReturnTransaction.CurrencyCode",
+                    "Value": "840"
+                },
+                {
+                    "Key": "ReturnTransaction.TransactionUSDAmount",
+                    "Value": TestTransactionMatchingContext.spend_amount
+                },
+                {
+                    "Key": "ReturnTransaction.DateTime",
+                    "Value": "19/1/2022 1:2:48 PM"
+
+                },
+                {
+                    "Key": "ReturnTransaction.MerchantGroup.0.Name",
+                    "Value": "SPOTTING-MERCHANT"
+                },
+                {
+                    "Key": "ReturnTransaction.MerchantGroupName.0.ExternalId",
+                    "Value": "Spotting Merchant"
+                },
+                {
+                    "Key": "ReturnTransaction.AuthCode",
+                    "Value": TestTransactionMatchingContext.transaction_auth_code
+                }
+            ],
+            "MessageId": str(uuid.uuid4()),
+            "MessageName": "AuthMessageTest",
+            "UserDefinedFieldsCollection": [
+                {
+                    "Key": "TransactionType",
+                    "Value": "return"
                 }
             ],
             "UserProfileId": str(uuid.uuid4())

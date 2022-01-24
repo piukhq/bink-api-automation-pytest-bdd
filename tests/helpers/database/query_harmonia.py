@@ -22,10 +22,11 @@ class QueryHarmonia:
         return matched_transaction_record
 
     @staticmethod
-    def fetch_spotted_transaction_count(transaction_id, spend_amount):
+    def fetch_spotted_transaction_count(transaction_id, feed_type):
         """Fetch the spotted account details using spotted_transaction_id and amount """
         connection = db.connect_harmonia_db()
-        record = db.execute_query_fetch_one(connection, get_spotted_transaction(transaction_id, spend_amount))
+        record = db.execute_query_fetch_one(connection, get_spotted_transaction(transaction_id,
+                                                                                feed_type))
         if record is None:
             raise Exception(f"'{transaction_id}' is an Invalid transaction_id")
         else:
@@ -34,10 +35,10 @@ class QueryHarmonia:
         return spotted_transaction_record
 
 
-def get_spotted_transaction(transaction_id, amount):
+def get_spotted_transaction(transaction_id, feed_type):
     spotted_transaction = "SELECT count(*) from harmonia.public.export_transaction " \
                           "WHERE transaction_id = '{}'" \
-                          "and spend_amount = {}".format(transaction_id, amount)
+                          "and feed_type = '{}'".format(transaction_id, feed_type)
     logging.info(spotted_transaction)
     return spotted_transaction
 
