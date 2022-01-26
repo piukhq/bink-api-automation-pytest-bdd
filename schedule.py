@@ -8,6 +8,8 @@ from azure.storage.blob import BlobClient, ContentSettings
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.schedulers.blocking import BlockingScheduler
 
+from settings import logger
+
 name = os.getenv("FRIENDLY_NAME")
 blob_storage_dsn = os.getenv("BLOB_STORAGE_DSN")
 teams_webhook = os.getenv("TEAMS_WEBHOOK")
@@ -19,10 +21,13 @@ alert_on_failure = os.getenv('ALERT_ON_FAILURE', True)
 
 def run_test():
     try:
+        logger.debug(f"Starting automated test suite using command: {command}")
         process = subprocess.run(command.split(" "), timeout=7200, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except subprocess.TimeoutExpired:
+        logger.exception("Error in subprocess, skipping run")
         print("Timeout occurred, skipping run")
         return
+    logger.debug(process.stdout.decode())
     print(process.stdout.decode())
     alert = False
     if process.returncode == 0:
@@ -33,7 +38,9 @@ def run_test():
         status = "Failure"
         if alert_on_failure:
             alert = True
+    logger.debug("Uploading report.html to blob storage...")
     url = upload("report.html")
+
     if alert:
         post(teams_webhook, status, url)
 
@@ -47,6 +54,7 @@ def upload(filename):
     )
     with open(filename, "rb") as f:
         blob.upload_blob(f, content_settings=ContentSettings(content_type="text/html"))
+    logger.debug(f"Successfully uploaded report to blob storage: {blob.url}")
     return blob.url
 
 
@@ -77,6 +85,7 @@ def post(webhook, status, url):
 def main():
     scheduler = BlockingScheduler()
     scheduler.add_job(run_test, trigger=CronTrigger.from_crontab(schedule))
+    logger.debug(f"Scheduled automated test run using cron expression: {schedule}")
     scheduler.start()
 
 
