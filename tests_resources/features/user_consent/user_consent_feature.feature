@@ -1,4 +1,4 @@
-@registerConsent
+@registerConsent  @sanity
 Feature: Verify /service endpoint is working as expected
   As a customer
   I want to receive a correct error message when I don’t pass in the ”consent” field

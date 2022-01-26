@@ -1,4 +1,4 @@
-@wasabi @dev
+@wasabi @dev @sanity
 Feature: Merchant Wasabi - Ensure a customer can view Scheme plan details
   As a customer
   I want to access membership plans

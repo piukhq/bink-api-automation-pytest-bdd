@@ -1,10 +1,10 @@
-@wasabi @dev
+@wasabi @dev @sanity
 Feature: Merchant Wasabi - Ensure a customer can add their membership card & view its details for merchant Wasabi
   As a customer
   I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider Wasabi & check its details successfully
 
-  @add @bink_regression @bmb_regression
+  @add @bink_regression @bmb_regression @enrol1
   Scenario: Add Journey_Wasabi
 
     Given I am a Bink user
