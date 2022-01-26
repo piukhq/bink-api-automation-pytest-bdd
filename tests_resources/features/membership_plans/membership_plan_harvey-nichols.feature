@@ -1,4 +1,4 @@
-@harvey_nichols @dev
+@harvey_nichols @dev @sanity
 Feature: Merchant HarveyNichols - Ensure a customer can view Scheme plan details
   As a customer
   I want to access membership plans
