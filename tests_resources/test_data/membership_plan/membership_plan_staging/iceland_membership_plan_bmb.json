@@ -26,6 +26,7 @@
     "card": {
         "barcode_type": 0,
         "colour": "#d50724",
+        "text_colour": "#00FF00",
         "scan_message": "Please turn over to scan barcode"
     },
     "images": [
@@ -86,17 +87,17 @@
             "encoding": "png"
         },
         {
-            "id": 1302,
-            "type": 2,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Iceland_Offer_Pizza.jpg",
-            "description": "Iceland Offer - Pizza",
-            "encoding": "jpg"
-        },
-        {
             "id": 1303,
             "type": 2,
             "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Iceland_Offer_Greggs.jpg",
             "description": "Iceland Offer - Greggs",
+            "encoding": "jpg"
+        },
+        {
+            "id": 1302,
+            "type": 2,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Iceland_Offer_Pizza.jpg",
+            "description": "Iceland Offer - Pizza",
             "encoding": "jpg"
         }
     ],
