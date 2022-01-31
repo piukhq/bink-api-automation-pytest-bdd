@@ -4,7 +4,7 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @transactionMatchingIceland @bink_regression @mer
+  @transactionMatchingIceland @bink_regression
   Scenario Outline: Verify transaction matching for iceland with payment provider
 
     Given I am a Bink user
@@ -59,7 +59,7 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
     |          amex        |scheme/harvey-nichols/   |9600360903| Amex                     |amex-auth               | AMEX     |
 
 
-  @transactionMatchingSquareMeal @bink_regression @ts @mer
+  @transactionMatchingSquareMeal @bink_regression @sanity
     Scenario Outline: Verify transaction streaming for squaremeal
 
     Given I am a Bink user

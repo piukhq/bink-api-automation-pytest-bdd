@@ -1,4 +1,5 @@
-@square_meal @dev
+@square_meal @dev @sanity
+
 Feature: Merchant Square-meal - Ensure a customer can add their membership card & view its details for merchant Square-meal
   As a customer
   I want to utilise membership_cards endpoint
