@@ -28,7 +28,12 @@ class SquareMealCard:
             value = email
             data_type = "Valid data"
         sensitive_value = constants.PASSWORD_ENROL
-        pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
+
+        if channel == 'barclays':
+            pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
+        else:
+            pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
+
         payload = {
             "account": {
                 "enrol_fields": [
