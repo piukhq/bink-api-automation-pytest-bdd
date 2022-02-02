@@ -1,4 +1,4 @@
-@wasabi @dev @sanity
+@wasabi @dev @sanity @sanity_bmb
 Feature: Merchant Wasabi - Ensure a customer can add their membership card & view its details for merchant Wasabi
   As a customer
   I want to utilise membership_cards endpoint
