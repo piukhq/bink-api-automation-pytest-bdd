@@ -1,4 +1,4 @@
-@square_meal @dev @sanity
+@square_meal @dev @sanity @sanity_bmb
 
 Feature: Merchant Square-meal - Ensure a customer can add their membership card & view its details for merchant Square-meal
   As a customer
