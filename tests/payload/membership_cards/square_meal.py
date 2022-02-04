@@ -53,14 +53,34 @@ class SquareMealCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = TestDataUtils.TEST_DATA.square_meal_invalid_data.get(constants.ID)
-            logging.info("Invalid data is: " + value)
+            invalid_email = TestDataUtils.TEST_DATA.square_meal_invalid_data.get(constants.ID)
+            invalid_password = TestDataUtils.TEST_DATA.square_meal_invalid_data.get(constants.PASSWORD)
+            logging.info("Invalid id is: " + invalid_email)
+            logging.info("Invalid password is: " + invalid_password)
             data_type = "Invalid data"
+
+            payload = {
+                "account": {
+                    "authorise_fields": [
+                        {"column": "Email",
+                         "value": invalid_email
+                         },
+                        {
+                            "column": "Password",
+                            "value": invalid_password
+                        }
+                    ]
+                },
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("square_meal"),
+            }
+            logging.info("The Request for Add Journey with " + data_type + " :\n\n"
+                         + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+            return payload
         else:
-            value = TestDataUtils.TEST_DATA.square_meal_membership_card.get(constants.ID)
+            valid_email = TestDataUtils.TEST_DATA.square_meal_membership_card.get(constants.ID)
             data_type = "Valid data"
 
-        sensitive_value = TestDataUtils.TEST_DATA.square_meal_membership_card.get(constants.PASSWORD)
+            sensitive_value = TestDataUtils.TEST_DATA.square_meal_membership_card.get(constants.PASSWORD)
 
         if TestContext.flag_encrypt == "true":
             if TestContext.channel_name == config.BINK.channel_name:
@@ -77,7 +97,7 @@ class SquareMealCard:
             "account": {
                 "authorise_fields": [
                     {"column": "Email",
-                     "value": value
+                     "value": valid_email
                      },
                     {
                         "column": "Password",
