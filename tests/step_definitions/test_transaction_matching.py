@@ -48,6 +48,8 @@ def import_payment_file(payment_card_transaction, mid):
         response = TransactionMatching.get_visa_spotting_merchant_settlement_file(mid)
     elif payment_card_transaction == 'visa-refund-spotting':
         response = TransactionMatching.get_visa_spotting_merchant_refund_file(mid)
+    elif payment_card_transaction == 'visa-auth-spotting_invalid_token':
+        response = TransactionMatching.get_visa_spotting_merchant_refund_file_invalid_token(mid)
     else:
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
@@ -62,6 +64,8 @@ def import_payment_file(payment_card_transaction, mid):
     elif payment_card_transaction == 'visa-settlement-spotting':
         logging.info("Waitting for transaction to be spotted and exported")
     elif payment_card_transaction == 'visa-refund-spotting':
+        logging.info("Waitting for transaction to be spotted and exported")
+    elif payment_card_transaction == 'visa-auth-spotting_invalid_token':
         logging.info("Waitting for transaction to be spotted and exported")
     else:
         logging.info("Waitting for the pods To match the transaction....and Export the Files")
@@ -84,6 +88,14 @@ def verify_spotted_transaction(feed_type):
         TestTransactionMatchingContext.transaction_id, feed_type)
     assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
     logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
+
+
+@then(parsers.parse('I verify transaction is not spotted and exported {feed_type}'))
+def verify_transaction_not_spotted(feed_type):
+    spotted_transaction_count = QueryHarmonia.fetch_spotted_transaction_count(
+        TestTransactionMatchingContext.transaction_id, feed_type)
+    assert spotted_transaction_count.count == 0, "The Transaction got spotted and exported"
+    logging.info(f" Transaction not spotted and the status is not exported: '{spotted_transaction_count.count}'")
 
 
 @when(parsers.parse('I perform POST request to add "{payment_card_provider}" payment card to wallet'))
@@ -111,7 +123,7 @@ def get_transaction_matching_add_and_link(merchant):
 
 
 @when(parsers.parse('I send merchant Tlog file with "{merchant_container}" '
-      '"{payment_card_provider}" "{mid}" "{cardIdentity}" "{scheme}" and send to bink'))
+                    '"{payment_card_provider}" "{mid}" "{cardIdentity}" "{scheme}" and send to bink'))
 def import_merchant_file(merchant_container, payment_card_provider, mid, cardIdentity, scheme):
     if merchant_container == 'scheme/iceland/':
         buf = io.StringIO()
