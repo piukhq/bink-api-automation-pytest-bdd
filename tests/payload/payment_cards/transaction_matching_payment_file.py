@@ -541,3 +541,130 @@ class TransactionMatchingPaymentFileDetails:
             ],
             "UserProfileId": str(uuid.uuid4())
         }
+
+    @staticmethod
+    def get_visa_spotting_merchant_auth_data_with_invalid_token(mid):
+        invalid_token = "5657775"
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        TestTransactionMatchingContext.transaction_id = TransactionMatchingPaymentFileDetails. \
+            get_random_alphanumeric_string(48)
+        TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
+        TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone('Europe/London')) \
+            .strftime('%Y-%m-%d %H:%M:%S')
+        return {
+            "CardId": TestTransactionMatchingContext.transaction_id,
+            "ExternalUserId": invalid_token,
+            "MessageElementsCollection": [
+                {
+                    "Key": "Transaction.MerchantCardAcceptorId",
+                    "Value": mid
+                },
+                {
+                    "Key": "Transaction.MerchantAcquirerBin",
+                    "Value": "3423432"
+                },
+                {
+                    "Key": "Transaction.TransactionAmount",
+                    "Value": TestTransactionMatchingContext.spend_amount
+
+                },
+                {
+                    "Key": "Transaction.VipTransactionId",
+                    "Value": TestTransactionMatchingContext.transaction_id
+                },
+                {
+                    "Key": "Transaction.VisaMerchantName",
+                    "Value": ""
+                },
+                {
+                    "Key": "Transaction.VisaMerchantId",
+                    "Value": ""
+                },
+                {
+                    "Key": "Transaction.VisaStoreName",
+                    "Value": ""
+                },
+                {
+                    "Key": "Transaction.VisaStoreId",
+                    "Value": ""
+                },
+                {
+                    "Key": "Transaction.CurrencyCodeNumeric",
+                    "Value": "840"
+                },
+                {
+                    "Key": "Transaction.BillingCurrencyCode",
+                    "Value": "840"
+                },
+                {
+                    "Key": "Transaction.USDAmount",
+                    "Value": TestTransactionMatchingContext.spend_amount
+                },
+                {
+                    "Key": "Transaction.MerchantLocalPurchaseDate",
+                    "Value": str(date.today())
+                },
+                {
+                    "Key": "Transaction.MerchantGroup.0.Name",
+                    "Value": "SPOTTING-MERCHANT"
+                },
+                {
+                    "Key": "Transaction.MerchantGroup.0.ExternalId",
+                    "Value": "Spotting Merchant"
+                },
+                {
+                    "Key": "Transaction.AuthCode",
+                    "Value": TestTransactionMatchingContext.transaction_auth_code
+                },
+                {
+                    "Key": "Transaction.PanLastFour",
+                    "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS)
+                },
+                {
+                    "Key": "Transaction.MerchantDateTimeGMT",
+                    "Value": TestTransactionMatchingContext.current_time_stamp
+
+                },
+                {
+                    "Key": "Transaction.BillingAmount",
+                    "Value": TestTransactionMatchingContext.spend_amount
+                },
+                {
+                    "Key": "Transaction.TimeStampYYMMDD",
+                    "Value": TestTransactionMatchingContext.current_time_stamp
+                },
+                {
+                    "Key": "Transaction.SettlementDate",
+                    "Value": ""
+                },
+                {
+                    "Key": "Transaction.SettlementAmount",
+                    "Value": "0"
+                },
+                {
+                    "Key": "Transaction.SettlementCurrencyCodeNumeric",
+                    "Value": "0"
+                },
+                {
+                    "Key": "Transaction.SettlementBillingAmount",
+                    "Value": "0"
+                },
+                {
+                    "Key": "Transaction.SettlementBillingCurrency",
+                    "Value": ""
+                },
+                {
+                    "Key": "Transaction.SettlementUSDAmount",
+                    "Value": "0"
+                }
+            ],
+            "MessageId": str(uuid.uuid4()),
+            "MessageName": "AuthMessageTest",
+            "UserDefinedFieldsCollection": [
+                {
+                    "Key": "TransactionType",
+                    "Value": "Auth"
+                }
+            ],
+            "UserProfileId": str(uuid.uuid4())
+        }
