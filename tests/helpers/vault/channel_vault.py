@@ -3,7 +3,7 @@ import logging
 import time
 from enum import Enum
 import requests
-from settings import LOCAL_SECRETS_PATH, LOCAL_CHANNELS, VAULT_URL, CHANNEL_SECRET_NAME
+from settings import LOCAL_SECRETS_PATH, LOCAL_CHANNELS, VAULT_URL
 
 from azure.core.exceptions import ServiceRequestError, ResourceNotFoundError, HttpResponseError
 from azure.identity import DefaultAzureCredential
