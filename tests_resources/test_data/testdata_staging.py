@@ -132,7 +132,7 @@ harvey_nichols_membership_card = {
     "transactions": "5",
     "transaction_status": "active",
     "transaction_currency": "Points",
-}
+  }
 
 harvey_nichols_membership_card_2 = {
     "id": "ryanedwards3@mac.com",
@@ -145,8 +145,8 @@ harvey_nichols_membership_card_2 = {
     "transactions": "0 ",
     "transaction_status": "",
     "transaction_currency": "",
-
 }
+
 harvey_nichols_invalid_data = {
     "id": "fail@unknown.com"
 }
@@ -155,6 +155,7 @@ square_meal_invalid_data = {
     "id": "sm_auto01@testbink.com",
     "password": "Pass"
 }
+
 square_meal_membership_card2 = {
     "id": "bola_staging_auto@bink.com",
     "password": "Password1",
@@ -191,7 +192,7 @@ square_meal_membership_card = {
 
 iceland_membership_card = {
     "card_num": "6332040066666666666",
-    "barcode": "6332040066666666666",
+    "barcode": "63320400666666666660080",
     "last_name": "six",
     "postcode": "rg6 6aa",
     "points": 1480,
