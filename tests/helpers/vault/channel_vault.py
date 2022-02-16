@@ -3,7 +3,7 @@ import logging
 import time
 from enum import Enum
 import requests
-from settings import LOCAL_SECRETS_PATH, LOCAL_CHANNELS, VAULT_URL, CHANNEL_SECRET_NAME
+from settings import LOCAL_SECRETS_PATH, LOCAL_CHANNELS, VAULT_URL
 
 from azure.core.exceptions import ServiceRequestError, ResourceNotFoundError, HttpResponseError
 from azure.identity import DefaultAzureCredential
@@ -32,11 +32,25 @@ def retry_get_secrets_from_vault():
     for _ in range(retries):
         try:
             client = SecretClient(vault_url=VAULT_URL, credential=DefaultAzureCredential())
-            secret = client.get_secret(CHANNEL_SECRET_NAME)
-            try:
-                return json.loads(secret.value)
-            except json.decoder.JSONDecodeError:
-                return secret.value
+            # secret = client.get_secret(CHANNEL_SECRET_NAME)
+            secrets = {}
+            secrets_to_load = []
+
+            secrets_in_vault = client.list_properties_of_secrets()
+
+            for secret in secrets_in_vault:
+                if 'ubiquity-channel' in secret.name:
+                    secrets_to_load.append(secret.name)
+                    logger.info(f"Found secret {secret.name}. Adding to load list")
+
+            for secret_name in secrets_to_load:
+                try:
+                    secrets.update(json.loads(client.get_secret(secret_name).value))
+                except Exception:
+                    logger.error(f"Failed to load secret {secret_name}")
+
+            return secrets
+
         except (ServiceRequestError, ResourceNotFoundError, HttpResponseError) as e:
             exception = e
             time.sleep(3)
