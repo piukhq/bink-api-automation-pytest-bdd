@@ -110,3 +110,153 @@ class SquareMealCard:
         logging.info("The Request for Add Journey with " + data_type + " :\n\n"
                      + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
+
+    @staticmethod
+    def add_membership_card_payload_without_field(field):
+        faker = Faker()
+        email = TestDataUtils.TEST_DATA.square_meal_membership_card.get(constants.ID)
+        sensitive_value = TestDataUtils.TEST_DATA.square_meal_membership_card.get(constants.PASSWORD)
+
+        if TestContext.flag_encrypt == "true":
+            if TestContext.channel_name == config.BINK.channel_name:
+                pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
+            elif TestContext.channel_name == config.BARCLAYS.channel_name:
+                pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
+
+            password = RSACipher().encrypt(sensitive_value, pub_key)
+
+        elif TestContext.flag_encrypt == "false":
+            password = sensitive_value
+
+        if field == 'account':
+            payload = {
+                "authorise_fields": [
+                    {"column": "Email",
+                     "value": email
+                     },
+                    {
+                        "column": "Password",
+                        "value": password
+                    }
+                ],
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("square_meal")
+            }
+
+        elif field == 'membership_plan':
+            payload = {
+                "account": {
+                    "authorise_fields": [
+                        {"column": "Email",
+                         "value": email
+                         },
+                        {
+                            "column": "Password",
+                            "value": password
+                        }
+                    ]
+                }
+            }
+
+        elif field == 'authorise_fields':
+            payload = {
+                "account": [
+                    {"column": "Email",
+                     "value": email
+                     },
+                    {
+                        "column": "Password",
+                        "value": password
+                    }],
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("square_meal"),
+            }
+
+        elif field == 'enrol_account':
+            payload = {
+                "enrol_fields": [
+                    {"column": "Email", "value": email},
+                    {"column": "Password", "value": RSACipher().encrypt(sensitive_value, pub_key)},
+                    {"column": "First name", "value": faker.name()},
+                    {"column": "Last name", "value": faker.name()},
+                    {"column": "Consent 1", "value": "true"}],
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("square_meal"), }
+
+        elif field == 'email':
+            payload = {
+                "account": {
+                    "authorise_fields": [
+                        {"column": "Email",
+                         "value": ""
+                         },
+                        {
+                            "column": "Password",
+                            "value": password
+                        }
+                    ]
+                },
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("square_meal"),
+            }
+
+        elif field == 'email_coloumn_value':
+            payload = {
+                "account": {
+                    "authorise_fields": [
+                        {"column": "email",
+                         "value": email
+                         },
+                        {
+                            "column": "Password",
+                            "value": password
+                        }
+                    ]
+                },
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("square_meal"),
+            }
+
+        elif field == "password_coloumn_value":
+            payload = {
+                "account": {
+                    "authorise_fields": [
+                        {"column": "Email",
+                         "value": email
+                         },
+                        {
+                            "column": "password",
+                            "value": password
+                        }
+                    ]
+                },
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("square_meal"),
+            }
+
+        elif field == "token":
+            payload = {
+                "account": {
+                    "authorise_fields": [
+                        {"column": "Email",
+                         "value": email
+                         },
+                        {
+                            "column": "Password",
+                            "value": password
+                        }
+                    ]
+                },
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("square_meal"),
+            }
+
+        elif field == "email_address":
+            payload = {
+                "account": {
+                    "authorise_fields": [
+                        {"column": "Email",
+                         "value": "automatione2e.bink.com"
+                         },
+                        {
+                            "column": "Password",
+                            "value": password
+                        }
+                    ]
+                },
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("square_meal"),
+            }
+        return payload
