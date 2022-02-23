@@ -515,7 +515,7 @@ class TransactionMatchingPaymentFileDetails:
                 },
                 {
                     "Key": "ReturnTransaction.DateTime",
-                    "Value": "19/1/2022 1:2:48 PM"
+                    "Value": "1/19/2022 1:2:48 PM"
 
                 },
                 {

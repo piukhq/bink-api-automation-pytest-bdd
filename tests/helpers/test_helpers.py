@@ -8,6 +8,7 @@ from tests.payload.membership_cards.iceland import IcelandCard
 from tests.payload.membership_cards.square_meal import SquareMealCard
 from tests.payload.membership_cards.whsmith import WHSmithCard
 from tests.payload.membership_cards.wasabi import WasabiCard
+from tests.payload.membership_cards.trenette import TrenetteCard
 
 
 class Merchant:
@@ -25,6 +26,7 @@ class Merchant:
             "WHSmith": WHSmithCard,
             "Wasabi": WasabiCard,
             "SquareMeal": SquareMealCard,
+            "Trenette": TrenetteCard,
         }
         return switcher.get(merchant)
 
@@ -40,6 +42,7 @@ class Merchant:
             "WHSmith": TestDataUtils.TEST_DATA.whsmith_membership_card.get(constants.CARD_NUM),
             "Wasabi": TestDataUtils.TEST_DATA.wasabi_membership_card.get(constants.CARD_NUM),
             "SquareMeal": TestDataUtils.TEST_DATA.square_meal_membership_card.get(constants.CARD_NUM),
+            "Trenette": TestDataUtils.TEST_DATA.trenette_membership_card.get(constants.CARD_NUM),
         }
         return switcher.get(merchant)
 
@@ -68,6 +71,7 @@ class TestData:
             "WHSmith": TestDataUtils.TEST_DATA.whsmith_membership_card,
             "Wasabi": TestDataUtils.TEST_DATA.wasabi_membership_card,
             "SquareMeal": TestDataUtils.TEST_DATA.square_meal_membership_card,
+            "Trenette": TestDataUtils.TEST_DATA.trenette_membership_card,
         }
         return switcher.get(merchant)
 
@@ -142,6 +146,7 @@ class TestData:
             "WHSmith": "whsmith",
             "Wasabi": "wasabi",
             "SquareMeal": "square_meal",
+            "Trenette": "trenette"
         }
         return switcher.get(merchant)
 
@@ -152,7 +157,6 @@ class TestData:
 
 class PaymentCardTestData:
     """This function is for future use - when more testing in payment cards"""
-
     @staticmethod
     def get_data(payment_card_provider="master"):
         switcher = {

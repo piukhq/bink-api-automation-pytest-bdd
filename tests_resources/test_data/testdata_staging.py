@@ -235,6 +235,33 @@ iceland_invalid_data = {
     "postcode": "fail",
 }
 
+trenette_membership_card = {
+    "card_num": "TRNT7184965618",
+    "email": "bpltestmeruser@bink.com",
+    "points": 16.5,
+    "currency": "GBP",
+    "burn_type": "voucher",
+    "burn_suffix": "Free bottle of house wine",
+    "earn_type": "accumulator",
+    "earn_prefix": "\u00a3",
+    "issued_state": "issued",
+    "inprogress_state": "inprogress",
+    "expired_state": "expired",
+    "redeemed_state": "redeemed",
+    "target_value": 100.0,
+    "headline": "Spend \u00a3100 stamps to go!",
+    "expired_headline": "Expired",
+    "redeemed_headline": "Redeemed",
+    "barcode_type": 0,
+    "code": "TESTRETVOC4",
+    "issued_headline": "Earned",
+}
+
+trenette_invalid_data = {
+    "card_num": "",
+    "email": "fail@unknown.com",
+}
+
 wasabi_membership_card = {
     "card_num": "1048172852",
     "email": "binktestuser14@wasabi.com",
@@ -274,6 +301,7 @@ membership_plan_id = {
     "whsmith": 280,
     "wasabi": 281,
     "square_meal": 286,
+    "trenette": 284,
 }
 
 
