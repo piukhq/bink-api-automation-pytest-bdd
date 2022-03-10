@@ -82,6 +82,15 @@ def verify_into_database():
     logging.info(f"The Transaction got matched : '{matched_count.count}'")
 
 
+@then(parsers.parse('I verify transaction is not matched and not exported'))
+def verify_transaction_not_matched():
+    matched_count = QueryHarmonia.fetch_match_transaction_count(
+        TestTransactionMatchingContext.transaction_matching_id,
+        (TestTransactionMatchingContext.transaction_matching_amount * 100))
+    assert matched_count.count == 0, f"Transaction didnt match and the status is '{matched_count.count}'"
+    logging.info(f" Transaction not matched and the status is not exported: '{matched_count.count}'")
+
+
 @then(parsers.parse('I verify transaction is spotted and exported {feed_type}'))
 def verify_spotted_transaction(feed_type):
     spotted_transaction_count = QueryHarmonia.fetch_spotted_transaction_count(
