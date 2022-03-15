@@ -49,7 +49,7 @@ class IcelandCard:
     @staticmethod
     def enrol_membership_scheme_payload(email, env=None, channel=None, invalid_data=None):
         faker = Faker()
-        enrol_consent = "Consent 1"
+        enrol_consent = "Enrol Consent 1"
         if invalid_data:
             value = TestDataUtils.TEST_DATA.iceland_invalid_data.get(constants.EMAIL)
             logging.info("Invalid data is: " + value)
