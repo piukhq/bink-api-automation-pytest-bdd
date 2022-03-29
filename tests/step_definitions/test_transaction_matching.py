@@ -15,7 +15,8 @@ import json
 import logging
 import time
 import io
-
+import os
+from azure.storage.blob import ContentSettings
 from azure.storage.blob import BlobServiceClient
 import harvey_nichols_transaction_matching_files
 from tests.helpers.database.query_harmonia import QueryHarmonia
@@ -24,6 +25,7 @@ import tests.helpers.constants as constants
 import tests.step_definitions.test_payment_cards as test_payment_cards
 from settings import BLOB_STORAGE_DSN
 from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
+from tests.payload.payment_cards import transaction_matching_payment_file
 from tests.requests.transaction_matching_payment_cards import TransactionMatching
 from tests.step_definitions import test_membership_cards
 
@@ -58,17 +60,29 @@ def import_payment_file(payment_card_transaction, mid):
     logging.info("The response of POST/import Payment File is: \n\n"
                  + json.dumps(response_json, indent=4))
     assert response.status_code == 201 or 200, "Payment file is not successful"
+    if payment_card_transaction == 'master-settlement':
+        merchant_container = 'mastercard'
+        file_name = \
+            transaction_matching_payment_file.TransactionMatchingPaymentFileDetails.get_master_settlement_txt_file(mid)
+        bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
+        blob_client = \
+            bbs.get_blob_client('harmonia-imports/test/mastercard-settlement', merchant_container + f"{file_name.name}")
+        with open(file_name.name, "rb") as settlement_file:
+            blob_client.upload_blob(settlement_file, content_settings=ContentSettings(content_type="text/plain"))
+            logging.info(f'{file_name.name} has been uploaded to blob storage with auth_code = '
+                         f'{TestTransactionMatchingContext.transaction_matching_uuid} and MID = {mid}')
+            os.remove(file_name.name)
 
     if payment_card_transaction == 'visa-auth-spotting':
-        logging.info("Waitting for transaction to be spotted and exported")
+        logging.info("Waiting for transaction to be spotted and exported")
     elif payment_card_transaction == 'visa-settlement-spotting':
-        logging.info("Waitting for transaction to be spotted and exported")
+        logging.info("Waiting for transaction to be spotted and exported")
     elif payment_card_transaction == 'visa-refund-spotting':
-        logging.info("Waitting for transaction to be spotted and exported")
+        logging.info("Waiting for transaction to be spotted and exported")
     elif payment_card_transaction == 'visa-auth-spotting_invalid_token':
-        logging.info("Waitting for transaction to be spotted and exported")
+        logging.info("Waiting for transaction to be spotted and exported")
     else:
-        logging.info("Waitting for the pods To match the transaction....and Export the Files")
+        logging.info("Waiting for the pods To match the transaction....and Export the Files")
     time.sleep(90)
     return response_json
 

@@ -10,6 +10,14 @@ import tests.helpers.constants as constants
 from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
 from datetime import date
 from datetime import datetime
+import pendulum
+import typing as t
+
+WidthField = t.Tuple[t.Any, int]
+
+
+def join(*args: WidthField) -> str:
+    return "".join(str(value).ljust(length) for value, length in args)
 
 
 class TransactionMatchingPaymentFileDetails:
@@ -18,6 +26,53 @@ class TransactionMatchingPaymentFileDetails:
     def import_master_auth_payment_card(mid):
         import_payment_file = TransactionMatchingPaymentFileDetails.get_mastercard_auth_data(mid)
         return import_payment_file
+
+    @staticmethod
+    def get_master_settlement_txt_file(mid):
+        third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
+        now = pendulum.now()
+        auth_code = TestTransactionMatchingContext.transaction_matching_uuid
+        mid = mid
+        payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
+        amount = (str(TestTransactionMatchingContext.transaction_matching_amount * 100).zfill(12))
+        lines = [join(
+            ("H", 1),
+            (now.format("YYYYMMDD"), 8),
+            (now.format("hhmmss"), 6),
+            (" ", 6),
+            ("mastercard-tgx2-settlement.txt", 9),
+            ("", 835),
+
+        ), join(
+            ("D", 1),
+            ("", 20),
+            (payment_card_token, 30),
+            ("", 51),
+            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
+            ("", 341),
+            (mid, 15),
+            ("", 52),
+            ((amount[:12]), 12),
+            ("", 33),
+            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
+            (auth_code, 4),
+            ("", 124),
+            (third_part_id, 6),
+            ("", 188),
+        ), join(
+            ("T", 1),
+            (now.format("YYYYMMDD"), 8),
+            (now.format("hhmmss"), 6),
+            (" ", 6),
+            ("mastercard-tgx2-settlement.txt", 9),
+            ("", 835),
+        )]
+        file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.transaction_matching_amount) + ".txt")
+        with open(file_name, "a+") as file_name:
+            for line in lines:
+                (file_name.write(str(line)))
+                file_name.write('\n')
+        return file_name
 
     @staticmethod
     def get_mastercard_auth_data(mid):
