@@ -44,6 +44,8 @@ def import_payment_file(payment_card_transaction, mid):
         response = TransactionMatching.get_amex_settlement_csv(mid)
     elif payment_card_transaction == 'visa-auth':
         response = TransactionMatching.get_visa_auth_csv(mid)
+    elif payment_card_transaction == 'visa-settlement':
+        response = TransactionMatching.get_visa_settlement_file(mid)
     elif payment_card_transaction == 'visa-auth-spotting':
         response = TransactionMatching.get_visa_spotting_merchant_auth_file(mid)
     elif payment_card_transaction == 'visa-settlement-spotting':

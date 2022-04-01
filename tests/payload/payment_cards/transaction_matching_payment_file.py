@@ -723,3 +723,121 @@ class TransactionMatchingPaymentFileDetails:
             ],
             "UserProfileId": str(uuid.uuid4())
         }
+
+    @staticmethod
+    def get_visa_settlement_data(mid):
+        return {
+            "CardId": TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48),
+            "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
+            "MessageElementsCollection": [
+                {
+                    "Key": "Transaction.MerchantCardAcceptorId",
+                    "Value": mid
+                },
+                {
+                    "Key": "Transaction.MerchantAcquirerBin",
+                    "Value": "3423432"
+                },
+                {
+                    "Key": "Transaction.TransactionAmount",
+                    "Value": TestTransactionMatchingContext.transaction_matching_amount
+                },
+                {
+                    "Key": "Transaction.VipTransactionId",
+                    "Value": TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
+                },
+                {
+                    "Key": "Transaction.VisaMerchantName",
+                    "Value": ""
+                },
+                {
+                    "Key": "Transaction.VisaMerchantId",
+                    "Value": ""
+                },
+                {
+                    "Key": "Transaction.VisaStoreName",
+                    "Value": ""
+                },
+                {
+                    "Key": "Transaction.VisaStoreId",
+                    "Value": ""
+                },
+                {
+                    "Key": "Transaction.CurrencyCodeNumeric",
+                    "Value": "840"
+                },
+                {
+                    "Key": "Transaction.BillingCurrencyCode",
+                    "Value": "840"
+                },
+                {
+                    "Key": "Transaction.USDAmount",
+                    "Value": TestTransactionMatchingContext.transaction_matching_amount
+                },
+                {
+                    "Key": "Transaction.MerchantLocalPurchaseDate",
+                    "Value": str(date.today())
+                },
+                {
+                    "Key": "Transaction.MerchantGroup.0.Name",
+                    "Value": "ICELAND-BONUS-CARD"
+                },
+                {
+                    "Key": "Transaction.MerchantGroup.0.ExternalId",
+                    "Value": "Iceland"
+                },
+                {
+                    "Key": "Transaction.AuthCode",
+                    "Value": TestTransactionMatchingContext.transaction_matching_uuid
+                },
+                {
+                    "Key": "Transaction.PanLastFour",
+                    "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS)
+                },
+                {
+                    "Key": "Transaction.MerchantDateTimeGMT",
+                    "Value": TestTransactionMatchingContext.transaction_matching_currentTimeStamp
+                },
+                {
+                    "Key": "Transaction.BillingAmount",
+                    "Value": ""
+                },
+                {
+                    "Key": "Transaction.TimeStampYYMMDD",
+                    "Value": "0001-01-01T00:00:00"
+                },
+                {
+                    "Key": "Transaction.SettlementDate",
+                    "Value": TestTransactionMatchingContext.transaction_matching_currentTimeStamp
+                },
+                {
+                    "Key": "Transaction.SettlementAmount",
+                    "Value": TestTransactionMatchingContext.transaction_matching_amount
+                },
+                {
+                    "Key": "Transaction.SettlementCurrencyCodeNumeric",
+                    "Value": "826"
+                },
+                {
+                    "Key": "Transaction.SettlementBillingAmount",
+                    "Value": TestTransactionMatchingContext.transaction_matching_amount
+                },
+                {
+                    "Key": "Transaction.SettlementBillingCurrency",
+                    "Value": "826"
+                },
+                {
+                    "Key": "Transaction.SettlementUSDAmount",
+                    "Value": TestTransactionMatchingContext.transaction_matching_amount
+                }
+            ],
+            "MessageId": str(uuid.uuid4()),
+            "MessageName": "AuthMessageTest",
+            "UserDefinedFieldsCollection": [
+                {
+                    "Key": "TransactionType",
+                    "Value": "Settle"
+                }
+            ],
+            "UserProfileId": str(uuid.uuid4())
+        }

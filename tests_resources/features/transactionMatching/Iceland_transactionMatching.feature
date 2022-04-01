@@ -4,7 +4,7 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @transactionMatchingIceland @bink_regression @sanity @tell
+  @transactionMatchingIceland @bink_regression @sanity
   Scenario Outline: Verify transaction matching for iceland with payment provider
 
     Given I am a Bink user
@@ -18,12 +18,12 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
 
     Examples:
     | payment_card_provider|merchant_container| mid      | cardIdentity             |payment_card_transaction| scheme |
-    |          amex        |scheme/iceland/   |9421802109| Amex                     |amex-settlement         |  AMEX  |
-    |          amex        |scheme/iceland/   |9445909831| Amex                     |amex-auth               |   AMEX     |
-    |          master      |scheme/iceland/   |22776952  |MasterCard/MasterCard One |master-auth             |  MASTERCARD|
-    |          visa        |scheme/iceland/   |10209723  | Visa                     |visa-auth               |   VISA     |
-    |          master      |scheme/iceland/   |22776952  |MasterCard/MasterCard One |master-settlement       |  MASTERCARD|
-
+    |          amex        |scheme/iceland/   |9421802109| Amex                     |amex-settlement         |AMEX    |
+    |          amex        |scheme/iceland/   |9445909831| Amex                     |amex-auth               |AMEX    |
+    |          visa        |scheme/iceland/   |10209723  | Visa                     |visa-auth               |VISA    |
+    |          visa        |scheme/iceland/   |10209723  | Visa                     |visa-settlement         |VISA    |
+    |          master      |scheme/iceland/   |22776952  |MasterCard/MasterCard One |master-settlement       |MASTERCARD|
+    |          master      |scheme/iceland/  |22776952  |MasterCard/MasterCard One  |master-auth             |MASTERCARD|
   @transactionMatchingIceland @bink_regression @sanity
   Scenario Outline: Verify transaction matching for iceland with payment provider but invalid mid
 
@@ -38,8 +38,9 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
 
     Examples:
     | payment_card_provider|merchant_container| mid      | cardIdentity             |payment_card_transaction| scheme |
-    |          amex        |scheme/iceland/   |7821802109| Amex                     |amex-settlement         |  AMEX  |
-    |          amex        |scheme/iceland/   |8445909831| Amex                     |amex-auth               |   AMEX     |
-    |          master      |scheme/iceland/   |72776952  |MasterCard/MasterCard One |master-auth             |  MASTERCARD|
-    |          visa        |scheme/iceland/   |80209723  | Visa                     |visa-auth               |   VISA     |
-    |          master      |scheme/iceland/   |72776952  |MasterCard/MasterCard One |master-settlement       |  MASTERCARD|
+    |          amex        |scheme/iceland/   |7821802109| Amex                     |amex-settlement         |AMEX    |
+    |          amex        |scheme/iceland/   |8445909831| Amex                     |amex-auth               |AMEX    |
+    |          visa        |scheme/iceland/   |80209723  | Visa                     |visa-auth               |VISA     |
+    |          visa        |scheme/iceland/   |80209723  | Visa                     |visa-settlement         |VISA     |
+    |          master      |scheme/iceland/   |72776952  |MasterCard/MasterCard One |master-settlement       |MASTERCARD|
+    |          master      |scheme/iceland/   |72776952  |MasterCard/MasterCard One |master-auth             |MASTERCARD|
