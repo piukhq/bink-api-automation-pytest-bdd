@@ -1,3 +1,5 @@
+import time
+
 from pytest_bdd import (
     scenarios,
     then,
@@ -281,8 +283,10 @@ def verify_get_membership_card(merchant):
 )
 @when(parsers.parse('I perform GET request to verify the "{merchant}" membership account is created'))
 def verify_membership_card_is_created(merchant):
+    time.sleep(3)
     response = MembershipCards.get_scheme_account(TestContext.token, TestContext.current_scheme_account_id)
     response_json = response_to_json(response)
+    # logging.info(f"response_json:{response_json}")
     TestContext.card_number = response_json["card"]["membership_id"]
     logging.info(
         "The response of GET/MembershipCard after Register Ghost Journey is:\n\n"
