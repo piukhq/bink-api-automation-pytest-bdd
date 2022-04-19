@@ -107,18 +107,18 @@ def verify_transaction_not_matched():
     logging.info(f" Transaction not matched and the status is not exported: '{matched_count.count}'")
 
 
-@then(parsers.parse('I verify transaction is spotted and exported {feed_type}'))
-def verify_spotted_transaction(feed_type):
+@then(parsers.parse('I verify transaction is spotted and exported'))
+def verify_spotted_transaction():
     spotted_transaction_count = QueryHarmonia.fetch_spotted_transaction_count(
-        TestTransactionMatchingContext.transaction_id, feed_type)
+        TestTransactionMatchingContext.transaction_id)
     assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
     logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 
 
-@then(parsers.parse('I verify transaction is not spotted and exported {feed_type}'))
-def verify_transaction_not_spotted(feed_type):
+@then(parsers.parse('I verify transaction is not spotted and exported'))
+def verify_transaction_not_spotted():
     spotted_transaction_count = QueryHarmonia.fetch_spotted_transaction_count(
-        TestTransactionMatchingContext.transaction_id, feed_type)
+        TestTransactionMatchingContext.transaction_id)
     assert spotted_transaction_count.count == 0, "The Transaction got spotted and exported"
     logging.info(f" Transaction not spotted and the status is not exported: '{spotted_transaction_count.count}'")
 
