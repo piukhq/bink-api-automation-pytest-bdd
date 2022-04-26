@@ -258,7 +258,7 @@ trenette_membership_card = {
 }
 
 trenette_invalid_data = {
-    "card_num": "",
+    "card_num": "TRNT7184965618",
     "email": "fail@unknown.com",
 }
 
@@ -285,7 +285,7 @@ asos_membership_card = {
 }
 
 asos_invalid_data = {
-    "card_num": "",
+    "card_num": "ASOS7141009201",
     "email": "fail@unknown.com",
 }
 
