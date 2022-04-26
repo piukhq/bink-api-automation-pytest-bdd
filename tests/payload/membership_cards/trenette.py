@@ -58,3 +58,85 @@ class TrenetteCard:
         logging.info("The Request for Add Journey with " + data_type + " :\n\n"
                      + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
+
+    @staticmethod
+    def add_membership_card_payload_without_field(field):
+        value = TestDataUtils.TEST_DATA.trenette_membership_card.get(constants.EMAIL)
+        faker = Faker()
+        if (field == 'account'):
+            payload = {
+                "add_fields": [
+                    {
+                        "column": "Membership card number",
+                        "value": TestDataUtils.TEST_DATA.trenette_membership_card.get(constants.CARD_NUM),
+                    }
+                ],
+                "authorise_fields": [{"column": "Email", "value": value}],
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("trenette")
+            }
+
+        elif (field == 'membership_plan'):
+            payload = {
+                "account": {
+                    "add_fields": [
+                        {
+                            "column": "Membership card number",
+                            "value": TestDataUtils.TEST_DATA.trenette_membership_card.get(constants.CARD_NUM),
+                        }
+                    ],
+                    "authorise_fields": [{"column": "Email", "value": value}],
+                }
+            }
+
+        elif (field == 'email'):
+            payload = {
+                "account": {
+                    "add_fields": [
+                        {
+                            "column": "Membership card number",
+                            "value": TestDataUtils.TEST_DATA.trenette_membership_card.get(constants.CARD_NUM),
+                        }
+                    ],
+                    "authorise_fields": [{"column": "email", "value": value}],
+                },
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("trenette"),
+            }
+
+        elif (field == 'Membershipcard_number'):
+            payload = {
+                "account": {
+                    "add_fields": [
+                        {
+                            "column": "Membershipcard_number",
+                            "value": TestDataUtils.TEST_DATA.trenette_membership_card.get(constants.CARD_NUM),
+                        }
+                    ],
+                    "authorise_fields": [{"column": "Email", "value": value}],
+                },
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("trenette"),
+            }
+
+        elif (field == 'enrol_account'):
+            payload = {
+                "enrol_fields": [
+                    {"column": "First name", "value": faker.name()},
+                    {"column": "Last name", "value": faker.name()},
+                    {"column": "Email", "value": value},
+                    {"column": "Consent 1", "value": constants.CONSENT}],
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("trenette"), }
+
+        elif (field == "token"):
+            payload = {
+                "account": {
+                    "add_fields": [
+                        {
+                            "column": "Membership card number",
+                            "value": TestDataUtils.TEST_DATA.trenette_membership_card.get(constants.CARD_NUM),
+                        }
+                    ],
+                    "authorise_fields": [{"column": "Email", "value": value}],
+                },
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("trenette"),
+            }
+
+        return payload
