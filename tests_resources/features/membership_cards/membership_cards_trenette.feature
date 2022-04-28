@@ -35,6 +35,30 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then verify the data stored in DB after "Add" journey for "Trenette"
     And I perform DELETE request to delete the "Trenette" membership card
 
+  @enrol_put @bink_regression @tstrnt
+  Scenario: Join Journey_PUT_Trenette
+
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "Trenette" membership account with "invalid" enrol credentials
+    And I perform GET request to verify the "Trenette" membership account is created with invalid data
+    And I perform PUT request to replace information of the enrolled "Trenette" membership card
+    And I perform GET request to verify the enrolled "Trenette" membership card details got replaced after a successful PUT
+    Then verify the data stored in DB after "Enrol" journey for "Trenette"
+    Then I perform DELETE request to delete the "Trenette" membership card
+    And I perform DELETE request to delete the customer
+
+  @enrol_add @tstrnt
+  Scenario: Verify join Trenette then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
+
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "Trenette" membership account with enrol credentials
+    And I perform GET request to verify the "Trenette" membership account is created
+    Then I perform DELETE request to delete the "Trenette" membership card
+    When I perform POST request to add "Trenette" membership card after enrol deleted
+    And I perform GET request to verify the "Trenette" membership card is added to the wallet
+    Then verify the data stored in DB after "Enrol" journey for "Trenette"
+    And I perform DELETE request to delete the customer
+
   @negative_scenario
   Scenario:  Add_Journey with Invalid Credentials_Trenette
 
