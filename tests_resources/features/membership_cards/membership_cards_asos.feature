@@ -24,6 +24,30 @@ Feature: Merchant Asos - Ensure a customer can add their membership card & view 
     Then I perform DELETE request to delete the "Asos" membership card
     And I perform DELETE request to delete the customer
 
+  @enrol_put @bink_regression @tstrnt
+  Scenario: Join Journey_PUT_Asos
+
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "Asos" membership account with "invalid" enrol credentials
+    And I perform GET request to verify the "Asos" membership account is created with invalid data
+    And I perform PUT request to replace information of the enrolled "Asos" membership card
+    And I perform GET request to verify the enrolled "Asos" membership card details got replaced after a successful PUT
+    Then verify the data stored in DB after "Enrol" journey for "Asos"
+    Then I perform DELETE request to delete the "Asos" membership card
+    And I perform DELETE request to delete the customer
+
+  @enrol_add @tstrnt
+  Scenario: Verify join Asos then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
+
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "Asos" membership account with enrol credentials
+    And I perform GET request to verify the "Asos" membership account is created
+    Then I perform DELETE request to delete the "Asos" membership card
+    When I perform POST request to add "Asos" membership card after enrol deleted
+    And I perform GET request to verify the "Asos" membership card is added to the wallet
+    Then verify the data stored in DB after "Enrol" journey for "Asos"
+    And I perform DELETE request to delete the customer
+
   @add_patch @bink_regression
   Scenario:  PATCH membership card details_Asos
 

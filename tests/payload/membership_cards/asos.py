@@ -5,6 +5,7 @@ import tests.api as api
 import tests.helpers.constants as constants
 from tests.api.base import Endpoint
 from tests.helpers.test_data_utils import TestDataUtils
+from tests.helpers.test_context import TestContext
 
 
 class AsosCard:
@@ -136,4 +137,22 @@ class AsosCard:
                 },
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("asos"),
             }
+        return payload
+
+    @staticmethod
+    def enrol_delete_add_membership_card_payload(email=None):
+        payload = {
+            "account": {
+                "add_fields": [
+                    {
+                        "column": "Membership card number",
+                        "value": TestContext.card_number,
+                    }
+                ],
+                "authorise_fields": [{"column": "Email", "value": email}],
+            },
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("asos"),
+        }
+        logging.info("The Request for Add Journey with " + TestContext.card_number + " :\n\n"
+                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
         return payload
