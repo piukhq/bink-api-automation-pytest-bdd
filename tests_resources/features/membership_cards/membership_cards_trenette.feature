@@ -35,7 +35,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then verify the data stored in DB after "Add" journey for "Trenette"
     And I perform DELETE request to delete the "Trenette" membership card
 
-  @enrol_put @bink_regression @tstrnt
+  @enrol_put @bink_regression
   Scenario: Join Journey_PUT_Trenette
 
     Given I register with bink service as a new customer
@@ -47,7 +47,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then I perform DELETE request to delete the "Trenette" membership card
     And I perform DELETE request to delete the customer
 
-  @enrol_add @tstrnt
+  @enrol_add
   Scenario: Verify join Trenette then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
 
     Given I register with bink service as a new customer
