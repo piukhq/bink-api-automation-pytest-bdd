@@ -34,7 +34,7 @@ class Merchant:
 
     @staticmethod
     def get_scheme_cred_main_ans(merchant):
-        """Return main_scheme_account_answers for all merchants """
+        """Return main_scheme_account_answers for all merchants"""
         switcher = {
             "BurgerKing": TestDataUtils.TEST_DATA.burger_king_membership_card.get(constants.CARD_NUM),
             "CooP": TestDataUtils.TEST_DATA.coop_membership_card.get(constants.CARD_NUM),
@@ -52,6 +52,7 @@ class Merchant:
 
 class TestData:
     """Functions used to supply expected data to pytest test_ classes"""
+
     """Below functions read test data as "object" from test_data_sheet
      and retrieve the data from object inside the test class"""
 
@@ -102,7 +103,7 @@ class TestData:
     @staticmethod
     def get_mem_plan_path(env):
         """return the base path of stored membership plan json
-            for any merchant based on environment"""
+        for any merchant based on environment"""
 
         switcher = {
             "dev": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_DEV,
@@ -110,7 +111,7 @@ class TestData:
             "prod": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD,
             "sit": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_SIT,
             "oat": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_OAT,
-            "preprod": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PREPROD
+            "preprod": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PREPROD,
         }
         return switcher.get(env)
 
@@ -124,7 +125,7 @@ class TestData:
     @staticmethod
     def get_membership_card_path(env):
         """return the base path of stored membership plan json
-            for any merchant based on environment"""
+        for any merchant based on environment"""
 
         switcher = {
             "dev": constants.MEMBERSHIP_CARD_DEV,
@@ -132,7 +133,7 @@ class TestData:
             "prod": constants.MEMBERSHIP_CARD_PROD,
             "sit": constants.MEMBERSHIP_CARD_SIT,
             "oat": constants.MEMBERSHIP_CARD_OAT,
-            "preprod": constants.MEMBERSHIP_CARD_PREPROD
+            "preprod": constants.MEMBERSHIP_CARD_PREPROD,
         }
         return switcher.get(env)
 
@@ -151,7 +152,7 @@ class TestData:
             "Wasabi": "wasabi",
             "SquareMeal": "square_meal",
             "Trenette": "trenette",
-            "Asos": "asos"
+            "Asos": "asos",
         }
         return switcher.get(merchant)
 
@@ -162,6 +163,7 @@ class TestData:
 
 class PaymentCardTestData:
     """This function is for future use - when more testing in payment cards"""
+
     @staticmethod
     def get_data(payment_card_provider="master"):
         switcher = {

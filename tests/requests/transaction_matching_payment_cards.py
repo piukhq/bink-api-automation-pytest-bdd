@@ -8,7 +8,6 @@ from tests.payload.payment_cards.transaction_matching_payment_file import Transa
 
 
 class TransactionMatching(Endpoint):
-
     @staticmethod
     def get_master_auth_csv(mid):
         url = TransactionMatching.get_mastrcard_url()

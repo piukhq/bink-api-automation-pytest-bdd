@@ -15,8 +15,8 @@ blob_storage_dsn = os.getenv("BLOB_STORAGE_DSN")
 teams_webhook = os.getenv("TEAMS_WEBHOOK")
 schedule = os.getenv("SCHEDULE")
 command = os.getenv("COMMAND")
-alert_on_success = os.getenv('ALERT_ON_SUCCESS', True)
-alert_on_failure = os.getenv('ALERT_ON_FAILURE', True)
+alert_on_success = os.getenv("ALERT_ON_SUCCESS", True)
+alert_on_failure = os.getenv("ALERT_ON_FAILURE", True)
 
 
 def run_test():

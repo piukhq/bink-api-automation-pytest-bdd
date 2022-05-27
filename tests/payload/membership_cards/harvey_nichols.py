@@ -39,20 +39,19 @@ class HarveyNicholsCard:
 
         payload = {
             "account": {
-                "authorise_fields": [
-                    {"column": "Email",
-                     "value": value
-                     },
-                    {
-                        "column": "Password",
-                        "value": password
-                    }
-                ]
+                "authorise_fields": [{"column": "Email", "value": value}, {"column": "Password", "value": password}]
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"),
         }
-        logging.info("The Request for Add Journey with " + data_type + " :\n\n"
-                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Add Journey with "
+            + data_type
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload
 
     @staticmethod
@@ -66,19 +65,22 @@ class HarveyNicholsCard:
         payload = {
             "account": {
                 "authorise_fields": [
-                    {"column": "Email",
-                     "value": TestDataUtils.TEST_DATA.harvey_nichols_membership_card_2.get(constants.ID)
-                     },
                     {
-                        "column": "Password",
-                        "value": RSACipher().encrypt(sensitive_value, pub_key)
-                    }
+                        "column": "Email",
+                        "value": TestDataUtils.TEST_DATA.harvey_nichols_membership_card_2.get(constants.ID),
+                    },
+                    {"column": "Password", "value": RSACipher().encrypt(sensitive_value, pub_key)},
                 ]
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"),
         }
-        logging.info("The Request for Add Journey membership_card_2 :\n\n"
-                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Add Journey membership_card_2 :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload
 
     @staticmethod
@@ -108,8 +110,15 @@ class HarveyNicholsCard:
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"),
         }
-        logging.info("The Request for Enrol Journey with " + data_type + " :\n\n"
-                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Enrol Journey with "
+            + data_type
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload
 
     @staticmethod
@@ -129,49 +138,26 @@ class HarveyNicholsCard:
         elif TestContext.flag_encrypt == "false":
             password = sensitive_value
 
-        if(field == 'account'):
+        if field == "account":
             payload = {
-                "authorise_fields": [
-                    {"column": "Email",
-                     "value": email
-                     },
-                    {
-                        "column": "Password",
-                        "value": password
-                    }
-                ],
-                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols")
-            }
-
-        elif(field == 'membership_plan'):
-            payload = {
-                "account": {
-                    "authorise_fields": [
-                        {"column": "Email",
-                         "value": email
-                         },
-                        {
-                            "column": "Password",
-                            "value": password
-                        }
-                    ]
-                }
-            }
-
-        elif (field == 'authorise_fields'):
-            payload = {
-                "account": [
-                    {"column": "Email",
-                     "value": email
-                     },
-                    {
-                        "column": "Password",
-                        "value": password
-                    }],
+                "authorise_fields": [{"column": "Email", "value": email}, {"column": "Password", "value": password}],
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"),
             }
 
-        elif (field == 'enrol_account'):
+        elif field == "membership_plan":
+            payload = {
+                "account": {
+                    "authorise_fields": [{"column": "Email", "value": email}, {"column": "Password", "value": password}]
+                }
+            }
+
+        elif field == "authorise_fields":
+            payload = {
+                "account": [{"column": "Email", "value": email}, {"column": "Password", "value": password}],
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"),
+            }
+
+        elif field == "enrol_account":
             payload = {
                 "enrol_fields": [
                     {"column": "Title", "value": constants.TITLE},
@@ -180,84 +166,49 @@ class HarveyNicholsCard:
                     {"column": "Email", "value": email},
                     {"column": "Password", "value": password},
                     {"column": "Mobile number", "value": faker.phone_number()},
-                    {"column": "Consent 1", "value": constants.CONSENT}, ],
-                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"), }
+                    {"column": "Consent 1", "value": constants.CONSENT},
+                ],
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"),
+            }
 
-        elif (field == 'email'):
+        elif field == "email":
             payload = {
                 "account": {
-                    "authorise_fields": [
-                        {"column": "Email",
-                         "value": ""
-                         },
-                        {
-                            "column": "Password",
-                            "value": password
-                        }
-                    ]
+                    "authorise_fields": [{"column": "Email", "value": ""}, {"column": "Password", "value": password}]
                 },
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"),
             }
 
-        elif (field == 'email_coloumn_value'):
+        elif field == "email_coloumn_value":
             payload = {
                 "account": {
-                    "authorise_fields": [
-                        {"column": "email",
-                         "value": email
-                         },
-                        {
-                            "column": "Password",
-                            "value": password
-                        }
-                    ]
+                    "authorise_fields": [{"column": "email", "value": email}, {"column": "Password", "value": password}]
                 },
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"),
             }
 
-        elif(field == "password_coloumn_value"):
+        elif field == "password_coloumn_value":
             payload = {
                 "account": {
-                    "authorise_fields": [
-                        {"column": "Email",
-                         "value": email
-                         },
-                        {
-                            "column": "password",
-                            "value": password
-                        }
-                    ]
+                    "authorise_fields": [{"column": "Email", "value": email}, {"column": "password", "value": password}]
                 },
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"),
             }
 
-        elif(field == "token"):
+        elif field == "token":
             payload = {
                 "account": {
-                    "authorise_fields": [
-                        {"column": "Email",
-                         "value": email
-                         },
-                        {
-                            "column": "Password",
-                            "value": password
-                        }
-                    ]
+                    "authorise_fields": [{"column": "Email", "value": email}, {"column": "Password", "value": password}]
                 },
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"),
             }
 
-        elif(field == "email_address"):
+        elif field == "email_address":
             payload = {
                 "account": {
                     "authorise_fields": [
-                        {"column": "Email",
-                         "value": "automatione2e.bink.com"
-                         },
-                        {
-                            "column": "Password",
-                            "value": password
-                        }
+                        {"column": "Email", "value": "automatione2e.bink.com"},
+                        {"column": "Password", "value": password},
                     ]
                 },
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("harvey_nichols"),

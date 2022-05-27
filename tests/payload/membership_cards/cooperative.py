@@ -24,25 +24,29 @@ class CoopCard:
                 "add_fields": [
                     {
                         "column": "Membership card number",
-                        "value": TestDataUtils.TEST_DATA.coop_membership_card.get(constants.CARD_NUM)
+                        "value": TestDataUtils.TEST_DATA.coop_membership_card.get(constants.CARD_NUM),
                     }
                 ],
                 "authorise_fields": [
                     {
                         "column": "Date of birth",
-                        "value": TestDataUtils.TEST_DATA.coop_membership_card.get(constants.DOB)
+                        "value": TestDataUtils.TEST_DATA.coop_membership_card.get(constants.DOB),
                     },
-                    {
-                        "column": "Postcode",
-                        "value": value
-                    }
-                ]
+                    {"column": "Postcode", "value": value},
+                ],
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("coop"),
         }
 
-        logging.info("The Request for Add Journey with " + data_type + " :\n\n"
-                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Add Journey with "
+            + data_type
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload
 
     @staticmethod
@@ -72,6 +76,13 @@ class CoopCard:
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("coop"),
         }
-        logging.info("The Request for Enrol Journey with " + data_type + " :\n\n"
-                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Enrol Journey with "
+            + data_type
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload
