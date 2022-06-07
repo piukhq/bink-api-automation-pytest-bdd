@@ -2,6 +2,8 @@ import uuid
 import random
 from decimal import Decimal
 from datetime import datetime
+
+import pytz
 from pytz import timezone
 
 from pytest_bdd import (
@@ -54,6 +56,9 @@ def import_payment_file(payment_card_transaction, mid):
         response = TransactionMatching.get_visa_spotting_merchant_refund_file(mid)
     elif payment_card_transaction == 'visa-auth-spotting_invalid_token':
         response = TransactionMatching.get_visa_spotting_merchant_refund_file_invalid_token(mid)
+    elif payment_card_transaction == 'master-auth-spotting':
+        response = TransactionMatching.get_master_spotting_auth_file(mid)
+
     else:
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
@@ -74,6 +79,34 @@ def import_payment_file(payment_card_transaction, mid):
             logging.info(f'{file_name.name} has been uploaded to blob storage with auth_code = '
                          f'{TestTransactionMatchingContext.transaction_matching_uuid} and MID = {mid}')
             os.remove(file_name.name)
+    elif payment_card_transaction == 'master-settlement-spotting':
+        merchant_container = 'mastercard'
+        file_name = \
+            transaction_matching_payment_file.TransactionMatchingPaymentFileDetails.get_master_settlement_spotting_txt_file(
+                mid)
+        bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
+        blob_client = \
+            bbs.get_blob_client('harmonia-imports/test/mastercard-settlement', merchant_container + f"{file_name.name}")
+        with open(file_name.name, "rb") as settlement_file:
+            blob_client.upload_blob(settlement_file, content_settings=ContentSettings(content_type="text/plain"))
+            logging.info(f'{file_name.name} has been uploaded to blob storage with spend_amount = '
+                         f'{TestTransactionMatchingContext.spend_amount}, '
+                         f'auth_code = {TestTransactionMatchingContext.auth_code} and MID = {mid}')
+            os.remove(file_name.name)
+    elif payment_card_transaction == 'master-refund-spotting':
+        merchant_container = 'mastercard'
+        file_name = \
+            transaction_matching_payment_file.TransactionMatchingPaymentFileDetails.get_master_refund_spotting_txt_file(
+                mid)
+        bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
+        blob_client = \
+            bbs.get_blob_client('harmonia-imports/test/mastercard-settlement', merchant_container + f"{file_name.name}")
+        with open(file_name.name, "rb") as settlement_file:
+            blob_client.upload_blob(settlement_file, content_settings=ContentSettings(content_type="text/plain"))
+            logging.info(f'{file_name.name} has been uploaded to blob storage with spend_amount = '
+                         f'{-abs(TestTransactionMatchingContext.spend_amount)},'
+                         f'auth_code = {TestTransactionMatchingContext.auth_code} and MID = {mid}')
+            os.remove(file_name.name)
 
     if payment_card_transaction == 'visa-auth-spotting':
         logging.info("Waiting for transaction to be spotted and exported")
@@ -83,6 +116,12 @@ def import_payment_file(payment_card_transaction, mid):
         logging.info("Waiting for transaction to be spotted and exported")
     elif payment_card_transaction == 'visa-auth-spotting_invalid_token':
         logging.info("Waiting for transaction to be spotted and exported")
+    elif payment_card_transaction == 'master-auth-spotting':
+        logging.info("Waiting for transaction to be spotted and exported")
+    elif payment_card_transaction == 'master-settlement-spotting':
+        logging.info("Waiting for transaction to be spotted and exported")
+    elif payment_card_transaction == 'master-refund-spotting':
+        logging.info("Waiting for refund transaction to be spotted and exported")
     else:
         logging.info("Waiting for the pods To match the transaction....and Export the Files")
     time.sleep(90)
@@ -113,6 +152,27 @@ def verify_spotted_transaction():
         TestTransactionMatchingContext.transaction_id)
     assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
     logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
+
+
+@then(parsers.parse('I verify "{payment_card_transaction}","{mid}" and "{auth_code}" is spotted and exported'))
+def verify_spotted_transaction(payment_card_transaction, mid, auth_code):
+    if payment_card_transaction == "master-auth-spotting":
+        t = TestTransactionMatchingContext.created_at
+        form = "%Y-%m-%d %H:%M:%S"
+        utc_time = datetime.strptime(t, form)
+        created_at = utc_time.astimezone(pytz.UTC)
+        logging.info(f"Transaction time: '{created_at}'")
+        spotted_transaction_count = QueryHarmonia.fetch_mastercard_spotted_transaction_count(
+            TestTransactionMatchingContext.spend_amount * 100, created_at)
+        assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
+        logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
+
+    elif payment_card_transaction == "master-settlement-spotting":
+        auth_code = TestTransactionMatchingContext.auth_code
+        spotted_transaction_count = QueryHarmonia.fetch_mastercard_spotted_settlement_transaction_count(
+            TestTransactionMatchingContext.spend_amount * 100, mid, auth_code)
+        assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
+        logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 
 
 @then(parsers.parse('I verify transaction is not spotted and exported'))

@@ -13,8 +13,9 @@ class TestTransactionMatchingContext:
     container_name = "harmonia-imports"
     file_name = ""
     transaction_id = ""
+    created_at = ""
     spend_amount = ""
-    transaction_auth_code = random.randint(100000, 999999)
+    auth_code = ""
 
     iceland_file_header = ['TransactionCardFirst6', 'TransactionCardLast4', 'TransactionCardExpiry',
                            'TransactionCardSchemeId', 'TransactionCardScheme', 'TransactionStore_Id',
