@@ -36,4 +36,8 @@ pytest-html-reporter = "*"
 pytest-xdist = "*"
 deepdiff = "*"
 shared-config-storage = "*"
-pendulum = "*"
+pendulum = {version="*", index="pypi"}
+
+[requires]
+python_version = "3.9"
+
