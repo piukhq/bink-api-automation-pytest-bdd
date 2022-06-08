@@ -1,5 +1,3 @@
-import random
-
 
 class TestTransactionMatchingContext:
     """ Transaction matching """

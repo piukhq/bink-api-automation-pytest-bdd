@@ -36,6 +36,110 @@ class TransactionMatchingPaymentFileDetails:
     def get_master_refund_spotting_txt_file(mid):
         third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
         now = pendulum.now()
+        mid = mid
+        TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
+        TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
+        TestTransactionMatchingContext.spend_amount = -abs(int(Decimal(str(random.choice(range(10, 1000))))))
+        payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
+        amount = (str(-abs(TestTransactionMatchingContext.spend_amount) * 100).zfill(12))
+        lines = [join(
+            ("H", 1),
+            (now.format("YYYYMMDD"), 8),
+            (now.format("hhmmss"), 6),
+            (" ", 6),
+            ("mastercard-tgx2-settlement.txt", 9),
+            ("", 835),
+
+        ), join(
+            ("D", 1),
+            ("", 20),
+            (payment_card_token, 30),
+            ("", 51),
+            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
+            ("", 341),
+            (mid, 15),
+            ("", 52),
+            # (-abs(TestTransactionMatchingContext.spend_amount)[:11], 11),
+            ((amount[:12]), 12),
+            ("", 33),
+            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
+            (TestTransactionMatchingContext.auth_code, 4),
+            ("", 124),
+            (third_part_id, 6),
+            ("", 188),
+        ), join(
+            ("T", 1),
+            (now.format("YYYYMMDD"), 8),
+            (now.format("hhmmss"), 6),
+            (" ", 6),
+            ("mastercard-tgx2-settlement.txt", 9),
+            ("", 835),
+        )]
+        file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.spend_amount) + ".txt")
+        with open(file_name, "a+") as file_name:
+            for line in lines:
+                (file_name.write(str(line)))
+                file_name.write('\n')
+        return file_name
+
+    @staticmethod
+    def get_master_settlement_spotting_txt_file(mid):
+        third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
+        now = pendulum.now()
+        mid = mid
+        TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
+        TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
+        amount = (str(TestTransactionMatchingContext.spend_amount * 100).zfill(12))
+        lines = [join(
+            ("H", 1),
+            (now.format("YYYYMMDD"), 8),
+            (now.format("hhmmss"), 6),
+            (" ", 6),
+            ("mastercard-tgx2-settlement.txt", 9),
+            ("", 835),
+
+        ), join(
+            ("D", 1),
+            ("", 20),
+            (payment_card_token, 30),
+            ("", 51),
+            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
+            ("", 341),
+            (mid, 15),
+            ("", 52),
+            ((amount[:12]), 12),
+            ("", 33),
+            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
+            (TestTransactionMatchingContext.auth_code, 4),
+            ("", 124),
+            (third_part_id, 6),
+            ("", 188),
+        ), join(
+            ("T", 1),
+            (now.format("YYYYMMDD"), 8),
+            (now.format("hhmmss"), 6),
+            (" ", 6),
+            ("mastercard-tgx2-settlement.txt", 9),
+            ("", 835),
+        )]
+        file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.spend_amount) + ".txt")
+        with open(file_name, "a+") as file_name:
+            for line in lines:
+                (file_name.write(str(line)))
+                file_name.write('\n')
+        return file_name
+
+    @staticmethod
+    def import_spotting_master_auth_payment_card(mid):
+        import_payment_file = TransactionMatchingPaymentFileDetails.get_mastercard_auth_spotting_data(mid)
+        return import_payment_file
+
+    @staticmethod
+    def get_master_refund_spotting_txt_file(mid):
+        third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
+        now = pendulum.now()
         # auth_code = TestTransactionMatchingContext.transaction_matching_uuid
         mid = mid
         TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
@@ -189,6 +293,23 @@ class TransactionMatchingPaymentFileDetails:
             "payment_card_token": PaymentCardTestData.get_data("master").get(constants.TOKEN),
             "third_party_id": base64.b64encode(uuid.uuid4().bytes).decode()[:9],
             "time": TestTransactionMatchingContext.transaction_matching_currentTimeStamp
+        }
+
+    @staticmethod
+    def get_mastercard_auth_spotting_data(mid):
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        TestTransactionMatchingContext.transaction_id = TransactionMatchingPaymentFileDetails. \
+            get_random_alphanumeric_string(48)
+        TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
+        TestTransactionMatchingContext.created_at = datetime.now(timezone('Europe/London')) \
+            .strftime('%Y-%m-%d %H:%M:%S')
+        return {
+            "amount": TestTransactionMatchingContext.spend_amount,
+            "currency_code": "GBP",
+            "mid": mid,
+            "payment_card_token": PaymentCardTestData.get_data("master").get(constants.TOKEN),
+            "third_party_id": base64.b64encode(uuid.uuid4().bytes).decode()[:9],
+            "time": TestTransactionMatchingContext.created_at
         }
 
     @staticmethod
