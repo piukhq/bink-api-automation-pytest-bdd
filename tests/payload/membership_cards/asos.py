@@ -30,8 +30,15 @@ class AsosCard:
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("asos"),
         }
-        logging.info("The Request for Add Journey with " + data_type + " :\n\n"
-                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Add Journey with "
+            + data_type
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload
 
     @staticmethod
@@ -62,7 +69,7 @@ class AsosCard:
     def add_membership_card_payload_without_field(field):
         value = TestDataUtils.TEST_DATA.asos_membership_card.get(constants.EMAIL)
         faker = Faker()
-        if (field == 'account'):
+        if field == "account":
             payload = {
                 "add_fields": [
                     {
@@ -71,10 +78,10 @@ class AsosCard:
                     }
                 ],
                 "authorise_fields": [{"column": "Email", "value": value}],
-                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("asos")
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("asos"),
             }
 
-        elif (field == 'membership_plan'):
+        elif field == "membership_plan":
             payload = {
                 "account": {
                     "add_fields": [
@@ -87,7 +94,7 @@ class AsosCard:
                 }
             }
 
-        elif (field == 'email'):
+        elif field == "email":
             payload = {
                 "account": {
                     "add_fields": [
@@ -101,7 +108,7 @@ class AsosCard:
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("asos"),
             }
 
-        elif (field == 'Membershipcard_number'):
+        elif field == "Membershipcard_number":
             payload = {
                 "account": {
                     "add_fields": [
@@ -115,16 +122,18 @@ class AsosCard:
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("asos"),
             }
 
-        elif (field == 'enrol_account'):
+        elif field == "enrol_account":
             payload = {
                 "enrol_fields": [
                     {"column": "First name", "value": faker.name()},
                     {"column": "Last name", "value": faker.name()},
                     {"column": "Email", "value": value},
-                    {"column": "Postcode", "value": constants.POSTCODE}],
-                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("asos"), }
+                    {"column": "Postcode", "value": constants.POSTCODE},
+                ],
+                "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("asos"),
+            }
 
-        elif (field == "token"):
+        elif field == "token":
             payload = {
                 "account": {
                     "add_fields": [
@@ -153,6 +162,13 @@ class AsosCard:
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("asos"),
         }
-        logging.info("The Request for Add Journey with " + TestContext.card_number + " :\n\n"
-                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Add Journey with "
+            + TestContext.card_number
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload

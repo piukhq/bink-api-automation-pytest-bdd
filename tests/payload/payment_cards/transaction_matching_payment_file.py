@@ -21,7 +21,6 @@ def join(*args: WidthField) -> str:
 
 
 class TransactionMatchingPaymentFileDetails:
-
     @staticmethod
     def import_master_auth_payment_card(mid):
         import_payment_file = TransactionMatchingPaymentFileDetails.get_mastercard_auth_data(mid)
@@ -244,44 +243,47 @@ class TransactionMatchingPaymentFileDetails:
         auth_code = TestTransactionMatchingContext.transaction_matching_uuid
         mid = mid
         payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
-        amount = (str(TestTransactionMatchingContext.transaction_matching_amount * 100).zfill(12))
-        lines = [join(
-            ("H", 1),
-            (now.format("YYYYMMDD"), 8),
-            (now.format("hhmmss"), 6),
-            (" ", 6),
-            ("mastercard-tgx2-settlement.txt", 9),
-            ("", 835),
-
-        ), join(
-            ("D", 1),
-            ("", 20),
-            (payment_card_token, 30),
-            ("", 51),
-            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
-            ("", 341),
-            (mid, 15),
-            ("", 52),
-            ((amount[:12]), 12),
-            ("", 33),
-            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
-            (auth_code, 4),
-            ("", 124),
-            (third_part_id, 6),
-            ("", 188),
-        ), join(
-            ("T", 1),
-            (now.format("YYYYMMDD"), 8),
-            (now.format("hhmmss"), 6),
-            (" ", 6),
-            ("mastercard-tgx2-settlement.txt", 9),
-            ("", 835),
-        )]
+        amount = str(TestTransactionMatchingContext.transaction_matching_amount * 100).zfill(12)
+        lines = [
+            join(
+                ("H", 1),
+                (now.format("YYYYMMDD"), 8),
+                (now.format("hhmmss"), 6),
+                (" ", 6),
+                ("mastercard-tgx2-settlement.txt", 9),
+                ("", 835),
+            ),
+            join(
+                ("D", 1),
+                ("", 20),
+                (payment_card_token, 30),
+                ("", 51),
+                (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
+                ("", 341),
+                (mid, 15),
+                ("", 52),
+                ((amount[:12]), 12),
+                ("", 33),
+                (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
+                (auth_code, 4),
+                ("", 124),
+                (third_part_id, 6),
+                ("", 188),
+            ),
+            join(
+                ("T", 1),
+                (now.format("YYYYMMDD"), 8),
+                (now.format("hhmmss"), 6),
+                (" ", 6),
+                ("mastercard-tgx2-settlement.txt", 9),
+                ("", 835),
+            ),
+        ]
         file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.transaction_matching_amount) + ".txt")
         with open(file_name, "a+") as file_name:
             for line in lines:
                 (file_name.write(str(line)))
-                file_name.write('\n')
+                file_name.write("\n")
         return file_name
 
     @staticmethod
@@ -292,7 +294,7 @@ class TransactionMatchingPaymentFileDetails:
             "mid": mid,
             "payment_card_token": PaymentCardTestData.get_data("master").get(constants.TOKEN),
             "third_party_id": base64.b64encode(uuid.uuid4().bytes).decode()[:9],
-            "time": TestTransactionMatchingContext.transaction_matching_currentTimeStamp
+            "time": TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
         }
 
     @staticmethod
@@ -338,7 +340,7 @@ class TransactionMatchingPaymentFileDetails:
     def get_amex_auth_regirster_data():
         return {
             "client_id": "8UXGKh7ihjAeqZldlIBqlcnmoljug5ZznluEDLd6z33s9W7ZXP",
-            "client_secret": "w9IgmvHABKgvwGgsnAof66hFZQlvxvyiR82PR3ZOcnlHWFdHO9"
+            "client_secret": "w9IgmvHABKgvwGgsnAof66hFZQlvxvyiR82PR3ZOcnlHWFdHO9",
         }
 
     @staticmethod
@@ -351,7 +353,7 @@ class TransactionMatchingPaymentFileDetails:
             "transaction_amount": str(TestTransactionMatchingContext.transaction_matching_amount),
             "transaction_currency": "UKL",
             "transaction_id": str(TestTransactionMatchingContext.transaction_matching_id),
-            "transaction_time": TestTransactionMatchingContext.transaction_matching_amexTimeStamp
+            "transaction_time": TestTransactionMatchingContext.transaction_matching_amexTimeStamp,
         }
 
     @staticmethod
@@ -360,22 +362,22 @@ class TransactionMatchingPaymentFileDetails:
             "approvalCode": str(TestTransactionMatchingContext.transaction_matching_uuid),
             "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "currencyCode": "840",
-            "dpan": PaymentCardTestData.get_data("amex").get(
-                constants.FIRST_SIX_DIGITS) + "XXXXX" + PaymentCardTestData.get_data("amex").get(
-                constants.LAST_FOUR_DIGITS),
+            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS)
+            + "XXXXX"
+            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
             "merchantNumber": mid,
             "offerId": "0",
             "partnerId": "AADP0050",
             "recordId": f"{base64.b64encode(str(uuid.uuid4()).encode()).decode()}AADP00400",
             "transactionAmount": str(TestTransactionMatchingContext.transaction_matching_amount),
             "transactionDate": TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
-            "transactionId": str(TestTransactionMatchingContext.transaction_matching_id)
+            "transactionId": str(TestTransactionMatchingContext.transaction_matching_id),
         }
 
     @staticmethod
     def get_random_alphanumeric_string(length):
         letters_and_digits = string.ascii_letters + string.digits
-        result_str = ''.join((random.choice(letters_and_digits) for i in range(length)))
+        result_str = "".join((random.choice(letters_and_digits) for i in range(length)))
         return result_str
 
     @staticmethod
@@ -384,588 +386,240 @@ class TransactionMatchingPaymentFileDetails:
             "CardId": TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48),
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
             "MessageElementsCollection": [
-                {
-                    "Key": "Transaction.MerchantCardAcceptorId",
-                    "Value": mid
-                },
-                {
-                    "Key": "Transaction.MerchantAcquirerBin",
-                    "Value": "3423432"
-                },
+                {"Key": "Transaction.MerchantCardAcceptorId", "Value": mid},
+                {"Key": "Transaction.MerchantAcquirerBin", "Value": "3423432"},
                 {
                     "Key": "Transaction.TransactionAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount
+                    "Value": TestTransactionMatchingContext.transaction_matching_amount,
                 },
                 {
                     "Key": "Transaction.VipTransactionId",
-                    "Value": TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
+                    "Value": TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48),
                 },
-                {
-                    "Key": "Transaction.VisaMerchantName",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaMerchantId",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaStoreName",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaStoreId",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.CurrencyCodeNumeric",
-                    "Value": "840"
-                },
-                {
-                    "Key": "Transaction.BillingCurrencyCode",
-                    "Value": "840"
-                },
-                {
-                    "Key": "Transaction.USDAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount
-                },
-                {
-                    "Key": "Transaction.MerchantLocalPurchaseDate",
-                    "Value": str(date.today())
-                },
-                {
-                    "Key": "Transaction.MerchantGroup.0.Name",
-                    "Value": "ICELAND-BONUS-CARD"
-                },
-                {
-                    "Key": "Transaction.MerchantGroup.0.ExternalId",
-                    "Value": "Iceland"
-                },
-                {
-                    "Key": "Transaction.AuthCode",
-                    "Value": TestTransactionMatchingContext.transaction_matching_uuid
-                },
+                {"Key": "Transaction.VisaMerchantName", "Value": ""},
+                {"Key": "Transaction.VisaMerchantId", "Value": ""},
+                {"Key": "Transaction.VisaStoreName", "Value": ""},
+                {"Key": "Transaction.VisaStoreId", "Value": ""},
+                {"Key": "Transaction.CurrencyCodeNumeric", "Value": "840"},
+                {"Key": "Transaction.BillingCurrencyCode", "Value": "840"},
+                {"Key": "Transaction.USDAmount", "Value": TestTransactionMatchingContext.transaction_matching_amount},
+                {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
+                {"Key": "Transaction.MerchantGroup.0.Name", "Value": "ICELAND-BONUS-CARD"},
+                {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Iceland"},
+                {"Key": "Transaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_matching_uuid},
                 {
                     "Key": "Transaction.PanLastFour",
-                    "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS)
+                    "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS),
                 },
                 {
                     "Key": "Transaction.MerchantDateTimeGMT",
-                    "Value": TestTransactionMatchingContext.transaction_matching_currentTimeStamp
+                    "Value": TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
                 },
                 {
                     "Key": "Transaction.BillingAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount
+                    "Value": TestTransactionMatchingContext.transaction_matching_amount,
                 },
                 {
                     "Key": "Transaction.TimeStampYYMMDD",
-                    "Value": TestTransactionMatchingContext.transaction_matching_currentTimeStamp
+                    "Value": TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
                 },
-                {
-                    "Key": "Transaction.SettlementDate",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.SettlementAmount",
-                    "Value": "0"
-                },
-                {
-                    "Key": "Transaction.SettlementCurrencyCodeNumeric",
-                    "Value": "0"
-                },
-                {
-                    "Key": "Transaction.SettlementBillingAmount",
-                    "Value": "0"
-                },
-                {
-                    "Key": "Transaction.SettlementBillingCurrency",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.SettlementUSDAmount",
-                    "Value": "0"
-                }
+                {"Key": "Transaction.SettlementDate", "Value": ""},
+                {"Key": "Transaction.SettlementAmount", "Value": "0"},
+                {"Key": "Transaction.SettlementCurrencyCodeNumeric", "Value": "0"},
+                {"Key": "Transaction.SettlementBillingAmount", "Value": "0"},
+                {"Key": "Transaction.SettlementBillingCurrency", "Value": ""},
+                {"Key": "Transaction.SettlementUSDAmount", "Value": "0"},
             ],
             "MessageId": str(uuid.uuid4()),
             "MessageName": "AuthMessageTest",
-            "UserDefinedFieldsCollection": [
-                {
-                    "Key": "TransactionType",
-                    "Value": "Auth"
-                }
-            ],
-            "UserProfileId": str(uuid.uuid4())
+            "UserDefinedFieldsCollection": [{"Key": "TransactionType", "Value": "Auth"}],
+            "UserProfileId": str(uuid.uuid4()),
         }
 
     @staticmethod
     def get_visa_spotting_merchant_auth_data(mid):
         TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
-        TestTransactionMatchingContext.transaction_id = TransactionMatchingPaymentFileDetails. \
-            get_random_alphanumeric_string(48)
+        TestTransactionMatchingContext.transaction_id = (
+            TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
+        )
         TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
-        TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone('Europe/London')) \
-            .strftime('%Y-%m-%d %H:%M:%S')
+        TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone("Europe/London")).strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
         return {
             "CardId": TestTransactionMatchingContext.transaction_id,
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
             "MessageElementsCollection": [
-                {
-                    "Key": "Transaction.MerchantCardAcceptorId",
-                    "Value": mid
-                },
-                {
-                    "Key": "Transaction.MerchantAcquirerBin",
-                    "Value": "3423432"
-                },
-                {
-                    "Key": "Transaction.TransactionAmount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-
-                },
-                {
-                    "Key": "Transaction.VipTransactionId",
-                    "Value": TestTransactionMatchingContext.transaction_id
-                },
-                {
-                    "Key": "Transaction.VisaMerchantName",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaMerchantId",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaStoreName",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaStoreId",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.CurrencyCodeNumeric",
-                    "Value": "840"
-                },
-                {
-                    "Key": "Transaction.BillingCurrencyCode",
-                    "Value": "840"
-                },
-                {
-                    "Key": "Transaction.USDAmount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-                },
-                {
-                    "Key": "Transaction.MerchantLocalPurchaseDate",
-                    "Value": str(date.today())
-                },
-                {
-                    "Key": "Transaction.MerchantGroup.0.Name",
-                    "Value": "SPOTTING-MERCHANT"
-                },
-                {
-                    "Key": "Transaction.MerchantGroup.0.ExternalId",
-                    "Value": "Spotting Merchant"
-                },
-                {
-                    "Key": "Transaction.AuthCode",
-                    "Value": TestTransactionMatchingContext.transaction_auth_code
-                },
+                {"Key": "Transaction.MerchantCardAcceptorId", "Value": mid},
+                {"Key": "Transaction.MerchantAcquirerBin", "Value": "3423432"},
+                {"Key": "Transaction.TransactionAmount", "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "Transaction.VipTransactionId", "Value": TestTransactionMatchingContext.transaction_id},
+                {"Key": "Transaction.VisaMerchantName", "Value": ""},
+                {"Key": "Transaction.VisaMerchantId", "Value": ""},
+                {"Key": "Transaction.VisaStoreName", "Value": ""},
+                {"Key": "Transaction.VisaStoreId", "Value": ""},
+                {"Key": "Transaction.CurrencyCodeNumeric", "Value": "840"},
+                {"Key": "Transaction.BillingCurrencyCode", "Value": "840"},
+                {"Key": "Transaction.USDAmount", "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
+                {"Key": "Transaction.MerchantGroup.0.Name", "Value": "SPOTTING-MERCHANT"},
+                {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Spotting Merchant"},
+                {"Key": "Transaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_auth_code},
                 {
                     "Key": "Transaction.PanLastFour",
-                    "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS)
+                    "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS),
                 },
-                {
-                    "Key": "Transaction.MerchantDateTimeGMT",
-                    "Value": TestTransactionMatchingContext.current_time_stamp
-
-                },
-                {
-                    "Key": "Transaction.BillingAmount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-                },
-                {
-                    "Key": "Transaction.TimeStampYYMMDD",
-                    "Value": TestTransactionMatchingContext.current_time_stamp
-                },
-                {
-                    "Key": "Transaction.SettlementDate",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.SettlementAmount",
-                    "Value": "0"
-                },
-                {
-                    "Key": "Transaction.SettlementCurrencyCodeNumeric",
-                    "Value": "0"
-                },
-                {
-                    "Key": "Transaction.SettlementBillingAmount",
-                    "Value": "0"
-                },
-                {
-                    "Key": "Transaction.SettlementBillingCurrency",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.SettlementUSDAmount",
-                    "Value": "0"
-                }
+                {"Key": "Transaction.MerchantDateTimeGMT", "Value": TestTransactionMatchingContext.current_time_stamp},
+                {"Key": "Transaction.BillingAmount", "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "Transaction.TimeStampYYMMDD", "Value": TestTransactionMatchingContext.current_time_stamp},
+                {"Key": "Transaction.SettlementDate", "Value": ""},
+                {"Key": "Transaction.SettlementAmount", "Value": "0"},
+                {"Key": "Transaction.SettlementCurrencyCodeNumeric", "Value": "0"},
+                {"Key": "Transaction.SettlementBillingAmount", "Value": "0"},
+                {"Key": "Transaction.SettlementBillingCurrency", "Value": ""},
+                {"Key": "Transaction.SettlementUSDAmount", "Value": "0"},
             ],
             "MessageId": str(uuid.uuid4()),
             "MessageName": "AuthMessageTest",
-            "UserDefinedFieldsCollection": [
-                {
-                    "Key": "TransactionType",
-                    "Value": "Auth"
-                }
-            ],
-            "UserProfileId": str(uuid.uuid4())
+            "UserDefinedFieldsCollection": [{"Key": "TransactionType", "Value": "Auth"}],
+            "UserProfileId": str(uuid.uuid4()),
         }
 
     @staticmethod
     def get_visa_spotting_merchant_settlement_data(mid):
         TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
-        TestTransactionMatchingContext.transaction_id = TransactionMatchingPaymentFileDetails. \
-            get_random_alphanumeric_string(48)
+        TestTransactionMatchingContext.transaction_id = (
+            TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
+        )
         TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
-        TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone('Europe/London')) \
-            .strftime('%Y-%m-%d %H:%M:%S')
+        TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone("Europe/London")).strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
         return {
-
             "CardId": TestTransactionMatchingContext.transaction_id,
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
             "MessageElementsCollection": [
-                {
-                    "Key": "Transaction.MerchantCardAcceptorId",
-                    "Value": mid
-                },
-                {
-                    "Key": "Transaction.MerchantAcquirerBin",
-                    "Value": "3423432"
-                },
-                {
-                    "Key": "Transaction.TransactionAmount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-                },
-                {
-                    "Key": "Transaction.VipTransactionId",
-                    "Value": TestTransactionMatchingContext.transaction_id
-                },
-                {
-                    "Key": "Transaction.VisaMerchantName",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaMerchantId",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaStoreName",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaStoreId",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.CurrencyCodeNumeric",
-                    "Value": "840"
-                },
-                {
-                    "Key": "Transaction.BillingCurrencyCode",
-                    "Value": "840"
-                },
-                {
-                    "Key": "Transaction.USDAmount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-                },
-                {
-                    "Key": "Transaction.MerchantLocalPurchaseDate",
-                    "Value": str(date.today())
-                },
-                {
-                    "Key": "Transaction.MerchantGroup.0.Name",
-                    "Value": "SPOTTING-MERCHANT"
-                },
-                {
-                    "Key": "Transaction.MerchantGroup.0.ExternalId",
-                    "Value": "Spotting Merchant"
-                },
-                {
-                    "Key": "Transaction.AuthCode",
-                    "Value": TestTransactionMatchingContext.transaction_auth_code
-                },
+                {"Key": "Transaction.MerchantCardAcceptorId", "Value": mid},
+                {"Key": "Transaction.MerchantAcquirerBin", "Value": "3423432"},
+                {"Key": "Transaction.TransactionAmount", "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "Transaction.VipTransactionId", "Value": TestTransactionMatchingContext.transaction_id},
+                {"Key": "Transaction.VisaMerchantName", "Value": ""},
+                {"Key": "Transaction.VisaMerchantId", "Value": ""},
+                {"Key": "Transaction.VisaStoreName", "Value": ""},
+                {"Key": "Transaction.VisaStoreId", "Value": ""},
+                {"Key": "Transaction.CurrencyCodeNumeric", "Value": "840"},
+                {"Key": "Transaction.BillingCurrencyCode", "Value": "840"},
+                {"Key": "Transaction.USDAmount", "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
+                {"Key": "Transaction.MerchantGroup.0.Name", "Value": "SPOTTING-MERCHANT"},
+                {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Spotting Merchant"},
+                {"Key": "Transaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_auth_code},
                 {
                     "Key": "Transaction.PanLastFour",
-                    "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS)
+                    "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS),
                 },
-                {
-                    "Key": "Transaction.MerchantDateTimeGMT",
-                    "Value": TestTransactionMatchingContext.current_time_stamp
-                },
-                {
-                    "Key": "Transaction.BillingAmount",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.TimeStampYYMMDD",
-                    "Value": "0001-01-01T00:00:00"
-                },
-                {
-                    "Key": "Transaction.SettlementDate",
-                    "Value": TestTransactionMatchingContext.current_time_stamp
-                },
-                {
-                    "Key": "Transaction.SettlementAmount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-                },
-                {
-                    "Key": "Transaction.SettlementCurrencyCodeNumeric",
-                    "Value": "826"
-                },
-                {
-                    "Key": "Transaction.SettlementBillingAmount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-                },
-                {
-                    "Key": "Transaction.SettlementBillingCurrency",
-                    "Value": "826"
-                },
-                {
-                    "Key": "Transaction.SettlementUSDAmount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-                }
+                {"Key": "Transaction.MerchantDateTimeGMT", "Value": TestTransactionMatchingContext.current_time_stamp},
+                {"Key": "Transaction.BillingAmount", "Value": ""},
+                {"Key": "Transaction.TimeStampYYMMDD", "Value": "0001-01-01T00:00:00"},
+                {"Key": "Transaction.SettlementDate", "Value": TestTransactionMatchingContext.current_time_stamp},
+                {"Key": "Transaction.SettlementAmount", "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "Transaction.SettlementCurrencyCodeNumeric", "Value": "826"},
+                {"Key": "Transaction.SettlementBillingAmount", "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "Transaction.SettlementBillingCurrency", "Value": "826"},
+                {"Key": "Transaction.SettlementUSDAmount", "Value": TestTransactionMatchingContext.spend_amount},
             ],
             "MessageId": str(uuid.uuid4()),
             "MessageName": "AuthMessageTest",
-            "UserDefinedFieldsCollection": [
-                {
-                    "Key": "TransactionType",
-                    "Value": "Settle"
-                }
-            ],
-            "UserProfileId": str(uuid.uuid4())
+            "UserDefinedFieldsCollection": [{"Key": "TransactionType", "Value": "Settle"}],
+            "UserProfileId": str(uuid.uuid4()),
         }
 
     @staticmethod
     def get_visa_spotting_merchant_refund_data(mid):
         TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000))))) / 100
-        TestTransactionMatchingContext.transaction_id = TransactionMatchingPaymentFileDetails. \
-            get_random_alphanumeric_string(48)
+        TestTransactionMatchingContext.transaction_id = (
+            TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
+        )
         TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
-        TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone('Europe/London')) \
-            .strftime('%Y-%m-%d %H:%M:%S')
+        TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone("Europe/London")).strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
         return {
-
             "CardId": TestTransactionMatchingContext.transaction_id,
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
             "MessageElementsCollection": [
-                {
-                    "Key": "ReturnTransaction.CardAcceptorIdCode",
-                    "Value": mid
-                },
-                {
-                    "Key": "ReturnTransaction.AcquirerBIN",
-                    "Value": "3423432"
-                },
-                {
-                    "Key": "ReturnTransaction.Amount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-                },
-                {
-                    "Key": "ReturnTransaction.VipTransactionId",
-                    "Value": TestTransactionMatchingContext.transaction_id
-                },
-                {
-                    "Key": "ReturnTransaction.SettlementId",
-                    "Value": TestTransactionMatchingContext.transaction_id
-                },
-                {
-                    "Key": "ReturnTransaction.VisaMerchantName",
-                    "Value": ""
-                },
-                {
-                    "Key": "ReturnTransaction.VisaMerchantId",
-                    "Value": ""
-                },
-                {
-                    "Key": "ReturnTransaction.VisaStoreName",
-                    "Value": ""
-                },
-                {
-                    "Key": "ReturnTransaction.VisaStoreId",
-                    "Value": ""
-                },
-                {
-                    "Key": "ReturnTransaction.AcquirerAmount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-                },
-                {
-                    "Key": "ReturnTransaction.AcquirerCurrencyCode",
-                    "Value": "840"
-                },
-                {
-                    "Key": "ReturnTransaction.CurrencyCode",
-                    "Value": "840"
-                },
-                {
-                    "Key": "ReturnTransaction.TransactionUSDAmount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-                },
-                {
-                    "Key": "ReturnTransaction.DateTime",
-                    "Value": "1/19/2022 1:2:48 PM"
-
-                },
-                {
-                    "Key": "ReturnTransaction.MerchantGroup.0.Name",
-                    "Value": "SPOTTING-MERCHANT"
-                },
-                {
-                    "Key": "ReturnTransaction.MerchantGroupName.0.ExternalId",
-                    "Value": "Spotting Merchant"
-                },
-                {
-                    "Key": "ReturnTransaction.AuthCode",
-                    "Value": TestTransactionMatchingContext.transaction_auth_code
-                }
+                {"Key": "ReturnTransaction.CardAcceptorIdCode", "Value": mid},
+                {"Key": "ReturnTransaction.AcquirerBIN", "Value": "3423432"},
+                {"Key": "ReturnTransaction.Amount", "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "ReturnTransaction.VipTransactionId", "Value": TestTransactionMatchingContext.transaction_id},
+                {"Key": "ReturnTransaction.SettlementId", "Value": TestTransactionMatchingContext.transaction_id},
+                {"Key": "ReturnTransaction.VisaMerchantName", "Value": ""},
+                {"Key": "ReturnTransaction.VisaMerchantId", "Value": ""},
+                {"Key": "ReturnTransaction.VisaStoreName", "Value": ""},
+                {"Key": "ReturnTransaction.VisaStoreId", "Value": ""},
+                {"Key": "ReturnTransaction.AcquirerAmount", "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "ReturnTransaction.AcquirerCurrencyCode", "Value": "840"},
+                {"Key": "ReturnTransaction.CurrencyCode", "Value": "840"},
+                {"Key": "ReturnTransaction.TransactionUSDAmount", "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "ReturnTransaction.DateTime", "Value": "1/19/2022 1:2:48 PM"},
+                {"Key": "ReturnTransaction.MerchantGroup.0.Name", "Value": "SPOTTING-MERCHANT"},
+                {"Key": "ReturnTransaction.MerchantGroupName.0.ExternalId", "Value": "Spotting Merchant"},
+                {"Key": "ReturnTransaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_auth_code},
             ],
             "MessageId": str(uuid.uuid4()),
             "MessageName": "AuthMessageTest",
-            "UserDefinedFieldsCollection": [
-                {
-                    "Key": "TransactionType",
-                    "Value": "return"
-                }
-            ],
-            "UserProfileId": str(uuid.uuid4())
+            "UserDefinedFieldsCollection": [{"Key": "TransactionType", "Value": "return"}],
+            "UserProfileId": str(uuid.uuid4()),
         }
 
     @staticmethod
     def get_visa_spotting_merchant_auth_data_with_invalid_token(mid):
         invalid_token = "5657775"
         TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
-        TestTransactionMatchingContext.transaction_id = TransactionMatchingPaymentFileDetails. \
-            get_random_alphanumeric_string(48)
+        TestTransactionMatchingContext.transaction_id = (
+            TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
+        )
         TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
-        TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone('Europe/London')) \
-            .strftime('%Y-%m-%d %H:%M:%S')
+        TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone("Europe/London")).strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
         return {
             "CardId": TestTransactionMatchingContext.transaction_id,
             "ExternalUserId": invalid_token,
             "MessageElementsCollection": [
-                {
-                    "Key": "Transaction.MerchantCardAcceptorId",
-                    "Value": mid
-                },
-                {
-                    "Key": "Transaction.MerchantAcquirerBin",
-                    "Value": "3423432"
-                },
-                {
-                    "Key": "Transaction.TransactionAmount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-
-                },
-                {
-                    "Key": "Transaction.VipTransactionId",
-                    "Value": TestTransactionMatchingContext.transaction_id
-                },
-                {
-                    "Key": "Transaction.VisaMerchantName",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaMerchantId",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaStoreName",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaStoreId",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.CurrencyCodeNumeric",
-                    "Value": "840"
-                },
-                {
-                    "Key": "Transaction.BillingCurrencyCode",
-                    "Value": "840"
-                },
-                {
-                    "Key": "Transaction.USDAmount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-                },
-                {
-                    "Key": "Transaction.MerchantLocalPurchaseDate",
-                    "Value": str(date.today())
-                },
-                {
-                    "Key": "Transaction.MerchantGroup.0.Name",
-                    "Value": "SPOTTING-MERCHANT"
-                },
-                {
-                    "Key": "Transaction.MerchantGroup.0.ExternalId",
-                    "Value": "Spotting Merchant"
-                },
-                {
-                    "Key": "Transaction.AuthCode",
-                    "Value": TestTransactionMatchingContext.transaction_auth_code
-                },
+                {"Key": "Transaction.MerchantCardAcceptorId", "Value": mid},
+                {"Key": "Transaction.MerchantAcquirerBin", "Value": "3423432"},
+                {"Key": "Transaction.TransactionAmount", "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "Transaction.VipTransactionId", "Value": TestTransactionMatchingContext.transaction_id},
+                {"Key": "Transaction.VisaMerchantName", "Value": ""},
+                {"Key": "Transaction.VisaMerchantId", "Value": ""},
+                {"Key": "Transaction.VisaStoreName", "Value": ""},
+                {"Key": "Transaction.VisaStoreId", "Value": ""},
+                {"Key": "Transaction.CurrencyCodeNumeric", "Value": "840"},
+                {"Key": "Transaction.BillingCurrencyCode", "Value": "840"},
+                {"Key": "Transaction.USDAmount", "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
+                {"Key": "Transaction.MerchantGroup.0.Name", "Value": "SPOTTING-MERCHANT"},
+                {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Spotting Merchant"},
+                {"Key": "Transaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_auth_code},
                 {
                     "Key": "Transaction.PanLastFour",
-                    "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS)
+                    "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS),
                 },
-                {
-                    "Key": "Transaction.MerchantDateTimeGMT",
-                    "Value": TestTransactionMatchingContext.current_time_stamp
-
-                },
-                {
-                    "Key": "Transaction.BillingAmount",
-                    "Value": TestTransactionMatchingContext.spend_amount
-                },
-                {
-                    "Key": "Transaction.TimeStampYYMMDD",
-                    "Value": TestTransactionMatchingContext.current_time_stamp
-                },
-                {
-                    "Key": "Transaction.SettlementDate",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.SettlementAmount",
-                    "Value": "0"
-                },
-                {
-                    "Key": "Transaction.SettlementCurrencyCodeNumeric",
-                    "Value": "0"
-                },
-                {
-                    "Key": "Transaction.SettlementBillingAmount",
-                    "Value": "0"
-                },
-                {
-                    "Key": "Transaction.SettlementBillingCurrency",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.SettlementUSDAmount",
-                    "Value": "0"
-                }
+                {"Key": "Transaction.MerchantDateTimeGMT", "Value": TestTransactionMatchingContext.current_time_stamp},
+                {"Key": "Transaction.BillingAmount", "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "Transaction.TimeStampYYMMDD", "Value": TestTransactionMatchingContext.current_time_stamp},
+                {"Key": "Transaction.SettlementDate", "Value": ""},
+                {"Key": "Transaction.SettlementAmount", "Value": "0"},
+                {"Key": "Transaction.SettlementCurrencyCodeNumeric", "Value": "0"},
+                {"Key": "Transaction.SettlementBillingAmount", "Value": "0"},
+                {"Key": "Transaction.SettlementBillingCurrency", "Value": ""},
+                {"Key": "Transaction.SettlementUSDAmount", "Value": "0"},
             ],
             "MessageId": str(uuid.uuid4()),
             "MessageName": "AuthMessageTest",
-            "UserDefinedFieldsCollection": [
-                {
-                    "Key": "TransactionType",
-                    "Value": "Auth"
-                }
-            ],
-            "UserProfileId": str(uuid.uuid4())
+            "UserDefinedFieldsCollection": [{"Key": "TransactionType", "Value": "Auth"}],
+            "UserProfileId": str(uuid.uuid4()),
         }
 
     @staticmethod
@@ -974,114 +628,58 @@ class TransactionMatchingPaymentFileDetails:
             "CardId": TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48),
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
             "MessageElementsCollection": [
-                {
-                    "Key": "Transaction.MerchantCardAcceptorId",
-                    "Value": mid
-                },
-                {
-                    "Key": "Transaction.MerchantAcquirerBin",
-                    "Value": "3423432"
-                },
+                {"Key": "Transaction.MerchantCardAcceptorId", "Value": mid},
+                {"Key": "Transaction.MerchantAcquirerBin", "Value": "3423432"},
                 {
                     "Key": "Transaction.TransactionAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount
+                    "Value": TestTransactionMatchingContext.transaction_matching_amount,
                 },
                 {
                     "Key": "Transaction.VipTransactionId",
-                    "Value": TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
+                    "Value": TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48),
                 },
-                {
-                    "Key": "Transaction.VisaMerchantName",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaMerchantId",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaStoreName",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.VisaStoreId",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.CurrencyCodeNumeric",
-                    "Value": "840"
-                },
-                {
-                    "Key": "Transaction.BillingCurrencyCode",
-                    "Value": "840"
-                },
-                {
-                    "Key": "Transaction.USDAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount
-                },
-                {
-                    "Key": "Transaction.MerchantLocalPurchaseDate",
-                    "Value": str(date.today())
-                },
-                {
-                    "Key": "Transaction.MerchantGroup.0.Name",
-                    "Value": "ICELAND-BONUS-CARD"
-                },
-                {
-                    "Key": "Transaction.MerchantGroup.0.ExternalId",
-                    "Value": "Iceland"
-                },
-                {
-                    "Key": "Transaction.AuthCode",
-                    "Value": TestTransactionMatchingContext.transaction_matching_uuid
-                },
+                {"Key": "Transaction.VisaMerchantName", "Value": ""},
+                {"Key": "Transaction.VisaMerchantId", "Value": ""},
+                {"Key": "Transaction.VisaStoreName", "Value": ""},
+                {"Key": "Transaction.VisaStoreId", "Value": ""},
+                {"Key": "Transaction.CurrencyCodeNumeric", "Value": "840"},
+                {"Key": "Transaction.BillingCurrencyCode", "Value": "840"},
+                {"Key": "Transaction.USDAmount", "Value": TestTransactionMatchingContext.transaction_matching_amount},
+                {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
+                {"Key": "Transaction.MerchantGroup.0.Name", "Value": "ICELAND-BONUS-CARD"},
+                {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Iceland"},
+                {"Key": "Transaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_matching_uuid},
                 {
                     "Key": "Transaction.PanLastFour",
-                    "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS)
+                    "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS),
                 },
                 {
                     "Key": "Transaction.MerchantDateTimeGMT",
-                    "Value": TestTransactionMatchingContext.transaction_matching_currentTimeStamp
+                    "Value": TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
                 },
-                {
-                    "Key": "Transaction.BillingAmount",
-                    "Value": ""
-                },
-                {
-                    "Key": "Transaction.TimeStampYYMMDD",
-                    "Value": "0001-01-01T00:00:00"
-                },
+                {"Key": "Transaction.BillingAmount", "Value": ""},
+                {"Key": "Transaction.TimeStampYYMMDD", "Value": "0001-01-01T00:00:00"},
                 {
                     "Key": "Transaction.SettlementDate",
-                    "Value": TestTransactionMatchingContext.transaction_matching_currentTimeStamp
+                    "Value": TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
                 },
                 {
                     "Key": "Transaction.SettlementAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount
+                    "Value": TestTransactionMatchingContext.transaction_matching_amount,
                 },
-                {
-                    "Key": "Transaction.SettlementCurrencyCodeNumeric",
-                    "Value": "826"
-                },
+                {"Key": "Transaction.SettlementCurrencyCodeNumeric", "Value": "826"},
                 {
                     "Key": "Transaction.SettlementBillingAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount
+                    "Value": TestTransactionMatchingContext.transaction_matching_amount,
                 },
-                {
-                    "Key": "Transaction.SettlementBillingCurrency",
-                    "Value": "826"
-                },
+                {"Key": "Transaction.SettlementBillingCurrency", "Value": "826"},
                 {
                     "Key": "Transaction.SettlementUSDAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount
-                }
+                    "Value": TestTransactionMatchingContext.transaction_matching_amount,
+                },
             ],
             "MessageId": str(uuid.uuid4()),
             "MessageName": "AuthMessageTest",
-            "UserDefinedFieldsCollection": [
-                {
-                    "Key": "TransactionType",
-                    "Value": "Settle"
-                }
-            ],
-            "UserProfileId": str(uuid.uuid4())
+            "UserDefinedFieldsCollection": [{"Key": "TransactionType", "Value": "Settle"}],
+            "UserProfileId": str(uuid.uuid4()),
         }

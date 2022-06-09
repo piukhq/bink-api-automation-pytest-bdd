@@ -29,8 +29,9 @@ def view_all_available_membership_plans():
     response = MembershipPlans.get_all_membership_plans(TestContext.token)
     try:
         if response is not None:
-            logging.info("GET/Membership_plans is working as expected \n\n" +
-                         json.dumps(response_to_json(response), indent=4))
+            logging.info(
+                "GET/Membership_plans is working as expected \n\n" + json.dumps(response_to_json(response), indent=4)
+            )
     except Exception as e:
         logging.info(f"Gateway Timeout error :{e}")
     else:
@@ -42,7 +43,7 @@ def view_all_available_membership_plans():
 @then(parsers.parse('I can ensure the "{merchant}" plan details match with expected data'))
 def ensure_the_merchants_plan_details_match_with_expected_data(merchant, env, channel):
     """GET a merchant's membership plan and compare with
-     expected membership plan of that merchant"""
+    expected membership plan of that merchant"""
 
     response = MembershipPlans.get_membership_plan(TestContext.token, merchant)
     logging.info("The Membership plan for " + merchant + " is: \n" + json.dumps(response_to_json(response), indent=4))
@@ -66,7 +67,7 @@ def ensure_the_merchants_plan_details_match_with_expected_data(merchant, env, ch
 
 def json_compare(actual_membership_plan, expected_membership_plan):
     """This function will compare two Json objects using json_diff and
-    create a third json with comparison results """
+    create a third json with comparison results"""
 
     json.dump(actual_membership_plan, open(constants.JSON_DIFF_ACTUAL_JSON, "w"), indent=4)
     json.dump(expected_membership_plan, open(constants.JSON_DIFF_EXPECTED_JSON, "w"), indent=4)

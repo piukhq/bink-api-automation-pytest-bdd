@@ -11,7 +11,7 @@ class Endpoint:
         Endpoint.BASE_URL = getattr(config, env.upper()).base_url
 
     @staticmethod
-    def request_header(token=None, version='1.2'):
+    def request_header(token=None, version="1.2"):
 
         if version:
             accept = "application/json;v={}".format(version)

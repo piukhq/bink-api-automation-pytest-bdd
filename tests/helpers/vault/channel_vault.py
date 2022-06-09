@@ -39,7 +39,7 @@ def retry_get_secrets_from_vault():
             secrets_in_vault = client.list_properties_of_secrets()
 
             for secret in secrets_in_vault:
-                if 'ubiquity-channel' in secret.name:
+                if "ubiquity-channel" in secret.name:
                     secrets_to_load.append(secret.name)
                     logger.info(f"Found secret {secret.name}. Adding to load list")
 
@@ -104,7 +104,7 @@ def check_and_load_vault():
 def get_jwt_secret(bundle_id):
     check_and_load_vault()
     try:
-        return _bundle_secrets[bundle_id]['jwt_secret']
+        return _bundle_secrets[bundle_id]["jwt_secret"]
     except KeyError as e:
         raise KeyVaultError(f"No JWT secret found for bundle: {bundle_id}") from e
 

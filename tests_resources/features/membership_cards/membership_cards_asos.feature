@@ -24,7 +24,7 @@ Feature: Merchant Asos - Ensure a customer can add their membership card & view 
     Then I perform DELETE request to delete the "Asos" membership card
     And I perform DELETE request to delete the customer
 
-  @enrol_put @bink_regression @tstrnt
+  @enrol_put @bink_regression
   Scenario: Join Journey_PUT_Asos
 
     Given I register with bink service as a new customer
@@ -36,7 +36,7 @@ Feature: Merchant Asos - Ensure a customer can add their membership card & view 
     Then I perform DELETE request to delete the "Asos" membership card
     And I perform DELETE request to delete the customer
 
-  @enrol_add @tstrnt
+  @enrol_add
   Scenario: Verify join Asos then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
 
     Given I register with bink service as a new customer

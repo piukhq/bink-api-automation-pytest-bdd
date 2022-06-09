@@ -112,8 +112,12 @@ def register_user(test_email, channel, env):
             try:
                 response_consent = CustomerAccount.service_consent_bink_user(TestContext.token, test_email)
                 assert response_consent.status_code == 201, "User Registration _ service consent is not successful"
-                logging.info("User registration is successful and the token is: \n\n" + TestContext.token + "\n\n"
-                             + f"POST Login  response: {response.json()}")
+                logging.info(
+                    "User registration is successful and the token is: \n\n"
+                    + TestContext.token
+                    + "\n\n"
+                    + f"POST Login  response: {response.json()}"
+                )
                 return TestContext.token
             except Exception as e:
                 logging.info(f"Gateway Timeout error :{e}")
@@ -122,16 +126,20 @@ def register_user(test_email, channel, env):
         response = CustomerAccount.service_consent_banking_user(test_email)
         if response is not None:
             try:
-                logging.info("Banking user subscription to Bink is successful and the token is: \n\n" +
-                             TestContext.token + "\n")
-                logging.info(f"POST service consent response status code: {response.status_code} \n\n" +
-                             f"POST service consent actual response: {response.json()}")
+                logging.info(
+                    "Banking user subscription to Bink is successful and the token is: \n\n" + TestContext.token + "\n"
+                )
+                logging.info(
+                    f"POST service consent response status code: {response.status_code} \n\n"
+                    + f"POST service consent actual response: {response.json()}"
+                )
                 timestamp = response.json().get("consent").get("timestamp")
                 expected_user_consent = UserDetails.expected_user_consent_json(test_email, timestamp)
                 actual_user_consent = response.json()
                 logging.info(f"expected response: {expected_user_consent}")
-                assert response.status_code == 201 and expected_user_consent == actual_user_consent, \
-                    "Banking user subscription is not successful"
+                assert (
+                    response.status_code == 201 and expected_user_consent == actual_user_consent
+                ), "Banking user subscription is not successful"
                 return TestContext.token
             except Exception as e:
                 logging.info(f"Gateway Timeout error :{e}")
@@ -153,18 +161,21 @@ def login_user(channel, env):
                 logging.info(f"Gateway Timeout error :{e}")
     elif channel == config.BARCLAYS.channel_name:
         response = CustomerAccount.service_consent_banking_user(
-            TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.USER_ID))
+            TestDataUtils.TEST_DATA.barclays_user_accounts.get(constants.USER_ID)
+        )
         if response is not None:
             try:
                 timestamp = response.json().get("consent").get("timestamp")
                 expected_existing_user_consent = UserDetails.expected_existing_user_consent_json(timestamp)
                 actual_user_consent = response.json()
-                logging.info(f"actual BMB user service consent response : {response.json()}" +
-                             f"expected service consent response: {expected_existing_user_consent}")
-                logging.info("The JWT Token is: \n\n" +
-                             TestContext.token + "\n")
-                assert response.status_code == 200 and expected_existing_user_consent == actual_user_consent, \
-                    "Banking user subscription is not successful"
+                logging.info(
+                    f"actual BMB user service consent response : {response.json()}"
+                    + f"expected service consent response: {expected_existing_user_consent}"
+                )
+                logging.info("The JWT Token is: \n\n" + TestContext.token + "\n")
+                assert (
+                    response.status_code == 200 and expected_existing_user_consent == actual_user_consent
+                ), "Banking user subscription is not successful"
                 return TestContext.token
             except Exception as e:
                 logging.info(f"Gateway Timeout error :{e}")
@@ -198,10 +209,12 @@ def delete_payment_card():
 
 @then(parsers.parse('I perform DELETE request to delete the "{merchant}" membership card'))
 def delete_scheme_account(merchant=None):
-    response_del_schemes = MembershipCards.delete_scheme_account(TestContext.token,
-                                                                 TestContext.current_scheme_account_id)
-    response_del_schemes_1 = MembershipCards.delete_scheme_account(TestContext.token_channel_1,
-                                                                   TestContext.scheme_account_id1)
+    response_del_schemes = MembershipCards.delete_scheme_account(
+        TestContext.token, TestContext.current_scheme_account_id
+    )
+    response_del_schemes_1 = MembershipCards.delete_scheme_account(
+        TestContext.token_channel_1, TestContext.scheme_account_id1
+    )
     """Even if the scheme account is deleted, it is not updating DB so quickly
      so his delay is required before next execution"""
     time.sleep(2)

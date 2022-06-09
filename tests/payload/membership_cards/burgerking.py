@@ -21,18 +21,19 @@ class BurgerKingCard:
             data_type = "Valid data"
 
         payload = {
-            "account": {
-                "authorise_fields": [
-                    {"column": "Rewards number",
-                        "value": value
-                     }
-                ]
-            },
+            "account": {"authorise_fields": [{"column": "Rewards number", "value": value}]},
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("burger_king"),
         }
 
-        logging.info("The Request for Add Journey with " + data_type + " :\n\n"
-                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Add Journey with "
+            + data_type
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload
 
     @staticmethod
@@ -58,22 +59,30 @@ class BurgerKingCard:
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("burger_king"),
         }
-        logging.info("The Request for Enrol Journey with " + data_type + " :\n\n"
-                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Enrol Journey with "
+            + data_type
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload
 
     @staticmethod
     def enrol_delete_add_membership_card_payload(email=None):
         payload = {
-            "account": {
-                "authorise_fields": [
-                    {"column": "Rewards number",
-                     "value": TestContext.card_number
-                     }
-                ]
-            },
+            "account": {"authorise_fields": [{"column": "Rewards number", "value": TestContext.card_number}]},
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("burger_king"),
         }
-        logging.info("The Request for Add Journey with " + TestContext.card_number + " :\n\n"
-                     + Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARDS + "\n\n" + json.dumps(payload, indent=4))
+        logging.info(
+            "The Request for Add Journey with "
+            + TestContext.card_number
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload

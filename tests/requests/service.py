@@ -99,8 +99,9 @@ class CustomerAccount:
         Existing Banking user already subscribed to Bink : 200 Response"""
 
         jwt_secret = channel_vault.get_jwt_secret(config.BARCLAYS.bundle_id)
-        bearer_token = GenerateJWToken(config.BARCLAYS.organisation_id, jwt_secret, config.BARCLAYS.bundle_id,
-                                       test_email).get_token()
+        bearer_token = GenerateJWToken(
+            config.BARCLAYS.organisation_id, jwt_secret, config.BARCLAYS.bundle_id, test_email
+        ).get_token()
         TestContext.token = bearer_token
         url = Endpoint.BASE_URL + api.ENDPOINT_SERVICE
         headers = Endpoint.request_header(bearer_token)
@@ -110,8 +111,9 @@ class CustomerAccount:
     @staticmethod
     def without_service_consent_banking_user(test_email):
         jwt_secret = channel_vault.get_jwt_secret(config.BARCLAYS.bundle_id)
-        bearer_token = GenerateJWToken(config.BARCLAYS.organisation_id, jwt_secret, config.BARCLAYS.bundle_id,
-                                       test_email).get_token()
+        bearer_token = GenerateJWToken(
+            config.BARCLAYS.organisation_id, jwt_secret, config.BARCLAYS.bundle_id, test_email
+        ).get_token()
         TestContext.token = bearer_token
         return TestContext.token
 

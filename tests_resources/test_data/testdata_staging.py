@@ -15,7 +15,7 @@ visa_payment_card = {
     "payment_encoding": "png",
     "payment_discription": "Visa Card Image",
     "payment_url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Visa-Payment_Eq81MWN.png",
-    "payment_verification": False
+    "payment_verification": False,
 }
 
 amex_payment_card = {
@@ -33,7 +33,7 @@ amex_payment_card = {
     "payment_encoding": "png",
     "payment_discription": "Amex Card Image",
     "payment_url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Amex-Payment.png",
-    "payment_verification": False
+    "payment_verification": False,
 }
 
 master_payment_card = {
@@ -51,16 +51,12 @@ master_payment_card = {
     "payment_encoding": "png",
     "payment_discription": "Mastercard Hero",
     "payment_url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Mastercard-Payment_1goHQYv.png",
-    "payment_verification": False
+    "payment_verification": False,
 }
 
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #
 
-burger_king_membership_card = {
-    "card_num": "BK00000031049422",
-    "points": 1,
-    "currency": "stamps"
-}
+burger_king_membership_card = {"card_num": "BK00000031049422", "points": 1, "currency": "stamps"}
 
 burger_king_invalid_data = {
     "card_num": "BK00000035941500",
@@ -132,7 +128,7 @@ harvey_nichols_membership_card = {
     "transactions": "5",
     "transaction_status": "active",
     "transaction_currency": "Points",
-  }
+}
 
 harvey_nichols_membership_card_2 = {
     "id": "ryanedwards3@mac.com",
@@ -147,14 +143,9 @@ harvey_nichols_membership_card_2 = {
     "transaction_currency": "",
 }
 
-harvey_nichols_invalid_data = {
-    "id": "fail@unknown.com"
-}
+harvey_nichols_invalid_data = {"id": "fail@unknown.com"}
 
-square_meal_invalid_data = {
-    "id": "sm_auto01@testbink.com",
-    "password": "Pass"
-}
+square_meal_invalid_data = {"id": "sm_auto01@testbink.com", "password": "Pass"}
 
 square_meal_membership_card2 = {
     "id": "bola_staging_auto@bink.com",
@@ -167,7 +158,6 @@ square_meal_membership_card2 = {
     "transactions": "1",
     "transaction_status": "active",
     "transaction_currency": "Points",
-
 }
 square_meal_membership_card = {
     "id": "sm_auto01@testbink.com",
@@ -180,7 +170,6 @@ square_meal_membership_card = {
     "transactions": "1",
     "transaction_status": "active",
     "transaction_currency": "Points",
-
 }
 # iceland_membership_card = {
 #     "card_num": "6332040030473324721",
@@ -309,7 +298,7 @@ whsmith_membership_card = {
     "card_num": "WHS00000009523459",
     "points": 0,
     "currency": "stamps",
-    "description": "Customer earns one stamp for every valid transaction."
+    "description": "Customer earns one stamp for every valid transaction.",
 }
 
 whsmith_invalid_data = {
@@ -357,7 +346,7 @@ membership_card_status_reason_codes = {
     "reason_code_failed_enrol": "X201",
     "reason_code_invalid_failed_enrol": "X202",
     "reason_code_add_failed": "X102",
-    "reason_code_ghost_failed": "X105"
+    "reason_code_ghost_failed": "X105",
 }
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
 
