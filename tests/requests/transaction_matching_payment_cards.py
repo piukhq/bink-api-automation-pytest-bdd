@@ -17,6 +17,15 @@ class TransactionMatching(Endpoint):
         return response
 
     @staticmethod
+    def get_master_spotting_auth_file(mid):
+        url = TransactionMatching.get_mastrcard_url()
+        header = TransactionMatching_Endpoint.request_header_mastercard()
+        payload = TransactionMatchingPaymentFileDetails.import_spotting_master_auth_payment_card(mid)
+        response = Endpoint.call(url, header, "POST", payload)
+        print(json.dumps(payload, indent=4))
+        return response
+
+    @staticmethod
     def get_visa_auth_csv(mid):
         url = TransactionMatching.get_visa_url()
         header = TransactionMatching_Endpoint.request_header_visa()

@@ -15,6 +15,8 @@ class TestTransactionMatchingContext:
     file_name = ""
     transaction_id = ""
     spend_amount = ""
+    created_at = ""
+    auth_code = ""
     transaction_auth_code = random.randint(100000, 999999)
 
     iceland_file_header = [

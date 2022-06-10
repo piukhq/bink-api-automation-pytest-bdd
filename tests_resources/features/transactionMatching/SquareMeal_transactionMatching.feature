@@ -53,3 +53,21 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
     Examples:
     | payment_card_provider|     mid       |payment_card_transaction               |
     |          visa        |  29047531     |visa-auth-spotting_invalid_token       |
+
+  @transactionMatchingSquareMeal @bink_regression @sanity
+    Scenario Outline: Verify mastercard transaction streaming for squareMeal
+
+    Given I am a Bink user
+    When I perform POST request to add "<payment_card_provider>" payment card to wallet
+    And I perform the GET request to verify the payment card has been added successfully to the wallet
+    When I perform POST request to add & auto link "SquareMeal" membership card
+    Then I perform GET request to verify the "SquareMeal" membershipcard is added & linked successfully in the wallet
+    When I send matching "<payment_card_transaction>" "<mid>" Authorisation
+    Then I verify "<payment_card_transaction>","<mid>" and "auth_code" is spotted and exported
+
+
+    Examples:
+    | payment_card_provider|     mid       |payment_card_transaction      |
+    |          master        |  29047531   |master-auth-spotting          |
+    |          master        |  29047531   |master-settlement-spotting    |
+    |          master        |  29047531   |master-refund-spotting        |
