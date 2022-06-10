@@ -252,9 +252,9 @@ trenette_invalid_data = {
 }
 
 asos_membership_card = {
-    "card_num": "ASOS9461933477",
-    "email": "merQA_asos_autocard+test@bink.com",
-    "points": 0.56,
+    "card_num": "ASOS6381076668",
+    "email": "QAtestasos_autocard+test@bink.com",
+    "points": 3.50,
     "prefix": "£",
     "currency": "GBP",
     "burn_type": "voucher",
