@@ -4,7 +4,7 @@ Feature: Merchant ASOS - Ensure a customer can use Bink's Transaction Matching f
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @transactionMatchingAsos @bink_regression @sanity @tty
+  @transactionMatchingAsos @bink_regression @sanity
     Scenario Outline: Verify transaction spotting for Asos
 
     Given I am a Bink user
@@ -17,12 +17,12 @@ Feature: Merchant ASOS - Ensure a customer can use Bink's Transaction Matching f
 
     Examples:
     | payment_card_provider|     mid       |payment_card_transaction    |
-#    |          visa        |  9999990001   |visa-auth-spotting          |
-#    |          visa        |  9999990001   |visa-settlement-spotting    |
-#    |          visa        |  9999990001   |visa-refund-spotting        |
-#    |          master      |  9999990001   |master-auth-spotting        |
+    |          visa        |  9999990001   |visa-auth-spotting          |
+    |          visa        |  9999990001   |visa-settlement-spotting    |
+    |          visa        |  9999990001   |visa-refund-spotting        |
+    |          master      |  9999990001   |master-auth-spotting        |
     |          master      |  9999990001   |master-settlement-spotting  |
-#    |          master      |  9999990001   |master-refund-spotting      |
+    |          master      |  9999990001   |master-refund-spotting      |
 
 
   @transactionMatchingAsos @bink_regression @sanity
