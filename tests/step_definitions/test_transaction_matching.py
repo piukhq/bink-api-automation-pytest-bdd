@@ -2,7 +2,6 @@ import uuid
 import random
 from decimal import Decimal
 from datetime import datetime
-
 import pytz
 from pytz import timezone
 
@@ -174,10 +173,31 @@ def verify_spotted_mastercard_transaction(payment_card_transaction, mid, auth_co
         logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 
     elif payment_card_transaction == "master-settlement-spotting":
-        auth_code = TestTransactionMatchingContext.auth_code
-        spend_amount = TestTransactionMatchingContext.spend_amount
-        spotted_transaction_count = QueryHarmonia.fetch_mastercard_spotted_settlement_transaction_count(
-            spend_amount * 100, mid, auth_code)
+        t = str(TestTransactionMatchingContext.created_at)
+        form = '%Y-%m-%dT%H:%M:%S.%f%z'
+        utc_time = datetime.strptime(t, form)
+        created_at = utc_time.astimezone(pytz.UTC)
+        logging.info(f"Transaction time: '{created_at}'")
+        spotted_transaction_count = QueryHarmonia.fetch_mastercard_spotted_transaction_count(
+            TestTransactionMatchingContext.spend_amount * 100, created_at)
+        assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
+        logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
+
+    elif payment_card_transaction == "master-refund-spotting":
+        t = str(TestTransactionMatchingContext.created_at)
+        form = '%Y-%m-%dT%H:%M:%S.%f%z'
+        utc_time = datetime.strptime(t, form)
+        created_at = utc_time.astimezone(pytz.UTC)
+        logging.info(f"Transaction time: '{created_at}'")
+        spotted_transaction_count = QueryHarmonia.fetch_mastercard_spotted_transaction_count(
+            TestTransactionMatchingContext.spend_amount * 100, created_at)
+        assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
+        logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
+
+    else:
+        spotted_transaction_count = QueryHarmonia.fetch_spotted_transaction_count(
+            TestTransactionMatchingContext.transaction_id
+        )
         assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
         logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 

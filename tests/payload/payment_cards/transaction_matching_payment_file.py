@@ -51,7 +51,7 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def get_master_settlement_spotting_txt_file(mid):
         third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
-        now = pendulum.now()
+        TestTransactionMatchingContext.created_at = now = pendulum.now()
         mid = mid
         TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
         TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
@@ -150,7 +150,7 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def get_master_refund_spotting_txt_file(mid):
         third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
-        now = pendulum.now()
+        TestTransactionMatchingContext.created_at = now = pendulum.now()
         mid = mid
         TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
         TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)

@@ -37,6 +37,7 @@ pytest-xdist = "*"
 deepdiff = "*"
 shared-config-storage = "*"
 pendulum = {version="*", index="pypi"}
+pytz = "*"
 
 [requires]
 python_version = "3.9"
