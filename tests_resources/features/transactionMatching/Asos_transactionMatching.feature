@@ -4,7 +4,7 @@ Feature: Merchant ASOS - Ensure a customer can use Bink's Transaction Matching f
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @transactionMatchingAsos @bink_regression @sanity
+  @transactionMatchingAsos @bink_regression @sanity @tty
     Scenario Outline: Verify transaction spotting for Asos
 
     Given I am a Bink user
@@ -13,14 +13,16 @@ Feature: Merchant ASOS - Ensure a customer can use Bink's Transaction Matching f
     When I perform POST request to add & auto link "Asos" membership card
     Then I perform GET request to verify the "Asos" membershipcard is added & linked successfully in the wallet
     When I send matching "<payment_card_transaction>" "<mid>" Authorisation
-    Then I verify transaction is spotted and exported
-
+    Then I verify "<payment_card_transaction>","<mid>" and "auth_code" is spotted and exported
 
     Examples:
-    | payment_card_provider|     mid       |payment_card_transaction |
-    |          visa        |  9999990001   |visa-auth-spotting       |
-    |          visa        |  9999990001   |visa-settlement-spotting |
-    |          visa        |  9999990001   |visa-refund-spotting     |
+    | payment_card_provider|     mid       |payment_card_transaction    |
+#    |          visa        |  9999990001   |visa-auth-spotting          |
+#    |          visa        |  9999990001   |visa-settlement-spotting    |
+#    |          visa        |  9999990001   |visa-refund-spotting        |
+#    |          master      |  9999990001   |master-auth-spotting        |
+    |          master      |  9999990001   |master-settlement-spotting  |
+#    |          master      |  9999990001   |master-refund-spotting      |
 
 
   @transactionMatchingAsos @bink_regression @sanity

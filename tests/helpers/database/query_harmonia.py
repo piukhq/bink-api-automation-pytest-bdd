@@ -62,6 +62,7 @@ class QueryHarmonia:
 def get_mastercard_spotted_transaction(spend_amount, created_at):
     spotted_transaction = "SELECT count(*) from harmonia.public.export_transaction " \
                           "WHERE spend_amount = '{}'" \
+                          "and status = 'EXPORTED'"\
                           "and created_at >= '{}'".format(spend_amount, created_at)
     logging.info(spotted_transaction)
     return spotted_transaction
