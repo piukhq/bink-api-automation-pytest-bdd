@@ -4,7 +4,7 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @transactionMatchingSquareMeal @bink_regression @sanity
+  @transactionMatchingSquareMeal @bink_regression @sanity @tty
     Scenario Outline: Verify transaction streaming for squareMeal
 
     Given I am a Bink user
