@@ -69,7 +69,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can use Bink's Ubiquity fea
       |PLAN_ALREADY_LINKED: "Payment card {PCARD_ID} is already linked to a membership card that belongs to the membership plan {PLAN_ID}|
 
 #      This scenario won't execute in staging as it contains Enrol steps
-    @ubiquity @LOY1027 
+     @LOY1027
   Scenario: Sign up to a new scheme when an existing card in the wallet
 
     Given I am a customer in channel_1
@@ -81,7 +81,7 @@ Feature: Merchant Harvey Nichols - Ensure a customer can use Bink's Ubiquity fea
     Then I perform GET request to verify the "HarveyNichols" membership account is created in the same wallet
 
 # USe mock agents to test below ghost card scenario
-    @ubiquity @LOY-854 
+     @LOY-854
   Scenario: Register a card in PRE_REGISTERED_CARD status when an existing card in the wallet
 
     Given I am a customer in channel_1
