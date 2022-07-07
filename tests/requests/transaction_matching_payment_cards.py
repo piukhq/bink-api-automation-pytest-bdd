@@ -1,4 +1,5 @@
 import json
+import logging
 
 import tests.api as api
 from tests.api.transactionmatching_base import TransactionMatching_Endpoint
@@ -93,7 +94,16 @@ class TransactionMatching(Endpoint):
         url = TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_CARD
         headers = TransactionMatching_Endpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
         payload = TransactionMatchingPaymentFileDetails.get_amex_auth_data(mid)
-        print(payload)
+        logging.info(json.dumps(payload, indent=2))
+        response = Endpoint.call(url, headers, "POST", payload)
+        return response
+
+    @staticmethod
+    def get_amex_auth_spotting_file(mid):
+        url = TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_CARD
+        headers = TransactionMatching_Endpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
+        payload = TransactionMatchingPaymentFileDetails.get_amex_auth_spotting_data(mid)
+        logging.info(json.dumps(payload, indent=2))
         response = Endpoint.call(url, headers, "POST", payload)
         return response
 

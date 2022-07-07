@@ -24,6 +24,7 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
     |          master      |  29047531     |master-auth-spotting          |
     |          master      |  29047531     |master-settlement-spotting    |
     |          master      |  29047531     |master-refund-spotting        |
+    |          amex        |  9449819796   |amex-auth-spotting            |
 
   @transactionMatchingSquareMeal @bink_regression @sanity
     Scenario Outline: Verify transaction streaming for squaremeal negative scenario(invalid mid)
@@ -42,7 +43,7 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
     |          visa        |  29047530     |visa-settlement-spotting |
     |          visa        |  29047530     |visa-refund-spotting     |
 
-  @transactionMatchingSquareMeal @bink_regression @sanity
+  @transactionMatchingSquareMeal @bink_regression @sanity @tty
     Scenario Outline: Verify transaction streaming for squaremeal negative scenario(invalid payment card token)
 
     Given I am a Bink user
