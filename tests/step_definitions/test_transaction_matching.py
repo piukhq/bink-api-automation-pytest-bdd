@@ -40,6 +40,9 @@ def import_payment_file(payment_card_transaction, mid):
     elif payment_card_transaction == "amex-auth":
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_auth_csv(mid)
+    elif payment_card_transaction == "amex-auth-spotting":
+        TransactionMatching.get_amex_register_payment_csv()
+        response = TransactionMatching.get_amex_auth_spotting_file(mid)
     elif payment_card_transaction == "amex-settlement":
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_settlement_csv(mid)
@@ -122,6 +125,8 @@ def import_payment_file(payment_card_transaction, mid):
     elif payment_card_transaction == "master-auth-spotting":
         logging.info("Waiting for transaction to be spotted and exported")
     elif payment_card_transaction == "master-refund-spotting":
+        logging.info("Waiting for transaction to be spotted and exported")
+    elif payment_card_transaction == "amex-auth-spotting":
         logging.info("Waiting for transaction to be spotted and exported")
 
     else:
