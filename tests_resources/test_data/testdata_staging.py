@@ -258,7 +258,8 @@ asos_membership_card = {
     "prefix": "£",
     "currency": "GBP",
     "burn_type": "voucher",
-    "burn_prefix": "£10.0",
+    "burn_prefix": "£",
+    "burn_value": "10",
     "burn_suffix": "eGift",
     "earn_type": "accumulator",
     "target_value": 100.0,
@@ -356,7 +357,7 @@ bink_user_accounts = {
 }
 
 barclays_user_accounts = {
-    "uid": "pytest_automation_barclays@testbink.com",
+    "uid": "pytest_automation_barclays@bink.com",
     "pwd": "Password01",
 }
 # ------------------------------------------ DB DETAILS ---------------------------------------------------- #
