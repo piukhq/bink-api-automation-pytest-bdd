@@ -11,7 +11,7 @@ done
 sleep 2
 
 # copy report to azureblob
-azcopy cp /tmp/report.html ${url}
+# azcopy cp /tmp/report.html ${url}
 
 # determine what message to POST to teams using the error.log
 if [ -s /tmp/error.txt ]; then
