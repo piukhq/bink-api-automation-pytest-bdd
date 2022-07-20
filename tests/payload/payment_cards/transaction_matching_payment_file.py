@@ -78,15 +78,14 @@ class TransactionMatchingPaymentFileDetails:
             ((amount[:12]), 12),
             ("", 33),
             (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
-            (TestTransactionMatchingContext.auth_code, 4),
-            ("", 124),
-            (third_part_id, 6),
+            (TestTransactionMatchingContext.auth_code, 6),
             ("", 188),
+            (third_part_id, 9),
         ), join(
             ("T", 1),
             (now.format("YYYYMMDD"), 8),
             (now.format("hhmmss"), 6),
-            (" ", 6),
+            ("", 6),
             ("mastercard-tgx2-settlement.txt", 9),
             ("", 835),
         )]
@@ -126,10 +125,9 @@ class TransactionMatchingPaymentFileDetails:
                 ((amount[:12]), 12),
                 ("", 33),
                 (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
-                (auth_code, 4),
-                ("", 124),
-                (third_part_id, 6),
+                (auth_code, 6),
                 ("", 188),
+                (third_part_id, 9),
             ),
             join(
                 ("T", 1),
@@ -149,7 +147,6 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_master_refund_spotting_txt_file(mid):
-        third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
         TestTransactionMatchingContext.created_at = now = pendulum.now()
         mid = mid
         TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
@@ -177,15 +174,14 @@ class TransactionMatchingPaymentFileDetails:
             ((amount[:12]), 12),
             ("", 33),
             (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
-            (TestTransactionMatchingContext.auth_code, 4),
-            ("", 124),
-            (third_part_id, 6),
+            (TestTransactionMatchingContext.auth_code, 6),
             ("", 188),
+            ("", 9),
         ), join(
             ("T", 1),
             (now.format("YYYYMMDD"), 8),
             (now.format("hhmmss"), 6),
-            (" ", 6),
+            ("", 6),
             ("mastercard-tgx2-settlement.txt", 9),
             ("", 835),
         )]
@@ -229,6 +225,23 @@ class TransactionMatchingPaymentFileDetails:
             "transaction_amount": str(TestTransactionMatchingContext.transaction_matching_amount),
             "transaction_currency": "UKL",
             "transaction_id": str(TestTransactionMatchingContext.transaction_matching_id),
+            "transaction_time": TestTransactionMatchingContext.transaction_matching_amexTimeStamp,
+        }
+
+    @staticmethod
+    def get_amex_auth_spotting_data(mid):
+        TestTransactionMatchingContext.transaction_id = uuid.uuid4()
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
+            "%Y-%m-%d %H:%M:%S")
+        return {
+            "approval_code": str(TestTransactionMatchingContext.transaction_id)[-6:],
+            "cm_alias": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
+            "merchant_number": mid,
+            "offer_id": "0",
+            "transaction_amount": str(TestTransactionMatchingContext.spend_amount),
+            "transaction_currency": "UKL",
+            "transaction_id": str(TestTransactionMatchingContext.transaction_id),
             "transaction_time": TestTransactionMatchingContext.transaction_matching_amexTimeStamp,
         }
 
