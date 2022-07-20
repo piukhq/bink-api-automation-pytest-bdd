@@ -14,7 +14,7 @@ sleep 2
 azcopy cp /tmp/report.html ${url}
 
 # determine what message to POST to teams using the error.log
-if [ -s error.txt ]; then
+if [ -s /tmp/error.txt ]; then
     echo "file not empty -> error -> red"
     themeColor="FF0000"
     status="FAILURE"
