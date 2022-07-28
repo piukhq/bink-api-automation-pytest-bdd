@@ -11,7 +11,7 @@ done
 sleep 2
 
 # copy report to azureblob
-# azcopy cp /tmp/report.html ${url}
+az storage blob upload --account-name $(echo $BLOB_STORAGE_DSN | awk -F ';' '{print $2}' | sed 's/AccountName=//g') --container-name test --name $bolb_name --file /tmp/report.html --account-key $(echo $BLOB_STORAGE_DSN | awk -F ';' '{print $3}' | sed 's/AccountKey=//g') --auth-mode key
 
 # determine what message to POST to teams using the error.log
 if [ -s /tmp/error.txt ]; then
