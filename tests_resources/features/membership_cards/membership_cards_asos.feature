@@ -14,6 +14,18 @@ Feature: Merchant Asos - Ensure a customer can add their membership card & view 
     Then verify the data stored in DB after "Add" journey for "Asos"
     And I perform DELETE request to delete the "Asos" membership card
 
+  @balances_transactions @bink_regression @bmb_regression
+  Scenario: Balances and Transactions_Asos
+
+    Given I am a Bink user
+    When I perform POST request to add "Asos" membership card
+    And I perform GET request to verify the "Asos" membership card is added to the wallet
+    And I perform GET request to view balance for recently added "Asos" membership card
+    When I perform GET request to view all transactions made using the recently added "Asos" membership card
+    Then I perform GET request to view a specific transaction made using the recently added "Asos" membership card
+    Then verify the data stored in DB after "Add" journey for "Asos"
+    And I perform DELETE request to delete the "Asos" membership card
+
   @enrol @bink_regression
   Scenario: Join Journey_Asos
 

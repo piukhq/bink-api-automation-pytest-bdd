@@ -225,10 +225,11 @@ iceland_invalid_data = {
 }
 
 trenette_membership_card = {
-    "card_num": "TRNT7184965618",
-    "email": "bpltestmeruser@bink.com",
-    "points": 16.5,
+    "card_num": "TRNT4551622350",
+    "email": "pytest+220722@bink.com",
+    "points": 6.0,
     "currency": "GBP",
+    "transaction_currency": "GBP",
     "burn_type": "voucher",
     "burn_suffix": "Free bottle of house wine",
     "earn_type": "accumulator",
@@ -244,19 +245,21 @@ trenette_membership_card = {
     "barcode_type": 0,
     "code": "TESTRETVOC4",
     "issued_headline": "Earned",
+    "transaction_status": "active",
 }
 
 trenette_invalid_data = {
-    "card_num": "TRNT7184965618",
+    "card_num": "TRNT4551622350",
     "email": "fail@unknown.com",
 }
 
 asos_membership_card = {
-    "card_num": "ASOS6381076668",
-    "email": "QAtestasos_autocard+test@bink.com",
-    "points": 3.50,
+    "card_num": "ASOS3279362771",
+    "email": "pytest+220722@bink.com",
+    "points": 37.0,
     "prefix": "£",
     "currency": "GBP",
+    "transaction_currency": "GBP",
     "burn_type": "voucher",
     "burn_prefix": "£",
     "burn_value": "10",
@@ -272,10 +275,11 @@ asos_membership_card = {
     "redeemed_headline": "Redeemed",
     "barcode_type": 0,
     "issued_headline": "Earned",
+    "transaction_status": "active",
 }
 
 asos_invalid_data = {
-    "card_num": "ASOS9461933477",
+    "card_num": "ASOS3279362771",
     "email": "fail@unknown.com",
 }
 

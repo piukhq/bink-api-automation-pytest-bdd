@@ -4,7 +4,7 @@
 		"status": "active",
 		"feature_set": {
 			"authorisation_required": true,
-			"transactions_available": false,
+			"transactions_available": true,
 			"digital_only": true,
 			"has_points": true,
 			"card_type": 2,
