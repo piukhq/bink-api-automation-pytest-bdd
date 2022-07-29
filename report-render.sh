@@ -26,3 +26,6 @@ fi
 
 # POST to teams the output of pytest run
 curl -H 'Content-Type: application/json' -d '{"@type": "MessageCard", "@context": "http://schema.org/extensions", "themeColor": "'"$themeColor"'", "summary": "Staging - Merchant API V1.2 Test Results", "Sections": [{"activityTitle": "Staging - Merchant API V1.2 Test Results", "facts": [{"name": "Status", "value": "'"$status"'"}, {"name": "URL", "value": "'"$url"'"}]}]}' $webhook
+
+
+curl  -XPOST localhost:4191/shutdown
