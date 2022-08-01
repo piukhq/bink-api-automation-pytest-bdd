@@ -17,6 +17,7 @@ class TestTransactionMatchingContext:
     spend_amount = ""
     created_at = ""
     auth_code = ""
+    approval_code = ""
     transaction_auth_code = random.randint(100000, 999999)
 
     iceland_file_header = [

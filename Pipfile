@@ -38,7 +38,8 @@ deepdiff = "*"
 shared-config-storage = "*"
 pendulum = {version="*", index="pypi"}
 pytz = "*"
+paramiko = "*"
+soteria = "*"
 
 [requires]
 python_version = "3.9"
-

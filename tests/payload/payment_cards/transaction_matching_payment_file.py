@@ -230,12 +230,12 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_amex_auth_spotting_data(mid):
-        TestTransactionMatchingContext.transaction_id = uuid.uuid4()
+        TestTransactionMatchingContext.approval_code = random.randint(100000, 999999)
         TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
         TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
             "%Y-%m-%d %H:%M:%S")
         return {
-            "approval_code": str(TestTransactionMatchingContext.transaction_id)[-6:],
+            "approval_code": str(TestTransactionMatchingContext.approval_code),
             "cm_alias": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "merchant_number": mid,
             "offer_id": "0",
@@ -243,6 +243,29 @@ class TransactionMatchingPaymentFileDetails:
             "transaction_currency": "UKL",
             "transaction_id": str(TestTransactionMatchingContext.transaction_id),
             "transaction_time": TestTransactionMatchingContext.transaction_matching_amexTimeStamp,
+        }
+
+    @staticmethod
+    def get_amex_settlement_spotting_data(mid):
+        TestTransactionMatchingContext.approval_code = random.randint(100000, 999999)
+        TestTransactionMatchingContext.transaction_id = base64.b64encode(str(uuid.uuid4()).encode()).decode()
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
+            "%Y-%m-%d %H:%M:%S")
+        return {
+            "approvalCode": str(TestTransactionMatchingContext.approval_code),
+            "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
+            "currencyCode": "840",
+            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS)
+            + "XXXXX"
+            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
+            "merchantNumber": mid,
+            "offerId": "0",
+            "partnerId": "AADP0050",
+            "recordId": f"{TestTransactionMatchingContext.transaction_id}AADP00400",
+            "transactionAmount": str(TestTransactionMatchingContext.spend_amount),
+            "transactionDate": TestTransactionMatchingContext.transaction_matching_amexTimeStamp,
+            "transactionId": str(TestTransactionMatchingContext.transaction_id),
         }
 
     @staticmethod
