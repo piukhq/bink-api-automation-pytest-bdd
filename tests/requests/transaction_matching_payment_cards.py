@@ -112,6 +112,16 @@ class TransactionMatching(Endpoint):
         url = TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
         headers = TransactionMatching_Endpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
         payload = TransactionMatchingPaymentFileDetails.get_amex_settlement_data(mid)
+        logging.info(json.dumps(payload, indent=2))
+        response = Endpoint.call(url, headers, "POST", payload)
+        return response
+
+    @staticmethod
+    def get_amex_settlement_spotting_file(mid):
+        url = TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
+        headers = TransactionMatching_Endpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
+        payload = TransactionMatchingPaymentFileDetails.get_amex_settlement_spotting_data(mid)
+        logging.info(json.dumps(payload, indent=2))
         response = Endpoint.call(url, headers, "POST", payload)
         return response
 

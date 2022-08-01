@@ -46,6 +46,9 @@ def import_payment_file(payment_card_transaction, mid):
     elif payment_card_transaction == "amex-settlement":
         TransactionMatching.get_amex_register_payment_csv()
         response = TransactionMatching.get_amex_settlement_csv(mid)
+    elif payment_card_transaction == "amex-settlement-spotting":
+        TransactionMatching.get_amex_register_payment_csv()
+        response = TransactionMatching.get_amex_settlement_spotting_file(mid)
     elif payment_card_transaction == "visa-auth":
         response = TransactionMatching.get_visa_auth_csv(mid)
     elif payment_card_transaction == "visa-settlement":
@@ -85,7 +88,7 @@ def import_payment_file(payment_card_transaction, mid):
             os.remove(file_name.name)
     elif payment_card_transaction == "master-settlement-spotting":
         merchant_container = "mastercard"
-        file_name = transaction_matching_payment_file.\
+        file_name = transaction_matching_payment_file. \
             TransactionMatchingPaymentFileDetails.get_master_settlement_spotting_txt_file(mid)
         bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
         blob_client = \
