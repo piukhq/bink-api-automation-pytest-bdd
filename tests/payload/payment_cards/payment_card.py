@@ -58,8 +58,8 @@ class PaymentCardDetails:
     @staticmethod
     def get_card(card_provider):
         faker = Faker()
-        print(PaymentCardTestData.get_data(card_provider))
-        print(constants.HASH)
+        print("PaymentCard", PaymentCardTestData.get_data(card_provider))
+        print("Constants", constants.HASH)
         TestContext.payment_card_hash = PaymentCardTestData.get_data(card_provider).get(constants.HASH) + str(
             faker.random_int()
         )
