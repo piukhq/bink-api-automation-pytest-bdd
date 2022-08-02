@@ -168,11 +168,11 @@ class PaymentCardTestData:
 
     @staticmethod
     def get_data(payment_card_provider="master"):
+        logging.info("payment_card_provider "+payment_card_provider)
         switcher = {
             "amex": TestDataUtils.TEST_DATA.amex_payment_card,
             "visa": TestDataUtils.TEST_DATA.visa_payment_card,
             "master": TestDataUtils.TEST_DATA.master_payment_card,
         }
-        logging.info("card provider  ", switcher.get(payment_card_provider))
-
+        logging.info(switcher.get(payment_card_provider))
         return switcher.get(payment_card_provider)

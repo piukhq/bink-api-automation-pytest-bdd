@@ -95,7 +95,7 @@ class PaymentCardDetails:
 
     @staticmethod
     def add_payment_card_payload_unencrypted(card_provider):
-        logging.info("card provider in payment_card.py" +card_provider)
+        logging.info("card provider in payment_card.py " +card_provider)
         faker = Faker()
         logging.info(PaymentCardTestData.get_data(card_provider))
         logging.info(constants.HASH)
