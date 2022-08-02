@@ -11,4 +11,3 @@ class TestDataUtils:
         # TestDataUtils.TEST_DATA = EnvironmentDetails.return_current_env(env).test_data
 
         TestDataUtils.TEST_DATA = getattr(config, env.upper()).test_data
-        logging.info(TestDataUtils.TEST_DATA+"**Data File")
