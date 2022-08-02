@@ -21,7 +21,7 @@ Feature: Merchant Iceland - Ensure a customer can add their payment card & link 
     |          master      |
 #    |          visa        |
 
-  @bink_regression @bmb_regression
+  @bink_regression @bmb_regression @payment_test
   Scenario: PLL Link by PATCH_(mcard_pcard)_Iceland
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
