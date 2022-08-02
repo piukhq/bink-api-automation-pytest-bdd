@@ -1,3 +1,5 @@
+import logging
+
 import tests.helpers.constants as constants
 from tests.helpers.test_data_utils import TestDataUtils
 from tests.payload.membership_cards.burgerking import BurgerKingCard
@@ -166,6 +168,7 @@ class PaymentCardTestData:
 
     @staticmethod
     def get_data(payment_card_provider="master"):
+        logging.info(TestDataUtils.TEST_DATA + "**Data File")
         switcher = {
             "amex": TestDataUtils.TEST_DATA.amex_payment_card,
             "visa": TestDataUtils.TEST_DATA.visa_payment_card,
