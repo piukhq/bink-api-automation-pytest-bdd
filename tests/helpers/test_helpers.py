@@ -12,6 +12,7 @@ from tests.payload.membership_cards.whsmith import WHSmithCard
 from tests.payload.membership_cards.wasabi import WasabiCard
 from tests.payload.membership_cards.trenette import TrenetteCard
 from tests.payload.membership_cards.asos import AsosCard
+from tests.payload.membership_cards.viator import ViatorCard
 
 
 class Merchant:
@@ -31,6 +32,7 @@ class Merchant:
             "SquareMeal": SquareMealCard,
             "Trenette": TrenetteCard,
             "Asos": AsosCard,
+            "Viator": ViatorCard,
         }
         return switcher.get(merchant)
 
@@ -48,6 +50,7 @@ class Merchant:
             "SquareMeal": TestDataUtils.TEST_DATA.square_meal_membership_card.get(constants.CARD_NUM),
             "Trenette": TestDataUtils.TEST_DATA.trenette_membership_card.get(constants.CARD_NUM),
             "Asos": TestDataUtils.TEST_DATA.asos_membership_card.get(constants.CARD_NUM),
+            "Viator": TestDataUtils.TEST_DATA.viator_membership_card.get(constants.CARD_NUM),
         }
         return switcher.get(merchant)
 
@@ -79,6 +82,7 @@ class TestData:
             "SquareMeal": TestDataUtils.TEST_DATA.square_meal_membership_card,
             "Trenette": TestDataUtils.TEST_DATA.trenette_membership_card,
             "Asos": TestDataUtils.TEST_DATA.asos_membership_card,
+            "Viator": TestDataUtils.TEST_DATA.viator_membership_card,
         }
         return switcher.get(merchant)
 
@@ -155,6 +159,7 @@ class TestData:
             "SquareMeal": "square_meal",
             "Trenette": "trenette",
             "Asos": "asos",
+            "Viator": "viator",
         }
         return switcher.get(merchant)
 
