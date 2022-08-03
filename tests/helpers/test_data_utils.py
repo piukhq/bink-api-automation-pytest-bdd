@@ -12,4 +12,4 @@ class TestDataUtils:
 
         logger.info("ENV: " + env)
         logger.info("ATTRIBUTES: " + str(getattr(config, env.upper())))
-        logger.info("TEST_DATA: " + str(TestDataUtils.TEST_DATA))
+        logger.info("TEST_DATA: " + str(TestDataUtils.TEST_DATA.master_payment_card))
