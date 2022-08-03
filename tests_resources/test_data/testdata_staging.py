@@ -283,6 +283,8 @@ asos_invalid_data = {
     "email": "fail@unknown.com",
 }
 
+viator_membership_card = {}
+
 wasabi_membership_card = {
     "card_num": "1048172852",
     "email": "binktestuser14@wasabi.com",
@@ -324,6 +326,7 @@ membership_plan_id = {
     "square_meal": 286,
     "trenette": 284,
     "asos": 288,
+    "viator": 292,
 }
 
 
