@@ -174,5 +174,6 @@ class PaymentCardTestData:
             "visa": TestDataUtils.TEST_DATA.visa_payment_card,
             "master": TestDataUtils.TEST_DATA.master_payment_card,
         }
+        logging.info(TestDataUtils.TEST_DATA.master_payment_card)
         logging.info(switcher.get(payment_card_provider))
         return switcher.get(payment_card_provider)
