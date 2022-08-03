@@ -15,7 +15,7 @@ black = "*"
 
 [packages]
 requests = "*"
-pytest-bdd = "*"
+pytest-bdd = "<6.0"
 pytest = "*"
 selenium = "*"
 logger = "*"
