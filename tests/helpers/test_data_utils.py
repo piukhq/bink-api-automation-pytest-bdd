@@ -1,4 +1,5 @@
 import config
+from settings import logger
 
 
 class TestDataUtils:
@@ -9,3 +10,7 @@ class TestDataUtils:
         # TestDataUtils.TEST_DATA = EnvironmentDetails.return_current_env(env).test_data
 
         TestDataUtils.TEST_DATA = getattr(config, env.upper()).test_data
+        
+        logger.info("ENV: ", env)
+        logger.info("ATTRIBUTES: ", getattr(config, env.upper()))
+        logger.info("TEST_DATA: ", TestDataUtils.TEST_DATA)
