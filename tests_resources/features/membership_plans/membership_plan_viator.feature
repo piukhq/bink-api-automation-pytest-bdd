@@ -1,4 +1,5 @@
-@viator @dev @sanity @sanity_bmb
+@viator @dev
+#@sanity @sanity_bmb
 Feature: Merchant Viator - Ensure a customer can view Scheme plan details
   As a customer
   I want to access membership plans

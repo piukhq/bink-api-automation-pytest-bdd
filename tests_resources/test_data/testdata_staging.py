@@ -283,7 +283,35 @@ asos_invalid_data = {
     "email": "fail@unknown.com",
 }
 
-viator_membership_card = {}
+viator_membership_card = {
+    "card_num": "VIAT1027715531",
+    "email": "pytest+test010822@bink.com",
+    "points": 0.0,
+    "prefix": "£",
+    "currency": "GBP",
+    # "transaction_currency": "GBP",
+    "burn_type": "voucher",
+    "burn_prefix": "X% off",
+    # "burn_value": "10",
+    # "burn_suffix": "eGift",
+    "earn_type": "accumulator",
+    "target_value": 200.0,
+    "issued_state": "issued",
+    "inprogress_state": "inprogress",
+    "expired_state": "expired",
+    "redeemed_state": "redeemed",
+    "headline": "Spend £200 to get a x% off voucher",
+    "expired_headline": "Expired",
+    "redeemed_headline": "Redeemed",
+    "barcode_type": 0,
+    "issued_headline": "Earned",
+    # "transaction_status": "active",
+}
+
+viator_invalid_data = {
+    "card_num": "VIAT1027715531",
+    "email": "fail@unknown.com",
+}
 
 wasabi_membership_card = {
     "card_num": "1048172852",
