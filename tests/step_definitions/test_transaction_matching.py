@@ -210,13 +210,22 @@ def verify_spotted_mastercard_transaction(payment_card_transaction, mid, auth_co
         logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 
 
-@then(parsers.parse("I verify transaction is not spotted and exported"))
+@then(parsers.parse("I verify transaction is not streamed/spotted and exported"))
 def verify_transaction_not_spotted():
     spotted_transaction_count = QueryHarmonia.fetch_spotted_transaction_count(
         TestTransactionMatchingContext.transaction_id
     )
     assert spotted_transaction_count.count == 0, "The Transaction got spotted and exported"
     logging.info(f" Transaction not spotted and the status is not exported: '{spotted_transaction_count.count}'")
+
+
+@then(parsers.parse("I verify transaction is imported into the import_transaction table"))
+def verify_transaction_is_imported():
+    imported_transaction_count = QueryHarmonia.fetch_imported_transaction_count(
+        TestTransactionMatchingContext.transaction_id
+    )
+    assert imported_transaction_count.count == 1, "The Transaction is imported into the import_transaction table"
+    logging.info(f" Transaction is not imported into the import_transaction table: '{imported_transaction_count}'")
 
 
 @when(parsers.parse('I perform POST request to add "{payment_card_provider}" payment card to wallet'))

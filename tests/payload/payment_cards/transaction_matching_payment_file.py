@@ -231,6 +231,7 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def get_amex_auth_spotting_data(mid):
         TestTransactionMatchingContext.approval_code = random.randint(100000, 999999)
+        TestTransactionMatchingContext.transaction_id = base64.b64encode(str(uuid.uuid4()).encode()).decode()
         TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
         TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
             "%Y-%m-%d %H:%M:%S")
