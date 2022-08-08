@@ -19,7 +19,7 @@ Feature: Merchant Iceland - Ensure a customer can add their payment card & link 
     | payment_card_provider|
     |          amex        |
     |          master      |
-#    |          visa        |
+    |          visa        |
 
   @bink_regression @bmb_regression @payment_test
   Scenario: PLL Link by PATCH_(mcard_pcard)_Iceland

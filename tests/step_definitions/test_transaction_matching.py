@@ -224,8 +224,8 @@ def verify_transaction_is_imported():
     imported_transaction_count = QueryHarmonia.fetch_imported_transaction_count(
         TestTransactionMatchingContext.transaction_id
     )
-    assert imported_transaction_count.count == 1, "The Transaction is imported into the import_transaction table"
-    logging.info(f" Transaction is not imported into the import_transaction table: '{imported_transaction_count}'")
+    assert imported_transaction_count.count == 1, "The Transaction is not imported into the import_transaction table"
+    logging.info(f" Transaction is imported into the import_transaction table: '{imported_transaction_count}'")
 
 
 @when(parsers.parse('I perform POST request to add "{payment_card_provider}" payment card to wallet'))
