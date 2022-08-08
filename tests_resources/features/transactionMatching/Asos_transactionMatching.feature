@@ -42,7 +42,7 @@ Feature: Merchant ASOS - Ensure a customer can use Bink's Transaction Matching f
     |          visa        |  29047530     |visa-settlement-spotting |
     |          visa        |  29047530     |visa-refund-spotting     |
 
-  @transactionMatchingAsos @bink_regression @sanity @338y
+  @transactionMatchingAsos @bink_regression @sanity
     Scenario Outline: Verify transaction spotting for Asos negative scenario(invalid payment card token)
 
     Given I am a Bink user
