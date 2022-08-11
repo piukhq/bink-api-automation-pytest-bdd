@@ -31,13 +31,6 @@
     },
     "images": [
         {
-            "id": 1323,
-            "type": 7,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Iceland_Promo_1968x732.png",
-            "description": "Iceland Promotion 1",
-            "encoding": "png"
-        },
-        {
             "id": 1289,
             "type": 9,
             "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Iceland_MiyMk96.png",
@@ -99,6 +92,13 @@
             "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Iceland_Offer_Pizza.jpg",
             "description": "Iceland Offer - Pizza",
             "encoding": "jpg"
+        },
+        {
+            "id": 1398,
+            "type": 7,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/PromotionsIcelandBonusCard1968x732.png",
+            "description": "Promo_Text_1",
+            "encoding": "png"
         }
     ],
     "account": {
@@ -129,7 +129,7 @@
                 "checkbox": true
             }
         ],
-        "barcode_redeem_instructions": "At checkout, simply tell the cashier how much money you would like to save or redeem, present the barcode below and scan it using the customer facing scanners, as you normally would with your physical card.",
+        "barcode_redeem_instructions": "At checkout, simply tell the cashier how much money you would like to save or redeem, present the barcode and scan it using the customer facing scanners, as you normally would with your physical card.",
         "plan_register_info": "You have added a temporary card. You\u2019ll need to register it to enjoy the full benefits of the programme.",
         "company_name": "Iceland",
         "company_url": "https://goo.gl/xPNXKv",
@@ -391,12 +391,12 @@
     ],
     "content": [
         {
-            "column": "Enrol_Help_Text",
-            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit below."
+            "column": "Promo_Text_1",
+            "value": "Find Bonus Card prices in-store and online!"
         },
         {
-            "column": "Promo_Text_1",
-            "value": "Free delivery when you spend \u00a335+ at iceland.co.uk"
+            "column": "Enrol_Help_Text",
+            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit."
         }
     ]
 }
