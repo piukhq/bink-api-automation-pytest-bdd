@@ -21,6 +21,7 @@ class ViatorCard:
                 "enrol_fields": [
                     {"column": "First name", "value": fake.name()},
                     {"column": "Last name", "value": fake.name()},
+                    {"column": "Date of birth", "value": constants.DATE_OF_BIRTH},
                     {"column": "Email", "value": value},
                     {"column": "Consent 1", "value": "true"},
                 ]

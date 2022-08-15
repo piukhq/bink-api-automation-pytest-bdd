@@ -284,8 +284,8 @@ asos_invalid_data = {
 }
 
 viator_membership_card = {
-    "card_num": "VIAT1027715531",
-    "email": "pytest+test010822@bink.com",
+    "card_num": "VIAT6417218052",
+    "email": "pytest+test150822@bink.com",
     "points": 0.0,
     "prefix": "£",
     "currency": "GBP",
@@ -309,7 +309,7 @@ viator_membership_card = {
 }
 
 viator_invalid_data = {
-    "card_num": "VIAT1027715531",
+    "card_num": "VIAT6417218052",
     "email": "fail@unknown.com",
 }
 
