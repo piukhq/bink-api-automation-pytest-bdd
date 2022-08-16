@@ -263,7 +263,7 @@ asos_membership_card = {
     "burn_type": "voucher",
     "burn_prefix": "£",
     "burn_value": "10",
-    "burn_suffix": "eGift",
+    "burn_suffix": "Gift",
     "earn_type": "accumulator",
     "target_value": 100.0,
     "issued_state": "issued",
