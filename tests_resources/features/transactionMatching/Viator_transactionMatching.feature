@@ -20,4 +20,6 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     |          visa        |  020150514    |visa-auth-spotting          |
     |          visa        |  020150514    |visa-settlement-spotting    |
     |          visa        |  020150514    |visa-refund-spotting        |
-
+    |          master      |  020150514    |master-auth-spotting        |
+    |          master      |  020150514    |master-settlement-spotting  |
+    |          master      |  020150514    |master-refund-spotting      |
