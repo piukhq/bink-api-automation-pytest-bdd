@@ -256,7 +256,7 @@ trenette_invalid_data = {
 asos_membership_card = {
     "card_num": "ASOS3279362771",
     "email": "pytest+220722@bink.com",
-    "points": 37.0,
+    "points": 39.88,
     "prefix": "£",
     "currency": "GBP",
     "transaction_currency": "GBP",
