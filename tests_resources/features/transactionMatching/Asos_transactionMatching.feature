@@ -34,7 +34,7 @@ Feature: Merchant ASOS - Ensure a customer can use Bink's Transaction Matching f
     When I perform POST request to add & auto link "Asos" membership card
     Then I perform GET request to verify the "Asos" membershipcard is added & linked successfully in the wallet
     When I send matching "<payment_card_transaction>" "<mid>" Authorisation
-    Then I verify transaction is not spotted and exported
+    Then I verify transaction is not streamed/spotted and exported
 
     Examples:
     | payment_card_provider|     mid       |payment_card_transaction |
@@ -51,7 +51,7 @@ Feature: Merchant ASOS - Ensure a customer can use Bink's Transaction Matching f
     When I perform POST request to add & auto link "Asos" membership card
     Then I perform GET request to verify the "Asos" membershipcard is added & linked successfully in the wallet
     When I send matching "<payment_card_transaction>" "<mid>" Authorisation
-    Then I verify transaction is not spotted and exported
+    Then I verify transaction is not streamed/spotted and exported
 
     Examples:
     | payment_card_provider|     mid       |payment_card_transaction               |

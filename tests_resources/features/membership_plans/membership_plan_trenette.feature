@@ -1,4 +1,4 @@
-@trenette @dev @sanity @sanity_bmb
+@trenette @dev @sanity
 Feature: Merchant Trenette - Ensure a customer can view Scheme plan details
   As a customer
   I want to access membership plans

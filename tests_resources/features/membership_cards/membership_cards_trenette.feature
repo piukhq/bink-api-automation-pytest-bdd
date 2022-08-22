@@ -24,6 +24,18 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then verify the data stored in DB after "Add" journey for "Trenette"
     And I perform DELETE request to delete the "Trenette" membership card
 
+  @balances_transactions @bink_regression @bmb_regression
+  Scenario: Balances and Transactions_Trenette
+
+    Given I am a Bink user
+    When I perform POST request to add "Trenette" membership card
+    And I perform GET request to verify the "Trenette" membership card is added to the wallet
+    And I perform GET request to view balance for recently added "Trenette" membership card
+    When I perform GET request to view all transactions made using the recently added "Trenette" membership card
+    Then I perform GET request to view a specific transaction made using the recently added "Trenette" membership card
+    Then verify the data stored in DB after "Add" journey for "Trenette"
+    And I perform DELETE request to delete the "Trenette" membership card
+
   @add_patch @bink_regression
   Scenario:  PATCH membership card details_Trenette
 

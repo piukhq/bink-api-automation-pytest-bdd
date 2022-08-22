@@ -256,14 +256,14 @@ trenette_invalid_data = {
 asos_membership_card = {
     "card_num": "ASOS3279362771",
     "email": "pytest+220722@bink.com",
-    "points": 37.0,
+    "points": 39.88,
     "prefix": "£",
     "currency": "GBP",
     "transaction_currency": "GBP",
     "burn_type": "voucher",
     "burn_prefix": "£",
     "burn_value": "10",
-    "burn_suffix": "eGift",
+    "burn_suffix": "Gift",
     "earn_type": "accumulator",
     "target_value": 100.0,
     "issued_state": "issued",
@@ -284,8 +284,8 @@ asos_invalid_data = {
 }
 
 viator_membership_card = {
-    "card_num": "VIAT1027715531",
-    "email": "pytest+test010822@bink.com",
+    "card_num": "VIAT6417218052",
+    "email": "pytest+test150822@bink.com",
     "points": 0.0,
     "prefix": "£",
     "currency": "GBP",
@@ -309,7 +309,7 @@ viator_membership_card = {
 }
 
 viator_invalid_data = {
-    "card_num": "VIAT1027715531",
+    "card_num": "VIAT6417218052",
     "email": "fail@unknown.com",
 }
 

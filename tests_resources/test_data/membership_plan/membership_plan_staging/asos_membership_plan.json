@@ -165,6 +165,22 @@
 			{
 				"column": "Enrol_Help_Text",
 				"value": "Please use the same email address you use to sign in to your account with the retailer. We won't save or store any of the information you provide or edit."
+			},
+			{
+				"column": "Voucher_Inprogress_Detail",
+				"value": "Spend £100 to get a £10 voucher"
+			},
+			{
+				"column": "Voucher_Redeemed_Detail",
+				"value": "Your ASOS EXTRA gift voucher was redeemed."
+			},
+			{
+				"column": "Voucher_Cancelled_Detail",
+				"value": "Your ASOS EXTRA gift voucher has been cancelled."
+			},
+			{
+				"column": "Voucher_Expired_Detail",
+				"value": "Your ASOS EXTRA gift voucher has expired."
 			}
 		]
 	}

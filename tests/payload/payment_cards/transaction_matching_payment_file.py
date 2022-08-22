@@ -33,7 +33,7 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_mastercard_auth_spotting_data(mid):
-        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(1, 10)))))
         TestTransactionMatchingContext.transaction_id = TransactionMatchingPaymentFileDetails. \
             get_random_alphanumeric_string(48)
         TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
@@ -55,7 +55,7 @@ class TransactionMatchingPaymentFileDetails:
         mid = mid
         TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
         TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
-        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(1, 10)))))
         payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
         amount = (str(TestTransactionMatchingContext.spend_amount * 100).zfill(12))
         lines = [join(
@@ -151,7 +151,7 @@ class TransactionMatchingPaymentFileDetails:
         mid = mid
         TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
         TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
-        TestTransactionMatchingContext.spend_amount = -abs(int(Decimal(str(random.choice(range(10, 1000))))))
+        TestTransactionMatchingContext.spend_amount = -abs(int(Decimal(str(random.choice(range(1, 10))))))
         payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
         amount = (str(-abs(TestTransactionMatchingContext.spend_amount) * 100).zfill(12))
         lines = [join(
@@ -231,7 +231,8 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def get_amex_auth_spotting_data(mid):
         TestTransactionMatchingContext.approval_code = random.randint(100000, 999999)
-        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        TestTransactionMatchingContext.transaction_id = base64.b64encode(str(uuid.uuid4()).encode()).decode()
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(1, 10)))))
         TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
             "%Y-%m-%d %H:%M:%S")
         return {
@@ -249,7 +250,7 @@ class TransactionMatchingPaymentFileDetails:
     def get_amex_settlement_spotting_data(mid):
         TestTransactionMatchingContext.approval_code = random.randint(100000, 999999)
         TestTransactionMatchingContext.transaction_id = base64.b64encode(str(uuid.uuid4()).encode()).decode()
-        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(1, 10)))))
         TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
             "%Y-%m-%d %H:%M:%S")
         return {
@@ -350,7 +351,7 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_visa_spotting_merchant_auth_data(mid):
-        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(1, 10)))))
         TestTransactionMatchingContext.transaction_id = (
             TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
         )
@@ -399,7 +400,7 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_visa_spotting_merchant_settlement_data(mid):
-        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(1, 10)))))/100
         TestTransactionMatchingContext.transaction_id = (
             TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
         )
@@ -448,7 +449,7 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_visa_spotting_merchant_refund_data(mid):
-        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000))))) / 100
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(1, 10)))))
         TestTransactionMatchingContext.transaction_id = (
             TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
         )
@@ -487,7 +488,7 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def get_visa_spotting_merchant_auth_data_with_invalid_token(mid):
         invalid_token = "5657775"
-        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(1, 10)))))
         TestTransactionMatchingContext.transaction_id = (
             TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
         )

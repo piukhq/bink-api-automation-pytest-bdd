@@ -7,7 +7,7 @@ Feature: Merchant Asos - Ensure a customer can view Scheme plan details
   Verify a customer can use Banking API to view available Asos membership plans v1.2
 
 
-  @membership_plan @bink_regression @bmb_regression @tasos1
+  @membership_plan @bink_regression @bmb_regression
    Scenario: Membership plan Asos
     Given I am a Bink user
     When I perform GET request to view all available membership plans
