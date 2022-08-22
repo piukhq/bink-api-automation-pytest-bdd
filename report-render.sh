@@ -13,14 +13,14 @@ sleep 2
 az storage blob upload --account-name $(echo $BLOB_STORAGE_DSN | awk -F ';' '{print $2}' | sed 's/AccountName=//g') --container-name test --name $bolb_name --file /tmp/report.html --account-key $(echo $BLOB_STORAGE_DSN | awk -F ';' '{print $3}' | sed 's/AccountKey=//g') --auth-mode key
 
 # determine what message to POST to teams using the error.log
-if [ -s /tmp/error.txt ]; then
-    echo "file not empty -> error -> red"
-    themeColor="FF0000"
-    status="FAILURE"
-else
-    echo "file is empty -> no errors -> green"
+if grep -q 0 /tmp/status.txt; [ $? -eq 0 ] ; then
+    echo "command was successful -> no errors -> green"
     themeColor="00FF00"
     status="SUCCESS"
+else
+    echo "command was unsuccessful -> error -> red"
+    themeColor="FF0000"
+    status="FAILURE"
 fi
 
 # POST to teams the output of pytest run
