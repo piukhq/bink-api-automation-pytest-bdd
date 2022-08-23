@@ -34,7 +34,6 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def get_mastercard_auth_spotting_data(mid):
         TestTransactionMatchingContext.spend_amount = random.choice(range(1, 20))
-        # TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
         TestTransactionMatchingContext.transaction_id = TransactionMatchingPaymentFileDetails. \
             get_random_alphanumeric_string(48)
         TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)

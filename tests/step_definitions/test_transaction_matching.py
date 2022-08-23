@@ -176,7 +176,7 @@ def verify_spotted_mastercard_transaction(payment_card_transaction, mid, auth_co
         created_at = utc_time.astimezone(pytz.UTC)
         logging.info(f"Transaction time: '{created_at}'")
         spotted_transaction_count = QueryHarmonia.fetch_mastercard_spotted_transaction_count(
-            TestTransactionMatchingContext.spend_amount * 100, created_at)
+            TestTransactionMatchingContext.spend_amount, created_at)
         assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
         logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 
