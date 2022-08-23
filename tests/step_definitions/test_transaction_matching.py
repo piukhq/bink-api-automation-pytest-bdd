@@ -176,7 +176,7 @@ def verify_spotted_mastercard_transaction(payment_card_transaction, mid, auth_co
         created_at = utc_time.astimezone(pytz.UTC)
         logging.info(f"Transaction time: '{created_at}'")
         spotted_transaction_count = QueryHarmonia.fetch_mastercard_spotted_transaction_count(
-            TestTransactionMatchingContext.spend_amount * 100, created_at)
+            TestTransactionMatchingContext.spend_amount, created_at)
         assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
         logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 
@@ -254,6 +254,26 @@ def get_transaction_matching_add_and_link(merchant):
     test_membership_cards.verify_add_and_link_membership_card(merchant)
 
 
+def get_soteria_config():
+    return Configuration(
+        "wasabi-club",
+        3,
+        "https://bink-uksouth-staging-com.vault.azure.net",
+        None,
+        "http://localhost:9000/config_service",
+    )
+
+
+def security_credentials() -> dict:
+    config = get_soteria_config()
+    return {c["credential_type"]: c["value"] for c in config.security_credentials["inbound"]["credentials"]}
+
+
+def sftp_credentials() -> SFTPCredentials:
+    compound_key = security_credentials["compound_key"]
+    return SFTPCredentials(**{k: compound_key.get(k) for k in SFTPCredentials._fields})
+
+
 @when(
     parsers.parse(
         'I send merchant Tlog file with "{merchant_container}" '
@@ -303,11 +323,53 @@ def import_merchant_file(merchant_container, payment_card_provider, mid, cardIde
         blob_client.upload_blob(json.dumps(file, indent=2))
         logging.info(f" This is the Merchant file sent to blob storage  : '{json.dumps(file, indent=2)}'")
 
+    elif merchant_container == "scheme/wasabi/":
+        buf = io.StringIO()
+        merchant_writer = csv.writer(buf, delimiter=",", quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        merchant_writer.writerow(TestTransactionMatchingContext.wasabi_file_header)
+        getNewFileDataToImport()
+        merchant_writer.writerow(
+            [
+                PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS),
+                PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS),
+                "01/80",
+                "3",
+                cardIdentity,
+                mid,
+                TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
+                TestTransactionMatchingContext.transaction_matching_amount,
+                "GBP",
+                ".00",
+                "GBP",
+                TestTransactionMatchingContext.transaction_matching_id,
+                TestTransactionMatchingContext.transaction_matching_uuid,
+            ]
+        )
+        pkey = security_credentials().get("bink_private_key")
+        with SFTP(sftp_credentials(), pkey, "/uploads") as sftp:
+            sftp.client.put(TestTransactionMatchingContext.file_name)
+
+        # pkey = security_credentials().get("bink_private_key")
+        # with SFTP(sftp_credentials(), pkey, "/uploads") as sftp:
+        #     try:
+        #         with sftp.client.file(TestTransactionMatchingContext.file_name, "w") as f:
+        #
+        #             sftp.client.put()
+        #             data = f.read()
+        #             # Opportunity to
+
+        # bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
+        # blob_client = bbs.get_blob_client(
+        #     TestTransactionMatchingContext.container_name,
+        #     merchant_container + f"{TestTransactionMatchingContext.file_name}",
+        # )
+        # blob_client.upload_blob(buf.getvalue().encode())
+
 
 def getNewFileDataToImport():
     TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
     TestTransactionMatchingContext.transaction_matching_uuid = random.randint(100000, 999999)
-    TestTransactionMatchingContext.transaction_matching_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+    TestTransactionMatchingContext.transaction_matching_amount = int(Decimal(str(random.choice(range(1, 20)))))
     TestTransactionMatchingContext.transaction_matching_currentTimeStamp = datetime.now(
         timezone("Europe/London")
     ).strftime("%Y-%m-%d %H:%M:%S")
