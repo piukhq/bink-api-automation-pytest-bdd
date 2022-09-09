@@ -24,7 +24,6 @@
 		},
 		"card": {
 			"colour": "#000000",
-			"text_colour": "#FFFFFF",
 			"scan_message": "Scanning not required"
 		},
 		"images": [

@@ -1,5 +1,6 @@
 {
 		"id": 292,
+		"plan_popularity": 5,
 		"status": "active",
 		"feature_set": {
 			"authorisation_required": true,
@@ -22,16 +23,38 @@
 			"has_vouchers": true
 		},
 		"card": {
-			"colour": "#000000",
+			"colour": "#246b6c",
 			"scan_message": "Scanning not required"
 		},
-		"images": [],
+		"images": [
+			{
+				"id": 1410,
+				"type": 9,
+				"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Alternative_Card2_1312x800.png",
+				"description": "Viator Alternative Hero",
+				"encoding": "png"
+			},
+			{
+				"id": 1411,
+				"type": 3,
+				"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Logo1-280x280.png",
+				"description": "Viator icon",
+				"encoding": "png"
+			},
+			{
+				"id": 1409,
+				"type": 0,
+				"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Loyalty_Card_V2_1312x800.png",
+				"description": "Viator Hero",
+				"encoding": "png"
+			}
+		],
 		"account": {
-			"plan_name": "Viator Loyalty",
+			"plan_name": "Viator Rewards Discount",
 			"plan_name_card": "Card",
 			"plan_url": "https://www.viator.com",
-			"plan_summary": "TBC",
-			"plan_description": "TBC",
+			"plan_summary": "With Viator find thousands of experiences at your fingertips, and get rewarded for doing them! Viator offers global experiences from museums to mountain climbing, and now for every £200 you spend you’ll get 10% off your next purchase! T&Cs apply",
+			"plan_description": "Memories don’t just happen – they’re made. They’re made on mountaintops and in museums, at wineries and on walking tours, in catamarans and the catacombs. In Madrid, Maui, Malibu and beyond.​\r\n​\r\nViator is the experiences marketplace. From the must-do, to the ooh-la-la, we’re where your best memories are waiting.​\r\n​\r\nMax 2 vouchers available in any single transaction. Use your linked payment card at checkout (Reserve Now Pay Later won't count!). Eligible bookings must be made by 31/03/23.",
 			"plan_documents": [
 				{
 					"name": "Viator privacy policy",
@@ -53,7 +76,7 @@
 				},
 				{
 					"name": "Terms & conditions",
-					"url": "https://policies.staging.gb.bink.com/Viator/tc.html",
+					"url": "https://policies.staging.gb.bink.com/Viator/rewardtc.html",
 					"display": [
 						"VOUCHER"
 					],
@@ -102,6 +125,14 @@
 					"choice": []
 				},
 				{
+					"column": "Date of birth",
+					"validation": "^(0[1-9]|[12][0-9]|3[01])[\\/](0[1-9]|1[012])[\\/](19|20)\\d\\d$",
+					"description": "DD/MM/YYYY",
+					"common_name": "date_of_birth",
+					"type": 0,
+					"choice": []
+				},
+				{
 					"column": "Email",
 					"validation": "^(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
 					"description": "example@mydomain.com",
@@ -125,8 +156,28 @@
 		],
 		"content": [
 			{
-				"column": "ENROL_HELP_TEXT",
+				"column": "Voucher_Issued_Detail",
+				"value": "You've earned a Viator reward! ​\r\nAll you need to do now is wait for your code to show here after 10 days (just to allow for any returns to register in our system). Use your Viator discount reward at checkout on your next purchase."
+			},
+			{
+				"column": "Enrol_Help_Text",
 				"value": "Please enter your details to register with the retailer. We won’t save or store any of the information you provide or edit."
+			},
+			{
+				"column": "Voucher_Inprogress_Detail",
+				"value": "Spend £200 to get a 10% off Viator voucher code."
+			},
+			{
+				"column": "Voucher_Redeemed_Detail",
+				"value": "Your Viator discount was redeemed."
+			},
+			{
+				"column": "Voucher_Expired_Detail",
+				"value": "Your Viator discount has expired."
+			},
+			{
+				"column": "Voucher_Cancelled_Detail",
+				"value": "Your Viator discount has been cancelled."
 			}
 		]
-}
+	}
