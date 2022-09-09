@@ -26,7 +26,6 @@
 		"card": {
 			"barcode_type": 0,
 			"colour": "#d50724",
-			"text_colour": "#00FF00",
 			"scan_message": "Please turn over to scan barcode"
 		},
 		"images": [
@@ -399,4 +398,4 @@
 				"value": "Please enter your details to register with the retailer. We won’t save or store any of the information you provide or edit."
 			}
 		]
-}
+	}

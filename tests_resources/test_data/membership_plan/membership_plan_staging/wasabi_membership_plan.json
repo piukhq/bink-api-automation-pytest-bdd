@@ -24,7 +24,6 @@
 		},
 		"card": {
 			"colour": "#ccd400",
-			"text_colour": "#7289da",
 			"scan_message": "Scanning not required"
 		},
 		"images": [
@@ -201,4 +200,3 @@
 			}
 		]
 	}
-

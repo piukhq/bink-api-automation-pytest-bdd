@@ -1,10 +1,10 @@
 {
-    "id": 192601,
+    "id": 203237,
     "membership_plan": 281,
     "payment_cards": [],
     "membership_transactions": [
         {
-            "id": 414976,
+            "id": 442090,
             "status": "active",
             "amounts": [
                 {
@@ -17,7 +17,7 @@
             "description": "Ascot 1 Petty Cury £8.00"
         },
         {
-            "id": 414977,
+            "id": 442091,
             "status": "active",
             "amounts": [
                 {
@@ -38,8 +38,7 @@
     },
     "card": {
         "membership_id": "1048172852",
-        "colour": "#ccd400",
-        "text_colour": "#7289da"
+        "colour": "#ccd400"
     },
     "images": [
         {
@@ -72,7 +71,7 @@
             "value": 6,
             "suffix": "stamps",
             "currency": "stamps",
-            "updated_at": 1660307699
+            "updated_at": 1662729646
         }
     ],
     "vouchers": [
@@ -90,7 +89,6 @@
             },
             "state": "inprogress",
             "headline": "Spend £7.00 or more to get a stamp. Collect 7 stamps to get a Meal Voucher of up to £7 off your next meal.",
-            "body_text": "In progress body text",
             "barcode_type": 9
         },
         {
@@ -108,7 +106,6 @@
             },
             "state": "issued",
             "headline": "Earned",
-            "body_text": "Issued body text",
             "date_issued": 1591787076,
             "expiry_date": 1673308800,
             "barcode_type": 9
