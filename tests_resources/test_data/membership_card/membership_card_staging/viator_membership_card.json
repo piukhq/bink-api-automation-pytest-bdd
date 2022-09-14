@@ -1,0 +1,137 @@
+{
+    "id": 205232,
+    "membership_plan": 292,
+    "payment_cards": [],
+    "membership_transactions": [
+        {
+            "id": 447050,
+            "status": "active",
+            "amounts": [
+                {
+                    "value": 0.01,
+                    "prefix": "£",
+                    "currency": "GBP"
+                }
+            ],
+            "timestamp": 1663140717,
+            "description": "VIATOR.COM £0.01"
+        },
+        {
+            "id": 447051,
+            "status": "active",
+            "amounts": [
+                {
+                    "value": 0.07,
+                    "prefix": "£",
+                    "currency": "GBP"
+                }
+            ],
+            "timestamp": 1663140621,
+            "description": "VIATOR.COM £0.07"
+        },
+        {
+            "id": 447052,
+            "status": "active",
+            "amounts": [
+                {
+                    "value": -0.03,
+                    "prefix": "£",
+                    "currency": "GBP"
+                }
+            ],
+            "timestamp": 1663137480,
+            "description": "VIATOR.COM -£0.03"
+        },
+        {
+            "id": 447053,
+            "status": "active",
+            "amounts": [
+                {
+                    "value": 0.02,
+                    "prefix": "£",
+                    "currency": "GBP"
+                }
+            ],
+            "timestamp": 1663137360,
+            "description": "VIATOR.COM £0.02"
+        },
+        {
+            "id": 447054,
+            "status": "active",
+            "amounts": [
+                {
+                    "value": 0.02,
+                    "prefix": "£",
+                    "currency": "GBP"
+                }
+            ],
+            "timestamp": 1663137309,
+            "description": "VIATOR.COM £0.02"
+        }
+    ],
+    "status": {
+        "state": "authorised",
+        "reason_codes": [
+            "X300"
+        ]
+    },
+    "card": {
+        "membership_id": "VIAT6417218052",
+        "colour": "#246b6c"
+    },
+    "images": [
+        {
+            "id": 1409,
+            "type": 0,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Loyalty_Card_V2_1312x800.png",
+            "description": "Viator Hero",
+            "encoding": "png"
+        },
+        {
+            "id": 1411,
+            "type": 3,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Logo1-280x280.png",
+            "description": "Viator icon",
+            "encoding": "png"
+        },
+        {
+            "id": 1410,
+            "type": 9,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Alternative_Card2_1312x800.png",
+            "description": "Viator Alternative Hero",
+            "encoding": "png"
+        }
+    ],
+    "account": {
+        "tier": 0
+    },
+    "balances": [
+        {
+            "value": 27.18,
+            "prefix": "£",
+            "currency": "GBP",
+            "updated_at": 1663174006
+        }
+    ],
+    "vouchers": [
+        {
+            "burn": {
+                "type": "voucher",
+                "prefix": "10% off",
+                "suffix": "discount",
+                "currency": "GBP"
+            },
+            "earn": {
+                "type": "accumulator",
+                "value": 27.18,
+                "prefix": "£",
+                "currency": "GBP",
+                "target_value": 200.0
+            },
+            "state": "inprogress",
+            "headline": "Spend £200 to get a 10% off Viator voucher code",
+            "barcode_type": 9
+        }
+    ]
+}
+
