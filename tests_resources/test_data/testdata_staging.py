@@ -256,7 +256,7 @@ trenette_invalid_data = {
 asos_membership_card = {
     "card_num": "ASOS3279362771",
     "email": "pytest+220722@bink.com",
-    "points": 12.72,
+    "points": 14.83,
     "prefix": "£",
     "currency": "GBP",
     "transaction_currency": "GBP",
@@ -286,7 +286,7 @@ asos_invalid_data = {
 viator_membership_card = {
     "card_num": "VIAT6417218052",
     "email": "pytest+test150822@bink.com",
-    "points": 0.0,
+    "points": 27.18,
     "prefix": "£",
     "currency": "GBP",
     # "transaction_currency": "GBP",
@@ -300,7 +300,7 @@ viator_membership_card = {
     "inprogress_state": "inprogress",
     "expired_state": "expired",
     "redeemed_state": "redeemed",
-    "headline": "Spend £200 to get a x% off voucher",
+    "headline": "Spend £200 to get a 10% off Viator voucher code",
     "expired_headline": "Expired",
     "redeemed_headline": "Redeemed",
     "barcode_type": 0,

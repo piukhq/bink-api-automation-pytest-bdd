@@ -1,0 +1,159 @@
+{
+    "id": 205107,
+    "membership_plan": 288,
+    "payment_cards": [],
+    "membership_transactions": [
+        {
+            "id": 446782,
+            "status": "active",
+            "amounts": [
+                {
+                    "value": 0.16,
+                    "prefix": "£",
+                    "currency": "GBP"
+                }
+            ],
+            "timestamp": 1663137450,
+            "description": "asos.com £0.16"
+        },
+        {
+            "id": 446783,
+            "status": "active",
+            "amounts": [
+                {
+                    "value": 0.17,
+                    "prefix": "£",
+                    "currency": "GBP"
+                }
+            ],
+            "timestamp": 1663137354,
+            "description": "asos.com £0.17"
+        },
+        {
+            "id": 446784,
+            "status": "active",
+            "amounts": [
+                {
+                    "value": -0.05,
+                    "prefix": "£",
+                    "currency": "GBP"
+                }
+            ],
+            "timestamp": 1663134180,
+            "description": "asos.com -£0.05"
+        },
+        {
+            "id": 446785,
+            "status": "active",
+            "amounts": [
+                {
+                    "value": 0.02,
+                    "prefix": "£",
+                    "currency": "GBP"
+                }
+            ],
+            "timestamp": 1663134120,
+            "description": "asos.com £0.02"
+        },
+        {
+            "id": 446786,
+            "status": "active",
+            "amounts": [
+                {
+                    "value": 0.16,
+                    "prefix": "£",
+                    "currency": "GBP"
+                }
+            ],
+            "timestamp": 1663134042,
+            "description": "asos.com £0.16"
+        }
+    ],
+    "status": {
+        "state": "authorised",
+        "reason_codes": [
+            "X300"
+        ]
+    },
+    "card": {
+        "membership_id": "ASOS3279362771",
+        "colour": "#000000"
+    },
+    "images": [
+        {
+            "id": 1401,
+            "type": 0,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/ASOS_Hero_06042022.png",
+            "description": "ASOS Hero",
+            "encoding": "png"
+        },
+        {
+            "id": 1399,
+            "type": 3,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/App_icon.png",
+            "description": "ASOS icon",
+            "encoding": "png"
+        },
+        {
+            "id": 1404,
+            "type": 9,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/ASOS_alternative_hero_PiASHCk.png",
+            "description": "ASOS alternative hero",
+            "encoding": "png"
+        }
+    ],
+    "account": {
+        "tier": 0
+    },
+    "balances": [
+        {
+            "value": 14.83,
+            "prefix": "£",
+            "currency": "GBP",
+            "updated_at": 1663166292
+        }
+    ],
+    "vouchers": [
+        {
+            "burn": {
+                "type": "voucher",
+                "value": 10.0,
+                "prefix": "£",
+                "suffix": "Gift",
+                "currency": "GBP"
+            },
+            "earn": {
+                "type": "accumulator",
+                "value": 14.83,
+                "prefix": "£",
+                "currency": "GBP",
+                "target_value": 100.0
+            },
+            "state": "inprogress",
+            "headline": "Spend £100 to get a £10 gift voucher",
+            "barcode_type": 9
+        },
+        {
+            "burn": {
+                "type": "voucher",
+                "value": 10.0,
+                "prefix": "£",
+                "suffix": "Gift",
+                "currency": "GBP"
+            },
+            "code": "YRNBCTRJPDRTFVDS",
+            "earn": {
+                "type": "accumulator",
+                "value": 100.0,
+                "prefix": "£",
+                "currency": "GBP",
+                "target_value": 100.0
+            },
+            "state": "issued",
+            "headline": "Earned",
+            "date_issued": 1662076800,
+            "expiry_date": 1725321599,
+            "barcode_type": 9
+        }
+    ]
+}
