@@ -23,7 +23,7 @@ Feature: Merchant Viator - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Viator"
     And I perform DELETE request to delete the "Viator" membership card
 
-  @vouchers @bink_regression @bmb_regression @sanity
+  @vouchers @bink_regression @bmb_regression
   Scenario: Add Journey_Viator and verify vouchers
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
