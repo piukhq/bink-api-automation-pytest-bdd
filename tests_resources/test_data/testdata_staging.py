@@ -220,7 +220,8 @@ iceland_ghost_membership_card = {
 
 
 iceland_invalid_data = {
-    "email": "fail@unknown.com",
+    # "email": "fail@unknown.com",
+    "email": "joininprogress@bink.com",
     "postcode": "fail",
 }
 
