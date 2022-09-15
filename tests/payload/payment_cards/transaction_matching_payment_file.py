@@ -269,6 +269,28 @@ class TransactionMatchingPaymentFileDetails:
         }
 
     @staticmethod
+    def get_amex_refund_spotting_data(mid):
+        TestTransactionMatchingContext.approval_code = random.randint(100000, 999999)
+        TestTransactionMatchingContext.transaction_id = base64.b64encode(str(uuid.uuid4()).encode()).decode()
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
+            "%Y-%m-%d %H:%M:%S")
+        return {
+            "approvalCode": str(TestTransactionMatchingContext.approval_code),
+            "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
+            "currencyCode": "840",
+            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX"
+            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
+            "merchantNumber": mid,
+            "offerId": "0",
+            "partnerId": "AADP0050",
+            "recordId": f"{TestTransactionMatchingContext.transaction_id}AADP00400",
+            "transactionAmount": str(-TestTransactionMatchingContext.spend_amount),
+            "transactionDate": "2022-08-14 04:37:57",
+            "transactionId": str(TestTransactionMatchingContext.transaction_id),
+        }
+
+    @staticmethod
     def get_amex_settlement_data(mid):
         return {
             "approvalCode": str(TestTransactionMatchingContext.transaction_matching_uuid),

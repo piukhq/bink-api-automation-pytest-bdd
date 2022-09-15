@@ -25,6 +25,7 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
     |          master      |  29047531     |master-settlement-spotting    |
     |          master      |  29047531     |master-refund-spotting        |
     |          amex        |  9449819796   |amex-settlement-spotting      |
+    |          amex        |  9449819796   |amex-refund-spotting          |
 
   @transactionMatchingSquareMeal @bink_regression @sanity
     Scenario Outline: Verify that Squaremeal AMEX auth transaction for streaming/spotting merchant is not exported
