@@ -226,21 +226,21 @@ iceland_invalid_data = {
 }
 
 trenette_membership_card = {
-    "card_num": "TRNT4551622350",
-    "email": "pytest+220722@bink.com",
-    "points": 6.0,
+    "card_num": "TRNT8139495882",
+    "email": "pytest+test220916@bink.com",
+    "points": 1.90,
     "currency": "GBP",
     "transaction_currency": "GBP",
     "burn_type": "voucher",
-    "burn_suffix": "Free bottle of house wine",
+    "burn_suffix": "Free chocolate hamper",
     "earn_type": "accumulator",
     "earn_prefix": "\u00a3",
     "issued_state": "issued",
     "inprogress_state": "inprogress",
     "expired_state": "expired",
     "redeemed_state": "redeemed",
-    "target_value": 100.0,
-    "headline": "Spend \u00a3100 stamps to go!",
+    "target_value": 2.0,
+    "headline": "\u00a3earn_target_remaining|floatformat:'2' to go!",
     "expired_headline": "Expired",
     "redeemed_headline": "Redeemed",
     "barcode_type": 0,
@@ -250,14 +250,14 @@ trenette_membership_card = {
 }
 
 trenette_invalid_data = {
-    "card_num": "TRNT4551622350",
+    "card_num": "TRNT8139495882",
     "email": "fail@unknown.com",
 }
 
 asos_membership_card = {
     "card_num": "ASOS3279362771",
     "email": "pytest+220722@bink.com",
-    "points": 14.83,
+    "points": 16.31,
     "prefix": "£",
     "currency": "GBP",
     "transaction_currency": "GBP",
