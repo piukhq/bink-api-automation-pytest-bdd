@@ -5,7 +5,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
   So I can add my card, with the scheme provider Trenette & check its details successfully
 
 
-  @enrol @bink_regression
+  @enrol @bink_regression @sanity
   Scenario: Join Journey_Trenette
 
     Given I register with bink service as a new customer
@@ -15,7 +15,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then I perform DELETE request to delete the "Trenette" membership card
     And I perform DELETE request to delete the customer
 
-  @add @bink_regression
+  @add @bink_regression @sanity
   Scenario: Add Journey_Trenette
 
     Given I am a Bink user
@@ -36,7 +36,16 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then verify the data stored in DB after "Add" journey for "Trenette"
     And I perform DELETE request to delete the "Trenette" membership card
 
-  @add_patch @bink_regression
+  @vouchers @bink_regression @bmb_regression
+  Scenario: Add Journey_Trenette and verify vouchers
+
+    Given I am a customer who is subscribing to Bink or I am Bink app user
+    When I perform POST request to add "Trenette" membership card
+    And I perform GET request to verify the "Trenette" membership card voucher details
+    Then verify the data stored in DB after "Add" journey for "Trenette"
+    Then I perform DELETE request to delete the "Trenette" membership card
+
+  @add_patch @bink_regression @sanity
   Scenario:  PATCH membership card details_Trenette
 
     Given I am a Bink user
@@ -47,7 +56,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then verify the data stored in DB after "Add" journey for "Trenette"
     And I perform DELETE request to delete the "Trenette" membership card
 
-  @enrol_put @bink_regression
+  @enrol_put @bink_regression @sanity
   Scenario: Join Journey_PUT_Trenette
 
     Given I register with bink service as a new customer
@@ -59,7 +68,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then I perform DELETE request to delete the "Trenette" membership card
     And I perform DELETE request to delete the customer
 
-  @enrol_add
+  @enrol_add @sanity
   Scenario: Verify join Trenette then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
 
     Given I register with bink service as a new customer
@@ -71,7 +80,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then verify the data stored in DB after "Enrol" journey for "Trenette"
     And I perform DELETE request to delete the customer
 
-  @negative_scenario
+  @negative_scenario @sanity
   Scenario:  Add_Journey with Invalid Credentials_Trenette
 
     Given I am a Bink user
@@ -79,7 +88,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     And I perform GET request to verify the "Trenette" membership card is added to the wallet with invalid data
     Then I perform DELETE request to delete the "Trenette" membership card
 
-  @negative_scenario
+  @negative_scenario @sanity
   Scenario Outline: Negative test scenario for POST/membership_cards without account field_Trenette
     Given I am a Bink user
     When I perform POST request to add "Trenette" membership card without "account"
@@ -89,7 +98,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
       | error_message      |
       | Malformed request. |
 
-  @negative_scenario
+  @negative_scenario @sanity
   Scenario Outline: Negative test scenario for POST/membership_cards without plan field_Trenette
     Given I am a Bink user
     When I perform POST request to add "Trenette" membership card without "membership_plan"
@@ -99,7 +108,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
       | error_message                             |
       | required field membership_plan is missing |
 
-  @negative_scenario
+  @negative_scenario @sanity
   Scenario Outline: Negative test scenario for POST/membership_cards without token_Trenette
     Given I am a Bink user
     When I perform POST request to add "Trenette" membership card without "token" header
@@ -109,7 +118,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
       | error_message                                  |
       | Invalid token header. No credentials provided. |
 
-  @negative_scenario
+  @negative_scenario @sanity
   Scenario Outline: Negative test scenario for POST/membership_cards without payload_Trenette
     Given I am a Bink user
     When I perform POST request to add "Trenette" membership card without "payload" header
