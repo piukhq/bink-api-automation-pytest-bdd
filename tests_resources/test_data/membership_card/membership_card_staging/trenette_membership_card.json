@@ -1,0 +1,102 @@
+{
+    "id": 206423,
+    "membership_plan": 284,
+    "payment_cards": [
+        {
+            "id": 78552,
+            "active_link": true
+        }
+    ],
+    "membership_transactions": [
+        {
+            "id": 450120,
+            "status": "active",
+            "amounts": [
+                {
+                    "value": 0.0,
+                    "prefix": "£",
+                    "currency": "GBP"
+                }
+            ],
+            "timestamp": 1663336888,
+            "description": "Bink Sweet Reward £0.90"
+        },
+        {
+            "id": 450121,
+            "status": "active",
+            "amounts": [
+                {
+                    "value": 1.9,
+                    "prefix": "£",
+                    "currency": "GBP"
+                }
+            ],
+            "timestamp": 1663336888,
+            "description": "Bink Sweet Reward £1.90"
+        }
+    ],
+    "status": {
+        "state": "authorised",
+        "reason_codes": [
+            "X300"
+        ]
+    },
+    "card": {
+        "membership_id": "TRNT8139495882",
+        "barcode_type": 0,
+        "colour": "#532f91"
+    },
+    "images": [
+        {
+            "id": 1321,
+            "type": 0,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/binksweetshop-hero.png",
+            "description": "Bink Sweet Rewards Hero",
+            "encoding": "png"
+        },
+        {
+            "id": 1322,
+            "type": 3,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/binksweetshop-icon.png",
+            "description": "Bink Sweet Rewards Icon",
+            "encoding": "png"
+        },
+        {
+            "id": 1405,
+            "type": 9,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/binksweetshop-althero.png",
+            "description": "Bink Sweet Rewards Alternative Hero",
+            "encoding": "png"
+        }
+    ],
+    "account": {
+        "tier": 0
+    },
+    "balances": [
+        {
+            "value": 1.9,
+            "prefix": "£",
+            "currency": "GBP",
+            "updated_at": 1663337054
+        }
+    ],
+    "vouchers": [
+        {
+            "burn": {
+                "type": "voucher",
+                "suffix": "Free chocolate hamper"
+            },
+            "earn": {
+                "type": "accumulator",
+                "value": 1.9,
+                "prefix": "£",
+                "currency": "GBP",
+                "target_value": 2.0
+            },
+            "state": "inprogress",
+            "headline": "£0.10 to go!",
+            "barcode_type": 0
+        }
+    ]
+}
+
