@@ -26,7 +26,6 @@
     "card": {
         "barcode_type": 0,
         "colour": "#d50724",
-        "text_colour": "#00FF00",
         "scan_message": "Please turn over to scan barcode"
     },
     "images": [
@@ -106,7 +105,7 @@
         "plan_name_card": "Card",
         "plan_url": "https://www.iceland.co.uk/",
         "plan_summary": "With Iceland\u2019s Bonus Card programme, you can easily save and spend when you shop. Iceland will give you \u00a31 for every \u00a320 you save on your Bonus Card. Iceland makes saving easy with their Bonus Card programme.",
-        "plan_description": "At checkout, simply tell the cashier how much money you would like to save, present your digital Bonus Card within this app and scan it using the customer facing scanners, as you normally would with your physical card. You will also be able to see your savings balance on your phone. For every \u00a320 you save, Iceland give you \u00a31 absolutely free. Additional benefits include free home delivery when you spend over \u00a325, and exclusive bonuses and offers only for Bonus Cardholders.",
+        "plan_description": "At checkout, simply tell the cashier how much money you would like to save, present your digital Bonus Card within this app and scan it as you normally would with your physical card. For every \u00a320 you save, Iceland give you \u00a31 absolutely free.You will also be able to see your savings balance on your phone. Additional benefits:free home delivery when you spend over \u00a325 and exclusive bonuses and offers only for Bonus Cardholders (you need to scan your Bonus Card to benefit from Bonus Card pricing)",
         "plan_documents": [
             {
                 "name": "Iceland privacy policy",
