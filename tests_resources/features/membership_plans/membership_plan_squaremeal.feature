@@ -1,4 +1,4 @@
-@squaremeal @dev @sanity
+@squaremeal @dev @sanity @sanity_bmb
 Feature: Merchant Squaremeal - Ensure a customer can view Scheme plan details
   As a customer
   I want to access membership plans
