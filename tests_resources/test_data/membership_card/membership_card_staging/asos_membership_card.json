@@ -1,23 +1,10 @@
 {
-    "id": 205107,
+    "id": 216055,
     "membership_plan": 288,
     "payment_cards": [],
     "membership_transactions": [
         {
-            "id": 446782,
-            "status": "active",
-            "amounts": [
-                {
-                    "value": 0.16,
-                    "prefix": "£",
-                    "currency": "GBP"
-                }
-            ],
-            "timestamp": 1663137450,
-            "description": "asos.com £0.16"
-        },
-        {
-            "id": 446783,
+            "id": 472702,
             "status": "active",
             "amounts": [
                 {
@@ -26,47 +13,60 @@
                     "currency": "GBP"
                 }
             ],
-            "timestamp": 1663137354,
+            "timestamp": 1665052595,
             "description": "asos.com £0.17"
         },
         {
-            "id": 446784,
+            "id": 472703,
             "status": "active",
             "amounts": [
                 {
-                    "value": -0.05,
+                    "value": 0.06,
                     "prefix": "£",
                     "currency": "GBP"
                 }
             ],
-            "timestamp": 1663134180,
-            "description": "asos.com -£0.05"
+            "timestamp": 1665052498,
+            "description": "asos.com £0.06"
         },
         {
-            "id": 446785,
+            "id": 472704,
             "status": "active",
             "amounts": [
                 {
-                    "value": 0.02,
+                    "value": -0.09,
                     "prefix": "£",
                     "currency": "GBP"
                 }
             ],
-            "timestamp": 1663134120,
-            "description": "asos.com £0.02"
+            "timestamp": 1665050220,
+            "description": "asos.com -£0.09"
         },
         {
-            "id": 446786,
+            "id": 472705,
             "status": "active",
             "amounts": [
                 {
-                    "value": 0.16,
+                    "value": 0.07,
                     "prefix": "£",
                     "currency": "GBP"
                 }
             ],
-            "timestamp": 1663134042,
-            "description": "asos.com £0.16"
+            "timestamp": 1665050160,
+            "description": "asos.com £0.07"
+        },
+        {
+            "id": 472706,
+            "status": "active",
+            "amounts": [
+                {
+                    "value": 0.12,
+                    "prefix": "£",
+                    "currency": "GBP"
+                }
+            ],
+            "timestamp": 1665049884,
+            "description": "asos.com £0.12"
         }
     ],
     "status": {
@@ -107,10 +107,10 @@
     },
     "balances": [
         {
-            "value": 14.83,
+            "value": 23.27,
             "prefix": "£",
             "currency": "GBP",
-            "updated_at": 1663166292
+            "updated_at": 1665055196
         }
     ],
     "vouchers": [
@@ -124,7 +124,7 @@
             },
             "earn": {
                 "type": "accumulator",
-                "value": 14.83,
+                "value": 23.27,
                 "prefix": "£",
                 "currency": "GBP",
                 "target_value": 100.0
