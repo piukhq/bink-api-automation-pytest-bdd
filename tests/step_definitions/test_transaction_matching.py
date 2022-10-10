@@ -173,14 +173,11 @@ def verify_spotted_transaction():
 
 @then(parsers.parse('I verify "{payment_card_transaction}","{mid}" and "{auth_code}" is spotted and exported'))
 def verify_spotted_mastercard_transaction(payment_card_transaction, mid, auth_code):
+    transaction_id = TestTransactionMatchingContext.third_party_id
     if payment_card_transaction == "master-auth-spotting":
-        t = TestTransactionMatchingContext.created_at
-        form = "%Y-%m-%d %H:%M:%S"
-        utc_time = datetime.strptime(t, form)
-        created_at = utc_time.astimezone(pytz.UTC)
-        logging.info(f"Transaction time: '{created_at}'")
-        spotted_transaction_count = QueryHarmonia.fetch_mastercard_spotted_transaction_count(
-            TestTransactionMatchingContext.spend_amount, created_at)
+        logging.info(f"Third_party_id: '{transaction_id}'")
+        spotted_transaction_count = QueryHarmonia.fetch_auth_mastercard_spotted_transaction_count(
+            TestTransactionMatchingContext.spend_amount, transaction_id)
         assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
         logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 
