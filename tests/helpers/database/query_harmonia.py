@@ -58,6 +58,19 @@ class QueryHarmonia:
         return spotted_transaction_record
 
     @staticmethod
+    def fetch_auth_mastercard_spotted_transaction_count(spend_amount, transaction_id):
+        """Fetch the spotted account details using spotted_transaction_id and amount """
+        connection = db.connect_harmonia_db()
+        record = db.execute_query_fetch_one(connection,
+                                            get_auth_mastercard_spotted_transaction(spend_amount, transaction_id))
+        if record is None:
+            raise Exception(f"'{spend_amount}' is an Invalid spend_amount")
+        else:
+            spotted_transaction_record = MatchedTransactionRecord(record[0])
+        db.clear_db(connection)
+        return spotted_transaction_record
+
+    @staticmethod
     def fetch_mastercard_spotted_settlement_transaction_count(spend_amount, mid, auth_code):
         """Fetch the spotted account details using spotted_transaction_id and amount """
         connection = db.connect_harmonia_db()
@@ -76,6 +89,15 @@ def get_mastercard_spotted_transaction(spend_amount, created_at):
                           "WHERE spend_amount = '{}'" \
                           "and status = 'EXPORTED'"\
                           "and created_at >= '{}'".format(spend_amount, created_at)
+    logging.info(spotted_transaction)
+    return spotted_transaction
+
+
+def get_auth_mastercard_spotted_transaction(spend_amount, transaction_id):
+    spotted_transaction = "SELECT count(*) from harmonia.public.export_transaction " \
+                          "WHERE spend_amount = '{}'" \
+                          "and status = 'EXPORTED'" \
+                          "and transaction_id = '{}'".format(spend_amount, transaction_id)
     logging.info(spotted_transaction)
     return spotted_transaction
 

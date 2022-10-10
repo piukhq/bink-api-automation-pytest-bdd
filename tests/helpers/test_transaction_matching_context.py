@@ -18,9 +18,25 @@ class TestTransactionMatchingContext:
     created_at = ""
     auth_code = ""
     approval_code = ""
+    third_party_id = ""
     transaction_auth_code = random.randint(100000, 999999)
 
     iceland_file_header = [
+        "TransactionCardFirst6",
+        "TransactionCardLast4",
+        "TransactionCardExpiry",
+        "TransactionCardSchemeId",
+        "TransactionCardScheme",
+        "TransactionStore_Id",
+        "TransactionTimestamp",
+        "TransactionAmountValue",
+        "TransactionAmountUnit",
+        "TransactionCashbackValue",
+        "TransactionCashbackUnit",
+        "TransactionId",
+        "TransactionAuthCode",
+    ]
+    wasabi_file_header = [
         "TransactionCardFirst6",
         "TransactionCardLast4",
         "TransactionCardExpiry",

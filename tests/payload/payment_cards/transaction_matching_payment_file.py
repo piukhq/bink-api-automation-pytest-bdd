@@ -36,6 +36,7 @@ class TransactionMatchingPaymentFileDetails:
         TestTransactionMatchingContext.spend_amount = random.choice(range(1, 20))
         TestTransactionMatchingContext.transaction_id = TransactionMatchingPaymentFileDetails. \
             get_random_alphanumeric_string(48)
+        TestTransactionMatchingContext.third_party_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
         TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
         TestTransactionMatchingContext.created_at = datetime.now(timezone('Europe/London')) \
             .strftime('%Y-%m-%d %H:%M:%S')
@@ -44,7 +45,7 @@ class TransactionMatchingPaymentFileDetails:
             "currency_code": "GBP",
             "mid": mid,
             "payment_card_token": PaymentCardTestData.get_data("master").get(constants.TOKEN),
-            "third_party_id": base64.b64encode(uuid.uuid4().bytes).decode()[:9],
+            "third_party_id": TestTransactionMatchingContext.third_party_id,
             "time": TestTransactionMatchingContext.created_at
         }
 
