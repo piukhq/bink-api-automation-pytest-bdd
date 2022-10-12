@@ -27,4 +27,4 @@ else
 fi
 
 # POST to teams the output of pytest run
-curl -H 'Content-Type: application/json' -d '{"@type": "MessageCard", "@context": "http://schema.org/extensions", "themeColor": "'"$themeColor"'", "summary": "'"$FRIENDLY_NAME"' Test Results", "Sections": [{"activityTitle": "'"$FRIENDLY_NAME"' Test Results", "facts": [{"name": "Status", "value": "'"$status"'"}, {"name": "URL", "value": "'"$url"'"}]}]}' $TEAMS_WEBHOOK && curl -XPOST localhost:4191/shutdown
+curl -H 'Content-Type: application/json' -d '{"@type": "MessageCard", "@context": "http://schema.org/extensions", "themeColor": "'"$themeColor"'", "summary": "'"$FRIENDLY_NAME"' Test Results", "Sections": [{"activityTitle": "'"$FRIENDLY_NAME"' Test Results", "facts": [{"name": "Status", "value": "'"$status"'"}, {"name": "URL", "value": "'"$url"'"}]}]}' $TEAMS_WEBHOOK
