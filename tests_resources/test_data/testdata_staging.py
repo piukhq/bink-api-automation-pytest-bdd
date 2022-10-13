@@ -232,7 +232,8 @@ trenette_membership_card = {
     "currency": "GBP",
     "transaction_currency": "GBP",
     "burn_type": "voucher",
-    "burn_suffix": "Free chocolate hamper",
+    "burn_preffix": "Free",
+    "burn_suffix": "Chocolate Hamper",
     "earn_type": "accumulator",
     "earn_prefix": "\u00a3",
     "issued_state": "issued",
@@ -257,7 +258,7 @@ trenette_invalid_data = {
 asos_membership_card = {
     "card_num": "ASOS3279362771",
     "email": "pytest+220722@bink.com",
-    "points": 23.27,
+    "points": 30.07,
     "prefix": "£",
     "currency": "GBP",
     "transaction_currency": "GBP",
