@@ -1,11 +1,11 @@
 # Created by nehapatil at 06/10/2022
-@wasabi @multi_wallet
+@multi_wallet @multi_wallet_wasabi
 Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple wallet and view each wallet details
   As a customer
   I want to add and auth a membership card in multiple wallets
   So that status of membership card in each wallet is independent
 
-  @multi_wallet_add @testnp710n @bink_regression @bmb_regression
+  @multi_wallet_add
   Scenario: Multi-wallet auth-auth Wasabi
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Wasabi" membership card
@@ -32,7 +32,7 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
 #    And For bink I perform GET request to view transactions for "authorised" "Wasabi" membership card
 #    Then For bink I perform GET request to view a specific transaction for "authorised" "Wasabi" membership card
 #    When For barclays I perform GET request to view balance for "authorised" "Wasabi" membership card
-    And For barclays I perform GET request to view vouchers for "authorised" "Wasabi" membership card
+#    And For barclays I perform GET request to view vouchers for "authorised" "Wasabi" membership card
 #    And For barclays I perform GET request to view transactions for "authorised" "Wasabi" membership card
 #    Then For barclays I perform GET request to view a specific transaction for "authorised" "Wasabi" membership card
 #    Then verify the data stored in DB after "Add" journey for "Wasabi"
