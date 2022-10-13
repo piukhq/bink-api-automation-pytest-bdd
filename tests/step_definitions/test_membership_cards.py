@@ -1,29 +1,21 @@
-import time
-
-from pytest_bdd import (
-    scenarios,
-    then,
-    when,
-    given,
-    parsers,
-)
+import datetime
 import json
 import logging
-import datetime
+import time
 from json import JSONDecodeError
+
+from pytest_bdd import given, parsers, scenarios, then, when
 
 import tests.api as api
 import tests.helpers.constants as constants
+import tests.step_definitions.test_payment_cards as test_payment_cards
 from tests.api.base import Endpoint
-from tests.helpers.test_helpers import TestData
+from tests.helpers.database.query_hermes import QueryHermes
 from tests.helpers.test_context import TestContext
 from tests.helpers.test_data_utils import TestDataUtils
-from tests.helpers.test_helpers import PaymentCardTestData
+from tests.helpers.test_helpers import Merchant, PaymentCardTestData, TestData
 from tests.requests.membership_cards import MembershipCards
 from tests.requests.membership_transactions import MembershipTransactions
-from tests.helpers.test_helpers import Merchant
-from tests.helpers.database.query_hermes import QueryHermes
-import tests.step_definitions.test_payment_cards as test_payment_cards
 from tests.requests.payment_cards import PaymentCards
 
 scenarios("membership_cards/")
@@ -59,7 +51,7 @@ def add_membership_card(merchant):
 
 
 @when(parsers.parse('I perform POST request to add and auth "{merchant}" membership card'))
-def add_membership_card(merchant):
+def add_auth_membership_card(merchant):
     response = MembershipCards.add_card(TestContext.token, merchant)
     response_json = response_to_json(response)
     TestContext.current_scheme_account_id = response_json.get("id")
@@ -329,7 +321,7 @@ def verify_get_membership_card(merchant):
     return response
 
 
-@when(parsers.parse('For {user} I perform GET request to verify the {merchant} membership card is added to the wallet'))
+@when(parsers.parse("For {user} I perform GET request to verify the {merchant} membership card is added to the wallet"))
 def get_membership_card(user, merchant):
     print("channel", user)
     print("merchant", merchant)
@@ -495,7 +487,9 @@ def verify_invalid_membership_card_is_added_to_wallet(merchant):
 
 @when(
     parsers.parse(
-        'For {user} I perform GET request to verify the {merchant} membership card is added to the wallet with ' "invalid data"
+        "For {user} I perform GET request to verify the {merchant} "
+        "membership card is added to the wallet with "
+        "invalid data"
     )
 )
 def invalid_membership_card_is_added_to_wallet(user, merchant):
@@ -610,7 +604,11 @@ def verify_membership_card_balance(merchant):
     )
 
 
-@when(parsers.parse('For {user} I perform GET request to view balance for "{loyalty_card_status}" "{merchant}" membership card'))
+@when(
+    parsers.parse(
+        "For {user} I perform GET request to view balance for " '"{loyalty_card_status}" "{merchant}" membership card'
+    )
+)
 def membership_card_balance(user, loyalty_card_status, merchant):
     TestContext.token = TestContext.all_users[user]
     current_membership_card_response_array = MembershipCards.get_membership_card_balance(
@@ -644,21 +642,20 @@ def membership_card_balance(user, loyalty_card_status, merchant):
         )
     elif loyalty_card_status == "unauthorised":
         assert (
-                current_membership_card_response_array["id"] == TestContext.current_scheme_account_id
-                and current_membership_card_response_array["status"]["state"]
-                == TestData.get_membership_card_status_states().get(constants.FAILED)
-                and current_membership_card_response_array["status"]["reason_codes"][0]
-                == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_ADD_FAILED)
-                and current_membership_card_response_array["card"]["membership_id"]
-                == TestData.get_data(merchant).get(constants.CARD_NUM)
-                and current_membership_card_response_array["balances"] == []
+            current_membership_card_response_array["id"] == TestContext.current_scheme_account_id
+            and current_membership_card_response_array["status"]["state"]
+            == TestData.get_membership_card_status_states().get(constants.FAILED)
+            and current_membership_card_response_array["status"]["reason_codes"][0]
+            == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_ADD_FAILED)
+            and current_membership_card_response_array["card"]["membership_id"]
+            == TestData.get_data(merchant).get(constants.CARD_NUM)
+            and current_membership_card_response_array["balances"] == []
         ), (
-                "Validations for GET/membership_cards balances with unauthorised membership card for "
-                + merchant
-                + " failed with reason code"
-                + current_membership_card_response_array["status"]["reason_codes"][0]
+            "Validations for GET/membership_cards balances with unauthorised membership card for "
+            + merchant
+            + " failed with reason code"
+            + current_membership_card_response_array["status"]["reason_codes"][0]
         )
-
 
 
 """"Step definitions for Membership_Transactions"""
@@ -798,10 +795,11 @@ def verify_membership_card_single_transaction_detail(merchant):
 
 @then(
     parsers.parse(
-        'For {user} I perform GET request to view a specific transaction for "{loyalty_card_status}" "{merchant}" membership card'
+        "For {user} I perform GET request to view a specific transaction "
+        'for "{loyalty_card_status}" "{merchant}" membership card'
     )
 )
-def verify_membership_card_single_transaction_detail(user, loyalty_card_status, merchant):
+def membership_card_single_transaction_detail(user, loyalty_card_status, merchant):
     TestContext.token = TestContext.all_users[user]
     response = MembershipTransactions.get_membership_card_single_transaction_detail(
         TestContext.token, TestContext.transaction_id
@@ -829,7 +827,6 @@ def verify_membership_card_single_transaction_detail(user, loyalty_card_status, 
             and response_json["amounts"][0]["currency"]
             == TestData.get_data(merchant).get(constants.TRANSACTIONS_CURRENCY)
         ), ("Validations in GET/MembershipTransaction " + merchant + " failed")
-
 
 
 """Step definitions - DB Verifications"""
@@ -1020,7 +1017,12 @@ def verify_membership_card_vouchers(merchant, env):
     assert expected_response["vouchers"] == actual_response["vouchers"], "Voucher verification failed"
     logging.info("Voucher verification is successful")
 
-@when(parsers.parse('For {user} I perform GET request to view vouchers for "{loyalty_card_status}" "{merchant}" membership card'))
+
+@when(
+    parsers.parse(
+        'For {user} I perform GET request to view vouchers for "{loyalty_card_status}" "{merchant}" membership card'
+    )
+)
 def membership_card_vouchers(user, loyalty_card_status, merchant, env):
     TestContext.token = TestContext.all_users[user]
     response = MembershipCards.get_scheme_account(TestContext.token, TestContext.current_scheme_account_id)
