@@ -1,15 +1,10 @@
 {
-    "id": 206423,
+    "id": 219240,
     "membership_plan": 284,
-    "payment_cards": [
-        {
-            "id": 78552,
-            "active_link": true
-        }
-    ],
+    "payment_cards": [],
     "membership_transactions": [
         {
-            "id": 450120,
+            "id": 481535,
             "status": "active",
             "amounts": [
                 {
@@ -22,7 +17,7 @@
             "description": "Bink Sweet Reward £0.90"
         },
         {
-            "id": 450121,
+            "id": 481536,
             "status": "active",
             "amounts": [
                 {
@@ -77,14 +72,15 @@
             "value": 1.9,
             "prefix": "£",
             "currency": "GBP",
-            "updated_at": 1663337054
+            "updated_at": 1665587917
         }
     ],
     "vouchers": [
         {
             "burn": {
                 "type": "voucher",
-                "suffix": "Free chocolate hamper"
+                "prefix": "Free",
+                "suffix": "Chocolate Hamper"
             },
             "earn": {
                 "type": "accumulator",
@@ -99,4 +95,3 @@
         }
     ]
 }
-
