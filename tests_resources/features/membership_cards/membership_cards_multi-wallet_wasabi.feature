@@ -5,7 +5,7 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
   I want to add and auth a membership card in multiple wallets
   So that status of membership card in each wallet is independent
 
-  @multi_wallet_add
+  @multi_wallet_add @sanity
   Scenario: Multi-wallet auth-auth Wasabi
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Wasabi" membership card

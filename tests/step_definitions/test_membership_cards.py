@@ -62,6 +62,7 @@ def add_auth_membership_card(merchant):
         + "\n\n"
         + json.dumps(response_json, indent=4)
     )
+    assert response.status_code == 201 or 200
 
 
 @when(parsers.parse('I perform POST request to add "{merchant}" ghost membership card'))
