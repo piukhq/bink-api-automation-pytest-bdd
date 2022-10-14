@@ -104,6 +104,7 @@ def test_email():
 
 
 @given("I register with bink service as a new customer")
+@given(parsers.parse("I register with bink service in {channel}"))
 def register_user(test_email, channel, env):
     TestContext.channel_name = channel
     if channel == config.BINK.channel_name:
@@ -118,6 +119,7 @@ def register_user(test_email, channel, env):
                     + "\n\n"
                     + f"POST Login  response: {response.json()}"
                 )
+                TestContext.all_users["bink"] = TestContext.token
                 return TestContext.token
             except Exception as e:
                 logging.info(f"Gateway Timeout error :{e}")
@@ -140,6 +142,7 @@ def register_user(test_email, channel, env):
                 assert (
                     response.status_code == 201 and expected_user_consent == actual_user_consent
                 ), "Banking user subscription is not successful"
+                TestContext.all_users["barclays"] = TestContext.token
                 return TestContext.token
             except Exception as e:
                 logging.info(f"Gateway Timeout error :{e}")
@@ -226,3 +229,14 @@ def delete_scheme_account(merchant=None):
 
     except HTTPError as network_response:
         assert network_response.response.status_code == 404 or 400
+
+
+@then("I perform DELETE request to delete all users")
+def delete_all_user():
+    print("all_users", TestContext.all_users)
+    if TestContext.all_users != {}:
+        for i in TestContext.all_users:
+            response = CustomerAccount.delete_new_user(TestContext.all_users[i])
+            assert response.status_code == 200, f"The user deletion is not successful for {i}"
+            logging.info(f"User {i} is deleted successfully from the system")
+    TestContext.all_users.clear()

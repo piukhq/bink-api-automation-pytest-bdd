@@ -2,6 +2,7 @@ class TestContext:
     current_scheme_account_id = ""
     current_payment_card_id = ""
     token = ""
+    all_users = {}
     transaction_id = ""
     response = ""
     detail = ""
