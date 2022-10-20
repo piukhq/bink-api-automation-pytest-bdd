@@ -1,11 +1,11 @@
-import tests.api as api
-import time
 import logging
-from tests.helpers.test_helpers import Merchant
-from tests.helpers.test_helpers import TestData
-from tests.api.base import Endpoint
-import tests.helpers.constants as constants
+import time
 from json import JSONDecodeError
+
+import tests.api as api
+import tests.helpers.constants as constants
+from tests.api.base import Endpoint
+from tests.helpers.test_helpers import Merchant, TestData
 
 
 class MembershipCards(Endpoint):
@@ -167,6 +167,15 @@ class MembershipCards(Endpoint):
         url = MembershipCards.get_url()
         header = Endpoint.request_header(token)
         payload = Merchant.get_merchant(merchant).add_ghost_membership_card_payload()
+        return Endpoint.call(url, header, "POST", payload)
+
+    """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
+
+    @staticmethod
+    def add_only_field(token, merchant):
+        url = MembershipCards.get_url()
+        header = Endpoint.request_header(token)
+        payload = Merchant.get_merchant(merchant).add_only_field_payload()
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod

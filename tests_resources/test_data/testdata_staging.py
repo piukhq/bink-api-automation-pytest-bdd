@@ -195,6 +195,8 @@ iceland_membership_card = {
 iceland_ghost_membership_card = {
     "card_num": "6332040031231230001",
     "barcode": "6332040031231230001",
+    "unknown_card": "6332040065432134343",
+    "register_failed_email": "generalerror@testbink.com",
     "last_name": "QAUsertest11",
     "postcode": "rg6 6bb",
     "points": 1480,
@@ -375,6 +377,7 @@ membership_card_status_states = {
     "state_pending": "pending",
     "state_authorised": "authorised",
     "state_failed": "failed",
+    "state_unauthorised": "unauthorised",
 }
 membership_card_status_reason_codes = {
     "reason_code_pending_add": "X100",
@@ -385,6 +388,7 @@ membership_card_status_reason_codes = {
     "reason_code_invalid_failed_enrol": "X202",
     "reason_code_add_failed": "X102",
     "reason_code_ghost_failed": "X105",
+    "reason_code_unauthorised": "X103",
 }
 # ---------------------------------------------USER ACCOUNTS ---------------------------------------------------- #
 

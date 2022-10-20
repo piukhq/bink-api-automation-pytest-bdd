@@ -9,6 +9,7 @@ class TestContext:
     email = ""
     payment_card_hash = ""
     card_number = ""
+    existing_card = ""
     status_code = ""
     timestamp = ""
     name_on_payment_card = ""

@@ -231,6 +231,7 @@ def delete_scheme_account(merchant=None):
         assert network_response.response.status_code == 404 or 400
 
 
+"""This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
 @then("I perform DELETE request to delete all users")
 def delete_all_user():
     print("all_users", TestContext.all_users)

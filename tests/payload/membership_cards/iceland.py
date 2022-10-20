@@ -1,12 +1,13 @@
-import logging
 import json
+import logging
 
 from faker import Faker
 
-from tests.api.base import Endpoint
 import tests.api as api
-from tests.helpers.test_data_utils import TestDataUtils
 import tests.helpers.constants as constants
+from tests.api.base import Endpoint
+from tests.helpers.test_context import TestContext
+from tests.helpers.test_data_utils import TestDataUtils
 
 
 class IcelandCard:
@@ -126,6 +127,31 @@ class IcelandCard:
 
         logging.info(
             "The Request for Add Ghost Journey with  :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
+        return payload
+
+    """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
+
+    @staticmethod
+    def add_only_field_payload():
+        payload = {
+            "account": {
+                "add_fields": [
+                    {
+                        "column": "Bonus card number",
+                        "value": TestContext.card_number,
+                    }
+                ]
+            },
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
+        }
+
+        logging.info(
+            "The Request for Add only  :\n\n"
             + Endpoint.BASE_URL
             + api.ENDPOINT_MEMBERSHIP_CARDS
             + "\n\n"
