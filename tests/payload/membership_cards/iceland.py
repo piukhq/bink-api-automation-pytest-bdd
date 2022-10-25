@@ -134,31 +134,6 @@ class IcelandCard:
         )
         return payload
 
-    """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
-
-    @staticmethod
-    def add_only_field_payload():
-        payload = {
-            "account": {
-                "add_fields": [
-                    {
-                        "column": "Bonus card number",
-                        "value": TestContext.card_number,
-                    }
-                ]
-            },
-            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
-        }
-
-        logging.info(
-            "The Request for Add only  :\n\n"
-            + Endpoint.BASE_URL
-            + api.ENDPOINT_MEMBERSHIP_CARDS
-            + "\n\n"
-            + json.dumps(payload, indent=4)
-        )
-        return payload
-
     @staticmethod
     def enrol_ghost_membership_scheme_payload(email, scheme_id, env, channel=None):
         faker = Faker()
@@ -313,4 +288,39 @@ class IcelandCard:
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
             }
 
+        return payload
+
+    """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
+
+    @staticmethod
+    def add_auth_payload():
+        payload = {
+            "account": {
+                "add_fields": [
+                    {
+                        "column": "Bonus card number",
+                        "value": TestContext.card_number,
+                    }
+                ]
+            },
+            "authorise_fields": [
+                {
+                    "column": "Last name",
+                    "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME),
+                },
+                {
+                    "column": "Postcode",
+                    "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE),
+                },
+            ],
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
+        }
+
+        logging.info(
+            "The Request for add auth  :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload

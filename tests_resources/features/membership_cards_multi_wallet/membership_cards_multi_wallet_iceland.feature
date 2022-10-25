@@ -102,14 +102,15 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     And I perform DELETE request to delete all users
 
 #   @same_wallet_register_journey
-#  Scenario: Add already registered card in same wallet
-#    Given I register with bink service in bink
-#    When I perform POST request to add "Iceland" membership card for "successful_register"
-#    And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
-#    And For bink I perform GET request to verify the Iceland membership card is added to the wallet
-#    And I perform POST request to add "Iceland" membership card for "already_registered"
-#    Then I perform DELETE request to delete all users
-#
+  @already_register
+  Scenario: Add already registered card in same wallet
+    Given I register with bink service in bink
+    When I perform POST request to add "Iceland" membership card for "successful_register"
+    And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet
+    And I perform POST request to add "Iceland" membership card for "already_registered"
+    Then I perform DELETE request to delete all users
+
 ## Behaviour of the following scenario is not correct. API reflector data needs to be changed, below scenario is generating different card number when I patch to register second time
 #  @multi_wallet_register_journey
 #  Scenario: Multi wallet add already registered card

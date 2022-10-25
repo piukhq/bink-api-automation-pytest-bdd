@@ -169,15 +169,6 @@ class MembershipCards(Endpoint):
         payload = Merchant.get_merchant(merchant).add_ghost_membership_card_payload()
         return Endpoint.call(url, header, "POST", payload)
 
-    """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
-
-    @staticmethod
-    def add_only_field(token, merchant):
-        url = MembershipCards.get_url()
-        header = Endpoint.request_header(token)
-        payload = Merchant.get_merchant(merchant).add_only_field_payload()
-        return Endpoint.call(url, header, "POST", payload)
-
     @staticmethod
     def register_ghost_card(token, merchant, email, scheme_account_id, env, channel):
         url = MembershipCards.get_url(scheme_account_id)
@@ -206,4 +197,13 @@ class MembershipCards(Endpoint):
         url = MembershipCards.get_url()
         header = Endpoint.request_header(token)
         payload = {}
+        return Endpoint.call(url, header, "POST", payload)
+
+    """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
+
+    @staticmethod
+    def add_auth_card(token, merchant):
+        url = MembershipCards.get_url()
+        header = Endpoint.request_header(token)
+        payload = Merchant.get_merchant(merchant).add_auth_payload()
         return Endpoint.call(url, header, "POST", payload)
