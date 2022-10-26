@@ -1,12 +1,13 @@
-import logging
 import json
+import logging
 
 from faker import Faker
 
-from tests.api.base import Endpoint
 import tests.api as api
-from tests.helpers.test_data_utils import TestDataUtils
 import tests.helpers.constants as constants
+from tests.api.base import Endpoint
+from tests.helpers.test_context import TestContext
+from tests.helpers.test_data_utils import TestDataUtils
 
 
 class IcelandCard:
@@ -287,4 +288,39 @@ class IcelandCard:
                 "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
             }
 
+        return payload
+
+    """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
+
+    @staticmethod
+    def add_auth_payload():
+        payload = {
+            "account": {
+                "add_fields": [
+                    {
+                        "column": "Bonus card number",
+                        "value": TestContext.card_number,
+                    }
+                ]
+            },
+            "authorise_fields": [
+                {
+                    "column": "Last name",
+                    "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME),
+                },
+                {
+                    "column": "Postcode",
+                    "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE),
+                },
+            ],
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
+        }
+
+        logging.info(
+            "The Request for add auth  :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
         return payload
