@@ -225,6 +225,7 @@ iceland_invalid_data = {
     # "email": "fail@unknown.com",
     "email": "joininprogress@bink.com",
     "postcode": "fail",
+    "identical_enrol_email": "identicaljoin@bink.com",
 }
 
 trenette_membership_card = {
