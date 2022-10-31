@@ -101,7 +101,8 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then verify the data stored in DB after "Enrol" journey for "Iceland"
     And I perform DELETE request to delete all users
 
-#   @same_wallet_register_journey
+#   same_wallet_register_journey
+#  ghost card journey for Iceland
   @already_register
   Scenario: Add already registered card in same wallet
     Given I register with bink service in bink

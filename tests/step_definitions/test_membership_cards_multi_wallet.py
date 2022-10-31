@@ -434,79 +434,45 @@ def get_membership_card(user, merchant, scheme_status):
         + "\n\n"
         + json.dumps(response_json, indent=4)
     )
-    if scheme_status in ["successful_add"]:
+    assert (
+        response.status_code == 200
+        and response_json["id"] == TestContext.current_scheme_account_id
+        and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
+        and response_json["card"] != []
+        and response_json["images"] != []
+        and ((response_json["account"]["tier"] == 0) or (response_json["account"]["tier"] == 1))
+    ), (
+        "Validations in GET/membership_cards for "
+        + merchant
+        + " failed with reason code "
+        + response_json["status"]["reason_codes"][0]
+    )
+    if scheme_status == "successful_add":
+        assert response_json["card"]["membership_id"] == TestData.get_data(merchant).get(
+            constants.CARD_NUM
+        ), "membership_id do not match"
+    if scheme_status in ["successful_add", "successful_enrol", "successful_register"]:
         TestContext.existing_card = response_json["card"]["membership_id"]
-        assert (
-            response.status_code == 200
-            and response_json["id"] == TestContext.current_scheme_account_id
-            and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
-            and response_json["status"]["state"]
-            == TestData.get_membership_card_status_states().get(constants.AUTHORIZED)
-            and response_json["status"]["reason_codes"][0]
-            == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_AUTHORIZED)
-            and (
-                (response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM))
-                # or (response_json["card"]["membership_id"] == TestContext.card_number)
-                # or (response_json["card"]["membership_id"] == TestContext.existing_card)
-            )
-            and response_json["card"] is not None
-            and response_json["images"] is not None
-            and ((response_json["account"]["tier"] == 0) or (response_json["account"]["tier"] == 1))
-            and response_json["balances"] is not None
-        ), (
-            "Validations in GET/membership_cards for "
-            + merchant
-            + " failed with reason code "
-            + response_json["status"]["reason_codes"][0]
-        )
-        if merchant == "Iceland":
-            assert (
-                response_json["card"]["barcode"] == TestData.get_data(merchant).get(constants.BARCODE)
-                or response_json["card"]["barcode"] == TestContext.existing_card + "0080"
-            ), ("Barcode verification for " + merchant + " failed")
-    elif scheme_status in ["successful_enrol", "successful_register"]:
-        TestContext.existing_card = response_json["card"]["membership_id"]
-        assert (
-            response.status_code == 200
-            and response_json["id"] == TestContext.current_scheme_account_id
-            and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
-            and response_json["status"]["state"]
-            == TestData.get_membership_card_status_states().get(constants.AUTHORIZED)
-            and response_json["status"]["reason_codes"][0]
-            == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_AUTHORIZED)
-            and response_json["card"] is not None
-            and response_json["images"] is not None
-            and ((response_json["account"]["tier"] == 0) or (response_json["account"]["tier"] == 1))
-            and response_json["balances"] is not None
-        ), (
-            "Validations in GET/membership_cards for "
-            + merchant
-            + " failed with reason code "
-            + response_json["status"]["reason_codes"][0]
-        )
+        assert response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
+            constants.AUTHORIZED
+        ), "state does not match"
+        assert response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().get(
+            constants.REASON_CODE_AUTHORIZED
+        ), "reason code does not match"
+        assert response_json["balances"] != [], "balances does not match"
         if merchant == "Iceland":
             assert (
                 response_json["card"]["barcode"] == TestData.get_data(merchant).get(constants.BARCODE)
                 or response_json["card"]["barcode"] == TestContext.existing_card + "0080"
             ), ("Barcode verification for " + merchant + " failed")
     elif scheme_status == "identical_enrol":
-        assert (
-            response.status_code == 200
-            and response_json["id"] == TestContext.current_scheme_account_id
-            and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
-            and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.FAILED)
-            and response_json["status"]["reason_codes"][0]
-            == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_FAILED_INVALID_ENROL)
-            and response_json["card"] != []
-            and response_json["images"] != []
-            and ((response_json["account"]["tier"] == 0) or (response_json["account"]["tier"] == 0))
-            and response_json["balances"] == []
-        ), (
-            "Validations in GET/membership_cards for "
-            + merchant
-            + " failed with reason code "
-            + response_json["status"]["reason_codes"][0]
-        )
+        assert response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
+            constants.FAILED
+        ), "state do not match"
+        assert response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().get(
+            constants.REASON_CODE_FAILED_INVALID_ENROL
+        ), "reason code does not match"
+        assert response_json["balances"] == [], "balances does not match"
 
     return response
 
