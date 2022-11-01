@@ -93,18 +93,18 @@ def add_auth_membership_card(merchant, credentials):
 """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
 
 
-@when(parsers.parse('I perform POST request to add "{merchant}" membership card for "{loyalty_card_status}"'))
-def add_only_membership_card(merchant, loyalty_card_status):
-    if loyalty_card_status == "successful_register":
+@when(parsers.parse('I perform POST request to add "{merchant}" membership card for "{scheme_status}"'))
+def add_only_membership_card(merchant, scheme_status):
+    if scheme_status == "successful_register":
         TestContext.card_number = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.CARD_NUM)
-    elif loyalty_card_status == "already_registered":
+    elif scheme_status == "already_registered":
         TestContext.card_number = TestContext.existing_card
-    elif loyalty_card_status == "failed_register":
+    elif scheme_status == "failed_register":
         TestContext.card_number = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.UNKNOWN_CARD)
 
     response = MembershipCards.add_auth_card(TestContext.token, merchant)
     response_json = response_to_json(response)
-    if loyalty_card_status in ["successful_register", "failed_register"]:
+    if scheme_status in ["successful_register", "failed_register"]:
         TestContext.current_scheme_account_id = response_json.get("id")
         logging.info(
             "The response of Add only (POST) is:"
@@ -120,7 +120,7 @@ def add_only_membership_card(merchant, loyalty_card_status):
             and response_json["status"]["reason_codes"][0]
             == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_UNAUTHORIZED)
         ), ("Add Ghost Journey for " + merchant + " failed")
-    elif loyalty_card_status == "already_registered":
+    elif scheme_status == "already_registered":
         logging.info(
             "The response of Add only (POST) is:"
             + Endpoint.BASE_URL
@@ -232,9 +232,15 @@ def add_only_membership_card(merchant, loyalty_card_status):
 It is required in multi-wallet trusted channel scenarios"""
 
 
-@when(parsers.parse('I perform POST request to create a "{merchant}" membership account with enrol credentials'))
-def enrol_membership_account(merchant, test_email, env, channel):
-    response = MembershipCards.enrol_customer(TestContext.token, merchant, test_email, env, channel)
+@when(parsers.parse("I perform POST request to {enrol_status} membership card for {merchant}"))
+def enrol_membership_card_account(enrol_status, merchant, test_email, env, channel):
+    print("enrol status", enrol_status)
+    print("merchant", merchant)
+    print("env", env)
+    print("channel", channel)
+    response = MembershipCards.enrol_membership_card(
+        TestContext.token, enrol_status, merchant, test_email, env, channel
+    )
     response_json = response_to_json(response)
     TestContext.current_scheme_account_id = response_json.get("id")
     logging.info(
@@ -409,14 +415,18 @@ def register_fail(merchant, test_email, env, channel):
 """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
 
 
-@when(parsers.parse("For {user} I perform GET request to verify the {merchant} membership card is added to the wallet"))
-def get_membership_card(user, merchant):
+@when(
+    parsers.parse(
+        "For {user} I perform GET request to verify the {merchant} membership card is added to the wallet"
+        " after {scheme_status}"
+    )
+)
+def get_membership_card(user, merchant, scheme_status):
     print("TestContext.all_users", TestContext.all_users)
     TestContext.token = TestContext.all_users[user]
     response = MembershipCards.get_scheme_account(TestContext.token, TestContext.current_scheme_account_id)
     TestContext.response = response
     response_json = response_to_json(response)
-    TestContext.existing_card = response_json["card"]["membership_id"]
     logging.info(
         "The response of GET/MembershipCard/id is:\n\n"
         + Endpoint.BASE_URL
@@ -428,29 +438,41 @@ def get_membership_card(user, merchant):
         response.status_code == 200
         and response_json["id"] == TestContext.current_scheme_account_id
         and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
-        and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.AUTHORIZED)
-        and response_json["status"]["reason_codes"][0]
-        == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_AUTHORIZED)
-        and (
-            (response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM))
-            or (response_json["card"]["membership_id"] == TestContext.card_number)
-            or (response_json["card"]["membership_id"] == TestContext.existing_card)
-        )
-        and response_json["card"] is not None
-        and response_json["images"] is not None
+        and response_json["card"] != []
+        and response_json["images"] != []
         and ((response_json["account"]["tier"] == 0) or (response_json["account"]["tier"] == 1))
-        and response_json["balances"] is not None
     ), (
         "Validations in GET/membership_cards for "
         + merchant
         + " failed with reason code "
         + response_json["status"]["reason_codes"][0]
     )
-    if merchant in ("HarveyNichols", "Iceland"):
-        assert (
-            response_json["card"]["barcode"] == TestData.get_data(merchant).get(constants.BARCODE)
-            or response_json["card"]["barcode"] == TestContext.existing_card + "0080"
-        ), ("Barcode verification for " + merchant + " failed")
+    if scheme_status == "successful_add":
+        assert response_json["card"]["membership_id"] == TestData.get_data(merchant).get(
+            constants.CARD_NUM
+        ), "membership_id do not match"
+    if scheme_status in ["successful_add", "successful_enrol", "successful_register"]:
+        TestContext.existing_card = response_json["card"]["membership_id"]
+        assert response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
+            constants.AUTHORIZED
+        ), "state does not match"
+        assert response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().get(
+            constants.REASON_CODE_AUTHORIZED
+        ), "reason code does not match"
+        assert response_json["balances"] != [], "balances does not match"
+        if merchant == "Iceland":
+            assert (
+                response_json["card"]["barcode"] == TestData.get_data(merchant).get(constants.BARCODE)
+                or response_json["card"]["barcode"] == TestContext.existing_card + "0080"
+            ), ("Barcode verification for " + merchant + " failed")
+    elif scheme_status == "identical_enrol":
+        assert response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
+            constants.FAILED
+        ), "state do not match"
+        assert response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().get(
+            constants.REASON_CODE_FAILED_INVALID_ENROL
+        ), "reason code does not match"
+        assert response_json["balances"] == [], "balances does not match"
 
     return response
 

@@ -10,12 +10,12 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
   Scenario: Multi wallet auth auth Iceland
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
-    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet
+    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
     Then verify the data stored in DB after "Add" journey for "Iceland"
     Given I register with bink service in bink
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
-    And For bink I perform GET request to verify the Iceland membership card is added to the wallet
-    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
+    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
     Then verify the data stored in DB after "Add" journey for "Iceland"
     And I perform DELETE request to delete all users
 
@@ -24,10 +24,10 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
 
     Given I register with bink service in bink
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
-    And For bink I perform GET request to verify the Iceland membership card is added to the wallet
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
-    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet
+    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
     When For bink I perform GET request to view balance for "authorised" "Iceland" membership card
     And For bink I perform GET request to view transactions for "authorised" "Iceland" membership card
     Then For bink I perform GET request to view a specific transaction for "authorised" "Iceland" membership card
@@ -45,7 +45,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then verify the data stored in DB after "Add" journey for "Iceland"
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
-    And For barclays I perform GET request to verify the "Iceland" membership card is added to the wallet
+    And For barclays I perform GET request to verify the "Iceland" membership card is added to the wallet after successful_add
     And For bink I perform GET request to verify the "Iceland" membership card is added to the wallet with invalid data
     And For bink I perform GET request to view balance for "unauthorised" "Iceland" membership card
     And For bink I perform GET request to view transactions for "unauthorised" "Iceland" membership card
@@ -59,12 +59,12 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
   Scenario: Multi wallet auth unauth Iceland
     Given I register with bink service in bink
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
-    And For bink I perform GET request to verify the "Iceland" membership card is added to the wallet
+    And For bink I perform GET request to verify the "Iceland" membership card is added to the wallet after successful_add
     Then verify the data stored in DB after "Add" journey for "Iceland"
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Iceland" membership card with "invalid_credentials"
     And For barclays I perform GET request to verify the "Iceland" membership card is added to the wallet with invalid data
-    And For bink I perform GET request to verify the "Iceland" membership card is added to the wallet
+    And For bink I perform GET request to verify the "Iceland" membership card is added to the wallet after successful_add
     And For bink I perform GET request to view balance for "authorised" "Iceland" membership card
     And For bink I perform GET request to view transactions for "authorised" "Iceland" membership card
     Then For bink I perform GET request to view a specific transaction for "authorised" "Iceland" membership card
@@ -92,40 +92,40 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
   @multi_wallet_enrol
   Scenario: Multi wallet Join
     Given I register with bink service in bink
-    When I perform POST request to create a "Iceland" membership account with enrol credentials
-    And For bink I perform GET request to verify the Iceland membership card is added to the wallet
+    When I perform POST request to successful_enrol membership card for Iceland
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_enrol
     Then verify the data stored in DB after "Enrol" journey for "Iceland"
     Given I register with bink service in barclays
-    When I perform POST request to create a "Iceland" membership account with enrol credentials
-    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet
+    When I perform POST request to successful_enrol membership card for Iceland
+    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_enrol
     Then verify the data stored in DB after "Enrol" journey for "Iceland"
     And I perform DELETE request to delete all users
 
-#   @same_wallet_register_journey
+#   same_wallet_register_journey
+#  ghost card journey for Iceland
   @already_register
   Scenario: Add already registered card in same wallet
     Given I register with bink service in bink
     When I perform POST request to add "Iceland" membership card for "successful_register"
     And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
-    And For bink I perform GET request to verify the Iceland membership card is added to the wallet
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
     And I perform POST request to add "Iceland" membership card for "already_registered"
     Then I perform DELETE request to delete all users
 
-## Behaviour of the following scenario is not correct. API reflector data needs to be changed, below scenario is generating different card number when I patch to register second time
+###Need to know how to retrieve last name and post code of registered card
 #  @multi_wallet_register_journey
-#  Scenario: Multi wallet add already registered card
+#  Scenario: Multi wallet add and auth already registered card
 #    Given I register with bink service in bink
 #    When I perform POST request to add "Iceland" membership card for "successful_register"
 #    And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
-#    And For bink I perform GET request to verify the Iceland membership card is added to the wallet
+#    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_enrol
 #    Given I register with bink service in barclays
 #    When I perform POST request to add "Iceland" membership card for "already_registered"
-#    And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
-#    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet
+#    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
 #    And For bink I perform GET request to verify the Iceland membership card is added to the wallet
 #    Then I perform DELETE request to delete all users
 #
-##    Behaviour of the following scenario is not correct. API reflector data needs to be changed.
+## Need to set up test data in API reflector.
 #  @multi_wallet_failed_register
 #  Scenario: Multi wallet add already registered card which is failed
 #    Given I register with bink service in bink
@@ -135,6 +135,17 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
 #    Given I register with bink service in barclays
 #    When I perform POST request to add "Iceland" membership card for "already_registered"
 #    And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
-#    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet
+#    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
 #    And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
 #    Then I perform DELETE request to delete all users
+
+   @identical_joins
+  Scenario: merchant fails to identify duplicate join requests
+    Given I register with bink service in bink
+    When I perform POST request to identical_enrol membership card for Iceland
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_enrol
+    Then verify the data stored in DB after "join" journey for "Iceland"
+    Given I register with bink service in barclays
+    When I perform POST request to identical_enrol membership card for Iceland
+    When For barclays I perform GET request to verify the Iceland membership card is added to the wallet after identical_enrol
+    Then I perform DELETE request to delete all users

@@ -207,3 +207,14 @@ class MembershipCards(Endpoint):
         header = Endpoint.request_header(token)
         payload = Merchant.get_merchant(merchant).add_auth_payload()
         return Endpoint.call(url, header, "POST", payload)
+
+    """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
+
+    @staticmethod
+    def enrol_membership_card(token, enrol_status, merchant, test_email, env=None, channel=None):
+        """ "Including channel as an input as for iceland the enrol is different for
+        Bink & Barclays"""
+        url = MembershipCards.get_url()
+        header = Endpoint.request_header(token)
+        payload = Merchant.get_merchant(merchant).enrol_membership_card_payload(enrol_status, test_email, env, channel)
+        return Endpoint.call(url, header, "POST", payload)

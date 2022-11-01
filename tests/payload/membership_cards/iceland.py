@@ -324,3 +324,48 @@ class IcelandCard:
             + json.dumps(payload, indent=4)
         )
         return payload
+
+    """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
+
+    @staticmethod
+    def enrol_membership_card_payload(enrol_status, test_email, env=None, channel=None):
+        faker = Faker()
+        enrol_consent = "Enrol Consent 1"
+        if enrol_status == "identical_enrol":
+            test_email = TestDataUtils.TEST_DATA.iceland_invalid_data.get(constants.IDENTICAL_ENROL_EMAIL)
+        if channel == "barclays":
+            if env == "dev":
+                enrol_consent = "Consent 1"
+            elif env == "staging":
+                enrol_consent = "Consent 2"
+        elif channel == "bink":
+            enrol_consent = "Enrol Consent 1"
+
+        payload = {
+            "account": {
+                "enrol_fields": [
+                    {"column": "Title", "value": constants.TITLE},
+                    {"column": "First name", "value": faker.name()},
+                    {"column": "Last name", "value": faker.name()},
+                    {"column": "Date of birth", "value": constants.DATE_OF_BIRTH},
+                    {"column": "Email", "value": test_email},
+                    {"column": "Phone", "value": faker.phone_number()},
+                    {"column": "House name or number", "value": faker.building_number()},
+                    {"column": "Street name", "value": faker.street_address()},
+                    {"column": "City", "value": faker.city()},
+                    {"column": "County", "value": faker.country()},
+                    {"column": "Postcode", "value": faker.postcode()},
+                    {"column": enrol_consent, "value": constants.CONSENT},
+                ]
+            },
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
+        }
+        logging.info(
+            "The Request for Enrol Journey with "
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
+        return payload
