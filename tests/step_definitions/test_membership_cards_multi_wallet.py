@@ -3,7 +3,7 @@ import json
 import logging
 from json import JSONDecodeError
 
-from pytest_bdd import given, parsers, scenarios, then, when
+from pytest_bdd import parsers, scenarios, then, when
 
 import tests.api as api
 import tests.helpers.constants as constants
@@ -12,10 +12,9 @@ from tests.api.base import Endpoint
 from tests.helpers.database.query_hermes import QueryHermes
 from tests.helpers.test_context import TestContext
 from tests.helpers.test_data_utils import TestDataUtils
-from tests.helpers.test_helpers import Merchant, TestData
+from tests.helpers.test_helpers import Merchant, TestData, PaymentCardTestData
 from tests.requests.membership_cards import MembershipCards
 from tests.requests.membership_transactions import MembershipTransactions
-from tests.requests.payment_cards import PaymentCards
 
 scenarios("membership_cards_multi_wallet/")
 
@@ -291,7 +290,7 @@ def register_fail(merchant, test_email, env, channel):
 
 """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
 
-"""pll will show in API response based on global variable regardless of membership card status. 
+"""pll will show in API response based on global variable regardless of membership card status.
 This part needs to be reviewed after TC changes are ready in staging"""
 
 
@@ -355,7 +354,8 @@ def get_membership_card(user, merchant, scheme_status):
         assert response_json["balances"] == [], "balances does not match"
     elif scheme_status == "successful_pll":
         assert response_json["payment_cards"][0]["id"] == TestContext.current_payment_card_id, "pll link does not match"
-        assert response_json["payment_cards"][0]["active_link"] == True, "active_link does not match"
+        assert response_json["payment_cards"][0]["active_link"]\
+               == PaymentCardTestData.get_data().get(constants.ACTIVE_LINK), "active_link does not match"
     elif scheme_status == "failed_pll":
         assert response_json["payment_cards"] == [], "pll link does not match"
 
