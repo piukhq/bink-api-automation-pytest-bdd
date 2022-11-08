@@ -97,7 +97,7 @@ def get_auth_mastercard_spotted_transaction(spend_amount, transaction_id):
     spotted_transaction = "SELECT count(*) from harmonia.public.export_transaction " \
                           "WHERE spend_amount = '{}'" \
                           "and status = 'EXPORTED'" \
-                          "and transaction_id = '{}'".format(spend_amount, transaction_id)
+                          "and transaction_id LIKE '{}%'".format(spend_amount, transaction_id)
     logging.info(spotted_transaction)
     return spotted_transaction
 

@@ -19,6 +19,7 @@ class TestTransactionMatchingContext:
     auth_code = ""
     approval_code = ""
     third_party_id = ""
+    current_time_stamp = ""
     transaction_auth_code = random.randint(100000, 999999)
 
     iceland_file_header = [

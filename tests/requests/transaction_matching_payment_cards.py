@@ -5,7 +5,8 @@ import tests.api as api
 from tests.api.transactionmatching_base import TransactionMatching_Endpoint
 from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
 from tests.api.base import Endpoint
-from tests.payload.payment_cards.transaction_matching_payment_file import TransactionMatchingPaymentFileDetails
+from tests.payload.payment_cards.transaction_matching_payment_file import TransactionMatchingPaymentFileDetails, \
+    get_data_to_import
 
 
 class TransactionMatching(Endpoint):
@@ -52,6 +53,22 @@ class TransactionMatching(Endpoint):
         response = Endpoint.call(url, header, "POST", payload)
         print(json.dumps(payload, indent=4))
         return response
+
+    @staticmethod
+    def get_visa_spotting_auth_settlement_file(mid):
+        get_data_to_import()
+        url = TransactionMatching.get_visa_url()
+        header = TransactionMatching_Endpoint.request_header_visa()
+        payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_auth_data(mid)
+        response = Endpoint.call(url, header, "POST", payload)
+        logging.info((json.dumps(payload, indent=4)))
+        print(response)
+        url = TransactionMatching.get_visa_url()
+        header = TransactionMatching_Endpoint.request_header_visa()
+        payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_settlement_data(mid)
+        response = Endpoint.call(url, header, "POST", payload)
+        logging.info((json.dumps(payload, indent=4)))
+        print(response)
 
     @staticmethod
     def get_visa_spotting_merchant_settlement_file(mid):
