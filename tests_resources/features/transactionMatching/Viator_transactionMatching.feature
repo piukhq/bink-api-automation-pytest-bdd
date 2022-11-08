@@ -1,4 +1,4 @@
-@transactionMatching
+@transactionMatching @tm
 Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching features
   As a customer
   I shopped at a Bink PLL partner that uses transaction matching
@@ -25,7 +25,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     |          master      |  020150514    |master-refund-spotting      |
 
     @transactionMatchingViator @bink_regression @sanity
-    Scenario Outline: Verify transaction streaming for squaremeal negative scenario(invalid mid)
+    Scenario Outline: Verify transaction streaming for viator negative scenario(invalid mid)
 
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet
@@ -45,7 +45,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     |          master      |  29047530     |master-refund-spotting      |
 
   @transactionMatchingViator @bink_regression @sanity
-    Scenario Outline: Verify transaction streaming for squaremeal negative scenario(invalid payment card token)
+    Scenario Outline: Verify transaction streaming for VIATOR negative scenario(invalid payment card token)
 
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet
@@ -58,3 +58,19 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     Examples:
     | payment_card_provider|     mid       |payment_card_transaction               |
     |          visa        |  020150514     |visa-auth-spotting_invalid_token      |
+
+  @transactionMatchingViator @bink_regression @sanity @er
+    Scenario Outline: Verify End to End transaction spotting for Viator
+
+    Given I am a Bink user
+    When I perform POST request to add "<payment_card_provider>" payment card to wallet
+    And I perform the GET request to verify the payment card has been added successfully to the wallet
+    When I perform POST request to add & auto link "Viator" membership card
+    Then I perform GET request to verify the "Viator" membershipcard is added & linked successfully in the wallet
+    When I post both settlement and auth transaction file "<mid>" Authorisation
+    Then I verify transaction is spotted and exported
+    
+
+    Examples:
+    | payment_card_provider|     mid       |
+    |          visa        |  020150514    |

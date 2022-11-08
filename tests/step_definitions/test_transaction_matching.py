@@ -316,3 +316,42 @@ def getNewFileDataToImport():
         "%Y-%m-%d %H:%M:%S"
     )
     TestTransactionMatchingContext.file_name = "iceland-bonus-card" + datetime.now().strftime("%Y%m%d-%H%M%S") + ".csv"
+
+
+@when(parsers.parse(
+    'I append matching "{payment_card_transaction_1}" "{payment_card_transaction_2}" "{mid}" Authorisation'))
+def import_payment_file_1(payment_card_transaction_1, payment_card_transaction_2, mid):
+    if payment_card_transaction_1 == "visa-auth-spotting":
+        response = TransactionMatching.get_visa_spotting_merchant_auth_file(mid)
+        response_json = response.json()
+        logging.info("The response of POST/import Payment File is: \n\n" + json.dumps(response_json, indent=4))
+        assert response.status_code == 201 or 200, "Payment file is not successful"
+        logging.info("Waiting for the pods To match the transaction....and Export the Files")
+        time.sleep(30)
+    if payment_card_transaction_2 == "visa-settlement-spotting":
+        response = TransactionMatching.get_visa_spotting_merchant_settlement_file(mid)
+        response_json = response.json()
+        logging.info("The response of POST/import Payment File is: \n\n" + json.dumps(response_json, indent=4))
+        assert response.status_code == 201 or 200, "Payment file is not successful"
+        logging.info("Waiting for the pods To match the transaction....and Export the Files")
+        time.sleep(30)
+        return response_json
+
+
+@when(parsers.parse('I post both settlement and auth transaction file "{mid}" Authorisation'))
+def import_visa_auth_and_settlement_file(mid):
+    response = TransactionMatching.get_visa_spotting_auth_settlement_file(mid)
+    time.sleep(30)
+    print(response)
+
+
+@then(parsers.parse('I post a matching "{payment_card_transaction_2}" "{mid}" Authorisation'))
+def import_payment_file_2(payment_card_transaction_2, mid):
+    if payment_card_transaction_2 == "visa-settlement-spotting":
+        response = TransactionMatching.get_visa_spotting_merchant_settlement_file(mid)
+        response_json = response.json()
+        logging.info("The response of POST/import Payment File is: \n\n" + json.dumps(response_json, indent=4))
+        assert response.status_code == 201 or 200, "Payment file is not successful"
+        logging.info("Waiting for the pods To match the transaction....and Export the Files")
+        time.sleep(30)
+        return response_json

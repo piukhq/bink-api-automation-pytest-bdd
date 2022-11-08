@@ -20,6 +20,17 @@ def join(*args: WidthField) -> str:
     return "".join(str(value).ljust(length) for value, length in args)
 
 
+def get_data_to_import():
+    TestTransactionMatchingContext.spend_amount = random.choice(range(1, 20)) / 100
+    TestTransactionMatchingContext.transaction_id = (
+        TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
+    )
+    TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
+    TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone("Europe/London")).strftime(
+        "%Y-%m-%d %H:%M:%S"
+    )
+
+
 class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def import_master_auth_payment_card(mid):
@@ -258,8 +269,8 @@ class TransactionMatchingPaymentFileDetails:
             "approvalCode": str(TestTransactionMatchingContext.approval_code),
             "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "currencyCode": "840",
-            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX"
-            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
+            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS)
+            + "XXXXX" + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
             "merchantNumber": mid,
             "offerId": "0",
             "partnerId": "AADP0050",
@@ -374,21 +385,14 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_visa_spotting_merchant_auth_data(mid):
-        TestTransactionMatchingContext.spend_amount = random.choice(range(1, 20))
-        TestTransactionMatchingContext.transaction_id = (
-            TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
-        )
-        TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
-        TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone("Europe/London")).strftime(
-            "%Y-%m-%d %H:%M:%S"
-        )
+        get_data_to_import()
         return {
             "CardId": TestTransactionMatchingContext.transaction_id,
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
             "MessageElementsCollection": [
                 {"Key": "Transaction.MerchantCardAcceptorId", "Value": mid},
                 {"Key": "Transaction.MerchantAcquirerBin", "Value": "3423432"},
-                {"Key": "Transaction.TransactionAmount", "Value": TestTransactionMatchingContext.spend_amount / 100},
+                {"Key": "Transaction.TransactionAmount", "Value": TestTransactionMatchingContext.spend_amount},
                 {"Key": "Transaction.VipTransactionId", "Value": TestTransactionMatchingContext.transaction_id},
                 {"Key": "Transaction.VisaMerchantName", "Value": ""},
                 {"Key": "Transaction.VisaMerchantId", "Value": ""},
@@ -396,7 +400,7 @@ class TransactionMatchingPaymentFileDetails:
                 {"Key": "Transaction.VisaStoreId", "Value": ""},
                 {"Key": "Transaction.CurrencyCodeNumeric", "Value": "840"},
                 {"Key": "Transaction.BillingCurrencyCode", "Value": "840"},
-                {"Key": "Transaction.USDAmount", "Value": TestTransactionMatchingContext.spend_amount / 100},
+                {"Key": "Transaction.USDAmount", "Value": TestTransactionMatchingContext.spend_amount},
                 {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
                 {"Key": "Transaction.MerchantGroup.0.Name", "Value": "SPOTTING-MERCHANT"},
                 {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Spotting Merchant"},
@@ -406,7 +410,7 @@ class TransactionMatchingPaymentFileDetails:
                     "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS),
                 },
                 {"Key": "Transaction.MerchantDateTimeGMT", "Value": TestTransactionMatchingContext.current_time_stamp},
-                {"Key": "Transaction.BillingAmount", "Value": TestTransactionMatchingContext.spend_amount / 100},
+                {"Key": "Transaction.BillingAmount", "Value": TestTransactionMatchingContext.spend_amount},
                 {"Key": "Transaction.TimeStampYYMMDD", "Value": TestTransactionMatchingContext.current_time_stamp},
                 {"Key": "Transaction.SettlementDate", "Value": ""},
                 {"Key": "Transaction.SettlementAmount", "Value": "0"},
@@ -423,21 +427,14 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_visa_spotting_merchant_settlement_data(mid):
-        TestTransactionMatchingContext.spend_amount = random.choice(range(1, 20))
-        TestTransactionMatchingContext.transaction_id = (
-            TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
-        )
-        TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
-        TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone("Europe/London")).strftime(
-            "%Y-%m-%d %H:%M:%S"
-        )
+        get_data_to_import()
         return {
             "CardId": TestTransactionMatchingContext.transaction_id,
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
             "MessageElementsCollection": [
                 {"Key": "Transaction.MerchantCardAcceptorId", "Value": mid},
                 {"Key": "Transaction.MerchantAcquirerBin", "Value": "3423432"},
-                {"Key": "Transaction.TransactionAmount", "Value": TestTransactionMatchingContext.spend_amount / 100},
+                {"Key": "Transaction.TransactionAmount", "Value": TestTransactionMatchingContext.spend_amount},
                 {"Key": "Transaction.VipTransactionId", "Value": TestTransactionMatchingContext.transaction_id},
                 {"Key": "Transaction.VisaMerchantName", "Value": ""},
                 {"Key": "Transaction.VisaMerchantId", "Value": ""},
@@ -445,7 +442,7 @@ class TransactionMatchingPaymentFileDetails:
                 {"Key": "Transaction.VisaStoreId", "Value": ""},
                 {"Key": "Transaction.CurrencyCodeNumeric", "Value": "840"},
                 {"Key": "Transaction.BillingCurrencyCode", "Value": "840"},
-                {"Key": "Transaction.USDAmount", "Value": TestTransactionMatchingContext.spend_amount / 100},
+                {"Key": "Transaction.USDAmount", "Value": TestTransactionMatchingContext.spend_amount},
                 {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
                 {"Key": "Transaction.MerchantGroup.0.Name", "Value": "SPOTTING-MERCHANT"},
                 {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Spotting Merchant"},
@@ -458,12 +455,12 @@ class TransactionMatchingPaymentFileDetails:
                 {"Key": "Transaction.BillingAmount", "Value": ""},
                 {"Key": "Transaction.TimeStampYYMMDD", "Value": "0001-01-01T00:00:00"},
                 {"Key": "Transaction.SettlementDate", "Value": TestTransactionMatchingContext.current_time_stamp},
-                {"Key": "Transaction.SettlementAmount", "Value": TestTransactionMatchingContext.spend_amount / 100},
+                {"Key": "Transaction.SettlementAmount", "Value": TestTransactionMatchingContext.spend_amount},
                 {"Key": "Transaction.SettlementCurrencyCodeNumeric", "Value": "826"},
                 {"Key": "Transaction.SettlementBillingAmount",
-                 "Value": TestTransactionMatchingContext.spend_amount / 100},
+                 "Value": TestTransactionMatchingContext.spend_amount},
                 {"Key": "Transaction.SettlementBillingCurrency", "Value": "826"},
-                {"Key": "Transaction.SettlementUSDAmount", "Value": TestTransactionMatchingContext.spend_amount / 100},
+                {"Key": "Transaction.SettlementUSDAmount", "Value": TestTransactionMatchingContext.spend_amount},
             ],
             "MessageId": str(uuid.uuid4()),
             "MessageName": "AuthMessageTest",
