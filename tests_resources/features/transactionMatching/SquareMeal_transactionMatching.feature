@@ -1,4 +1,4 @@
-@transactionMatching @square_meal
+@transactionMatching @square_meal @tm
 Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matching features
   As a customer
   I shopped at a Bink PLL partner that uses transaction matching

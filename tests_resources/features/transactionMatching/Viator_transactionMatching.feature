@@ -25,7 +25,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     |          master      |  020150514    |master-refund-spotting      |
 
     @transactionMatchingViator @bink_regression @sanity
-    Scenario Outline: Verify transaction streaming for viator negative scenario(invalid mid)
+    Scenario Outline: Verify transaction Spotting for viator negative scenario(invalid mid)
 
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet
@@ -45,7 +45,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     |          master      |  29047530     |master-refund-spotting      |
 
   @transactionMatchingViator @bink_regression @sanity
-    Scenario Outline: Verify transaction streaming for VIATOR negative scenario(invalid payment card token)
+    Scenario Outline: Verify transaction spotting for VIATOR negative scenario(invalid payment card token)
 
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet
