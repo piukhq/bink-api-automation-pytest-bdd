@@ -138,7 +138,7 @@ def import_payment_file(payment_card_transaction, mid):
         logging.info("Waiting for transaction to be spotted and exported")
     else:
         logging.info("Waiting for the pods To match the transaction....and Export the Files")
-    time.sleep(90)
+    time.sleep(45)
     return response_json
 
 

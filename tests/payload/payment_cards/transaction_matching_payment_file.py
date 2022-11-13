@@ -385,7 +385,6 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_visa_spotting_merchant_auth_data(mid):
-        get_data_to_import()
         return {
             "CardId": TestTransactionMatchingContext.transaction_id,
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
@@ -427,7 +426,6 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_visa_spotting_merchant_settlement_data(mid):
-        get_data_to_import()
         return {
             "CardId": TestTransactionMatchingContext.transaction_id,
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),

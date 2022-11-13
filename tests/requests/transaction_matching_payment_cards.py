@@ -33,7 +33,7 @@ class TransactionMatching(Endpoint):
         header = TransactionMatching_Endpoint.request_header_visa()
         payload = TransactionMatchingPaymentFileDetails.get_visa_auth_data(mid)
         response = Endpoint.call(url, header, "POST", payload)
-        print(json.dumps(payload, indent=4))
+        logging.info(json.dumps(payload, indent=4))
         return response
 
     @staticmethod

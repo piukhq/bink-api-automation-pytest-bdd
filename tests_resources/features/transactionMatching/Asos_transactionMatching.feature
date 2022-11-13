@@ -1,4 +1,4 @@
-@transactionMatching
+@transactionMatching @tm
 Feature: Merchant ASOS - Ensure a customer can use Bink's Transaction Matching features
   As a customer
   I shopped at a Bink PLL partner that uses transaction matching
