@@ -20,6 +20,7 @@ class TransactionMatching(Endpoint):
 
     @staticmethod
     def get_master_spotting_auth_file(mid):
+        get_data_to_import()
         url = TransactionMatching.get_mastrcard_url()
         header = TransactionMatching_Endpoint.request_header_mastercard()
         payload = TransactionMatchingPaymentFileDetails.import_spotting_master_auth_payment_card(mid)
@@ -29,6 +30,7 @@ class TransactionMatching(Endpoint):
 
     @staticmethod
     def get_visa_auth_csv(mid):
+        get_data_to_import()
         url = TransactionMatching.get_visa_url()
         header = TransactionMatching_Endpoint.request_header_visa()
         payload = TransactionMatchingPaymentFileDetails.get_visa_auth_data(mid)
@@ -38,6 +40,7 @@ class TransactionMatching(Endpoint):
 
     @staticmethod
     def get_visa_settlement_file(mid):
+        get_data_to_import()
         url = TransactionMatching.get_visa_url()
         header = TransactionMatching_Endpoint.request_header_visa()
         payload = TransactionMatchingPaymentFileDetails.get_visa_settlement_data(mid)
@@ -47,6 +50,7 @@ class TransactionMatching(Endpoint):
 
     @staticmethod
     def get_visa_spotting_merchant_auth_file(mid):
+        get_data_to_import()
         url = TransactionMatching.get_visa_url()
         header = TransactionMatching_Endpoint.request_header_visa()
         payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_auth_data(mid)
@@ -72,6 +76,7 @@ class TransactionMatching(Endpoint):
 
     @staticmethod
     def get_visa_spotting_merchant_settlement_file(mid):
+        get_data_to_import()
         url = TransactionMatching.get_visa_url()
         header = TransactionMatching_Endpoint.request_header_visa()
         payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_settlement_data(mid)
@@ -81,6 +86,7 @@ class TransactionMatching(Endpoint):
 
     @staticmethod
     def get_visa_spotting_merchant_refund_file(mid):
+        get_data_to_import()
         url = TransactionMatching.get_visa_url()
         header = TransactionMatching_Endpoint.request_header_visa()
         payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_refund_data(mid)
@@ -99,6 +105,7 @@ class TransactionMatching(Endpoint):
 
     @staticmethod
     def get_amex_register_payment_csv():
+        get_data_to_import()
         url = TransactionMatching.get_amex_register_url()
         header = TransactionMatching_Endpoint.request_register_amex()
         payload = TransactionMatchingPaymentFileDetails.import_amex_auth_payment_card()
@@ -117,6 +124,7 @@ class TransactionMatching(Endpoint):
 
     @staticmethod
     def get_amex_auth_spotting_file(mid):
+        get_data_to_import()
         url = TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_CARD
         headers = TransactionMatching_Endpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
         payload = TransactionMatchingPaymentFileDetails.get_amex_auth_spotting_data(mid)
@@ -135,6 +143,7 @@ class TransactionMatching(Endpoint):
 
     @staticmethod
     def get_amex_settlement_spotting_file(mid):
+        get_data_to_import()
         url = TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
         headers = TransactionMatching_Endpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
         payload = TransactionMatchingPaymentFileDetails.get_amex_settlement_spotting_data(mid)
@@ -144,6 +153,7 @@ class TransactionMatching(Endpoint):
 
     @staticmethod
     def get_amex_refund_spotting_file(mid):
+        get_data_to_import()
         url = TransactionMatching_Endpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
         headers = TransactionMatching_Endpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
         payload = TransactionMatchingPaymentFileDetails.get_amex_refund_spotting_data(mid)

@@ -62,6 +62,7 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_master_settlement_spotting_txt_file(mid):
+        get_data_to_import()
         third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
         TestTransactionMatchingContext.created_at = now = pendulum.now()
         mid = mid
@@ -110,6 +111,7 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_master_settlement_txt_file(mid):
+        get_data_to_import()
         third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
         now = pendulum.now()
         auth_code = TestTransactionMatchingContext.transaction_matching_uuid

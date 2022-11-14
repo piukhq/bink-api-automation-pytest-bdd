@@ -23,7 +23,7 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
     |          visa        |scheme/iceland/   |10209723  | Visa                     |visa-auth               |VISA    |
     |          visa        |scheme/iceland/   |10209723  | Visa                     |visa-settlement         |VISA    |
     |          master      |scheme/iceland/   |22776952  |MasterCard/MasterCard One |master-settlement       |MASTERCARD|
-    |          master      |scheme/iceland/  |22776952  |MasterCard/MasterCard One  |master-auth             |MASTERCARD|
+    |          master      |scheme/iceland/   |22776952  |MasterCard/MasterCard One |master-auth             |MASTERCARD|
 
   @transactionMatchingIceland @bink_regression @sanity
   Scenario Outline: Verify transaction matching for iceland with payment provider but invalid mid
