@@ -74,7 +74,6 @@ def import_payment_file(payment_card_transaction, mid):
     logging.info("The response of POST/import Payment File is: \n\n" + json.dumps(response_json, indent=4))
     assert response.status_code == 201 or 200, "Payment file is not successful"
     if payment_card_transaction == "master-settlement":
-        get_data_to_import()
         merchant_container = "mastercard"
         file_name = (
             transaction_matching_payment_file.TransactionMatchingPaymentFileDetails.get_master_settlement_txt_file(mid)
