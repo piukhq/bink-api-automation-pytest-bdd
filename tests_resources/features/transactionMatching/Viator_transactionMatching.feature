@@ -59,7 +59,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     | payment_card_provider|     mid       |payment_card_transaction               |
     |          visa        |  020150514     |visa-auth-spotting_invalid_token      |
 
-  @transactionMatchingViator @bink_regression @sanity @er
+  @transactionMatchingViator @bink_regression @sanity
     Scenario Outline: Verify End to End transaction spotting for Viator
 
     Given I am a Bink user
@@ -76,7 +76,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     |          visa        |  020150514    |
 
 
-  @transactionMatchingViator @bink_regression @sanity @er
+  @transactionMatchingViator @bink_regression @sanity
     Scenario Outline: Verify that Viator AMEX auth transaction is not exported
 
     Given I am a Bink user
