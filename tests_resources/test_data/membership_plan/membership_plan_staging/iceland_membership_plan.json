@@ -140,7 +140,7 @@
 			{
 				"column": "Bonus card number",
 				"validation": "^(63320400)[0-9]{11}$",
-				"description": "19 digit card number",
+				"description": "Card number / first 19 barcode digits",
 				"common_name": "card_number",
 				"type": 0,
 				"choice": [],
