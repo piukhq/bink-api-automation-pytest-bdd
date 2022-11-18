@@ -732,3 +732,22 @@ def membership_card_vouchers(user, loyalty_card_status, merchant, env):
             print("voucher object in response is", actual_response["vouchers"])
         except KeyError:
             print("For unauthorised loyalty card voucher object does not exist in response")
+
+
+@when(
+    parsers.parse(
+        'For {user} I perform PATCH request to update the {merchant} membership card with {credentials}'
+    )
+)
+def membership_card_update(user, merchant, credentials):
+    TestContext.token = TestContext.all_users[user]
+    response = MembershipCards.update_card(TestContext.token, TestContext.current_scheme_account_id, merchant,
+                                           credentials)
+    response_json = response.json()
+    logging.info(f"Response of PUT/membership_card/'{TestContext.current_scheme_account_id}' for " + merchant +
+                 "_membership card update with" + credentials + "is "
+                 + json.dumps(response_json, indent=4))
+    assert (
+            response.status_code == 200
+            and response_json["id"] == TestContext.current_scheme_account_id,
+            "Update membership card failed")
