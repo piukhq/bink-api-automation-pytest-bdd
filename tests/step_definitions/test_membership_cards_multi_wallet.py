@@ -749,4 +749,3 @@ def membership_card_update(user, merchant, credentials):
                  + json.dumps(response_json, indent=4))
     assert (response.status_code == 200
             and response_json["id"] == TestContext.current_scheme_account_id), "Update membership card failed"
-
