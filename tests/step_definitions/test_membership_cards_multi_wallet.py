@@ -747,7 +747,6 @@ def membership_card_update(user, merchant, credentials):
     logging.info(f"Response of PUT/membership_card/'{TestContext.current_scheme_account_id}' for " + merchant +
                  "_membership card update with" + credentials + "is "
                  + json.dumps(response_json, indent=4))
-    assert (
-            response.status_code == 200
-            and response_json["id"] == TestContext.current_scheme_account_id,
-            "Update membership card failed")
+    assert (response.status_code == 200
+            and response_json["id"] == TestContext.current_scheme_account_id), "Update membership card failed"
+
