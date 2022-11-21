@@ -115,6 +115,73 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
     And For barclays I perform GET request to view transactions for "unauthorised" "Wasabi" membership card
     Then I perform DELETE request to delete all users
 
+#...............................................Update Scenarios.......................................................
+  #Steps:
+  # add & auth loyalty card in wallet 1 & 2 with good credentials
+  # PATCH with Invalid auth credentials
+  # Get wallet 1 has authorised details. Also balance vouchers and transactions returned
+  # Get wallet 2 has unauthorised details .Also balance vouchers and transactions null
+  #Note: Assume the PLL will travel across the wallet after trusted channel implementation.
+
+  @multi_wallet_update_1
+  Scenario: Wallet 1& 2 have authorised cards, PATCH with invalid cred in wallet 2
+          # add & auth loyalty card in wallet 1
+    Given I register with bink service in bink
+    When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
+    And For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
+    And I perform POST request to add payment card to wallet
+    And For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
+          # add & auth loyalty card in wallet 2
+    Given I register with bink service in barclays
+    When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
+    And For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
+    And I perform POST request to add payment card to wallet
+    And For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
+         # Patch with Invalid auth credentials  in wallet2 and verify bal, vouchers,txns in wallet2
+    And For barclays I perform PATCH request to update the Wasabi membership card with "invalid_credentials"
+    And For barclays I perform GET request to verify the Wasabi membership card is added to the wallet with invalid data
+    When For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
+    And For barclays I perform GET request to view balance for "unauthorised" "Wasabi" membership card
+    And For barclays I perform GET request to view vouchers for "unauthorised" "Wasabi" membership card
+    And For barclays I perform GET request to view transactions for "unauthorised" "Wasabi" membership card
+     # Switch to wallet 1 to make sure the Status of Wallet_2's LC1 does not impact the Status of LC1 in wallet_1
+    When For bink I perform GET request to view balance for "authorised" "Wasabi" membership card
+    And For bink I perform GET request to view vouchers for "authorised" "Wasabi" membership card
+    And For bink I perform GET request to view transactions for "authorised" "Wasabi" membership card
+    Then For bink I perform GET request to view a specific transaction for "authorised" "Wasabi" membership card
+    And I perform DELETE request to delete all users
+
+
+    @multi_wallet_update_2
+  Scenario: Wallet 1& 2 have authorised cards, PATCH with invalid cred in wallet 1
+          # add & auth loyalty card in wallet 1
+    Given I register with bink service in bink
+    When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
+    And For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
+    And I perform POST request to add payment card to wallet
+    And For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
+          # add & auth loyalty card in wallet 2
+    Given I register with bink service in barclays
+    When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
+    And For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
+    And I perform POST request to add payment card to wallet
+    And For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
+         # Patch with Invalid auth credentials  in wallet1 and verify bal, vouchers,txns in wallet2
+    And For bink I perform PATCH request to update the Wasabi membership card with "invalid_credentials"
+    And For bink I perform GET request to verify the Wasabi membership card is added to the wallet with invalid data
+    When For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
+    And For bink I perform GET request to view balance for "unauthorised" "Wasabi" membership card
+    And For bink I perform GET request to view vouchers for "unauthorised" "Wasabi" membership card
+    And For bink I perform GET request to view transactions for "unauthorised" "Wasabi" membership card
+     # Switch to wallet 2 to make sure the Status of Wallet_2's LC1 does not impact the Status of LC1 in wallet_1
+    When For barclays I perform GET request to view balance for "authorised" "Wasabi" membership card
+    And For barclays I perform GET request to view vouchers for "authorised" "Wasabi" membership card
+    And For barclays I perform GET request to view transactions for "authorised" "Wasabi" membership card
+    Then For barclays I perform GET request to view a specific transaction for "authorised" "Wasabi" membership card
+    And I perform DELETE request to delete all users
+
+
+
 
 
 

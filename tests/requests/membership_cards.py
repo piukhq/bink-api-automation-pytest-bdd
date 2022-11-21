@@ -218,3 +218,16 @@ class MembershipCards(Endpoint):
         header = Endpoint.request_header(token)
         payload = Merchant.get_merchant(merchant).enrol_membership_card_payload(enrol_status, test_email, env, channel)
         return Endpoint.call(url, header, "POST", payload)
+
+    @staticmethod
+    def update_card(token, scheme_account_id, merchant, invalid_data=None):
+        """Update the scheme_account_id with valid / invalid credential"""
+        """ This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios """
+
+        url = MembershipCards.get_url(scheme_account_id)
+        header = Endpoint.request_header(token)
+        if not invalid_data:
+            payload = Merchant.get_merchant(merchant).update_membership_card_payload()
+        else:
+            payload = Merchant.get_merchant(merchant).update_membership_card_payload(invalid_data)
+        return Endpoint.call(url, header, "PATCH", payload)
