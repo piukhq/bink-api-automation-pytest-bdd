@@ -47,6 +47,12 @@ else:
         transaction_matching_base_url="https://api.staging.gb.bink.com",
         transaction_matching_base_url_zephyrus="https://api.staging.gb.bink.com",
     )
+    TRUSTED = EnvironmentDetails(
+        base_url="https://tc.staging.gb.bink.com",
+        test_data=testdata_staging,
+        transaction_matching_base_url="https://tc.staging.gb.bink.com",
+        transaction_matching_base_url_zephyrus="https://tc.staging.gb.bink.com",
+    )
     PROD = EnvironmentDetails(
         base_url="https://api.gb.bink.com",
         test_data=testdata_prod,
