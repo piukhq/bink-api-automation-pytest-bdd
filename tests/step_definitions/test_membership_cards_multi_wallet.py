@@ -53,7 +53,7 @@ def add_only_membership_card(merchant, scheme_status):
     elif scheme_status == "failed_register":
         TestContext.card_number = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.UNKNOWN_CARD)
 
-    response = MembershipCards.add_auth_card(TestContext.token, merchant)
+    response = MembershipCards.add_auth_card(TestContext.token, merchant, scheme_status)
     response_json = response_to_json(response)
     if scheme_status in ["successful_register", "failed_register"]:
         TestContext.current_scheme_account_id = response_json.get("id")
@@ -65,7 +65,7 @@ def add_only_membership_card(merchant, scheme_status):
             + json.dumps(response_json, indent=4)
         )
         assert (
-                response.status_code == 201
+                response.status_code == 201 or response.status_code == 200
                 and response_json["status"]["state"]
                 == TestData.get_membership_card_status_states().get(constants.UNAUTHORIZED)
                 and response_json["status"]["reason_codes"][0]
@@ -241,11 +241,10 @@ def register_ghost_membership_account(merchant, test_email, env, channel):
 """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
 
 
-@when(parsers.parse('I perform PATCH request to create "{merchant}" failed register'))
-def register_fail(merchant, test_email, env, channel):
-    test_email = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.REGISTER_FAILED_EMAIL)
+@when(parsers.parse('I perform PATCH request to create "{merchant}" "{scheme_status}"'))
+def register_fail(merchant, test_email, env, channel, scheme_status):
     response = MembershipCards.register_ghost_card(
-        TestContext.token, merchant, test_email, TestContext.current_scheme_account_id, env, channel
+        TestContext.token, merchant, test_email, TestContext.current_scheme_account_id, env, channel, scheme_status
     )
     response_json = response_to_json(response)
     TestContext.current_scheme_account_id = response_json.get("id")

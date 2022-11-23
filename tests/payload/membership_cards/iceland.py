@@ -135,7 +135,7 @@ class IcelandCard:
         return payload
 
     @staticmethod
-    def enrol_ghost_membership_scheme_payload(email, scheme_id, env, channel=None):
+    def enrol_ghost_membership_scheme_payload(email, scheme_id, env, channel=None, scheme_status=None):
         faker = Faker()
         enrol_consent = "Consent 1"
         if channel == "barclays":
@@ -146,12 +146,16 @@ class IcelandCard:
         elif channel == "bink":
             enrol_consent = "Enrol Consent 1"
 
+        if scheme_status == "failed_register":
+            TestContext.last_name = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.UNKNOWN_LAST_NAME)
+        else:
+            TestContext.last_name = faker.name()
         payload = {
             "account": {
                 "registration_fields": [
                     {"column": "Title", "value": constants.TITLE},
                     {"column": "First name", "value": faker.name()},
-                    {"column": "Last name", "value": faker.name()},
+                    {"column": "Last name", "value": TestContext.last_name},
                     {"column": "Date of birth", "value": constants.DATE_OF_BIRTH},
                     {"column": "Email", "value": email},
                     {"column": "Phone", "value": faker.phone_number()},
@@ -293,7 +297,11 @@ class IcelandCard:
     """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
 
     @staticmethod
-    def add_auth_payload():
+    def add_auth_payload(scheme_status):
+        if scheme_status == "failed_register":
+            TestContext.last_name = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.UNKNOWN_LAST_NAME)
+        else:
+            TestContext.last_name = TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
         payload = {
             "account": {
                 "add_fields": [
@@ -306,7 +314,7 @@ class IcelandCard:
             "authorise_fields": [
                 {
                     "column": "Last name",
-                    "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME),
+                    "value": TestContext.last_name,
                 },
                 {
                     "column": "Postcode",
