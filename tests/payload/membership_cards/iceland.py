@@ -147,7 +147,9 @@ class IcelandCard:
             enrol_consent = "Enrol Consent 1"
 
         if scheme_status == "failed_register":
-            TestContext.last_name = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.UNKNOWN_LAST_NAME)
+            TestContext.last_name = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(
+                constants.UNKNOWN_LAST_NAME
+            )
         else:
             TestContext.last_name = faker.name()
         payload = {
@@ -299,7 +301,9 @@ class IcelandCard:
     @staticmethod
     def add_auth_payload(scheme_status):
         if scheme_status == "failed_register":
-            TestContext.last_name = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.UNKNOWN_LAST_NAME)
+            TestContext.last_name = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(
+                constants.UNKNOWN_LAST_NAME
+            )
         else:
             TestContext.last_name = TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
         payload = {
