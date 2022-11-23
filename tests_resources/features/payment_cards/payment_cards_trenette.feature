@@ -4,10 +4,10 @@ Feature: Merchant Trenette - Ensure a customer can add their payment card & link
 
   As a customer
   I want to utilise payment_cards endpoint
-  So I can add my payment card and can link to asos membership card & check the details successfully
+  So I can add my payment card and can link to Trenette membership card & check the details successfully
 
   @bink_regression
-  Scenario Outline: ADD & LINK Journey_Asos
+  Scenario Outline: ADD & LINK Journey_Trenette
 
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet
@@ -22,7 +22,7 @@ Feature: Merchant Trenette - Ensure a customer can add their payment card & link
     |          visa        |
 
   @patch_mcard_pcard @bink_regression
-  Scenario: PLL Link by PATCH_(mcard_pcard)_Asos
+  Scenario: PLL Link by PATCH_(mcard_pcard)_Trenette
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
     When I perform POST request to add "master" payment card to wallet
@@ -37,7 +37,7 @@ Feature: Merchant Trenette - Ensure a customer can add their payment card & link
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
   @patch_pcard_mcard @bink_regression
-  Scenario: PLL Link by PATCH_(pcard_mcard)_Asos
+  Scenario: PLL Link by PATCH_(pcard_mcard)_Trenette
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
     When I perform POST request to add "master" payment card to wallet
@@ -52,7 +52,7 @@ Feature: Merchant Trenette - Ensure a customer can add their payment card & link
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
   @enrol_new_paymentcard @bink_regression
-  Scenario Outline: Enrol new paymentcard and link to Asos
+  Scenario Outline: Enrol new paymentcard and link to Trenette
 
     Given I am a Bink user
     When I perform POST request to enrol new "<payment_card_provider>" payment card to wallet
@@ -68,7 +68,7 @@ Feature: Merchant Trenette - Ensure a customer can add their payment card & link
     |          master      |
 
   @enrol_new_paymentcard @bink_regression
-  Scenario Outline: Enrol link and unlink the visa vop in pelops for Asos
+  Scenario Outline: Enrol link and unlink the visa vop in pelops for Trenette
 
     Given I am a Bink user
     When I perform POST request to enrol new "<payment_card_provider>" payment card to wallet
