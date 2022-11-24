@@ -195,7 +195,8 @@ iceland_membership_card = {
 iceland_ghost_membership_card = {
     "card_num": "6332040031231230001",
     "barcode": "6332040031231230001",
-    "unknown_card": "6332040065432134343",
+    "unknown_card": "6332040072345437596",
+    "unknown_last_name": "odedraghostcard",
     "register_failed_email": "generalerror@testbink.com",
     "last_name": "QAUsertest11",
     "postcode": "rg6 6bb",
