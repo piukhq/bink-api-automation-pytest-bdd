@@ -56,3 +56,19 @@ Feature: Merchant ASOS - Ensure a customer can use Bink's Transaction Matching f
     Examples:
     | payment_card_provider|     mid       |payment_card_transaction               |
     |          visa        |  29047531     |visa-auth-spotting_invalid_token       |
+
+  @transactionMatchingAsos @bink_regression @sanity @to
+    Scenario Outline: Verify that Asos AMEX auth transaction for is not exported
+
+    Given I am a Bink user
+    When I perform POST request to add "<payment_card_provider>" payment card to wallet
+    And I perform the GET request to verify the payment card has been added successfully to the wallet
+    When I perform POST request to add & auto link "Asos" membership card
+    Then I perform GET request to verify the "Asos" membershipcard is added & linked successfully in the wallet
+    When I send matching "<payment_card_transaction>" "<mid>" Authorisation
+    Then I verify transaction is imported into the import_transaction table
+    Then I verify transaction is not streamed/spotted and exported
+
+    Examples:
+    | payment_card_provider|     mid       |payment_card_transaction      |
+    |          amex        |  9449819796   |amex-auth-spotting            |
