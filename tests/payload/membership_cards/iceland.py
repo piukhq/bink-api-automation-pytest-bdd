@@ -397,10 +397,10 @@ class IcelandCard:
                     "column": "Last name",
                     "value": value,
                 },
-                {
+               {
                     "column": "Postcode",
                     "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE),
-                }],
+               }],
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
         }
