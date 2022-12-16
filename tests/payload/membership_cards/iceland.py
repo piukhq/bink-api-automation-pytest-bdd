@@ -393,7 +393,7 @@ class IcelandCard:
             data_type = "Valid data"
         payload = {
             "account": {
-                "authorise_fields": [ {
+                "authorise_fields": [{
                     "column": "Last name",
                     "value": value,
                 },
