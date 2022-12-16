@@ -393,14 +393,7 @@ class IcelandCard:
             data_type = "Valid data"
         payload = {
             "account": {
-                "authorise_fields": [{
-                    "column": "Last name",
-                    "value": value,
-                },
-               {
-                    "column": "Postcode",
-                    "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE),
-               }],
+                "authorise_fields": [{"column": "Last name", "value": value}],
             },
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
         }
