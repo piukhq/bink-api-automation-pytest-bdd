@@ -203,7 +203,7 @@ class WasabiCard:
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("wasabi"),
         }
         logging.info(
-            "The Request for Add Journey with "
+            "The Request for Update Auth credentials with "
             + data_type
             + " :\n\n"
             + Endpoint.BASE_URL
