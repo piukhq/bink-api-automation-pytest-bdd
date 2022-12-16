@@ -741,7 +741,7 @@ def membership_card_update(user, merchant, credentials):
     )
     response_json = response.json()
     logging.info(
-        f"Response of PUT/membership_card/'{TestContext.current_scheme_account_id}' for "
+        f"Response of PATCH/membership_card/'{TestContext.current_scheme_account_id}' for "
         + merchant
         + "_membership card update with"
         + credentials

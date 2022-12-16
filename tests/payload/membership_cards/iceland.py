@@ -381,3 +381,36 @@ class IcelandCard:
             + json.dumps(payload, indent=4)
         )
         return payload
+
+    @staticmethod
+    def update_membership_card_payload(invalid_data=None):
+        if invalid_data:
+            value = TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.UNKNOWN_LAST_NAME)
+            logging.info("Invalid data is: " + value)
+            data_type = "Invalid data"
+        else:
+            value = TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+            data_type = "Valid data"
+        payload = {
+            "account": {
+                "authorise_fields": [ {
+                    "column": "Last name",
+                    "value": value,
+                },
+                {
+                    "column": "Postcode",
+                    "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE),
+                }],
+            },
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
+        }
+        logging.info(
+            "The Request for Update Auth credentials with "
+            + data_type
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
+        return payload
