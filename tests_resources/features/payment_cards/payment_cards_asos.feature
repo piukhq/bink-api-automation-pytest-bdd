@@ -1,4 +1,4 @@
-@asos @sanity
+@asos
 Feature: Merchant asos - Ensure a customer can add their payment card & link it to loyalty membership card
   and view their card(s) details
 
