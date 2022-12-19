@@ -4,7 +4,7 @@ Feature: Merchant ASOS - Ensure a customer can use Bink's Transaction Matching f
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @transactionMatchingAsos @bink_regression @sanity
+  @transactionMatchingAsos @bink_regression 
     Scenario Outline: Verify transaction spotting for Asos
 
     Given I am a Bink user
@@ -25,7 +25,7 @@ Feature: Merchant ASOS - Ensure a customer can use Bink's Transaction Matching f
     |          master      |  9999990001   |master-refund-spotting      |
 
 
-  @transactionMatchingAsos @bink_regression @sanity
+  @transactionMatchingAsos @bink_regression 
     Scenario Outline: Verify transaction spotting for Asos negative scenario(invalid mid)
 
     Given I am a Bink user
@@ -42,7 +42,7 @@ Feature: Merchant ASOS - Ensure a customer can use Bink's Transaction Matching f
     |          visa        |  29047530     |visa-settlement-spotting |
     |          visa        |  29047530     |visa-refund-spotting     |
 
-  @transactionMatchingAsos @bink_regression @sanity
+  @transactionMatchingAsos @bink_regression 
     Scenario Outline: Verify transaction spotting for Asos negative scenario(invalid payment card token)
 
     Given I am a Bink user
@@ -57,7 +57,7 @@ Feature: Merchant ASOS - Ensure a customer can use Bink's Transaction Matching f
     | payment_card_provider|     mid       |payment_card_transaction               |
     |          visa        |  29047531     |visa-auth-spotting_invalid_token       |
 
-  @transactionMatchingAsos @bink_regression @sanity @to
+  @transactionMatchingAsos @bink_regression  @to
     Scenario Outline: Verify that Asos AMEX auth transaction for is not exported
 
     Given I am a Bink user
