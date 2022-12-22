@@ -320,9 +320,9 @@ def verify_membership_card_is_created(merchant):
     response_json = response_to_json(response)
     # logging.info(f"response_json:{response_json}")
 
-    #commenting below two assertions temporarily
-   #TestContext.card_number = response_json["card"]["membership_id"]
-   # TestContext.existing_card = response_json["card"]["membership_id"]
+    """commenting below two assertions temporarily"""
+# TestContext.card_number = response_json["card"]["membership_id"]
+# TestContext.existing_card = response_json["card"]["membership_id"]
     logging.info(
         "The response of GET/MembershipCard after Register Ghost Journey is:\n\n"
         + Endpoint.BASE_URL
@@ -379,7 +379,7 @@ def verify_add_and_link_membership_card(merchant):
             == TestData.get_membership_card_status_states().get(constants.AUTHORIZED)
             and response_json["status"]["reason_codes"][0]
             == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_AUTHORIZED)
-           # and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
+            # and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
             and response_json["payment_cards"][0]["active_link"]
             == PaymentCardTestData.get_data().get(constants.ACTIVE_LINK)
             and payment_card_present == "yes"
@@ -498,8 +498,8 @@ def verify_membership_card_balance(merchant):
         == TestData.get_membership_card_status_states().get(constants.AUTHORIZED)
         and current_membership_card_response_array["status"]["reason_codes"][0]
         == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_AUTHORIZED)
-       # and current_membership_card_response_array["card"]["membership_id"]
-       # == TestData.get_data(merchant).get(constants.CARD_NUM)
+        # and current_membership_card_response_array["card"]["membership_id"]
+        # == TestData.get_data(merchant).get(constants.CARD_NUM)
         and current_membership_card_response_array["balances"][0]["value"]
         == TestData.get_data(merchant).get(constants.POINTS)
         and current_membership_card_response_array["balances"][0]["currency"]
@@ -731,7 +731,7 @@ def verify_membership_card_is_add_and_not_linked(merchant):
             == TestData.get_membership_card_status_states().get(constants.AUTHORIZED)
             and response_json["status"]["reason_codes"][0]
             == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_AUTHORIZED)
-            #and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
+            # and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
             and response_json["payment_cards"][0] == []
         ), (
             "Validations in GET/membership_cards after AutoLink false "
