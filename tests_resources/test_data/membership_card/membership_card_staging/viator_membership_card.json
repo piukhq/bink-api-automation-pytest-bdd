@@ -1,74 +1,8 @@
 {
-    "id": 216056,
+    "id": 248775,
     "membership_plan": 292,
     "payment_cards": [],
-    "membership_transactions": [
-        {
-            "id": 472707,
-            "status": "active",
-            "amounts": [
-                {
-                    "value": 0.11,
-                    "prefix": "£",
-                    "currency": "GBP"
-                }
-            ],
-            "timestamp": 1665055981,
-            "description": "VIATOR.COM £0.11"
-        },
-        {
-            "id": 472708,
-            "status": "active",
-            "amounts": [
-                {
-                    "value": 0.14,
-                    "prefix": "£",
-                    "currency": "GBP"
-                }
-            ],
-            "timestamp": 1665055884,
-            "description": "VIATOR.COM £0.14"
-        },
-        {
-            "id": 472709,
-            "status": "active",
-            "amounts": [
-                {
-                    "value": -0.02,
-                    "prefix": "£",
-                    "currency": "GBP"
-                }
-            ],
-            "timestamp": 1665052740,
-            "description": "VIATOR.COM -£0.02"
-        },
-        {
-            "id": 472710,
-            "status": "active",
-            "amounts": [
-                {
-                    "value": 0.03,
-                    "prefix": "£",
-                    "currency": "GBP"
-                }
-            ],
-            "timestamp": 1665052620,
-            "description": "VIATOR.COM £0.03"
-        },
-        {
-            "id": 472711,
-            "status": "active",
-            "amounts": [
-                {
-                    "value": 0.14,
-                    "prefix": "£",
-                    "currency": "GBP"
-                }
-            ],
-            "timestamp": 1665052574,
-            "description": "VIATOR.COM £0.14"
-        }
-    ],
+    "membership_transactions": [],
     "status": {
         "state": "authorised",
         "reason_codes": [
@@ -76,7 +10,7 @@
         ]
     },
     "card": {
-        "membership_id": "VIAT6417218052",
+        "membership_id": "VIAT9688183481",
         "colour": "#246b6c"
     },
     "images": [
@@ -107,10 +41,10 @@
     },
     "balances": [
         {
-            "value": 33.88,
+            "value": 0.0,
             "prefix": "£",
             "currency": "GBP",
-            "updated_at": 1665055285
+            "updated_at": 1672928969
         }
     ],
     "vouchers": [
@@ -123,7 +57,7 @@
             },
             "earn": {
                 "type": "accumulator",
-                "value": 33.88,
+                "value": 0.0,
                 "prefix": "£",
                 "currency": "GBP",
                 "target_value": 200.0

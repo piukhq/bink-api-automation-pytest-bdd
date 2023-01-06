@@ -321,7 +321,7 @@ def verify_membership_card_is_created(merchant):
     # logging.info(f"response_json:{response_json}")
 
     """commenting below two assertions temporarily"""
-# TestContext.card_number = response_json["card"]["membership_id"]
+    TestContext.card_number = response_json["card"]["membership_id"]
 # TestContext.existing_card = response_json["card"]["membership_id"]
     logging.info(
         "The response of GET/MembershipCard after Register Ghost Journey is:\n\n"
