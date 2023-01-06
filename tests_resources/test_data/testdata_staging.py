@@ -230,9 +230,9 @@ iceland_invalid_data = {
 }
 
 trenette_membership_card = {
-    "card_num": "TRNT8139495882",
-    "email": "pytest+test220916@bink.com",
-    "points": 1.90,
+    "card_num": "TRNT1210447595",
+    "email": "pytest+test050123@bink.com",
+    "points": 0,
     "currency": "GBP",
     "transaction_currency": "GBP",
     "burn_type": "voucher",
@@ -249,13 +249,13 @@ trenette_membership_card = {
     "expired_headline": "Expired",
     "redeemed_headline": "Redeemed",
     "barcode_type": 0,
-    "code": "TESTRETVOC4",
+    # "code": "TESTRETVOC4",
     "issued_headline": "Earned",
     "transaction_status": "active",
 }
 
 trenette_invalid_data = {
-    "card_num": "TRNT8139495882",
+    "card_num": "TRNT1210447595",
     "email": "fail@unknown.com",
 }
 
@@ -290,9 +290,9 @@ asos_invalid_data = {
 }
 
 viator_membership_card = {
-    "card_num": "VIAT6417218052",
-    "email": "pytest+test150822@bink.com",
-    "points": 27.18,
+    "card_num": "VIAT9688183481",
+    "email": "pytest+test050123@bink.com",
+    "points": 0.0,
     "prefix": "£",
     "currency": "GBP",
     # "transaction_currency": "GBP",
@@ -315,7 +315,7 @@ viator_membership_card = {
 }
 
 viator_invalid_data = {
-    "card_num": "VIAT6417218052",
+    "card_num": "VIAT9688183481",
     "email": "fail@unknown.com",
 }
 

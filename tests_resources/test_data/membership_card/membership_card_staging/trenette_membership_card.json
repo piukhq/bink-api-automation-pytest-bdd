@@ -1,35 +1,8 @@
 {
-    "id": 219240,
+    "id": 248780,
     "membership_plan": 284,
     "payment_cards": [],
-    "membership_transactions": [
-        {
-            "id": 481535,
-            "status": "active",
-            "amounts": [
-                {
-                    "value": 0.0,
-                    "prefix": "£",
-                    "currency": "GBP"
-                }
-            ],
-            "timestamp": 1663336888,
-            "description": "Bink Sweet Reward £0.90"
-        },
-        {
-            "id": 481536,
-            "status": "active",
-            "amounts": [
-                {
-                    "value": 1.9,
-                    "prefix": "£",
-                    "currency": "GBP"
-                }
-            ],
-            "timestamp": 1663336888,
-            "description": "Bink Sweet Reward £1.90"
-        }
-    ],
+    "membership_transactions": [],
     "status": {
         "state": "authorised",
         "reason_codes": [
@@ -37,7 +10,7 @@
         ]
     },
     "card": {
-        "membership_id": "TRNT8139495882",
+        "membership_id": "TRNT1210447595",
         "barcode_type": 0,
         "colour": "#532f91"
     },
@@ -69,10 +42,10 @@
     },
     "balances": [
         {
-            "value": 1.9,
+            "value": 0.0,
             "prefix": "£",
             "currency": "GBP",
-            "updated_at": 1665587917
+            "updated_at": 1672932096
         }
     ],
     "vouchers": [
@@ -84,14 +57,15 @@
             },
             "earn": {
                 "type": "accumulator",
-                "value": 1.9,
+                "value": 0.0,
                 "prefix": "£",
                 "currency": "GBP",
                 "target_value": 2.0
             },
             "state": "inprogress",
-            "headline": "£0.10 to go!",
+            "headline": "£2.00 to go!",
             "barcode_type": 0
         }
     ]
 }
+
