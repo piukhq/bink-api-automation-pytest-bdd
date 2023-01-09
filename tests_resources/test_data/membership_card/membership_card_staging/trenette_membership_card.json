@@ -1,5 +1,5 @@
 {
-    "id": 248780,
+    "id": 250354,
     "membership_plan": 284,
     "payment_cards": [],
     "membership_transactions": [],
@@ -10,7 +10,7 @@
         ]
     },
     "card": {
-        "membership_id": "TRNT1210447595",
+        "membership_id": "TRNT0521008645",
         "barcode_type": 0,
         "colour": "#532f91"
     },
@@ -45,7 +45,7 @@
             "value": 0.0,
             "prefix": "£",
             "currency": "GBP",
-            "updated_at": 1672932096
+            "updated_at": 1673286873
         }
     ],
     "vouchers": [
@@ -68,4 +68,3 @@
         }
     ]
 }
-

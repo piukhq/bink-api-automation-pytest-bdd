@@ -230,8 +230,8 @@ iceland_invalid_data = {
 }
 
 trenette_membership_card = {
-    "card_num": "TRNT1210447595",
-    "email": "pytest+test050123@bink.com",
+    "card_num": "TRNT0521008645",
+    "email": "pytest+test090123@bink.com",
     "points": 0,
     "currency": "GBP",
     "transaction_currency": "GBP",
@@ -255,7 +255,7 @@ trenette_membership_card = {
 }
 
 trenette_invalid_data = {
-    "card_num": "TRNT1210447595",
+    "card_num": "TRNT0521008645",
     "email": "fail@unknown.com",
 }
 
@@ -290,8 +290,8 @@ asos_invalid_data = {
 }
 
 viator_membership_card = {
-    "card_num": "VIAT9688183481",
-    "email": "pytest+test050123@bink.com",
+    "card_num": "VIAT0062967217",
+    "email": "pytest+test090123@bink.com",
     "points": 0.0,
     "prefix": "£",
     "currency": "GBP",
@@ -315,7 +315,7 @@ viator_membership_card = {
 }
 
 viator_invalid_data = {
-    "card_num": "VIAT9688183481",
+    "card_num": "VIAT0062967217",
     "email": "fail@unknown.com",
 }
 
