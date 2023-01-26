@@ -157,7 +157,8 @@ class IcelandCard:
                 "registration_fields": [
                     {"column": "Title", "value": constants.TITLE},
                     {"column": "First name", "value": faker.name()},
-                    {"column": "Last name", "value": TestContext.last_name},
+                    {"column": "Last name", "value":
+                        TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.PATCH_LAST_NAME)},
                     {"column": "Date of birth", "value": constants.DATE_OF_BIRTH},
                     {"column": "Email", "value": email},
                     {"column": "Phone", "value": faker.phone_number()},

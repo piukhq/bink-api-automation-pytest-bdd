@@ -199,6 +199,7 @@ iceland_ghost_membership_card = {
     "unknown_last_name": "odedraghostcard",
     "register_failed_email": "generalerror@testbink.com",
     "last_name": "QAUsertest11",
+    "patch_last_name": "auto_ghostcardsuccess",
     "postcode": "rg6 6bb",
     "points": 1480,
     "currency": "GBP",
