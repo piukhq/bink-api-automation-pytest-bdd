@@ -1,10 +1,10 @@
 {
-    "id": 250683,
+    "id": 257318,
     "membership_plan": 281,
     "payment_cards": [],
     "membership_transactions": [
         {
-            "id": 553600,
+            "id": 565644,
             "status": "active",
             "amounts": [
                 {
@@ -14,10 +14,10 @@
                 }
             ],
             "timestamp": 1638356401,
-            "description": "Ascot 1 Petty Cury \u00a38.00"
+            "description": "Ascot 1 Petty Cury £8.00"
         },
         {
-            "id": 553601,
+            "id": 565645,
             "status": "active",
             "amounts": [
                 {
@@ -27,7 +27,7 @@
                 }
             ],
             "timestamp": 1635854462,
-            "description": "Ascot 2 Petty Cury \u00a315.60"
+            "description": "Ascot 2 Petty Cury £15.60"
         }
     ],
     "status": {
@@ -71,7 +71,7 @@
             "value": 6,
             "suffix": "stamps",
             "currency": "stamps",
-            "updated_at": 1673356282
+            "updated_at": 1674749688
         }
     ],
     "vouchers": [
@@ -88,7 +88,7 @@
                 "target_value": 7.0
             },
             "state": "inprogress",
-            "headline": "Spend \u00a37.00 or more to get a stamp. Collect 7 stamps to get a Meal Voucher of up to \u00a37 off your next meal.",
+            "headline": "Spend £7.00 or more to get a stamp. Collect 7 stamps to get a Meal Voucher of up to £7 off your next meal.",
             "barcode_type": 9
         },
         {
@@ -97,17 +97,17 @@
                 "prefix": "Free",
                 "suffix": "Meal"
             },
-            "code": "",
+            "code": "12DQ696S",
             "earn": {
                 "type": "stamps",
                 "value": 7.0,
                 "suffix": "stamps",
                 "target_value": 7.0
             },
-            "state": "expired",
-            "headline": "Expired",
+            "state": "issued",
+            "headline": "Earned",
             "date_issued": 1591787076,
-            "expiry_date": 1673308800,
+            "expiry_date": 1924819200,
             "barcode_type": 9
         },
         {
