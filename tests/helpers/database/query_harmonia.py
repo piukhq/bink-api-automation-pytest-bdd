@@ -133,7 +133,7 @@ def get_spotted_transaction(transaction_id):
 
 def get_matched_query(transaction_id, amount):
     transaction_query_account = (
-        "SELECT count(*) FROM harmonia.public.matched_transaction WHERE transaction_id='{}' "
+        "SELECT count(*) FROM harmonia.public.export_transaction WHERE transaction_id='{}' "
         "and spend_amount={}".format(transaction_id, amount)
     )
     logging.info(transaction_query_account)
