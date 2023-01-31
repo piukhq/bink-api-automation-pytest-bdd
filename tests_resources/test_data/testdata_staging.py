@@ -181,7 +181,7 @@ square_meal_membership_card = {
 
 iceland_membership_card = {
     "card_num": "6332040066666666666",
-    "barcode": "63320400666666666660080",
+    "barcode":  "63320400666666666660080",
     "last_name": "six",
     "postcode": "rg6 6aa",
     "points": 1480,
