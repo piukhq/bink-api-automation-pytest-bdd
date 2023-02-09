@@ -6,7 +6,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
   So that status of membership card in each wallet is independent
 
   
-    @multi_wallet_add @sanity @testfeb
+    @multi_wallet_add @sanity_bmb
   Scenario: Multi wallet auth auth Iceland
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
@@ -24,7 +24,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then verify the data stored in DB after "Add" journey for "Iceland"
     And I perform DELETE request to delete all users
 
-  @multi_wallet_balances_transactions @sanity @testfeb
+  @multi_wallet_balances_transactions @sanity_bmb
   Scenario: Multi wallet auth auth Balances and Transactions Iceland
 
     Given I register with bink service in bink
@@ -42,7 +42,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then verify the data stored in DB after "Add" journey for "Iceland"
     And I perform DELETE request to delete all users
 
-  @multi_wallet_unauth_auth @sanity @testfeb
+  @multi_wallet_unauth_auth @sanity_bmb
   Scenario: Multi wallet unauth auth Iceland
     Given I register with bink service in bink
     When I perform POST request to add and auth "Iceland" membership card with "invalid_credentials"
@@ -109,7 +109,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then I perform DELETE request to delete all users
 
 
-  @multi_wallet_enrol @sanity @testfeb
+  @multi_wallet_enrol @sanity_bmb
   Scenario: Multi wallet Join
     Given I register with bink service in bink
     When I perform POST request to successful_enrol membership card for Iceland
