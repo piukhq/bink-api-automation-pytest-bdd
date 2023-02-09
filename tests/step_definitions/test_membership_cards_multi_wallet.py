@@ -89,8 +89,14 @@ def add_only_membership_card(merchant, scheme_status):
             ), (
                 "Add Ghost Journey for " + merchant + " failed"
             )
-        elif response.status_code == 400:
-            assert response_json["detail"] == "Card already exists in your wallet"
+        elif response.status_code == 200:
+            assert response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
+                constants.PENDING
+            ) and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().get(
+                constants.REASON_CODE_PENDING_ADD
+            ), (
+                "Add Ghost Journey for " + merchant + " failed"
+            )
 
 
 # @when(parsers.parse('I perform POST request to add "{merchant}" membership card with "{invalid_data}"'))

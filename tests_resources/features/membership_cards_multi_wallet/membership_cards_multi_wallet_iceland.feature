@@ -6,7 +6,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
   So that status of membership card in each wallet is independent
 
   
-    @multi_wallet_add
+    @multi_wallet_add @sanity @testfeb
   Scenario: Multi wallet auth auth Iceland
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
@@ -24,7 +24,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then verify the data stored in DB after "Add" journey for "Iceland"
     And I perform DELETE request to delete all users
 
-  @multi_wallet_balances_transactions
+  @multi_wallet_balances_transactions @sanity @testfeb
   Scenario: Multi wallet auth auth Balances and Transactions Iceland
 
     Given I register with bink service in bink
@@ -42,7 +42,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then verify the data stored in DB after "Add" journey for "Iceland"
     And I perform DELETE request to delete all users
 
-  @multi_wallet_unauth_auth
+  @multi_wallet_unauth_auth @sanity @testfeb
   Scenario: Multi wallet unauth auth Iceland
     Given I register with bink service in bink
     When I perform POST request to add and auth "Iceland" membership card with "invalid_credentials"
@@ -56,7 +56,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
     When For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_pll
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
-    When For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_pll
+    When For bink I perform GET request to verify the Iceland membership card is added to the wallet after failed_pll
     And For bink I perform GET request to view balance for "unauthorised" "Iceland" membership card
     And For bink I perform GET request to view transactions for "unauthorised" "Iceland" membership card
     When For barclays I perform GET request to view balance for "authorised" "Iceland" membership card
@@ -64,7 +64,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then For barclays I perform GET request to view a specific transaction for "authorised" "Iceland" membership card
     And I perform DELETE request to delete all users
 
-
+#Need to change test data for below scenario- Data created by CP2
     @multi_wallet_auth_unauth_iceland
   Scenario: Multi wallet auth unauth Iceland
     Given I register with bink service in bink
@@ -77,7 +77,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     When I perform POST request to add and auth "Iceland" membership card with "invalid_credentials"
     When I perform POST request to add payment card to wallet
     And For barclays I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
-    When For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_pll
+    When For barclays I perform GET request to verify the Iceland membership card is added to the wallet after failed_pll
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
     When For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_pll
     And For bink I perform GET request to view balance for "authorised" "Iceland" membership card
@@ -87,7 +87,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     And For barclays I perform GET request to view transactions for "unauthorised" "Iceland" membership card
     Then I perform DELETE request to delete all users
 
-
+#Need to change test data for below scenario- Data created by CP2
   @multi_wallet_unauth_unauth_iceland
   Scenario: Multi wallet unauth unauth Iceland
     Given I register with bink service in bink
@@ -109,7 +109,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then I perform DELETE request to delete all users
 
 
-  @multi_wallet_enrol
+  @multi_wallet_enrol @sanity @testfeb
   Scenario: Multi wallet Join
     Given I register with bink service in bink
     When I perform POST request to successful_enrol membership card for Iceland
@@ -130,6 +130,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
     And I perform POST request to add "Iceland" membership card for "already_registered"
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
     Then I perform DELETE request to delete all users
 
 # # On 2nd post, status is 200, membership_state is failed (should it be unauth like 1ns post) confirm expected.
