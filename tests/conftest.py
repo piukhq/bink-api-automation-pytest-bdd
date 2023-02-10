@@ -22,6 +22,8 @@ from faker import Faker
 def pytest_bdd_step_error(request, feature, scenario, step, step_func, step_func_args, exception):
     """This function will log the failed BDD-Step at the end of logs"""
     logging.info(f"Step failed: {step}")
+    delete_scheme_account()
+    delete_payment_card()
 
 
 def pytest_bdd_after_scenario(request, feature, scenario):
