@@ -166,8 +166,15 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
   # Get wallet 1 has authorised details. Also balance vouchers and transactions returned
   # Get wallet 2 has unauthorised details .Also balance vouchers and transactions null
   #Note: Assume the PLL will travel across the wallet after trusted channel implementation.
+#...............................................Update Scenarios.......................................................
+  #Steps:
+  # add & auth loyalty card in wallet 1 & 2 with good credentials
+  # PATCH with Invalid auth credentials
+  # Get wallet 1 has authorised details. Also balance vouchers and transactions returned
+  # Get wallet 2 has unauthorised details .Also balance vouchers and transactions null
+  #Note: Assume the PLL will travel across the wallet after trusted channel implementation.
 
-  @multi_wallet_update_1
+  @multi_wallet_update_1 @sanity_bmb
   Scenario: Wallet 1& 2 have authorised cards, PATCH with invalid cred in wallet 2
           # add & auth loyalty card in wallet 1
     Given I register with bink service in bink
@@ -196,7 +203,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     And I perform DELETE request to delete all users
 
 
-    @multi_wallet_update_2
+    @multi_wallet_update_2 @sanity_bmb
   Scenario: Wallet 1& 2 have authorised cards, PATCH with invalid cred in wallet 1
           # add & auth loyalty card in wallet 1
     Given I register with bink service in bink

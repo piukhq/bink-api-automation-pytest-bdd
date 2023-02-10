@@ -22,6 +22,9 @@ from faker import Faker
 def pytest_bdd_step_error(request, feature, scenario, step, step_func, step_func_args, exception):
     """This function will log the failed BDD-Step at the end of logs"""
     logging.info(f"Step failed: {step}")
+    delete_scheme_account()
+    delete_payment_card()
+    delete_all_user()
 
 
 def pytest_bdd_after_scenario(request, feature, scenario):
@@ -34,6 +37,7 @@ def pytest_bdd_after_scenario(request, feature, scenario):
            scheme account id  and payment_card id from channel_2"""
     delete_scheme_account()
     delete_payment_card()
+    delete_all_user()
 
 
 def pytest_html_report_title(report):
