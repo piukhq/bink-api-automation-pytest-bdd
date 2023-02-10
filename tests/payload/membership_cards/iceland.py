@@ -388,8 +388,7 @@ class IcelandCard:
     @staticmethod
     def update_membership_card_payload(invalid_data=None):
         if invalid_data:
-            value = TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.UNKNOWN_LAST_NAME)
-            logging.info("Invalid data is: " + value)
+            value = TestDataUtils.TEST_DATA.iceland_invalid_data.get(constants.POSTCODE)
             data_type = "Invalid data"
         else:
             value = TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
