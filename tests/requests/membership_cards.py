@@ -231,3 +231,13 @@ class MembershipCards(Endpoint):
         else:
             payload = Merchant.get_merchant(merchant).update_membership_card_payload(invalid_data)
         return Endpoint.call(url, header, "PATCH", payload)
+
+    @staticmethod
+    def add_card2(token, merchant, invalid_data=None):
+        url = MembershipCards.get_url()
+        header = Endpoint.request_header(token)
+        if not invalid_data:
+            payload = Merchant.get_merchant(merchant).add_membership_card_payload2()
+        else:
+            payload = Merchant.get_merchant(merchant).add_membership_card_payload2(invalid_data)
+        return Endpoint.call(url, header, "POST", payload)

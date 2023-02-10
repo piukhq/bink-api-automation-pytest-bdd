@@ -181,7 +181,7 @@ square_meal_membership_card = {
 
 iceland_membership_card = {
     "card_num": "6332040066666666666",
-    "barcode":  "63320400666666666660080",
+    "barcode": "63320400666666666660080",
     "last_name": "six",
     "postcode": "rg6 6aa",
     "points": 1480,
@@ -190,6 +190,9 @@ iceland_membership_card = {
     "transactions": "6",
     "transaction_status": "active",
     "transaction_currency": "GBP",
+    "card_num2": "6332040012312354321",
+    "test_last_name": "testuser",
+    "error_last_name": "error",
 }
 
 iceland_ghost_membership_card = {
@@ -228,6 +231,7 @@ iceland_invalid_data = {
     "email": "joininprogress@bink.com",
     "postcode": "fail",
     "identical_enrol_email": "identicaljoin@bink.com",
+    "error_last_name": "error",
 }
 
 trenette_membership_card = {

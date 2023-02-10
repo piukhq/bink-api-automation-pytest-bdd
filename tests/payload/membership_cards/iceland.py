@@ -157,8 +157,10 @@ class IcelandCard:
                 "registration_fields": [
                     {"column": "Title", "value": constants.TITLE},
                     {"column": "First name", "value": faker.name()},
-                    {"column": "Last name", "value":
-                        TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.PATCH_LAST_NAME)},
+                    {
+                        "column": "Last name",
+                        "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.PATCH_LAST_NAME),
+                    },
                     {"column": "Date of birth", "value": constants.DATE_OF_BIRTH},
                     {"column": "Email", "value": email},
                     {"column": "Phone", "value": faker.phone_number()},
@@ -399,6 +401,48 @@ class IcelandCard:
         }
         logging.info(
             "The Request for Update Auth credentials with "
+            + data_type
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
+        return payload
+
+    @staticmethod
+    def add_membership_card_payload2(invalid_data=None):
+        if invalid_data:
+            lastname = TestDataUtils.TEST_DATA.iceland_invalid_data.get(constants.ERROR_LAST_NAME)
+            data_type = "Invalid data"
+        else:
+            lastname = TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.TEST_LAST_NAME)
+            data_type = "Valid data"
+
+        payload = {
+            "account": {
+                "add_fields": [
+                    {
+                        "column": "Bonus card number",
+                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CARD_NUM2),
+                    }
+                ],
+                "authorise_fields": [
+                    {
+                        "column": "Last name",
+                        "value": lastname,
+                    },
+                    {
+                        "column": "Postcode",
+                        "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE),
+                    },
+                ],
+            },
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),
+        }
+
+        logging.info(
+            "The Request for Add Journey with "
             + data_type
             + " :\n\n"
             + Endpoint.BASE_URL

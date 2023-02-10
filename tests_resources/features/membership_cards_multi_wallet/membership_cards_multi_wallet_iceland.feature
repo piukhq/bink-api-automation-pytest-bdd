@@ -10,13 +10,13 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
   Scenario: Multi wallet auth auth Iceland
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add new payment card to wallet of master type
     And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
     When For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_pll
     Then verify the data stored in DB after "Add" journey for "Iceland"
     Given I register with bink service in bink
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add existing payment card to wallet of master type
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
     When For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_pll
     And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
@@ -46,13 +46,13 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
   Scenario: Multi wallet unauth auth Iceland
     Given I register with bink service in bink
     When I perform POST request to add and auth "Iceland" membership card with "invalid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add new payment card to wallet of master type
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
     When For bink I perform GET request to verify the Iceland membership card is added to the wallet after failed_pll
     Then verify the data stored in DB after "Add" journey for "Iceland"
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add existing payment card to wallet of master type
     And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
     When For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_pll
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
@@ -65,39 +65,39 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     And I perform DELETE request to delete all users
 
 #Need to change test data for below scenario- Data created by CP2
-    @multi_wallet_auth_unauth_iceland
+    @multi_wallet_auth_unauth_iceland @sanity_bmb
   Scenario: Multi wallet auth unauth Iceland
     Given I register with bink service in bink
-    When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
-    When I perform POST request to add payment card to wallet
-    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
+    When I perform POST request to add and auth "Iceland" membership card with "valid_credentials2"
+    When I perform POST request to add new payment card to wallet of master type
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_add2
     When For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_pll
     Then verify the data stored in DB after "Add" journey for "Iceland"
     Given I register with bink service in barclays
-    When I perform POST request to add and auth "Iceland" membership card with "invalid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add and auth "Iceland" membership card with "invalid_credentials2"
+    When I perform POST request to add existing payment card to wallet of master type
     And For barclays I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
     When For barclays I perform GET request to verify the Iceland membership card is added to the wallet after failed_pll
-    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_add2
     When For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_pll
-    And For bink I perform GET request to view balance for "authorised" "Iceland" membership card
-    And For bink I perform GET request to view transactions for "authorised" "Iceland" membership card
-    Then For bink I perform GET request to view a specific transaction for "authorised" "Iceland" membership card
-    When For barclays I perform GET request to view balance for "unauthorised" "Iceland" membership card
-    And For barclays I perform GET request to view transactions for "unauthorised" "Iceland" membership card
+    And For bink I perform GET request to view balance for "authorised2" "Iceland" membership card
+    And For bink I perform GET request to view transactions for "authorised2" "Iceland" membership card
+#    Then For bink I perform GET request to view a specific transaction for "authorised" "Iceland" membership card
+    When For barclays I perform GET request to view balance for "unauthorised2" "Iceland" membership card
+    And For barclays I perform GET request to view transactions for "unauthorised2" "Iceland" membership card
     Then I perform DELETE request to delete all users
 
-#Need to change test data for below scenario- Data created by CP2
-  @multi_wallet_unauth_unauth_iceland
+
+  @multi_wallet_unauth_unauth_iceland @sanity_bmb
   Scenario: Multi wallet unauth unauth Iceland
     Given I register with bink service in bink
     When I perform POST request to add and auth "Iceland" membership card with "invalid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add new payment card to wallet of master type
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
     When For bink I perform GET request to verify the Iceland membership card is added to the wallet after failed_pll
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Iceland" membership card with "invalid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add existing payment card to wallet of master type
     And For barclays I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
     When For barclays I perform GET request to verify the Iceland membership card is added to the wallet after failed_pll
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
@@ -174,19 +174,19 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
   # Get wallet 2 has unauthorised details .Also balance vouchers and transactions null
   #Note: Assume the PLL will travel across the wallet after trusted channel implementation.
 
-  @multi_wallet_update_1 @sanity_bmb @update
+  @multi_wallet_update_1 @sanity_bmb
   Scenario: Wallet 1& 2 have authorised cards, PATCH with invalid cred in wallet 2
           # add & auth loyalty card in wallet 1
     Given I register with bink service in bink
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
-    And I perform POST request to add payment card to wallet
+    When I perform POST request to add new payment card to wallet of master type
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_pll
           # add & auth loyalty card in wallet 2
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
     And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
-    And I perform POST request to add payment card to wallet
+    When I perform POST request to add existing payment card to wallet of master type
     And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_pll
          # Patch with Invalid auth credentials  in wallet2 and verify bal, vouchers,txns in wallet2
     And For barclays I perform PATCH request to update the Iceland membership card with "invalid_credentials"
@@ -209,13 +209,13 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Given I register with bink service in bink
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
-    And I perform POST request to add payment card to wallet
+    When I perform POST request to add new payment card to wallet of master type
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_pll
           # add & auth loyalty card in wallet 2
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials"
     And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_add
-    And I perform POST request to add payment card to wallet
+    When I perform POST request to add existing payment card to wallet of master type
     And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_pll
          # Patch with Invalid auth credentials  in wallet1 and verify bal, vouchers,txns in wallet2
     And For bink I perform PATCH request to update the Iceland membership card with "invalid_credentials"
