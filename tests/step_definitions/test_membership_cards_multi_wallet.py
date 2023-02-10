@@ -7,7 +7,6 @@ from pytest_bdd import parsers, scenarios, then, when
 
 import tests.api as api
 import tests.helpers.constants as constants
-import tests.step_definitions.test_payment_cards as test_payment_cards
 from tests.api.base import Endpoint
 from tests.helpers.database.query_hermes import QueryHermes
 from tests.helpers.test_context import TestContext
@@ -15,6 +14,7 @@ from tests.helpers.test_data_utils import TestDataUtils
 from tests.helpers.test_helpers import Merchant, PaymentCardTestData, TestData
 from tests.requests.membership_cards import MembershipCards
 from tests.requests.membership_transactions import MembershipTransactions
+from tests.requests.payment_cards import PaymentCards
 
 scenarios("membership_cards_multi_wallet/")
 
@@ -27,6 +27,10 @@ scenarios("membership_cards_multi_wallet/")
 def add_auth_membership_card(merchant, credentials):
     if credentials == "valid_credentials":
         response = MembershipCards.add_card(TestContext.token, merchant)
+    elif credentials == "valid_credentials2":
+        response = MembershipCards.add_card2(TestContext.token, merchant)
+    elif credentials == "invalid_credentials2":
+        response = MembershipCards.add_card2(TestContext.token, merchant, credentials)
     elif credentials == "invalid_credentials":
         response = MembershipCards.add_card(TestContext.token, merchant, credentials)
     response_json = response_to_json(response)
@@ -335,6 +339,10 @@ def get_membership_card(user, merchant, scheme_status):
         assert response_json["card"]["membership_id"] == TestData.get_data(merchant).get(
             constants.CARD_NUM
         ), "membership_id do not match"
+    elif scheme_status == "successful_add2":
+        assert response_json["card"]["membership_id"] == TestData.get_data(merchant).get(
+            constants.CARD_NUM2
+        ), "membership_id do not match"
     if scheme_status in ["successful_add", "successful_enrol", "successful_register"]:
         TestContext.existing_card = response_json["card"]["membership_id"]
         assert response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
@@ -469,45 +477,62 @@ def membership_card_balance(user, loyalty_card_status, merchant):
         + "\n\n"
         + json.dumps(current_membership_card_response_array, indent=4)
     )
-    if loyalty_card_status == "authorised":
+    if loyalty_card_status in ["authorised", "authorised2"]:
         assert (
             current_membership_card_response_array["id"] == TestContext.current_scheme_account_id
-            and current_membership_card_response_array["status"]["state"]
-            == TestData.get_membership_card_status_states().get(constants.AUTHORIZED)
-            and current_membership_card_response_array["status"]["reason_codes"][0]
-            == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_AUTHORIZED)
-            and current_membership_card_response_array["card"]["membership_id"]
-            == TestData.get_data(merchant).get(constants.CARD_NUM)
-            and current_membership_card_response_array["balances"][0]["value"]
-            == TestData.get_data(merchant).get(constants.POINTS)
-            and current_membership_card_response_array["balances"][0]["currency"]
-            == TestData.get_data(merchant).get(constants.CURRENCY)
-        ), (
-            "Validations in GET/membership_cards?balances for "
-            + merchant
-            + " failed with reason code"
-            + current_membership_card_response_array["status"]["reason_codes"][0]
-        )
-    elif loyalty_card_status == "unauthorised":
+        ), "id does not match"
+        assert current_membership_card_response_array["status"][
+            "state"
+        ] == TestData.get_membership_card_status_states().get(constants.AUTHORIZED), "status_state does not match"
+
+        assert current_membership_card_response_array["status"]["reason_codes"][
+            0
+        ] == TestData.get_membership_card_status_reason_codes().get(
+            constants.REASON_CODE_AUTHORIZED
+        ), "status_reason_code does not match"
+        assert current_membership_card_response_array["balances"][0]["currency"] == TestData.get_data(merchant).get(
+            constants.CURRENCY
+        ), "balance currency does not match"
+        if loyalty_card_status == "authorised":
+            assert current_membership_card_response_array["card"]["membership_id"] == TestData.get_data(merchant).get(
+                constants.CARD_NUM
+            ), "card num does not match"
+            assert current_membership_card_response_array["balances"][0]["value"] == TestData.get_data(merchant).get(
+                constants.POINTS
+            ), "balance value does not match"
+        elif loyalty_card_status == "authorised2":
+            assert current_membership_card_response_array["card"]["membership_id"] == TestData.get_data(merchant).get(
+                constants.CARD_NUM2
+            ), "card num does not match"
+    elif loyalty_card_status in ["unauthorised", "unauthorised2"]:
         assert (
             current_membership_card_response_array["id"] == TestContext.current_scheme_account_id
-            and current_membership_card_response_array["status"]["state"]
-            == TestData.get_membership_card_status_states().get(constants.FAILED)
-            and (
-                current_membership_card_response_array["status"]["reason_codes"][0]
-                == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_ADD_FAILED)
-                or current_membership_card_response_array["status"]["reason_codes"][0]
-                == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_FAILED)
-            )
-            and current_membership_card_response_array["card"]["membership_id"]
-            == TestData.get_data(merchant).get(constants.CARD_NUM)
-            and current_membership_card_response_array["balances"] == []
-        ), (
-            "Validations for GET/membership_cards balances with unauthorised membership card for "
-            + merchant
-            + " failed with reason code"
-            + current_membership_card_response_array["status"]["reason_codes"][0]
-        )
+        ), "id does not match"
+        assert current_membership_card_response_array["status"][
+            "state"
+        ] == TestData.get_membership_card_status_states().get(constants.FAILED), "status_state does not match"
+        assert current_membership_card_response_array["status"]["reason_codes"][
+            0
+        ] == TestData.get_membership_card_status_reason_codes().get(
+            constants.REASON_CODE_ADD_FAILED
+        ) or current_membership_card_response_array[
+            "status"
+        ][
+            "reason_codes"
+        ][
+            0
+        ] == TestData.get_membership_card_status_reason_codes().get(
+            constants.REASON_CODE_FAILED
+        ), "status_reason_code does not match"
+        assert current_membership_card_response_array["balances"] == [], "balance does not match"
+        if loyalty_card_status == "unauthorised":
+            assert current_membership_card_response_array["card"]["membership_id"] == TestData.get_data(merchant).get(
+                constants.CARD_NUM
+            ), "card num does not match"
+        elif loyalty_card_status == "unauthorised2":
+            assert current_membership_card_response_array["card"]["membership_id"] == TestData.get_data(merchant).get(
+                constants.CARD_NUM2
+            ), "card num does not match"
 
 
 """"Step definitions for Membership_Transactions"""
@@ -534,7 +559,7 @@ def membership_card_transactions(user, loyalty_card_status, merchant):
             + "\n\n"
             + json.dumps(response_json, indent=4)
         )
-        if response_json[0] == "[]":
+        if response_json[0] == []:
             logging.info(
                 "There are no matched transactions associated with "
                 + merchant
@@ -563,6 +588,12 @@ def membership_card_transactions(user, loyalty_card_status, merchant):
                     + " is not as expected. Error is "
                     + error.__str__()
                 )
+    elif loyalty_card_status == "authorised2":
+        response = MembershipTransactions.get_membership_transactions(
+            TestContext.token, TestContext.current_scheme_account_id
+        )
+        response_json = response_to_json(response)
+        assert response_json[0] != [], "empty transactions are not expected"
     elif loyalty_card_status == "unauthorised":
         url = Endpoint.BASE_URL + api.ENDPOINT_MEMBERSHIP_CARD_TRANSACTIONS.format(
             TestContext.current_scheme_account_id
@@ -682,9 +713,20 @@ def verify_scheme_account_ans(cred_ans, merchant):
 """Call payment cards functions"""
 
 
-@when(parsers.parse("I perform POST request to add payment card to wallet"))
-def post_add_payment_card_always_autolink():
-    test_payment_cards.add_payment_card("master")
+@when(parsers.parse("I perform POST request to add {card_type} payment card to wallet of {payment_card_provider} type"))
+def post_add_payment_card_always_autolink(card_type, payment_card_provider):
+    response = PaymentCards.add_unique_payment_card(TestContext.token, card_type, payment_card_provider)
+    assert response.status_code == 201, f"Payment card addition for '{payment_card_provider}' is not successful"
+    response_json = response_to_json(response)
+    logging.info(
+        f"The response of POST/PaymentCard '{payment_card_provider}' is: \n\n"
+        + Endpoint.BASE_URL
+        + api.ENDPOINT_PAYMENT_CARDS
+        + "\n\n"
+        + json.dumps(response_json, indent=4)
+    )
+    TestContext.current_payment_card_id = response_json.get("id")
+    return TestContext.current_payment_card_id
 
 
 #

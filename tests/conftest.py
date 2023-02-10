@@ -24,6 +24,7 @@ def pytest_bdd_step_error(request, feature, scenario, step, step_func, step_func
     logging.info(f"Step failed: {step}")
     delete_scheme_account()
     delete_payment_card()
+    delete_all_user()
 
 
 def pytest_bdd_after_scenario(request, feature, scenario):
@@ -36,6 +37,7 @@ def pytest_bdd_after_scenario(request, feature, scenario):
            scheme account id  and payment_card id from channel_2"""
     delete_scheme_account()
     delete_payment_card()
+    delete_all_user()
 
 
 def pytest_html_report_title(report):
@@ -244,4 +246,4 @@ def delete_all_user():
             response = CustomerAccount.delete_new_user(TestContext.all_users[i])
             assert response.status_code == 200, f"The user deletion is not successful for {i}"
             logging.info(f"User {i} is deleted successfully from the system")
-    TestContext.all_users.clear()
+        TestContext.all_users.clear()

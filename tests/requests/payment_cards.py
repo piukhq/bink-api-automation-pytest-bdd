@@ -1,13 +1,13 @@
-import time
 import logging
+import time
 from json.decoder import JSONDecodeError
 
 import tests.api as api
 import tests.helpers.constants as constants
-from tests.payload.payment_cards.payment_card import PaymentCardDetails
 from tests.api.base import Endpoint
 from tests.helpers.test_context import TestContext
 from tests.helpers.test_helpers import PaymentCardTestData
+from tests.payload.payment_cards.payment_card import PaymentCardDetails
 
 
 class PaymentCards(Endpoint):
@@ -132,3 +132,14 @@ class PaymentCards(Endpoint):
             return Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARDS
         else:
             return Endpoint.BASE_URL + api.ENDPOINT_PAYMENT_CARD.format(payment_card_id)
+
+    @staticmethod
+    def add_unique_payment_card(token, card_type, card_provider):
+        url = PaymentCards.get_url()
+        header = Endpoint.request_header(token)
+        if TestContext.flag_encrypt == "true":
+            payload = PaymentCardDetails.add_payment_card_payload_encrypted(card_provider)
+        elif TestContext.flag_encrypt == "false":
+            payload = PaymentCardDetails.add_unique_payment_card_payload_unencrypted(card_type, card_provider)
+
+        return Endpoint.call(url, header, "POST", payload)

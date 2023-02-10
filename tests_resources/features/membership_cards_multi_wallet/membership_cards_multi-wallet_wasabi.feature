@@ -9,13 +9,13 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
   Scenario: Multi wallet auth auth Wasabi
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add new payment card to wallet of master type
     When For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
     When For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     Given I register with bink service in bink
     When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add existing payment card to wallet of master type
     And For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
     When For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
     And For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
@@ -47,13 +47,13 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
   Scenario: Multi wallet unauth auth Wasabi
     Given I register with bink service in bink
     When I perform POST request to add and auth "Wasabi" membership card with "invalid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add new payment card to wallet of master type
     And For bink I perform GET request to verify the Wasabi membership card is added to the wallet with invalid data
     When For bink I perform GET request to verify the Wasabi membership card is added to the wallet after failed_pll
 #    Then verify the data stored in DB after "Add" journey for "Wasabi"
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add existing payment card to wallet of master type
     And For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
     When For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
     And For bink I perform GET request to verify the Wasabi membership card is added to the wallet with invalid data
@@ -72,13 +72,13 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
   Scenario: Multi wallet auth unauth Wasabi
     Given I register with bink service in bink
     When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add new payment card to wallet of master type
     And For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
     When For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Wasabi" membership card with "invalid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add existing payment card to wallet of master type
     And For barclays I perform GET request to verify the Wasabi membership card is added to the wallet with invalid data
     When For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after failed_pll
     And For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
@@ -97,12 +97,12 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
   Scenario: Multi wallet unauth unauth Wasabi
     Given I register with bink service in bink
     When I perform POST request to add and auth "Wasabi" membership card with "invalid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add new payment card to wallet of master type
     And For bink I perform GET request to verify the Wasabi membership card is added to the wallet with invalid data
     When For bink I perform GET request to verify the Wasabi membership card is added to the wallet after failed_pll
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Wasabi" membership card with "invalid_credentials"
-    When I perform POST request to add payment card to wallet
+    When I perform POST request to add existing payment card to wallet of master type
     And For barclays I perform GET request to verify the Wasabi membership card is added to the wallet with invalid data
     When For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after failed_pll
     And For bink I perform GET request to verify the Wasabi membership card is added to the wallet with invalid data
@@ -129,13 +129,13 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
     Given I register with bink service in bink
     When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
     And For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
-    And I perform POST request to add payment card to wallet
+    When I perform POST request to add new payment card to wallet of master type
     And For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
           # add & auth loyalty card in wallet 2
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
     And For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
-    And I perform POST request to add payment card to wallet
+    When I perform POST request to add existing payment card to wallet of master type
     And For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
          # Patch with Invalid auth credentials  in wallet2 and verify bal, vouchers,txns in wallet2
     And For barclays I perform PATCH request to update the Wasabi membership card with "invalid_credentials"
@@ -158,13 +158,13 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
     Given I register with bink service in bink
     When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
     And For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
-    And I perform POST request to add payment card to wallet
+    When I perform POST request to add new payment card to wallet of master type
     And For bink I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
           # add & auth loyalty card in wallet 2
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
     And For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_add
-    And I perform POST request to add payment card to wallet
+    When I perform POST request to add existing payment card to wallet of master type
     And For barclays I perform GET request to verify the Wasabi membership card is added to the wallet after successful_pll
          # Patch with Invalid auth credentials  in wallet1 and verify bal, vouchers,txns in wallet2
     And For bink I perform PATCH request to update the Wasabi membership card with "invalid_credentials"
