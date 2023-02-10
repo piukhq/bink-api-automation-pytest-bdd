@@ -174,7 +174,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
   # Get wallet 2 has unauthorised details .Also balance vouchers and transactions null
   #Note: Assume the PLL will travel across the wallet after trusted channel implementation.
 
-  @multi_wallet_update_1 @sanity_bmb
+  @multi_wallet_update_1 @sanity_bmb @update
   Scenario: Wallet 1& 2 have authorised cards, PATCH with invalid cred in wallet 2
           # add & auth loyalty card in wallet 1
     Given I register with bink service in bink
