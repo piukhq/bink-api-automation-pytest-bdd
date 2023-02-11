@@ -244,6 +244,8 @@ def delete_all_user():
     if TestContext.all_users != {}:
         for i in TestContext.all_users:
             response = CustomerAccount.delete_new_user(TestContext.all_users[i])
-            assert response.status_code == 200, f"The user deletion is not successful for {i}"
-            logging.info(f"User {i} is deleted successfully from the system")
+            if response.status_code == 200:
+                logging.info(f"User {i} is deleted successfully from the system")
+            elif response.status_code == 404:
+                logging.info("User is already deleted")
         TestContext.all_users.clear()

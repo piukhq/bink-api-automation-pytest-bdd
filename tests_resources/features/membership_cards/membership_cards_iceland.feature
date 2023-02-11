@@ -5,7 +5,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
   So I can add my card, with the scheme provider Iceland & check its details successfully
 
 
-  @add @bink_regression @bmb_regression
+  @add @bink_regression @bmb_regression @sanity_bmb
   Scenario: Add Journey_Iceland
 
     Given I am a Bink user
@@ -15,7 +15,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the "Iceland" membership card
 
 #   Use below commented line for production execution once iceland test data with transactions is ready
-  @balances_transactions @bink_regression @bmb_regression
+  @balances_transactions @bink_regression @bmb_regression @sanity_bmb
   Scenario: Balances verification_Iceland
 
     Given I am a Bink user
@@ -28,7 +28,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the "Iceland" membership card
 
 
-  @add_patch @bink_regression @bmb_regression
+  @add_patch @bink_regression @bmb_regression @sanity_bmb
   Scenario: Add Journey_PATCH_Iceland
 
     Given I am a Bink user
@@ -39,7 +39,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then verify the data stored in DB after "Add" journey for "Iceland"
     And I perform DELETE request to delete the "Iceland" membership card
 
-  @add_and_link @staging
+  @add_and_link @staging @sanity_bmb
   Scenario: ADD & LINK Journey_Iceland
 
     Given I am a Bink user
