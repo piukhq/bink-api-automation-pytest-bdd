@@ -28,17 +28,17 @@
 	},
 	"images": [
 		{
-			"id": 1410,
-			"type": 9,
-			"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Alternative_Card2_1312x800.png",
-			"description": "Viator Alternative Hero",
-			"encoding": "png"
-		},
-		{
 			"id": 1411,
 			"type": 3,
 			"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Logo1-280x280.png",
 			"description": "Viator icon",
+			"encoding": "png"
+		},
+		{
+			"id": 1410,
+			"type": 9,
+			"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Alternative_Card2_1312x800.png",
+			"description": "Viator Alternative Hero",
 			"encoding": "png"
 		},
 		{
@@ -57,11 +57,11 @@
 		}
 	],
 	"account": {
-		"plan_name": "Viator Rewards Discount",
+		"plan_name": "Viator Discounts",
 		"plan_name_card": "Card",
-		"plan_url": "https://www.viator.com",
+		"plan_url": "https://www.viator.com/en-GB/?pid=P00070828&mcid=42383&medium=link&campaign=bink-campaign1",
 		"plan_summary": "With Viator find thousands of experiences at your fingertips and get rewarded for doing them. Viator offers global experiences from museums to mountain climbing, and now for every £200 you spend you’ll get 10% off your next purchase! T&Cs apply",
-		"plan_description": "Memories don’t just happen – they’re made. They’re made on mountaintops and in museums, at wineries and on walking tours, in catamarans and the catacombs. In Madrid, Maui, Malibu and beyond. Viator is the experiences marketplace. From the must-do, to the who knew, we’re where your best memories are waiting. Max 2 vouchers available in any single transaction. Use your linked Payment Card at checkout (Reserve Now Pay Later won't count). Eligible bookings must be made by 31/03/23.",
+		"plan_description": "Memories don’t just happen – they’re made. They’re made on mountaintops and in museums, at wineries and on walking tours, in Madrid, Maui, Malibu and beyond. Viator is your marketplace for experiences. And with industry-leading flexibility and last-minute availability, it's never too late to make a memory.Max 2 vouchers available in any single transaction. Use your linked Payment Card at checkout (Reserve Now Pay Later won't count). Eligible bookings must be made by 25/09/23.",
 		"plan_documents": [
 			{
 				"name": "Viator privacy policy",
