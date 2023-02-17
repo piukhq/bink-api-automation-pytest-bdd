@@ -202,10 +202,10 @@ class MembershipCards(Endpoint):
     """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
 
     @staticmethod
-    def add_auth_card(token, merchant, scheme_status):
+    def add_auth_card(token, merchant):
         url = MembershipCards.get_url()
         header = Endpoint.request_header(token)
-        payload = Merchant.get_merchant(merchant).add_auth_payload(scheme_status)
+        payload = Merchant.get_merchant(merchant).add_auth_payload()
         return Endpoint.call(url, header, "POST", payload)
 
     """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""

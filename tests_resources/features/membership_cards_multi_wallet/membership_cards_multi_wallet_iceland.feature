@@ -64,8 +64,8 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then For barclays I perform GET request to view a specific transaction for "authorised" "Iceland" membership card
     And I perform DELETE request to delete all users
 
-#Need to change test data for below scenario- Data created by CP2
-    @multi_wallet_auth_unauth_iceland @sanity_bmb
+
+  @multi_wallet_auth_unauth_iceland @sanity_bmb
   Scenario: Multi wallet auth unauth Iceland
     Given I register with bink service in bink
     When I perform POST request to add and auth "Iceland" membership card with "valid_credentials2"
@@ -109,6 +109,102 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then I perform DELETE request to delete all users
 
 
+#  ghost card journey for Iceland
+  @valid_register_then_valid_same_wallet @sanity_bmb
+  Scenario: Valid register then valid register in same wallet
+    Given I register with bink service in bink
+    When I perform POST request to add "Iceland" membership card for "successful_register"
+    And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
+    And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
+    Then I perform DELETE request to delete all users
+
+  @failed_register_then_valid_same_wallet @sanity_bmb
+  Scenario: Failed register then valid register in same wallet
+    Given I register with bink service in bink
+    When I perform POST request to add "Iceland" membership card for "failed_register"
+    And I perform PATCH request to create "Iceland" "failed_register"
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
+    And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
+    Then I perform DELETE request to delete all users
+
+  @valid_register_then_failed_same_wallet @sanity_bmb
+  Scenario: Valid register then failed register in same wallet
+    Given I register with bink service in bink
+    When I perform POST request to add "Iceland" membership card for "successful_register"
+    And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
+    And I perform PATCH request to create "Iceland" "failed_register"
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
+    Then I perform DELETE request to delete all users
+
+
+  @failed_register_then_failed_same_wallet @sanity_bmb
+  Scenario: Failed register then failed register in same wallet
+    Given I register with bink service in bink
+    When I perform POST request to add "Iceland" membership card for "failed_register"
+    And I perform PATCH request to create "Iceland" "failed_register"
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
+    And I perform PATCH request to create "Iceland" "failed_register"
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
+    Then I perform DELETE request to delete all users
+
+
+  @multi_wallet_valid_register_then_valid @sanity_bmb
+  Scenario: Multi wallet valid register then valid register
+    Given I register with bink service in bink
+    When I perform POST request to add "Iceland" membership card for "successful_register"
+    And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
+    Given I register with bink service in barclays
+    When I perform POST request to add "Iceland" membership card for "already_registered"
+    And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
+    Then I perform DELETE request to delete all users
+
+  @multi_wallet_failed_register_then_failed @sanity_bmb
+  Scenario: Multi wallet failed register then failed register
+    Given I register with bink service in bink
+    When I perform POST request to add "Iceland" membership card for "failed_register"
+    And I perform PATCH request to create "Iceland" "failed_register"
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
+    Given I register with bink service in barclays
+    When I perform POST request to add "Iceland" membership card for "already_registered"
+    And I perform PATCH request to create "Iceland" "failed_register"
+    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
+    Then I perform DELETE request to delete all users
+
+
+  @multi_wallet_valid_register_then_failed @sanity_bmb
+  Scenario: Multi wallet valid register then failed register
+    Given I register with bink service in bink
+    When I perform POST request to add "Iceland" membership card for "successful_register"
+    And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
+    Given I register with bink service in barclays
+    When I perform POST request to add "Iceland" membership card for "already_registered"
+    And I perform PATCH request to create "Iceland" "failed_register"
+    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
+    Then I perform DELETE request to delete all users
+
+  @multi_wallet_failed_register_then_valid @sanity_bmb
+  Scenario: Multi wallet failed register then valid register
+    Given I register with bink service in bink
+    When I perform POST request to add "Iceland" membership card for "failed_register"
+    And I perform PATCH request to create "Iceland" "failed_register"
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
+    Given I register with bink service in barclays
+    When I perform POST request to add "Iceland" membership card for "already_registered"
+    And I perform PATCH request to create "Iceland" "successful_register"
+    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
+    And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
+    Then I perform DELETE request to delete all users
+
+
   @multi_wallet_enrol @sanity_bmb
   Scenario: Multi wallet Join
     Given I register with bink service in bink
@@ -121,33 +217,10 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then verify the data stored in DB after "Enrol" journey for "Iceland"
     And I perform DELETE request to delete all users
 
-#   same_wallet_register_journey
-#  ghost card journey for Iceland
-  @already_register
-  Scenario: Add already registered card in same wallet
-    Given I register with bink service in bink
-    When I perform POST request to add "Iceland" membership card for "successful_register"
-    And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
-    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
-    And I perform POST request to add "Iceland" membership card for "already_registered"
-    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
-    Then I perform DELETE request to delete all users
 
-# # On 2nd post, status is 200, membership_state is failed (should it be unauth like 1ns post) confirm expected.
-  @multi_wallet_failed_register
-  Scenario: Multi wallet add then register already registered card which is failed
-    Given I register with bink service in bink
-    When I perform POST request to add "Iceland" membership card for "failed_register"
-    And I perform PATCH request to create "Iceland" "failed_register"
-    And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
-    Given I register with bink service in barclays
-    When I perform POST request to add "Iceland" membership card for "failed_register"
-    And I perform PATCH request to create "Iceland" "failed_register"
-    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
-    And For bink I perform GET request to verify the Iceland membership card is added to the wallet with invalid data
-    Then I perform DELETE request to delete all users
-
-   @identical_joins
+#API reflector data set up for Iceland is not working for below scenario.
+# Same scenario for Square Meal is working and added to Barclays regression
+  @identical_joins
   Scenario: merchant fails to identify duplicate join requests
     Given I register with bink service in bink
     When I perform POST request to identical_enrol membership card for Iceland

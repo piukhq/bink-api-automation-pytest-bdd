@@ -145,13 +145,7 @@ class IcelandCard:
                 enrol_consent = "Consent 2"
         elif channel == "bink":
             enrol_consent = "Enrol Consent 1"
-
-        if scheme_status == "failed_register":
-            TestContext.last_name = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(
-                constants.UNKNOWN_LAST_NAME
-            )
-        else:
-            TestContext.last_name = faker.name()
+        TestContext.last_name = faker.name()
         payload = {
             "account": {
                 "registration_fields": [
@@ -302,30 +296,24 @@ class IcelandCard:
     """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
 
     @staticmethod
-    def add_auth_payload(scheme_status):
-        if scheme_status == "failed_register":
-            TestContext.last_name = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(
-                constants.UNKNOWN_LAST_NAME
-            )
-        else:
-            TestContext.last_name = TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.LAST_NAME)
+    def add_auth_payload():
         payload = {
             "account": {
                 "add_fields": [
                     {
                         "column": "Bonus card number",
-                        "value": TestContext.card_number,
+                        "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.CARD_NUM),
                     }
                 ]
             },
             "authorise_fields": [
                 {
                     "column": "Last name",
-                    "value": TestContext.last_name,
+                    "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.LAST_NAME),
                 },
                 {
                     "column": "Postcode",
-                    "value": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.POSTCODE),
+                    "value": TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.POSTCODE),
                 },
             ],
             "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("iceland"),

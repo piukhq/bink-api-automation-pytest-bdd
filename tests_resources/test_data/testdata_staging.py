@@ -170,6 +170,7 @@ square_meal_membership_card = {
     "transactions": "1",
     "transaction_status": "active",
     "transaction_currency": "Points",
+    "identical_enrol_email": "identicaljoin@bink.com",
 }
 # iceland_membership_card = {
 #     "card_num": "6332040030473324721",

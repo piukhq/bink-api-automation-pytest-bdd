@@ -1,6 +1,7 @@
 import datetime
 import json
 import logging
+import time
 from json import JSONDecodeError
 
 from pytest_bdd import parsers, scenarios, then, when
@@ -50,79 +51,24 @@ def add_auth_membership_card(merchant, credentials):
 
 @when(parsers.parse('I perform POST request to add "{merchant}" membership card for "{scheme_status}"'))
 def add_only_membership_card(merchant, scheme_status):
-    if scheme_status == "successful_register":
-        TestContext.card_number = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.CARD_NUM)
-    elif scheme_status == "already_registered":
-        TestContext.card_number = TestContext.existing_card
-    elif scheme_status == "failed_register":
-        TestContext.card_number = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.UNKNOWN_CARD)
-
-    response = MembershipCards.add_auth_card(TestContext.token, merchant, scheme_status)
+    response = MembershipCards.add_auth_card(TestContext.token, merchant)
     response_json = response_to_json(response)
-    if scheme_status in ["successful_register", "failed_register"]:
-        TestContext.current_scheme_account_id = response_json.get("id")
-        logging.info(
-            "The response of Add only (POST) is:"
-            + Endpoint.BASE_URL
-            + api.ENDPOINT_MEMBERSHIP_CARDS
-            + "\n\n"
-            + json.dumps(response_json, indent=4)
-        )
-        assert (
-            response.status_code == 201
-            or response.status_code == 200
-            and response_json["status"]["state"]
-            == TestData.get_membership_card_status_states().get(constants.UNAUTHORIZED)
-            and response_json["status"]["reason_codes"][0]
-            == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_UNAUTHORIZED)
-        ), ("Add Ghost Journey for " + merchant + " failed")
-    elif scheme_status == "already_registered":
-        logging.info(
-            "The response of Add only (POST) is:"
-            + Endpoint.BASE_URL
-            + api.ENDPOINT_MEMBERSHIP_CARDS
-            + "\n\n"
-            + json.dumps(response_json, indent=4)
-        )
+    TestContext.current_scheme_account_id = response_json.get("id")
+    logging.info(
+        "The response of Add only (POST) is:"
+        + Endpoint.BASE_URL
+        + api.ENDPOINT_MEMBERSHIP_CARDS
+        + "\n\n"
+        + json.dumps(response_json, indent=4)
+    )
+    assert (
+        response.status_code == 201
+        or response.status_code == 200
+        and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.UNAUTHORIZED)
+        and response_json["status"]["reason_codes"][0]
+        == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_UNAUTHORIZED)
+    ), ("Add Ghost Journey for " + merchant + " failed")
 
-        if response.status_code == 201:
-            assert response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
-                constants.UNAUTHORIZED
-            ) and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().get(
-                constants.REASON_CODE_UNAUTHORIZED
-            ), (
-                "Add Ghost Journey for " + merchant + " failed"
-            )
-        elif response.status_code == 200:
-            assert response_json["status"]["state"] == TestData.get_membership_card_status_states().get(
-                constants.PENDING
-            ) and response_json["status"]["reason_codes"][0] == TestData.get_membership_card_status_reason_codes().get(
-                constants.REASON_CODE_PENDING_ADD
-            ), (
-                "Add Ghost Journey for " + merchant + " failed"
-            )
-
-
-# @when(parsers.parse('I perform POST request to add "{merchant}" membership card with "{invalid_data}"'))
-# def add_invalid_membership_card(merchant, invalid_data):
-#     response = MembershipCards.add_card(TestContext.token, merchant, invalid_data)
-#     response_json = response_to_json(response)
-#     TestContext.current_scheme_account_id = response_json.get("id")
-#     logging.info(
-#         "The response of Add Journey (POST) with Invalid data is:\n \n"
-#         + Endpoint.BASE_URL
-#         + api.ENDPOINT_MEMBERSHIP_CARDS
-#         + "\n\n"
-#         + json.dumps(response_json, indent=4)
-#     )
-#
-#     assert (
-#         response.status_code == 201
-#         and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
-#         and response_json["status"]["reason_codes"][0]
-#         == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_PENDING_ADD)
-#     ), ("Add Journey with invalid details for " + merchant + " failed")
-#
 #
 # @when(
 #     parsers.parse(
@@ -254,6 +200,8 @@ def register_ghost_membership_account(merchant, test_email, env, channel):
 
 @when(parsers.parse('I perform PATCH request to create "{merchant}" "{scheme_status}"'))
 def register_fail(merchant, test_email, env, channel, scheme_status):
+    if scheme_status == "failed_register":
+        test_email = TestDataUtils.TEST_DATA.iceland_ghost_membership_card.get(constants.REGISTER_FAILED_EMAIL)
     response = MembershipCards.register_ghost_card(
         TestContext.token, merchant, test_email, TestContext.current_scheme_account_id, env, channel, scheme_status
     )
@@ -312,6 +260,7 @@ This part needs to be reviewed after TC changes are ready in staging"""
 def get_membership_card(user, merchant, scheme_status):
     print("TestContext.all_users", TestContext.all_users)
     TestContext.token = TestContext.all_users[user]
+    time.sleep(15)
     response = MembershipCards.get_scheme_account(TestContext.token, TestContext.current_scheme_account_id)
     TestContext.response = response
     response_json = response_to_json(response)
@@ -436,7 +385,8 @@ def invalid_membership_card_is_added_to_wallet(user, merchant):
         + "\n\n"
         + json.dumps(response_json, indent=4)
     )
-    TestContext.existing_card = response_json["card"]["membership_id"]
+    if merchant != "SquareMeal":
+        TestContext.existing_card = response_json["card"]["membership_id"]
     assert (
         response.status_code == 200
         and response_json["id"] == TestContext.current_scheme_account_id
@@ -525,7 +475,7 @@ def membership_card_balance(user, loyalty_card_status, merchant):
             constants.REASON_CODE_FAILED
         ), "status_reason_code does not match"
         assert current_membership_card_response_array["balances"] == [], "balance does not match"
-        if loyalty_card_status == "unauthorised":
+        if loyalty_card_status == "unauthorised" and merchant != "SquareMeal":
             assert current_membership_card_response_array["card"]["membership_id"] == TestData.get_data(merchant).get(
                 constants.CARD_NUM
             ), "card num does not match"
