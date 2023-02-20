@@ -33,10 +33,10 @@ class MembershipCards(Endpoint):
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
-    def patch_add_card(token, scheme_account_id, merchant):
+    def patch_add_card(token, scheme_account_id, merchant, credentials=None):
         url = MembershipCards.get_url(scheme_account_id)
         header = Endpoint.request_header(token)
-        payload = Merchant.get_merchant(merchant).add_membership_card_payload()
+        payload = Merchant.get_merchant(merchant).add_membership_card_payload(credentials)
         return Endpoint.call(url, header, "PATCH", payload)
 
     # ---------------------------------------- Enrol Journey---------------------------------------------------

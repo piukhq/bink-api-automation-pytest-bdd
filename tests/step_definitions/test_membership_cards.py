@@ -157,6 +157,26 @@ def patch_request_to_update_membership_card_details(merchant):
     ), ("Add Journey -PATCH Request for " + merchant + " failed")
 
 
+@when(parsers.parse('I perform PATCH request to update "{merchant}" membership card with "{credentials}"'))
+def patch_request_to_update_membership_card_details_with_invalid_cred(merchant, credentials):
+    response = MembershipCards.patch_add_card(TestContext.token, TestContext.current_scheme_account_id, merchant,
+                                              credentials)
+    response_json = response_to_json(response)
+    logging.info(
+        "The response of Add Journey (PATCH) is:\n\n"
+        + Endpoint.BASE_URL
+        + api.ENDPOINT_MEMBERSHIP_CARD.format(TestContext.current_scheme_account_id)
+        + "\n\n"
+        + json.dumps(response_json, indent=4)
+    )
+    assert (
+        response.status_code == 200
+        and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
+        and response_json["status"]["reason_codes"][0]
+        == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_PENDING_ADD)
+    ), ("Add Journey -PATCH Request for " + merchant + " failed")
+
+
 """Step definitions - Enrol Journey """
 
 
@@ -396,6 +416,12 @@ def verify_add_and_link_membership_card(merchant):
     return response
 
 
+@when(
+    parsers.parse(
+        'I perform GET request to verify the "{merchant}" membership card details got updated after an unsuccessful'
+        ' PATCH'
+    )
+)
 @when(
     parsers.parse(
         'I perform GET request to verify the "{merchant}" membership card is added to the wallet with ' "invalid data"
