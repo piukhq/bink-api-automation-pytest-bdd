@@ -29,13 +29,24 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
 
 
   @add_patch @bink_regression @bmb_regression @sanity_bmb
-  Scenario: Add Journey_PATCH_Iceland
+  Scenario: Add Journey_PATCH with Valid Credentials_Iceland
 
     Given I am a Bink user
     When I perform POST request to add "Iceland" membership card with "invalid_data"
     And I perform GET request to verify the "Iceland" membership card is added to the wallet with invalid data
     And I perform PATCH request to update "Iceland" membership card
     And I perform GET request to verify the "Iceland" membership card details got updated after a successful PATCH
+    Then verify the data stored in DB after "Add" journey for "Iceland"
+    And I perform DELETE request to delete the "Iceland" membership card
+
+  @add_patch @bink_regression @bmb_regression @sanity_bmb
+  Scenario: Add Journey_PATCH with InValid Credentials_Iceland
+
+    Given I am a Bink user
+    When I perform POST request to add "Iceland" membership card
+    And I perform GET request to verify the "Iceland" membership card is added to the wallet
+    And I perform PATCH request to update "Iceland" membership card with "invalid_credentials"
+    And I perform GET request to verify the "Iceland" membership card details got updated after an unsuccessful PATCH
     Then verify the data stored in DB after "Add" journey for "Iceland"
     And I perform DELETE request to delete the "Iceland" membership card
 
@@ -50,6 +61,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then verify the data stored in DB after "Add" journey for "Iceland"
     Then I perform DELETE request to delete the "Iceland" membership card
     And I perform DELETE request to delete the payment card
+
 
   @bink_regression @bmb_regression
   Scenario:  Add_Journey with Invalid Credentials_Iceland
