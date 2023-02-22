@@ -111,7 +111,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
 
 #  ghost card journey for Iceland
   @valid_register_then_valid_same_wallet @sanity_bmb
-  Scenario: Valid register then valid register in same wallet
+  Scenario: Valid register then valid register in same wallet Iceland
     Given I register with bink service in bink
     When I perform POST request to add "Iceland" membership card for "successful_register"
     And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
@@ -121,7 +121,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then I perform DELETE request to delete all users
 
   @failed_register_then_valid_same_wallet @sanity_bmb
-  Scenario: Failed register then valid register in same wallet
+  Scenario: Failed register then valid register in same wallet Iceland
     Given I register with bink service in bink
     When I perform POST request to add "Iceland" membership card for "failed_register"
     And I perform PATCH request to create "Iceland" "failed_register"
@@ -131,7 +131,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then I perform DELETE request to delete all users
 
   @valid_register_then_failed_same_wallet @sanity_bmb
-  Scenario: Valid register then failed register in same wallet
+  Scenario: Valid register then failed register in same wallet Iceland
     Given I register with bink service in bink
     When I perform POST request to add "Iceland" membership card for "successful_register"
     And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
@@ -142,7 +142,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
 
 
   @failed_register_then_failed_same_wallet @sanity_bmb
-  Scenario: Failed register then failed register in same wallet
+  Scenario: Failed register then failed register in same wallet Iceland
     Given I register with bink service in bink
     When I perform POST request to add "Iceland" membership card for "failed_register"
     And I perform PATCH request to create "Iceland" "failed_register"
@@ -153,7 +153,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
 
 
   @multi_wallet_valid_register_then_valid @sanity_bmb
-  Scenario: Multi wallet valid register then valid register
+  Scenario: Multi wallet valid register then valid register Iceland
     Given I register with bink service in bink
     When I perform POST request to add "Iceland" membership card for "successful_register"
     And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
@@ -165,7 +165,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then I perform DELETE request to delete all users
 
   @multi_wallet_failed_register_then_failed @sanity_bmb
-  Scenario: Multi wallet failed register then failed register
+  Scenario: Multi wallet failed register then failed register Iceland
     Given I register with bink service in bink
     When I perform POST request to add "Iceland" membership card for "failed_register"
     And I perform PATCH request to create "Iceland" "failed_register"
@@ -179,7 +179,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
 
 
   @multi_wallet_valid_register_then_failed @sanity_bmb
-  Scenario: Multi wallet valid register then failed register
+  Scenario: Multi wallet valid register then failed register Iceland
     Given I register with bink service in bink
     When I perform POST request to add "Iceland" membership card for "successful_register"
     And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
@@ -192,7 +192,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
     Then I perform DELETE request to delete all users
 
   @multi_wallet_failed_register_then_valid @sanity_bmb
-  Scenario: Multi wallet failed register then valid register
+  Scenario: Multi wallet failed register then valid register Iceland
     Given I register with bink service in bink
     When I perform POST request to add "Iceland" membership card for "failed_register"
     And I perform PATCH request to create "Iceland" "failed_register"
@@ -206,7 +206,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
 
 
   @multi_wallet_enrol @sanity_bmb
-  Scenario: Multi wallet Join
+  Scenario: Multi wallet Join Iceland
     Given I register with bink service in bink
     When I perform POST request to successful_enrol membership card for Iceland
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_enrol
@@ -221,7 +221,7 @@ Feature: Merchant Iceland - Ensure a customer can add membership card in multipl
 #API reflector data set up for Iceland is not working for below scenario.
 # Same scenario for Square Meal is working and added to Barclays regression
   @identical_joins
-  Scenario: merchant fails to identify duplicate join requests
+  Scenario: merchant fails to identify duplicate join requests Iceland
     Given I register with bink service in bink
     When I perform POST request to identical_enrol membership card for Iceland
     And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_enrol
