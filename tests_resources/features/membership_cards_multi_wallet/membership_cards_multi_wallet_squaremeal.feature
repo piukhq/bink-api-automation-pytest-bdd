@@ -110,7 +110,7 @@ Feature: Merchant SquareMeal - Ensure a customer can add membership card in mult
     
 
   @multi_wallet_enrol
-  Scenario: Multi wallet Join
+  Scenario: Multi wallet Join SquareMeal
     Given I register with bink service in bink
     When I perform POST request to successful_enrol membership card for SquareMeal
     And For bink I perform GET request to verify the SquareMeal membership card is added to the wallet after successful_enrol
@@ -123,7 +123,7 @@ Feature: Merchant SquareMeal - Ensure a customer can add membership card in mult
 
 
   @identical_joins
-  Scenario: merchant fails to identify duplicate join requests
+  Scenario: merchant fails to identify duplicate join requests SquareMeal
     Given I register with bink service in bink
     When I perform POST request to identical_enrol membership card for SquareMeal
     And For bink I perform GET request to verify the SquareMeal membership card is added to the wallet after successful_enrol

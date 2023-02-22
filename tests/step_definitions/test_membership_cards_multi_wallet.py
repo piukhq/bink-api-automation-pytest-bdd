@@ -69,6 +69,7 @@ def add_only_membership_card(merchant, scheme_status):
         == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_UNAUTHORIZED)
     ), ("Add Ghost Journey for " + merchant + " failed")
 
+
 #
 # @when(
 #     parsers.parse(
@@ -260,6 +261,7 @@ This part needs to be reviewed after TC changes are ready in staging"""
 def get_membership_card(user, merchant, scheme_status):
     print("TestContext.all_users", TestContext.all_users)
     TestContext.token = TestContext.all_users[user]
+    response = MembershipCards.get_scheme_account(TestContext.token, TestContext.current_scheme_account_id)
     time.sleep(15)
     response = MembershipCards.get_scheme_account(TestContext.token, TestContext.current_scheme_account_id)
     TestContext.response = response
