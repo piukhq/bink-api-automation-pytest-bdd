@@ -5,7 +5,7 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
   I want to add and auth a membership card in multiple wallets
   So that status of membership card in each wallet is independent
 
-  @multi_wallet_add @sanity_bmb
+  @multi_wallet_add @sanity_bmb @sanity
   Scenario: Multi wallet auth auth Wasabi
     Given I register with bink service in barclays
     When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
@@ -23,7 +23,7 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     And I perform DELETE request to delete all users
 
-  @multi_wallet_balances_transactions @sanity_bmb
+  @multi_wallet_balances_transactions @sanity_bmb @sanity
   Scenario: Multi wallet auth auth Balances and Transactions_Wasabi
 
     Given I register with bink service in bink
@@ -43,7 +43,7 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     And I perform DELETE request to delete all users
 
-  @multi_wallet_unauth_auth @sanity_bmb
+  @multi_wallet_unauth_auth @sanity_bmb @sanity
   Scenario: Multi wallet unauth auth Wasabi
     Given I register with bink service in bink
     When I perform POST request to add and auth "Wasabi" membership card with "invalid_credentials"
@@ -68,7 +68,7 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
     And I perform DELETE request to delete all users
 
 
-    @multi_wallet_auth_unauth @sanity_bmb
+    @multi_wallet_auth_unauth @sanity_bmb @sanity
   Scenario: Multi wallet auth unauth Wasabi
     Given I register with bink service in bink
     When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
@@ -93,7 +93,7 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
     Then I perform DELETE request to delete all users
 
 
-  @multi_wallet_unauth_unauth_wasabi @sanity_bmb
+  @multi_wallet_unauth_unauth_wasabi @sanity_bmb @sanity
   Scenario: Multi wallet unauth unauth Wasabi
     Given I register with bink service in bink
     When I perform POST request to add and auth "Wasabi" membership card with "invalid_credentials"
@@ -124,7 +124,7 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
   #Note: Assume the PLL will travel across the wallet after trusted channel implementation.
 
   @multi_wallet_update_1
-  Scenario: Wallet 1& 2 have authorised cards, PATCH with invalid cred in wallet 2
+  Scenario: Wallet 1& 2 have authorised cards, PATCH with invalid cred in wallet 2 Wasabi
           # add & auth loyalty card in wallet 1
     Given I register with bink service in bink
     When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"
@@ -153,7 +153,7 @@ Feature: Merchant Wasabi - Ensure a customer can add membership card in multiple
 
 
     @multi_wallet_update_2
-  Scenario: Wallet 1& 2 have authorised cards, PATCH with invalid cred in wallet 1
+  Scenario: Wallet 1& 2 have authorised cards, PATCH with invalid cred in wallet 1 Wasabi
           # add & auth loyalty card in wallet 1
     Given I register with bink service in bink
     When I perform POST request to add and auth "Wasabi" membership card with "valid_credentials"

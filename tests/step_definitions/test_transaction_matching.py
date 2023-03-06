@@ -307,6 +307,7 @@ def import_merchant_file(merchant_container, payment_card_provider, mid, cardIde
 
 def getNewFileDataToImport():
     TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
+    TestTransactionMatchingContext.merchant_transaction_matching_id = uuid.uuid4()
     TestTransactionMatchingContext.transaction_matching_uuid = random.randint(100000, 999999)
     TestTransactionMatchingContext.transaction_matching_amount = int(Decimal(str(random.choice(range(10, 1000)))))
     TestTransactionMatchingContext.transaction_matching_currentTimeStamp = datetime.now(

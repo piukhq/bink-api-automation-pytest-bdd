@@ -25,7 +25,7 @@ Feature: Merchant Square-meal - Ensure a customer can add their membership card 
     Then verify the data stored in DB after "Add" journey for "SquareMeal"
     And I perform DELETE request to delete the "SquareMeal" membership card
 
-  @enrol_put @bink_regression @sanity
+  @enrol_put @bink_regression @sanity  @sanity_bmb
   Scenario: Join Journey with invalid credentials and replace with valid credentials_SquareMeal
 
     Given I register with bink service as a new customer
@@ -37,7 +37,7 @@ Feature: Merchant Square-meal - Ensure a customer can add their membership card 
     Then I perform DELETE request to delete the "SquareMeal" membership card
     And I perform DELETE request to delete the customer
 
-  @bink_regression @bmb_regression @sanity
+  @bink_regression @bmb_regression @sanity  @sanity_bmb
   Scenario:  SquareMeal Add_Journey with an existing card present in a wallet
 
     Given I am a Bink user
@@ -45,7 +45,7 @@ Feature: Merchant Square-meal - Ensure a customer can add their membership card 
     And I perform GET request to verify the "SquareMeal" membership card is added to the wallet with invalid data
     Then I perform DELETE request to delete the "SquareMeal" membership card
 
-  @bink_regression @bmb_regression @sanity
+  @bink_regression @bmb_regression @sanity  @sanity_bmb
   Scenario Outline: Negative test scenario for POST/membership_cards without membership plan field_SquareMeal
 
     Given I am a Bink user
@@ -57,7 +57,7 @@ Feature: Merchant Square-meal - Ensure a customer can add their membership card 
       | required field membership_plan is missing |
 
 
-  @bink_regression @bmb_regression @sanity
+  @bink_regression @bmb_regression @sanity  @sanity_bmb
   Scenario Outline: Negative test scenario for POST/membership_cards without email_SquareMeal
 
     Given I am a Bink user
@@ -68,7 +68,7 @@ Feature: Merchant Square-meal - Ensure a customer can add their membership card 
       | error_message                |
       | This field may not be blank. |
 
-  @bink_regression @bmb_regression @sanity
+  @bink_regression @bmb_regression @sanity  @sanity_bmb
   Scenario Outline: Negative test scenario for POST/membership_cards with password value in column instead of Password_SquareMeal
     Given I am a Bink user
     When I perform POST request to add "SquareMeal" membership card without "password_coloumn_value"
@@ -78,7 +78,7 @@ Feature: Merchant Square-meal - Ensure a customer can add their membership card 
       | error_message      |
       | Malformed request. |
 
-  @bink_regression @bmb_regression @sanity
+  @bink_regression @bmb_regression @sanity  @sanity_bmb
   Scenario Outline: Negative test scenario for POST/membership_cards without token_SquareMeal
     Given I am a Bink user
     When I perform POST request to add "SquareMeal" membership card without "token" header
@@ -88,7 +88,7 @@ Feature: Merchant Square-meal - Ensure a customer can add their membership card 
       | error_message                                  |
       | Invalid token header. No credentials provided. |
 
-  @bink_regression @bmb_regression @sanity
+  @bink_regression @bmb_regression @sanity  @sanity_bmb
   Scenario Outline: Negative test scenario for POST/membership_cards without payload_SquareMeal
     Given I am a Bink user
     When I perform POST request to add "SquareMeal" membership card without "payload" header

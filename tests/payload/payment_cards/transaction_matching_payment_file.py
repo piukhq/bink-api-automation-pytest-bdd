@@ -238,7 +238,7 @@ class TransactionMatchingPaymentFileDetails:
             "offer_id": "0",
             "transaction_amount": str(TestTransactionMatchingContext.transaction_matching_amount),
             "transaction_currency": "UKL",
-            "transaction_id": str(TestTransactionMatchingContext.transaction_matching_id),
+            "transaction_id": str(TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)),
             "transaction_time": TestTransactionMatchingContext.transaction_matching_amexTimeStamp,
         }
 
@@ -318,7 +318,7 @@ class TransactionMatchingPaymentFileDetails:
             "recordId": f"{base64.b64encode(str(uuid.uuid4()).encode()).decode()}AADP00400",
             "transactionAmount": str(TestTransactionMatchingContext.transaction_matching_amount),
             "transactionDate": TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
-            "transactionId": str(TestTransactionMatchingContext.transaction_matching_id),
+            "transactionId": str(TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)),
         }
 
     @staticmethod
