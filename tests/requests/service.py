@@ -1,3 +1,5 @@
+import logging
+
 import config
 import tests.api as api
 from tests.api.base import Endpoint

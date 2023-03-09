@@ -3,11 +3,17 @@ import logging
 import time
 from enum import Enum
 import requests
-from settings import LOCAL_SECRETS_PATH, LOCAL_CHANNELS, VAULT_URL
+from settings import (
+    LOCAL_SECRETS_PATH,
+    LOCAL_CHANNELS,
+    VAULT_URL_STAGING,
+)
 
 from azure.core.exceptions import ServiceRequestError, ResourceNotFoundError, HttpResponseError
 from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
+
+from tests.helpers.test_context import TestContext
 
 logger = logging.getLogger(__name__)
 loaded = False
@@ -31,7 +37,10 @@ def retry_get_secrets_from_vault():
     exception = RuntimeError("Failed to get secrets from Vault")
     for _ in range(retries):
         try:
-            client = SecretClient(vault_url=VAULT_URL, credential=DefaultAzureCredential())
+            client = SecretClient(vault_url=VAULT_URL_STAGING, credential=DefaultAzureCredential(
+                    additionally_allowed_tenants=["a6e2367a-92ea-4e5a-b565-723830bcc095"],
+                    exclude_shared_token_cache_credential=True,
+                ))
             # secret = client.get_secret(CHANNEL_SECRET_NAME)
             secrets = {}
             secrets_to_load = []
