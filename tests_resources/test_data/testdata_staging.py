@@ -145,7 +145,7 @@ harvey_nichols_membership_card_2 = {
 
 harvey_nichols_invalid_data = {"id": "fail@unknown.com"}
 
-square_meal_invalid_data = {"id": "sm_auto01@testbink.com", "password": "invalidauthorization"}
+square_meal_invalid_data = {"id": "sm_auto01@testbink.com", "password": "incorrectpassword"}
 
 square_meal_membership_card2 = {
     "id": "bola_staging_auto@bink.com",

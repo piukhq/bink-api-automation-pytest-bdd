@@ -22,7 +22,8 @@ class SquareMealCard:
 
         if invalid_data:
             email = TestDataUtils.TEST_DATA.square_meal_invalid_data.get("id")
-            password = TestDataUtils.TEST_DATA.square_meal_invalid_data.get("password")
+            # password = TestDataUtils.TEST_DATA.square_meal_invalid_data.get("password")
+            password = "invalidauthorization"
             data_type = "Invalid data"
         else:
 
