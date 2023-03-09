@@ -13,8 +13,6 @@ from azure.core.exceptions import ServiceRequestError, ResourceNotFoundError, Ht
 from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
 
-from tests.helpers.test_context import TestContext
-
 logger = logging.getLogger(__name__)
 loaded = False
 _bundle_secrets = {}
