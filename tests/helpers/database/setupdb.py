@@ -44,10 +44,10 @@ def clear_db(connection):
         connection.close()
 
 
-def get_db_credentials(variable):
-    """This function returns DB details for each environment"""
-    return TestDataUtils.TEST_DATA.db_details.get(variable)
-
-
-def get_harmonia_credentails(variable):
-    return TestDataUtils.TEST_DATA.harmonia_db_details.get(variable)
+# def get_db_credentials(variable):
+#     """This function returns DB details for each environment"""
+#     return TestDataUtils.TEST_DATA.db_details.get(variable)
+#
+#
+# def get_harmonia_credentails(variable):
+#     return TestDataUtils.TEST_DATA.harmonia_db_details.get(variable)

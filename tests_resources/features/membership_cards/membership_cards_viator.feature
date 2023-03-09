@@ -4,7 +4,7 @@ Feature: Merchant Viator - Ensure a customer can add their membership card & vie
   I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider Viator & check its details successfully
 
-  @enrol @bink_regression @sanity
+  @enrol @bink_regression @sanity @test
   Scenario: Join Journey_Viator
 
     Given I register with bink service as a new customer

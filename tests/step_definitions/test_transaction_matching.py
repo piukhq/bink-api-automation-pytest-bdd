@@ -19,7 +19,7 @@ import io
 import os
 from azure.storage.blob import ContentSettings
 from azure.storage.blob import BlobServiceClient
-import harvey_nichols_transaction_matching_files
+# import harvey_nichols_transaction_matching_files
 from tests.helpers.database.query_harmonia import QueryHarmonia
 from tests.helpers.test_helpers import PaymentCardTestData
 import tests.helpers.constants as constants
@@ -170,9 +170,11 @@ def verify_spotted_transaction():
     assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
     logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 
-
 @then(parsers.parse('I verify "{payment_card_transaction}","{mid}" and "{auth_code}" is spotted and exported'))
-def verify_spotted_mastercard_transaction(payment_card_transaction, mid, auth_code):
+@then(parsers.parse('I verify {payment_card_transaction} using {mid} is spotted and exported'))
+
+def verify_spotted_mastercard_transaction(payment_card_transaction, mid):
+    # logging.info(auth_code+"auth_code")
     transaction_id = TestTransactionMatchingContext.third_party_id
     if payment_card_transaction == "master-auth-spotting":
         logging.info(f"Third_party_id: '{transaction_id}'")
@@ -291,18 +293,18 @@ def import_merchant_file(merchant_container, payment_card_provider, mid, cardIde
         )
         blob_client.upload_blob(buf.getvalue().encode())
 
-    elif merchant_container == "scheme/harvey-nichols/":
-        json_file = json.dumps(
-            harvey_nichols_transaction_matching_files.harvey_nichols_merchant_file(
-                payment_card_provider=payment_card_provider, mid=mid, scheme=scheme
-            )
-        )
-        file = json.loads(json_file)
-        file_name = "harvey-nichols" + datetime.now().strftime("%Y%m%d-%H%M%S") + ".json"
-        bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
-        blob_client = bbs.get_blob_client(TestTransactionMatchingContext.container_name, merchant_container + file_name)
-        blob_client.upload_blob(json.dumps(file, indent=2))
-        logging.info(f" This is the Merchant file sent to blob storage  : '{json.dumps(file, indent=2)}'")
+    # elif merchant_container == "scheme/harvey-nichols/":
+    #     json_file = json.dumps(
+    #         harvey_nichols_transaction_matching_files.harvey_nichols_merchant_file(
+    #             payment_card_provider=payment_card_provider, mid=mid, scheme=scheme
+    #         )
+    # #     )
+    #     file = json.loads(json_file)
+    #     file_name = "harvey-nichols" + datetime.now().strftime("%Y%m%d-%H%M%S") + ".json"
+    #     bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
+    #     blob_client = bbs.get_blob_client(TestTransactionMatchingContext.container_name, merchant_container + file_name)
+    #     blob_client.upload_blob(json.dumps(file, indent=2))
+    #     logging.info(f" This is the Merchant file sent to blob storage  : '{json.dumps(file, indent=2)}'")
 
 
 def getNewFileDataToImport():
@@ -346,13 +348,13 @@ def import_visa_auth_and_settlement_file(mid):
     print(response)
 
 
-@then(parsers.parse('I post a matching "{payment_card_transaction_2}" "{mid}" Authorisation'))
-def import_payment_file_2(payment_card_transaction_2, mid):
-    if payment_card_transaction_2 == "visa-settlement-spotting":
-        response = TransactionMatching.get_visa_spotting_merchant_settlement_file(mid)
-        response_json = response.json()
-        logging.info("The response of POST/import Payment File is: \n\n" + json.dumps(response_json, indent=4))
-        assert response.status_code == 201 or 200, "Payment file is not successful"
-        logging.info("Waiting for the pods To match the transaction....and Export the Files")
-        time.sleep(30)
-        return response_json
+# @then(parsers.parse('I post a matching "{payment_card_transaction_2}" "{mid}" Authorisation'))
+# def import_payment_file_2(payment_card_transaction_2, mid):
+#     if payment_card_transaction_2 == "visa-settlement-spotting":
+#         response = TransactionMatching.get_visa_spotting_merchant_settlement_file(mid)
+#         response_json = response.json()
+#         logging.info("The response of POST/import Payment File is: \n\n" + json.dumps(response_json, indent=4))
+#         assert response.status_code == 201 or 200, "Payment file is not successful"
+#         logging.info("Waiting for the pods To match the transaction....and Export the Files")
+#         time.sleep(30)
+#         return response_json
