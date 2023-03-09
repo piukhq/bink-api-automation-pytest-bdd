@@ -18,28 +18,29 @@ class SquareMealCard:
     @staticmethod
     def enrol_membership_scheme_payload(email, env=None, channel=None, invalid_data=None):
 
-        global result_str
         faker = Faker()
 
         if invalid_data:
-            value = TestDataUtils.TEST_DATA.square_meal_invalid_data.get("id")
-            logging.info("Invalid data is: " + value)
+            email = TestDataUtils.TEST_DATA.square_meal_invalid_data.get("id")
+            # password = TestDataUtils.TEST_DATA.square_meal_invalid_data.get("password")
+            password = "invalidauthorization"
             data_type = "Invalid data"
         else:
-            value = email
-            data_type = "Valid data"
-        sensitive_value = constants.PASSWORD_ENROL
 
-        if channel == "barclays":
-            pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
-        else:
-            pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
+            email = email
+            password = constants.PASSWORD_ENROL
+            data_type = "Valid data"
+
+        # if channel == "barclays":
+        #     pub_key = channel_vault.get_key(config.BARCLAYS.bundle_id, KeyType.PUBLIC_KEY)
+        # else:
+        #     pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
 
         payload = {
             "account": {
                 "enrol_fields": [
-                    {"column": "Email", "value": value},
-                    {"column": "Password", "value": RSACipher().encrypt(sensitive_value, pub_key)},
+                    {"column": "Email", "value": email},
+                    {"column": "Password", "value": password},
                     {"column": "First name", "value": faker.name()},
                     {"column": "Last name", "value": faker.name()},
                     {"column": "Consent 1", "value": "true"},

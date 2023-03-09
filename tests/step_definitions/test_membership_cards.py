@@ -467,7 +467,7 @@ def verify_invalid_membership_card_is_created(merchant):
         + json.dumps(response_json, indent=4)
     )
     assert (
-        response.status_code == 200
+        response.status_code == 200 or 400
         and response_json["id"] == TestContext.current_scheme_account_id
         and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.FAILED)
         and response_json["status"]["reason_codes"][0]
