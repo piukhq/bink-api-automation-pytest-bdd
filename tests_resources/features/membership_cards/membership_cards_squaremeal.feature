@@ -38,7 +38,7 @@ Feature: Merchant Square-meal - Ensure a customer can add their membership card 
     And I perform DELETE request to delete the customer
 
   @bink_regression @bmb_regression @sanity  @sanity_bmb
-  Scenario:  SquareMeal Add_Journey with an existing card present in a wallet
+  Scenario:  SquareMeal Add_Journey with invalid credentials
 
     Given I am a Bink user
     When I perform POST request to add "SquareMeal" membership card with "invalid_data"
