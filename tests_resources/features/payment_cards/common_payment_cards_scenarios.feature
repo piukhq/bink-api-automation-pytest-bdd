@@ -1,6 +1,6 @@
 # Updated by njames at 14/03/2023
 
- @payment_cards @sanity @sanity_bmb @chk
+ @payment_cards @sanity @sanity_bmb
 Feature: This feature file contains different features related to payment cards (Loyalty Squad features)
   As these are the common behaviours, they are implemented for various merchants to increase the code coverage
 
