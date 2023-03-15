@@ -1,15 +1,9 @@
 import tests.helpers.constants as constants
 from tests.helpers.test_data_utils import TestDataUtils
-from tests.payload.membership_cards.burgerking import BurgerKingCard
-from tests.payload.membership_cards.cooperative import CoopCard
-from tests.payload.membership_cards.fatface import FatFaceCard
-from tests.payload.membership_cards.harvey_nichols import HarveyNicholsCard
 from tests.payload.membership_cards.iceland import IcelandCard
 from tests.payload.membership_cards.square_meal import SquareMealCard
-from tests.payload.membership_cards.whsmith import WHSmithCard
 from tests.payload.membership_cards.wasabi import WasabiCard
 from tests.payload.membership_cards.trenette import TrenetteCard
-from tests.payload.membership_cards.asos import AsosCard
 from tests.payload.membership_cards.viator import ViatorCard
 
 
@@ -19,38 +13,33 @@ class Merchant:
         """Get merchant class object based on the merchnat name from BDD feature file
         Each merchant class contains payload for membership_cads end point"""
 
-        switcher = {
-            "BurgerKing": BurgerKingCard,
-            "CooP": CoopCard,
-            "FatFace": FatFaceCard,
-            "HarveyNichols": HarveyNicholsCard,
-            "Iceland": IcelandCard,
-            "WHSmith": WHSmithCard,
-            "Wasabi": WasabiCard,
-            "SquareMeal": SquareMealCard,
-            "Trenette": TrenetteCard,
-            "Asos": AsosCard,
-            "Viator": ViatorCard,
-        }
-        return switcher.get(merchant)
+        match merchant:
+            case "Iceland":
+                return IcelandCard
+            case "Wasabi":
+                return WasabiCard
+            case "SquareMeal":
+                return SquareMealCard
+            case "Trenette":
+                return TrenetteCard
+            case "Viator":
+                return ViatorCard
 
     @staticmethod
     def get_scheme_cred_main_ans(merchant):
         """Return main_scheme_account_answers for all merchants"""
-        switcher = {
-            "BurgerKing": TestDataUtils.TEST_DATA.burger_king_membership_card.get(constants.CARD_NUM),
-            "CooP": TestDataUtils.TEST_DATA.coop_membership_card.get(constants.CARD_NUM),
-            "FatFace": TestDataUtils.TEST_DATA.fat_face_membership_card.get(constants.CARD_NUM),
-            "HarveyNichols": TestDataUtils.TEST_DATA.harvey_nichols_membership_card.get(constants.ID),
-            "Iceland": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CARD_NUM),
-            "WHSmith": TestDataUtils.TEST_DATA.whsmith_membership_card.get(constants.CARD_NUM),
-            "Wasabi": TestDataUtils.TEST_DATA.wasabi_membership_card.get(constants.CARD_NUM),
-            "SquareMeal": TestDataUtils.TEST_DATA.square_meal_membership_card.get(constants.CARD_NUM),
-            "Trenette": TestDataUtils.TEST_DATA.trenette_membership_card.get(constants.CARD_NUM),
-            "Asos": TestDataUtils.TEST_DATA.asos_membership_card.get(constants.CARD_NUM),
-            "Viator": TestDataUtils.TEST_DATA.viator_membership_card.get(constants.CARD_NUM),
-        }
-        return switcher.get(merchant)
+
+        match merchant:
+            case "Iceland":
+                return TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CARD_NUM)
+            case "Wasabi":
+                return TestDataUtils.TEST_DATA.wasabi_membership_card.get(constants.CARD_NUM)
+            case "SquareMeal":
+                return TestDataUtils.TEST_DATA.square_meal_membership_card.get(constants.CARD_NUM)
+            case "Trenette":
+                return TestDataUtils.TEST_DATA.trenette_membership_card.get(constants.CARD_NUM)
+            case "Viator":
+                return TestDataUtils.TEST_DATA.viator_membership_card.get(constants.CARD_NUM)
 
 
 class TestData:
@@ -69,20 +58,18 @@ class TestData:
 
     @staticmethod
     def get_data(merchant):
-        switcher = {
-            "BurgerKing": TestDataUtils.TEST_DATA.burger_king_membership_card,
-            "CooP": TestDataUtils.TEST_DATA.coop_membership_card,
-            "FatFace": TestDataUtils.TEST_DATA.fat_face_membership_card,
-            "HarveyNichols": TestDataUtils.TEST_DATA.harvey_nichols_membership_card,
-            "Iceland": TestDataUtils.TEST_DATA.iceland_membership_card,
-            "WHSmith": TestDataUtils.TEST_DATA.whsmith_membership_card,
-            "Wasabi": TestDataUtils.TEST_DATA.wasabi_membership_card,
-            "SquareMeal": TestDataUtils.TEST_DATA.square_meal_membership_card,
-            "Trenette": TestDataUtils.TEST_DATA.trenette_membership_card,
-            "Asos": TestDataUtils.TEST_DATA.asos_membership_card,
-            "Viator": TestDataUtils.TEST_DATA.viator_membership_card,
-        }
-        return switcher.get(merchant)
+
+        match merchant:
+            case "Iceland":
+                return TestDataUtils.TEST_DATA.iceland_membership_card
+            case "Wasabi":
+                return TestDataUtils.TEST_DATA.wasabi_membership_card
+            case "SquareMeal":
+                return TestDataUtils.TEST_DATA.square_meal_membership_card
+            case "Trenette":
+                return TestDataUtils.TEST_DATA.trenette_membership_card
+            case "Viator":
+                return TestDataUtils.TEST_DATA.viator_membership_card
 
     """Below functions read test data as "data" from the test_data sheet
     ( instead of data_object in other functions)"""
@@ -109,15 +96,13 @@ class TestData:
         """return the base path of stored membership plan json
         for any merchant based on environment"""
 
-        switcher = {
-            "dev": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_DEV,
-            "staging": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_STAGING,
-            "prod": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD,
-            "sit": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_SIT,
-            "oat": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_OAT,
-            "preprod": constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PREPROD,
-        }
-        return switcher.get(env)
+        match env:
+            case "dev":
+                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_DEV
+            case "staging":
+                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_STAGING
+            case "prod":
+                return constants.EXPECTED_MEMBERSHIP_PLANS_PATH_PROD
 
     @staticmethod
     def get_expected_membership_card_json(merchant, env):
@@ -130,36 +115,22 @@ class TestData:
     def get_membership_card_path(env):
         """return the base path of stored membership plan json
         for any merchant based on environment"""
-
-        switcher = {
-            "dev": constants.MEMBERSHIP_CARD_DEV,
-            "staging": constants.MEMBERSHIP_CARD_STAGING,
-            "prod": constants.MEMBERSHIP_CARD_PROD,
-            "sit": constants.MEMBERSHIP_CARD_SIT,
-            "oat": constants.MEMBERSHIP_CARD_OAT,
-            "preprod": constants.MEMBERSHIP_CARD_PREPROD,
-        }
-        return switcher.get(env)
+        match env:
+            case "dev": return constants.MEMBERSHIP_CARD_DEV
+            case "staging": return constants.MEMBERSHIP_CARD_STAGING
+            case "prod": return constants.MEMBERSHIP_CARD_PROD
 
     @staticmethod
     def get_merchant_key(merchant):
         """Generate the merchant key based on the
         merchant value from bdd feature file"""
 
-        switcher = {
-            "BurgerKing": "burger_king",
-            "CooP": "coop",
-            "FatFace": "fat_face",
-            "HarveyNichols": "harvey_nichols",
-            "Iceland": "iceland",
-            "WHSmith": "whsmith",
-            "Wasabi": "wasabi",
-            "SquareMeal": "square_meal",
-            "Trenette": "trenette",
-            "Asos": "asos",
-            "Viator": "viator",
-        }
-        return switcher.get(merchant)
+        match merchant:
+            case "Iceland": return "iceland"
+            case "Wasabi": return "wasabi"
+            case "SquareMeal": return "square_meal"
+            case "Trenette": return "trenette"
+            case "Viator": return "viator"
 
     @staticmethod
     def get_vop_status():
@@ -171,9 +142,18 @@ class PaymentCardTestData:
 
     @staticmethod
     def get_data(payment_card_provider="master"):
-        switcher = {
-            "amex": TestDataUtils.TEST_DATA.amex_payment_card,
-            "visa": TestDataUtils.TEST_DATA.visa_payment_card,
-            "master": TestDataUtils.TEST_DATA.master_payment_card,
-        }
-        return switcher.get(payment_card_provider)
+
+        match payment_card_provider:
+            case "amex":
+                return TestDataUtils.TEST_DATA.amex_payment_card
+            case "visa":
+                return TestDataUtils.TEST_DATA.visa_payment_card
+            case "master":
+                return TestDataUtils.TEST_DATA.master_payment_card
+
+        # switcher = {
+        #     "amex": TestDataUtils.TEST_DATA.amex_payment_card,
+        #     "visa": TestDataUtils.TEST_DATA.visa_payment_card,
+        #     "master": TestDataUtils.TEST_DATA.master_payment_card,
+        # }
+        # return switcher.get(payment_card_provider)

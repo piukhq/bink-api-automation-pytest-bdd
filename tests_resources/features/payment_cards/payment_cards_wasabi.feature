@@ -21,7 +21,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their payment card & link i
     |          master      |
     |          visa        |
 
-  @patch_mcard_pcard @bink_regression @bmb_regression
+  @patch_mcard_pcard @bink_regression
   Scenario: PLL Link by PATCH_(mcard_pcard)_Wasabi
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -37,7 +37,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their payment card & link i
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
 
-  @patch_pcard_mcard @bink_regression @bmb_regression
+  @patch_pcard_mcard @bink_regression
   Scenario: PLL Link by PATCH_(pcard_mcard)_Wasabi
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
