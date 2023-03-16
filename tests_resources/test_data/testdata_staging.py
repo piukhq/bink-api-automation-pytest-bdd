@@ -56,95 +56,6 @@ master_payment_card = {
 
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #
 
-burger_king_membership_card = {"card_num": "BK00000031049422", "points": 1, "currency": "stamps"}
-
-burger_king_invalid_data = {
-    "card_num": "BK00000035941500",
-    "email": "fail@unknown.com",
-}
-
-coop_membership_card = {
-    "card_num": "633174912301122335",
-    "dob": "01/01/2000",
-    "postcode": "qa1 1qa",
-    "points": "0.00p",
-    "transactions": "0",
-}
-
-coop_ghost_card = {
-    "card_num": "",
-    "dob": "",
-    "postcode": "",
-}
-
-coop_invalid_data = {
-    "postcode": "fail",
-    "email": "fail@unknown.com",
-}
-
-coop_ghost_card = {
-    "card_num": "6332040030522672674",
-    "last_name": "Binktest",
-    "dob": "01/01/2000",
-    "postcode": "SL5 9FE",
-    "points": "",
-    "transactions": "",
-}
-
-fat_face_membership_card = {
-    "card_num": "FF00000058556150",
-    "points": 55.5,
-    "currency": "GBP",
-    "burn_type": "voucher",
-    "burn_prefix": "15% off",
-    "earn_type": "accumulator",
-    "earn_prefix": "\u00a3",
-    "issued_state": "issued",
-    "inprogress_state": "inprogress",
-    "expired_state": "expired",
-    "redeemed_state": "redeemed",
-    "target_value": 100.0,
-    "subtext": "for spending",
-    "headline": "Spend \u00a3100 to get 15 percent off to spend online",
-    "expired_headline": "Expired",
-    "redeemed_headline": "Redeemed",
-    "barcode_type": 4,
-    "code": "5AC623TDLH",
-    "issued_headline": "Earned",
-}
-
-fat_face_invalid_data = {
-    "card_num": "FF00000059702810",
-}
-
-harvey_nichols_membership_card = {
-    "id": "andyjameshill@gmail.com",
-    "password": "BinkTest",
-    "card_num": "1000000962497",
-    "barcode": "1000000962497",
-    "points": 64,
-    "currency": "Points",
-    "description": "Placeholder Balance Description",
-    "transactions": "5",
-    "transaction_status": "active",
-    "transaction_currency": "Points",
-}
-
-harvey_nichols_membership_card_2 = {
-    "id": "ryanedwards3@mac.com",
-    "password": "BinkTesting",
-    "card_num": "1000000729692",
-    "barcode": "1000000729692",
-    "points": 1896,
-    "currency": "Points",
-    "description": "Placeholder Balance Description",
-    "transactions": "0 ",
-    "transaction_status": "",
-    "transaction_currency": "",
-}
-
-harvey_nichols_invalid_data = {"id": "fail@unknown.com"}
-
 square_meal_invalid_data = {"id": "sm_auto01@testbink.com", "password": "incorrectpassword"}
 
 square_meal_membership_card2 = {
@@ -172,13 +83,6 @@ square_meal_membership_card = {
     "transaction_currency": "Points",
     "identical_enrol_email": "identicaljoin@bink.com",
 }
-# iceland_membership_card = {
-#     "card_num": "6332040030473324721",
-#     "last_name": "Bransden",
-#     "postcode": "BN16 4HE",
-#     "points": 380.01
-# }
-
 
 iceland_membership_card = {
     "card_num": "6332040066666666666",
@@ -212,20 +116,6 @@ iceland_ghost_membership_card = {
     "transaction_status": "active",
     "transaction_currency": "GBP",
 }
-
-# iceland_membership_card = {
-#     "card_num": "6332040030555532506",
-#     "barcode": "633204003055553250600085",
-#     "last_name": "Armstrong",
-#     "postcode": "SW18 4HH",
-#     "points": 5,
-#     "currency": "GBP",
-#     "description": "Placeholder Balance Description",
-#     "transactions": "5",
-#     "transaction_status": "active",
-#     "transaction_currency": "GBP",
-# }
-
 
 iceland_invalid_data = {
     # "email": "fail@unknown.com",
@@ -262,36 +152,6 @@ trenette_membership_card = {
 
 trenette_invalid_data = {
     "card_num": "TRNT2254698170",
-    "email": "fail@unknown.com",
-}
-
-asos_membership_card = {
-    "card_num": "ASOS3279362771",
-    "email": "pytest+220722@bink.com",
-    "points": 30.07,
-    "prefix": "£",
-    "currency": "GBP",
-    "transaction_currency": "GBP",
-    "burn_type": "voucher",
-    "burn_prefix": "£",
-    "burn_value": "10",
-    "burn_suffix": "Gift",
-    "earn_type": "accumulator",
-    "target_value": 100.0,
-    "issued_state": "issued",
-    "inprogress_state": "inprogress",
-    "expired_state": "expired",
-    "redeemed_state": "redeemed",
-    "headline": "Spend £100 to get a £10 gift voucher",
-    "expired_headline": "Expired",
-    "redeemed_headline": "Redeemed",
-    "barcode_type": 0,
-    "issued_headline": "Earned",
-    "transaction_status": "active",
-}
-
-asos_invalid_data = {
-    "card_num": "ASOS3279362771",
     "email": "fail@unknown.com",
 }
 
@@ -340,19 +200,6 @@ wasabi_invalid_data = {
     "card_num": "",
     "email": "fail@unknown.com",
 }
-
-whsmith_membership_card = {
-    "card_num": "WHS00000009523459",
-    "points": 0,
-    "currency": "stamps",
-    "description": "Customer earns one stamp for every valid transaction.",
-}
-
-whsmith_invalid_data = {
-    "card_num": "WHS12000009523459",
-    "email": "fail@unknown.com",
-}
-
 # ----------------------------------------MEMBERSHIP PLAN IDs   ----------------------------------------------- #
 
 membership_plan_id = {
@@ -368,7 +215,6 @@ membership_plan_id = {
     "asos": 288,
     "viator": 292,
 }
-
 
 # ----------------------------------------PAYMENT CARD STATES  --------------------------------------------------- #
 
@@ -408,21 +254,4 @@ bink_user_accounts = {
 barclays_user_accounts = {
     "uid": "pytest_automation_barclays@bink.com",
     "pwd": "Password01",
-}
-# ------------------------------------------ DB DETAILS ---------------------------------------------------- #
-
-db_details = {
-    "user": "common@bink-uksouth-staging-common",
-    "password": "",
-    "host": "127.0.0.1",
-    "port": "5432",
-    "database": "hermes",
-}
-
-harmonia_db_details = {
-    "user": "common@bink-uksouth-staging-common",
-    "password": "",
-    "host": "127.0.0.1",
-    "port": "5432",
-    "database": "harmonia",
 }

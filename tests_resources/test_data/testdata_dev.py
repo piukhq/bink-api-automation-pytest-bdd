@@ -56,72 +56,6 @@ master_payment_card = {
 
 # ------------------------------------ MEMBERSHIP  CARDS ------------------------------------------------------- #
 
-burger_king_membership_card = {
-    "card_num": "BK00000031049422",
-    "points": 1,
-    "currency": "stamps",
-}
-burger_king_invalid_data = {
-    "card_num": "BK00000035941500",
-    "email": "fail@unknown.com",
-}
-
-coop_membership_card = {
-    "card_num": "633174912301122330",
-    "dob": "01/01/2000",
-    "postcode": "qa1 1qa",
-    "points": "",
-    "currency": "",
-    "description": "",
-    "transactions": "",
-    "transaction_status": "",
-    "transaction_currency": "",
-}
-
-coop_ghost_card = {
-    "card_num": "633174921231230004",
-    "dob": "01/02/1994",
-    "postcode": "cr6 0bg",
-}
-
-coop_invalid_data = {
-    "postcode": "fail",
-    "email": "fail@unknown.com",
-}
-
-fat_face_membership_card = {"card_num": "FF00000059702811", "points": 0, "currency": "GBP"}
-
-fat_face_invalid_data = {
-    "card_num": "FF00000059702810",
-}
-
-harvey_nichols_membership_card = {
-    "id": "auto_five@testbink.com",
-    "password": "Password01",
-    "card_num": "9123001122335",
-    "barcode": "9123001122335",
-    "points": 380,
-    "currency": "Points",
-    "description": "Placeholder Balance Description",
-    "transactions": "5",
-    "transaction_status": "active",
-    "transaction_currency": "Points",
-}
-
-harvey_nichols_membership_card_2 = {
-    "id": "auto_zero@testbink.com",
-    "password": "Password01",
-    "card_num": "9123001122330",
-    "barcode": "9123001122330",
-    "points": 0,
-    "currency": "Points",
-    "description": "Placeholder Balance Description",
-    "transactions": "0 ",
-    "transaction_status": "",
-    "transaction_currency": "",
-}
-harvey_nichols_invalid_data = {"id": "fail@unknown.com"}
-
 iceland_membership_card = {
     "card_num": "6332040023001122330",
     "barcode": "6332040023001122330",
@@ -167,18 +101,6 @@ wasabi_invalid_data = {
     "email": "fail@unknown.com",
 }
 
-whsmith_membership_card = {
-    "card_num": "WHS00000009523459",
-    "points": 0,
-    "currency": "stamps",
-    "description": "Customer earns one stamp for every valid transaction.",
-}
-
-whsmith_invalid_data = {
-    "card_num": "WHS12000009523459",
-    "email": "fail@unknown.com",
-}
-
 # ----------------------------------------MEMBERSHIP PLAN IDs   ----------------------------------------------- #
 
 membership_plan_id = {
@@ -218,14 +140,4 @@ bink_user_accounts = {
 barclays_user_accounts = {
     "uid": "pytestuser_dev_barclays@testbink.com",
     "pwd": "Password01",
-}
-
-# ------------------------------------------ DB DETAILS ---------------------------------------------------- #
-
-db_details = {
-    "user": "common@bink-uksouth-dev-common",
-    "password": "",
-    "host": "127.0.0.1",
-    "port": "5432",
-    "database": "hermes",
 }
