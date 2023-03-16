@@ -11,6 +11,7 @@ import tests.api as api
 
 from requests.exceptions import HTTPError
 
+from tests.helpers.database.query_hermes import QueryHermes
 from tests.requests.payment_cards import PaymentCards
 from tests.api.base import Endpoint
 from json import JSONDecodeError
@@ -18,7 +19,6 @@ import tests.helpers.constants as constants
 from tests.helpers.test_context import TestContext
 from tests.helpers.test_helpers import PaymentCardTestData, TestData
 import tests.step_definitions.test_membership_cards as test_membership_cards
-from tests.step_definitions import test_visa_vop
 
 scenarios("payment_cards/")
 
@@ -47,35 +47,36 @@ def add_new_payment_card(payment_card_provider="master"):
     response = PaymentCards.add_new_payment_card(TestContext.token, payment_card_provider)
     response_json = response_to_json(response)
     assert (
-        response.status_code == 201
-        and response_json["membership_cards"] == []
-        and response_json["status"] == TestData.get_membership_card_status_states().get(constants.PENDING)
-        and response_json["card"]["first_six_digits"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS)
-        and response_json["card"]["last_four_digits"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS)
-        and response_json["card"]["month"] == PaymentCardTestData.get_data(payment_card_provider).get(constants.MONTH)
-        and response_json["card"]["year"] == PaymentCardTestData.get_data(payment_card_provider).get(constants.YEAR)
-        and response_json["card"]["country"] == "UK"
-        and response_json["card"]["currency_code"] == "GBP"
-        and response_json["card"]["name_on_card"] == TestContext.name_on_payment_card
-        and response_json["card"]["provider"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_PROVIDER)
-        and response_json["card"]["type"] == "debit"
-        and response_json["images"][0]["url"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_URL)
-        and response_json["images"][0]["type"] == 0
-        and response_json["images"][0]["encoding"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_ENCODING)
-        and response_json["images"][0]["description"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_DISCRIPTION)
-        and response_json["account"]["verification_in_progress"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_VERIFICATION)
-        and response_json["account"]["status"] == 1
-        and response_json["account"]["consents"][0]["latitude"] == 51.405372
-        and response_json["account"]["consents"][0]["longitude"] == -0.678357
-        and response_json["account"]["consents"][0]["timestamp"] == TestContext.payment_account_timestamp
-        and response_json["account"]["consents"][0]["type"] == 1
+            response.status_code == 201
+            and response_json["membership_cards"] == []
+            and response_json["status"] == TestData.get_membership_card_status_states().get(constants.PENDING)
+            and response_json["card"]["first_six_digits"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS)
+            and response_json["card"]["last_four_digits"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS)
+            and PaymentCardTestData.get_data(payment_card_provider).get(
+                constants.MONTH) == response_json["card"]["month"]
+            and response_json["card"]["year"] == PaymentCardTestData.get_data(payment_card_provider).get(constants.YEAR)
+            and response_json["card"]["country"] == "UK"
+            and response_json["card"]["currency_code"] == "GBP"
+            and response_json["card"]["name_on_card"] == TestContext.name_on_payment_card
+            and response_json["card"]["provider"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_PROVIDER)
+            and response_json["card"]["type"] == "debit"
+            and response_json["images"][0]["url"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_URL)
+            and response_json["images"][0]["type"] == 0
+            and response_json["images"][0]["encoding"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_ENCODING)
+            and response_json["images"][0]["description"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_DISCRIPTION)
+            and response_json["account"]["verification_in_progress"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_VERIFICATION)
+            and response_json["account"]["status"] == 1
+            and response_json["account"]["consents"][0]["latitude"] == 51.405372
+            and response_json["account"]["consents"][0]["longitude"] == -0.678357
+            and response_json["account"]["consents"][0]["timestamp"] == TestContext.payment_account_timestamp
+            and response_json["account"]["consents"][0]["type"] == 1
     ), f"Adding New Payment card for '{payment_card_provider}' is not successful"
     logging.info(
         f"The response of new POST/PaymentCard '{payment_card_provider}' is: \n\n"
@@ -100,9 +101,9 @@ def verify_payment_card_added():
         + json.dumps(response_json, indent=4)
     )
     assert (
-        response.status_code == 200
-        and response_json["id"] == TestContext.current_payment_card_id
-        and response_json["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
+            response.status_code == 200
+            and response_json["id"] == TestContext.current_payment_card_id
+            and response_json["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
     ), "Payment card addition is not successful"
     return response
 
@@ -129,10 +130,9 @@ def verify_multi_payment_card_added():
         + json.dumps(response_json, indent=4)
     )
     assert (
-        response.status_code == 200
-        and response_json[0]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
-        and response_json[1]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
-        # and response_json[2]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
+            response.status_code == 200
+            and response_json[0]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
+            and response_json[1]["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
     ), "Payment card addition is not successful"
     return response
 
@@ -161,10 +161,10 @@ def patch_mcard_pcard():
         + json.dumps(response_json, indent=4)
     )
     assert (
-        response.status_code == 201
-        and response_json["id"] == TestContext.current_payment_card_id
-        and response_json["membership_cards"][0]["active_link"]
-        and response_json["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
+            response.status_code == 201
+            and response_json["id"] == TestContext.current_payment_card_id
+            and response_json["membership_cards"][0]["active_link"]
+            and response_json["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
     ), "Validations in PATCH/membership_card/payment_card failed"
 
 
@@ -185,10 +185,10 @@ def patch_pcard_mcard():
         + json.dumps(response_json, indent=4)
     )
     assert (
-        response.status_code == 201
-        and response_json["id"] == TestContext.current_scheme_account_id
-        and response_json["payment_cards"][0]["active_link"]
-        and response_json["payment_cards"][0]["id"] == TestContext.current_payment_card_id
+            response.status_code == 201
+            and response_json["id"] == TestContext.current_scheme_account_id
+            and response_json["payment_cards"][0]["active_link"]
+            and response_json["payment_cards"][0]["id"] == TestContext.current_payment_card_id
     ), "Validations in PATCH/membership_card/payment_card failed"
 
 
@@ -219,8 +219,8 @@ def verify_mcard_pacrd_link():
     response = verify_payment_card_added()
     response_json = response_to_json(response)
     assert (
-        response_json["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
-        and response_json["membership_cards"][0]["active_link"]
+            response_json["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
+            and response_json["membership_cards"][0]["active_link"]
     ), "Membership card  link to the payment cards is not a success"
     logging.info(
         f"membership card '{TestContext.current_scheme_account_id}'"
@@ -233,10 +233,10 @@ def verify_multi_payment_card_add_link():
     response = verify_multi_payment_card_added()
     response_json = response_to_json(response)
     assert (
-        response_json[0]["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
-        and response_json[0]["membership_cards"][0]["active_link"]
-        and response_json[1]["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
-        and response_json[1]["membership_cards"][0]["active_link"]
+            response_json[0]["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
+            and response_json[0]["membership_cards"][0]["active_link"]
+            and response_json[1]["membership_cards"][0]["id"] == TestContext.current_scheme_account_id
+            and response_json[1]["membership_cards"][0]["active_link"]
     ), "Membership card link to all the payment cards is not a success"
 
 
@@ -255,9 +255,9 @@ def verify_membership_cards_unlink():
     response = verify_multi_payment_card_added()
     response_json = response_to_json(response)
     assert (
-        response_json[0]["membership_cards"] == []
-        and response_json[1]["membership_cards"] == []
-        # and response_json[2]["membership_cards"] == []
+            response_json[0]["membership_cards"] == []
+            and response_json[1]["membership_cards"] == []
+            # and response_json[2]["membership_cards"] == []
     ), "membership is not successfully unlink even after deletion"
     logging.info(
         f"Membership card '{TestContext.current_scheme_account_id}' is successfully unlinked from"
@@ -356,7 +356,18 @@ def verify_mcard_link(merchant):
 
 @then(parsers.parse('I verify status of paymentcard is "{activated}" for "{merchant}"'))
 def verify_vop_status(activated, merchant):
-    test_visa_vop.verify_vop_activation_details(activated, merchant)
+    time.sleep(3)
+    payment_account = QueryHermes.get_vop_status(TestContext.current_payment_card_id)
+    assert payment_account.status == TestData.get_vop_status().get(
+        activated
+    ), f"Payment Account is not '{activated}' and the status is '{payment_account.status}'"
+    logging.info(f"The payment card is '{activated}' with status '{payment_account.status}'")
+
+    assert (
+            payment_account.payment_card_account_id == TestContext.current_payment_card_id
+            and payment_account.status == TestData.get_vop_status().get(activated)
+            and payment_account.scheme_id == TestData.get_membership_plan_id(merchant)
+    ), f"Details of payment card '{payment_account.payment_card_account_id}'in DB is not as expected"
 
 
 @when(
@@ -396,35 +407,36 @@ def get_new_payment_provider(payment_card_provider="master"):
         + json.dumps(response_json, indent=4)
     )
     assert (
-        response.status_code == 200
-        and response_json["id"] == TestContext.current_payment_card_id
-        and response_json["membership_cards"] == []
-        and response_json["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
-        and response_json["card"]["first_six_digits"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS)
-        and response_json["card"]["last_four_digits"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS)
-        and response_json["card"]["month"] == PaymentCardTestData.get_data(payment_card_provider).get(constants.MONTH)
-        and response_json["card"]["year"] == PaymentCardTestData.get_data(payment_card_provider).get(constants.YEAR)
-        and response_json["card"]["country"] == "UK"
-        and response_json["card"]["currency_code"] == "GBP"
-        and response_json["card"]["name_on_card"] == TestContext.name_on_payment_card
-        and response_json["card"]["provider"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_PROVIDER)
-        and response_json["card"]["type"] == "debit"
-        and response_json["images"][0]["url"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_URL)
-        and response_json["images"][0]["type"] == 0
-        and response_json["images"][0]["encoding"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_ENCODING)
-        and response_json["images"][0]["description"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_DISCRIPTION)
-        and response_json["account"]["verification_in_progress"]
-        == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_VERIFICATION)
-        and response_json["account"]["status"] == 1
-        and response_json["account"]["consents"][0]["latitude"] == 51.405372
-        and response_json["account"]["consents"][0]["longitude"] == -0.678357
-        and response_json["account"]["consents"][0]["timestamp"] == TestContext.payment_account_timestamp
-        and response_json["account"]["consents"][0]["type"] == 1
+            response.status_code == 200
+            and response_json["id"] == TestContext.current_payment_card_id
+            and response_json["membership_cards"] == []
+            and response_json["status"] == PaymentCardTestData.get_data().get(constants.PAYMENT_CARD_STATUS)
+            and response_json["card"]["first_six_digits"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.FIRST_SIX_DIGITS)
+            and response_json["card"]["last_four_digits"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.LAST_FOUR_DIGITS)
+            and response_json["card"]["month"] == PaymentCardTestData.get_data(payment_card_provider).get(
+                constants.MONTH)
+            and response_json["card"]["year"] == PaymentCardTestData.get_data(payment_card_provider).get(constants.YEAR)
+            and response_json["card"]["country"] == "UK"
+            and response_json["card"]["currency_code"] == "GBP"
+            and response_json["card"]["name_on_card"] == TestContext.name_on_payment_card
+            and response_json["card"]["provider"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_PROVIDER)
+            and response_json["card"]["type"] == "debit"
+            and response_json["images"][0]["url"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_URL)
+            and response_json["images"][0]["type"] == 0
+            and response_json["images"][0]["encoding"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_ENCODING)
+            and response_json["images"][0]["description"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_DISCRIPTION)
+            and response_json["account"]["verification_in_progress"]
+            == PaymentCardTestData.get_data(payment_card_provider).get(constants.PAYMENT_VERIFICATION)
+            and response_json["account"]["status"] == 1
+            and response_json["account"]["consents"][0]["latitude"] == 51.405372
+            and response_json["account"]["consents"][0]["longitude"] == -0.678357
+            and response_json["account"]["consents"][0]["timestamp"] == TestContext.payment_account_timestamp
+            and response_json["account"]["consents"][0]["type"] == 1
     ), "Get Payment card addition is not successful"
     return response
