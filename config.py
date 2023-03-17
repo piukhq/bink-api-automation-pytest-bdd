@@ -2,9 +2,6 @@ from os import environ
 from tests_resources.test_data import testdata_dev
 from tests_resources.test_data import testdata_staging
 from tests_resources.test_data import testdata_prod
-from tests_resources.test_data import testdata_sit
-from tests_resources.test_data import testdata_oat
-from tests_resources.test_data import testdata_preprod
 
 
 class EnvironmentDetails:
@@ -58,24 +55,6 @@ else:
         test_data=testdata_prod,
         transaction_matching_base_url="https://api.gb.bink.com",
         transaction_matching_base_url_zephyrus="https://api.gb.bink.com",
-    )
-    SIT = EnvironmentDetails(
-        base_url="https://api.sandbox.gb.bink.com",
-        test_data=testdata_sit,
-        transaction_matching_base_url="https://api.sandbox.gb.bink.com",
-        transaction_matching_base_url_zephyrus="https://api.sandbox.gb.bink.com",
-    )
-    OAT = EnvironmentDetails(
-        base_url="https://oat.sandbox.gb.bink.com",
-        test_data=testdata_oat,
-        transaction_matching_base_url="https://oat.sandbox.gb.bink.com",
-        transaction_matching_base_url_zephyrus="https://oat.sandbox.gb.bink.com",
-    )
-    PREPROD = EnvironmentDetails(
-        base_url="https://api.preprod.gb.bink.com",
-        test_data=testdata_preprod,
-        transaction_matching_base_url="https://api.preprod.gb.bink.com",
-        transaction_matching_base_url_zephyrus="https://api.preprod.gb.bink.com",
     )
 
 
