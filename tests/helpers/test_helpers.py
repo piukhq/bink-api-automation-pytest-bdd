@@ -150,10 +150,3 @@ class PaymentCardTestData:
                 return TestDataUtils.TEST_DATA.visa_payment_card
             case "master":
                 return TestDataUtils.TEST_DATA.master_payment_card
-
-        # switcher = {
-        #     "amex": TestDataUtils.TEST_DATA.amex_payment_card,
-        #     "visa": TestDataUtils.TEST_DATA.visa_payment_card,
-        #     "master": TestDataUtils.TEST_DATA.master_payment_card,
-        # }
-        # return switcher.get(payment_card_provider)

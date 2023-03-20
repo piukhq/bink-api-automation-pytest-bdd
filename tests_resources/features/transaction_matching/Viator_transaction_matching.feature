@@ -4,7 +4,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @transactionMatchingViator @bink_regression @sanity @test1
+  @transactionMatchingViator @bink_regression @sanity @mer
     Scenario Outline: Verify transaction spotting for Viator
 
     Given I am a Bink user

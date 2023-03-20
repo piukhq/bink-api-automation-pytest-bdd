@@ -37,18 +37,3 @@ class TestTransactionMatchingContext:
         "TransactionId",
         "TransactionAuthCode",
     ]
-    wasabi_file_header = [
-        "TransactionCardFirst6",
-        "TransactionCardLast4",
-        "TransactionCardExpiry",
-        "TransactionCardSchemeId",
-        "TransactionCardScheme",
-        "TransactionStore_Id",
-        "TransactionTimestamp",
-        "TransactionAmountValue",
-        "TransactionAmountUnit",
-        "TransactionCashbackValue",
-        "TransactionCashbackUnit",
-        "TransactionId",
-        "TransactionAuthCode",
-    ]
