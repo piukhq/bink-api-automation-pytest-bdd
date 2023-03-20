@@ -5,7 +5,7 @@ Feature: Merchant Square-meal - Ensure a customer can add their membership card 
   I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider Square-meal & check its details successfully
 
-  @enrol @bink_regression @bmb_regression @sanity_bmb @sanity @test
+  @enrol @bink_regression @bmb_regression @sanity_bmb @sanity
   Scenario: Join Journey_SquareMeal
 
     Given I register with bink service as a new customer
