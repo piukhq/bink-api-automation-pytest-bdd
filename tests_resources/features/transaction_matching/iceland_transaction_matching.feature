@@ -45,3 +45,5 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
       | visa                  | scheme/iceland/    | 80209723   | Visa                      | visa-settlement-matching   | VISA       |
       | master                | scheme/iceland/    | 72776952   | MasterCard/MasterCard One | master-settlement-matching | MASTERCARD |
       | master                | scheme/iceland/    | 72776952   | MasterCard/MasterCard One | master-auth-matching       | MASTERCARD |
+
+

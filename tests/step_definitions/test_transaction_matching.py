@@ -20,7 +20,7 @@ from settings import BLOB_STORAGE_DSN
 from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
 from tests.payload.payment_cards import transaction_matching_payment_file
 from tests.requests.transaction_matching_payment_cards import TransactionMatching
-from tests.requests.transaction_matching_payment_requests import import_payment_file_NEW
+from tests.requests.transaction_matching_payment_requests import import_payment_file_into_harmonia
 from tests.step_definitions import test_membership_cards
 from tests.requests.transaction_matching_merchant_requests import upload_file_into_blob
 
@@ -29,7 +29,7 @@ scenarios("transaction_matching/")
 
 @when(parsers.parse('I send matching "{payment_card_transaction}" "{mid}" Authorisation_NEW'))
 def import_payment_file(payment_card_transaction, mid):
-    response = import_payment_file_NEW(payment_card_transaction, mid)
+    response = import_payment_file_into_harmonia(payment_card_transaction, mid)
     response_json = response.json()
     logging.info("The response of POST/import Payment File is: \n\n" + json.dumps(response_json, indent=4))
     assert response.status_code == 201 or 200, "Payment file import is not successful"
