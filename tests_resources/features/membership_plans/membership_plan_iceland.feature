@@ -7,7 +7,7 @@ Feature: Merchant Iceland - Ensure a customer can view Scheme plan details
   Verify a customer can use Banking API to view available Iceland membership plans v1.2
 
 
-  @membership_plan @bink_regression @bmb_regression
+  @membership_plan  
    Scenario: Membership plan Iceland
     Given I am a Bink user
     Then I can ensure the "Iceland" plan details match with expected data

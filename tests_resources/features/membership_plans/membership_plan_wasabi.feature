@@ -6,7 +6,7 @@ Feature: Merchant Wasabi - Ensure a customer can view Scheme plan details
 
   Verify a customer can use Banking API to view available Wasabi membership plans v1.2
 
-  @membership_plan @bink_regression @bmb_regression
+  @membership_plan 
   Scenario: Membership plan Wasabi
     Given I am a Bink user
     Then I can ensure the "Wasabi" plan details match with expected data

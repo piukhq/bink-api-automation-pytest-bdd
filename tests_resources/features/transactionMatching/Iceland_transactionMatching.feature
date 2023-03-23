@@ -4,7 +4,7 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @transactionMatchingIceland @bink_regression @sanity
+  @transactionMatchingIceland  @sanity
   Scenario Outline: Verify transaction matching for iceland with payment provider
 
     Given I am a Bink user
@@ -25,7 +25,7 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
     |          master      |scheme/iceland/   |22776952  |MasterCard/MasterCard One |master-settlement       |MASTERCARD|
     |          master      |scheme/iceland/   |22776952  |MasterCard/MasterCard One |master-auth             |MASTERCARD|
 
-  @transactionMatchingIceland @bink_regression @sanity
+  @transactionMatchingIceland  @sanity
   Scenario Outline: Verify transaction matching for iceland with payment provider but invalid mid
 
     Given I am a Bink user

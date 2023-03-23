@@ -7,7 +7,7 @@ Feature: View all retailer plans details
   Verify a customer can use Banking API to view available membership plans v1.2
 
 
-  @all_membership_plans @bink_regression @bmb_regression @mem
+  @all_membership_plans 
    Scenario: All retailers membership plans
     Given I am a Bink user
     Then I perform GET request to view all available membership plans

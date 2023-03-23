@@ -7,7 +7,7 @@ Feature: Merchant Trenette - Ensure a customer can view Scheme plan details
   Verify a customer can use Banking API to view available Trenette membership plans v1.2
 
 
-  @membership_plan @bink_regression @bmb_regression
+  @membership_plan 
    Scenario: Membership plan Trenette
     Given I am a Bink user
     Then I can ensure the "Trenette" plan details match with expected data
