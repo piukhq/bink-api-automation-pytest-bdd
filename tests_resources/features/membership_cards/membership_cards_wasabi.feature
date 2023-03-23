@@ -4,7 +4,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
   I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider Wasabi & check its details successfully
 
-  @add @bink_regression @bmb_regression
+  @add  
   Scenario: Add Journey_Wasabi
 
     Given I am a Bink user
@@ -13,7 +13,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     And I perform DELETE request to delete the "Wasabi" membership card
 
-  @balances_transactions @bink_regression @bmb_regression
+  @balances_transactions  
   Scenario: Balances and Transactions_Wasabi
 
     Given I am a Bink user
@@ -25,7 +25,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     And I perform DELETE request to delete the "Wasabi" membership card
 
-  @vouchers @bink_regression @bmb_regression
+  @vouchers  
   Scenario: Add Journey_Wasabi and verify vouchers
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -34,7 +34,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     Then I perform DELETE request to delete the "Wasabi" membership card
 
-  @add_patch @bink_regression @bmb_regression
+  @add_patch  
   Scenario:  PATCH membership card details_Wasabi
 
     Given I am a Bink user
@@ -45,7 +45,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Wasabi"
     And I perform DELETE request to delete the "Wasabi" membership card
 
-  @add_and_link @bink_regression @bmb_regression
+  @add_and_link  
   Scenario: ADD & LINK Journey_Wasabi
     Given I am a Bink user
     And I perform POST request to add payment card to wallet
@@ -58,7 +58,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     And I perform DELETE request to delete the payment card
 
 
-  @enrol @bink_regression @bmb_regression
+  @enrol  
   Scenario: Join Journey_Wasabi
 
     Given I register with bink service as a new customer
@@ -69,7 +69,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     And I perform DELETE request to delete the customer
 
 
-  @enrol_put @bink_regression @bmb_regression
+  @enrol_put  
   Scenario: Join Journey_PUT_Wasabi
     
     Given I register with bink service as a new customer
@@ -93,7 +93,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Enrol" journey for "Wasabi"
     And I perform DELETE request to delete the customer
 
-  @negative_scenario @loy1975_1 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_1  
   Scenario Outline: Negative test scenario for POST/membership_cards without account field_Wasabi
     Given I am a Bink user
     When I perform POST request to add "Wasabi" membership card without "account"
@@ -103,7 +103,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
       | error_message      |
       | Malformed request. |
 
-  @negative_scenario @loy1975_6 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_6  
   Scenario Outline: Negative test scenario for POST/membership_cards without plan field_Wasabi
     Given I am a Bink user
     When I perform POST request to add "Wasabi" membership card without "membership_plan"
@@ -113,7 +113,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
       | error_message                             |
       | required field membership_plan is missing |
 
-  @negative_scenario @loy1975_4 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_4  
   Scenario Outline: Negative test scenario for POST/membership_cards with key value email instead of Email_Wasabi
     Given I am a Bink user
     When I perform POST request to add "Wasabi" membership card without "email"
@@ -123,7 +123,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
       | error_message      |
       | Malformed request. |
 
-  @negative_scenario @loy1975_4 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_4  
   Scenario Outline: Negative test scenario for POST/membership_cards with key value Membership card number instead of Membershipcard_number_Wasabi
     Given I am a Bink user
     When I perform POST request to add "Wasabi" membership card without "Membershipcard_number"
@@ -133,7 +133,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
       | error_message      |
       | Malformed request. |
 
-  @negative_scenario @loy1975_4 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_4  
   Scenario Outline: Negative test scenario for POST/membership_cards without account field for enrol_HarveyNichols
     Given I am a Bink user
     When I perform POST request to add "Wasabi" membership card without "enrol_account"
@@ -143,7 +143,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
       | error_message      |
       | Malformed request. |
 
-  @negative_scenario @loy1975_8 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_8  
   Scenario Outline: Negative test scenario for POST/membership_cards without token_Wasabi
     Given I am a Bink user
     When I perform POST request to add "Wasabi" membership card without "token" header
@@ -153,7 +153,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
       | error_message                                  |
       | Invalid token header. No credentials provided. |
 
-  @negative_scenario @loy1975_9 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_9  
   Scenario Outline: Negative test scenario for POST/membership_cards without payload_Wasabi
     Given I am a Bink user
     When I perform POST request to add "Wasabi" membership card without "payload" header
@@ -164,7 +164,7 @@ Feature: Merchant Wasabi - Ensure a customer can add their membership card & vie
       | required field membership_plan is missing |
 
 ## This scenario required to comment out once bug been resolve
-##  @negative_scenario @loy1975_2 @bink_regression @bmb_regression
+##  @negative_scenario @loy1975_2  
 ##  Scenario Outline: Negative test scenario for POST/membership_cards without authorise_fields field_Wasabi
 ##    Given I am a Bink user
 ##    When I perform POST request to add "Wasabi" membership card without "authorise_fields"

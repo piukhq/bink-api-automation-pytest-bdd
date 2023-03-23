@@ -59,7 +59,7 @@ def configure_html_report_env(request, env, channel):
 
 def pytest_addoption(parser):
     parser.addoption("--channel", action="store", default="bink", help="Channel: can be bink or barclays should pass")
-    parser.addoption("--env", action="store", default="dev", help="env : can be dev or staging or prod")
+    parser.addoption("--env", action="store", default="staging", help="env : can be dev or staging or prod")
     parser.addoption("--encryption", action="store", default="false", help="encryption : can be true or false")
 
 
@@ -201,13 +201,14 @@ def delete_payment_card():
     response1 = PaymentCards.delete_payment_card(TestContext.token_channel_1, TestContext.current_payment_card_id)
     TestContext.response = response
     """Even if the scheme account is deleted, it is not updating DB so quickly
-        so his delay is required before next execution"""
+        so this delay is required before next execution"""
     time.sleep(2)
     try:
         if response.status_code == 200 or response1.status_code == 200:
             logging.info("Payment card is deleted successfully")
         elif response.status_code == 404 or response1.status_code == 404:
-            logging.info("Payment card is already  deleted")
+            logging.info("Payment card is already  deleted "
+                         "or Payment card deletion is not successfull or Payment card not added for this scenario")
 
     except HTTPError as network_response:
 
@@ -223,7 +224,7 @@ def delete_scheme_account(merchant=None):
         TestContext.token_channel_1, TestContext.scheme_account_id1
     )
     """Even if the scheme account is deleted, it is not updating DB so quickly
-     so his delay is required before next execution"""
+     so this delay is required before next execution"""
     time.sleep(2)
     try:
         if response_del_schemes.status_code == 200 or response_del_schemes_1.status_code == 200:

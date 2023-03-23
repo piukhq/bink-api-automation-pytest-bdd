@@ -6,7 +6,7 @@ Feature: Merchant Trenette - Ensure a customer can add their payment card & link
   I want to utilise payment_cards endpoint
   So I can add my payment card and can link to Trenette membership card & check the details successfully
 
-  @bink_regression
+  @add_link
   Scenario Outline: ADD & LINK Journey_Trenette
 
     Given I am a Bink user
@@ -21,7 +21,7 @@ Feature: Merchant Trenette - Ensure a customer can add their payment card & link
     |          master      |
     |          visa        |
 
-  @patch_mcard_pcard @bink_regression
+  @patch_mcard_pcard 
   Scenario: PLL Link by PATCH_(mcard_pcard)_Trenette
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -36,7 +36,7 @@ Feature: Merchant Trenette - Ensure a customer can add their payment card & link
     And I perform GET/membership_card/id request to verify the payment card is unlinked from "Trenette" membership card
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
-  @patch_pcard_mcard @bink_regression
+  @patch_pcard_mcard 
   Scenario: PLL Link by PATCH_(pcard_mcard)_Trenette
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -51,7 +51,7 @@ Feature: Merchant Trenette - Ensure a customer can add their payment card & link
     And I perform GET/membership_card/id request to verify the payment card is unlinked from "Trenette" membership card
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
-  @enrol_new_paymentcard @bink_regression
+  @enrol_new_paymentcard 
   Scenario Outline: Enrol new paymentcard and link to Trenette
 
     Given I am a Bink user
@@ -67,7 +67,7 @@ Feature: Merchant Trenette - Ensure a customer can add their payment card & link
     |          amex        |
     |          master      |
 
-  @enrol_new_paymentcard @bink_regression
+  @enrol_new_paymentcard 
   Scenario Outline: Enrol link and unlink the visa vop in pelops for Trenette
 
     Given I am a Bink user

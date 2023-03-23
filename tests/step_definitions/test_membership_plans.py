@@ -1,7 +1,7 @@
 from pytest_bdd import (
     scenarios,
     then,
-    when,
+    # when,""" Commented as flake8 raised an issue as " 'pytest_bdd.when' imported but unused"
     parsers,
 )
 import json
@@ -24,7 +24,7 @@ def customer_can_view_membership_plan():
     pass
 
 
-@when("I perform GET request to view all available membership plans")
+@then("I perform GET request to view all available membership plans")
 def view_all_available_membership_plans():
     response = MembershipPlans.get_all_membership_plans(TestContext.token)
     try:

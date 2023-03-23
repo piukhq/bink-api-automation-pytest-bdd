@@ -6,7 +6,7 @@ Feature: Merchant SquareMeal - Ensure a customer can add their payment card & li
   I want to utilise payment_cards endpoint
   So I can add my payment card and can link to SquareMeal membership card & check the details successfully
 
-  @bink_regression
+  @add_link
   Scenario Outline: ADD & LINK Journey_SquareMeal
 
     Given I am a Bink user
@@ -21,7 +21,7 @@ Feature: Merchant SquareMeal - Ensure a customer can add their payment card & li
     |          master      |
     |          visa        |
 
-  @patch_mcard_pcard @bink_regression
+  @patch_mcard_pcard 
   Scenario: PLL Link by PATCH_(mcard_pcard)_SquareMeal
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -36,7 +36,7 @@ Feature: Merchant SquareMeal - Ensure a customer can add their payment card & li
     And I perform GET/membership_card/id request to verify the payment card is unlinked from "SquareMeal" membership card
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
-  @patch_pcard_mcard @bink_regression
+  @patch_pcard_mcard 
   Scenario: PLL Link by PATCH_(pcard_mcard)_SquareMeal
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -51,7 +51,7 @@ Feature: Merchant SquareMeal - Ensure a customer can add their payment card & li
     And I perform GET/membership_card/id request to verify the payment card is unlinked from "SquareMeal" membership card
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
-  @enrol_new_paymentcard @bink_regression
+  @enrol_new_paymentcard 
   Scenario Outline: Enrol new paymentcard and link to SquareMeal
 
     Given I am a Bink user
@@ -67,7 +67,7 @@ Feature: Merchant SquareMeal - Ensure a customer can add their payment card & li
     |          amex        |
     |          master      |
 
-  @enrol_new_paymentcard @bink_regression
+  @enrol_new_paymentcard 
   Scenario Outline: Enrol link and unlink the visa vop in pelops for SquareMeal
 
     Given I am a Bink user

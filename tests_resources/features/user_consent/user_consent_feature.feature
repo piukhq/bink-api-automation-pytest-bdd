@@ -4,7 +4,7 @@ Feature: Verify /service endpoint is working as expected
   I want to receive a correct error message when I don’t pass in the ”consent” field
   So I know this is a client error and I can look at my request to fix it
 
-  @serviceConsent01 @LOY1677 @bink_regression @bmb_regression
+  @serviceConsent01 @LOY1677  
   Scenario Outline: Verify POST service without "consent" field
 
     Given I register with bink as a new customer
@@ -16,7 +16,7 @@ Feature: Verify /service endpoint is working as expected
       |400       |{'detail': 'Malformed request.'}|
 
 
-  @serviceConsent02 @LOY1677 @bink_regression @bmb_regression
+  @serviceConsent02 @LOY1677  
   Scenario Outline: Verify POST service without "invalid payload" field
 
     Given I register with bink as a new customer
@@ -27,7 +27,7 @@ Feature: Verify /service endpoint is working as expected
       |statuscode|errordetail                     |
       |400       |{'detail': 'Malformed request.'}|
 
-  @serviceConsent03 @LOY1677 @bink_regression @bmb_regression
+  @serviceConsent03 @LOY1677  
   Scenario Outline: Verify POST service without payload mandatory field
 
     Given I register with bink as a new customer
@@ -39,7 +39,7 @@ Feature: Verify /service endpoint is working as expected
       |400       |{'detail': 'Malformed request.'}|
 
 
-  @serviceConsent04 @LOY1678 @bink_regression @bmb_regression
+  @serviceConsent04 @LOY1678  
   Scenario Outline: Verify timestamp in the request body enclosed in quotes for POST service
 
     Given I register with bink as a new customer
@@ -51,7 +51,7 @@ Feature: Verify /service endpoint is working as expected
       |statuscode|
       |201       |
 
-  @serviceConsent05 @LOY1678 @bink_regression @bmb_regression
+  @serviceConsent05 @LOY1678  
   Scenario: Verify without latitude in the request body
 
     Given I register with bink as a new customer
@@ -59,7 +59,7 @@ Feature: Verify /service endpoint is working as expected
     Then I should receive an statuscode and success response with email and timestamp without "latitude"
     And I perform DELETE request to delete the customer
 
-  @serviceConsent06 @LOY1678 @bink_regression @bmb_regression
+  @serviceConsent06 @LOY1678  
   Scenario: Verify without longitude in the request body
 
     Given I register with bink as a new customer
@@ -67,7 +67,7 @@ Feature: Verify /service endpoint is working as expected
     Then I should receive an statuscode and success response with email and timestamp without "longitude"
     And I perform DELETE request to delete the customer
 
-  @serviceConsent07 @LOY1678 @bink_regression @bmb_regression
+  @serviceConsent07 @LOY1678  
   Scenario Outline: Verify longitude as alphabet
 
     Given I register with bink as a new customer

@@ -5,7 +5,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
   So I can add my card, with the scheme provider Trenette & check its details successfully
 
 
-  @enrol @bink_regression @sanity
+  @enrol  @sanity
   Scenario: Join Journey_Trenette
 
     Given I register with bink service as a new customer
@@ -15,7 +15,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then I perform DELETE request to delete the "Trenette" membership card
     And I perform DELETE request to delete the customer
 
-  @add @bink_regression @sanity
+  @add  @sanity
   Scenario: Add Journey_Trenette
 
     Given I am a Bink user
@@ -24,7 +24,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then verify the data stored in DB after "Add" journey for "Trenette"
     And I perform DELETE request to delete the "Trenette" membership card
 
-  @balances_transactions @bink_regression @bmb_regression
+  @balances_transactions  
   Scenario: Balances and Transactions_Trenette
 
     Given I am a Bink user
@@ -36,7 +36,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then verify the data stored in DB after "Add" journey for "Trenette"
     And I perform DELETE request to delete the "Trenette" membership card
 
-  @vouchers @bink_regression @bmb_regression
+  @vouchers  
   Scenario: Add Journey_Trenette and verify vouchers
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -45,7 +45,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then verify the data stored in DB after "Add" journey for "Trenette"
     Then I perform DELETE request to delete the "Trenette" membership card
 
-  @add_patch @bink_regression @sanity
+  @add_patch  @sanity
   Scenario:  PATCH membership card details_Trenette
 
     Given I am a Bink user
@@ -56,7 +56,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then verify the data stored in DB after "Add" journey for "Trenette"
     And I perform DELETE request to delete the "Trenette" membership card
 
-  @enrol_put @bink_regression @sanity
+  @enrol_put  @sanity
   Scenario: Join Journey_PUT_Trenette
 
     Given I register with bink service as a new customer
