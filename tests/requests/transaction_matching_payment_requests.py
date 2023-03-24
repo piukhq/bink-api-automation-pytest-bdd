@@ -9,25 +9,7 @@ from tests.payload.payment_cards.transaction_matching_payment_file import Transa
     get_data_to_import
 
 
-def get_master_auth_csv(mid):
-    url = get_mastrcard_url()
-    header = TransactionMatchingEndpoint.request_header_mastercard()
-    payload = TransactionMatchingPaymentFileDetails.import_master_auth_payment_card(mid)
-    response = Endpoint.call(url, header, "POST", payload)
-    return response
-
-
-def get_master_spotting_auth_file(mid):
-    get_data_to_import()
-    url = get_mastrcard_url()
-    header = TransactionMatchingEndpoint.request_header_mastercard()
-    payload = TransactionMatchingPaymentFileDetails.import_spotting_master_auth_payment_card(mid)
-    response = Endpoint.call(url, header, "POST", payload)
-    print(json.dumps(payload, indent=4))
-    return response
-
-
-def get_visa_auth_csv(mid):
+def get_visa_matching_auth_json(mid):
     get_data_to_import()
     url = get_visa_url()
     header = TransactionMatchingEndpoint.request_header_visa()
@@ -37,11 +19,60 @@ def get_visa_auth_csv(mid):
     return response
 
 
-def get_visa_settlement_file(mid):
+def get_visa_matching_settlement_json(mid):
     get_data_to_import()
     url = get_visa_url()
     header = TransactionMatchingEndpoint.request_header_visa()
     payload = TransactionMatchingPaymentFileDetails.get_visa_settlement_data(mid)
+    response = Endpoint.call(url, header, "POST", payload)
+    print(json.dumps(payload, indent=4))
+    return response
+
+
+def get_master_matching_auth_json(mid):
+    url = get_mastrcard_url()
+    header = TransactionMatchingEndpoint.request_header_mastercard()
+    payload = TransactionMatchingPaymentFileDetails.get_mastercard_auth_data(mid)
+    response = Endpoint.call(url, header, "POST", payload)
+    print(json.dumps(payload, indent=4))
+    return response
+
+
+def get_amex_register_payment_json():
+    get_data_to_import()
+    url = get_amex_register_url()
+    header = TransactionMatchingEndpoint.request_register_amex()
+    payload = TransactionMatchingPaymentFileDetails.import_amex_auth_payment_card()
+    response = Endpoint.call(url, header, "POST", payload)
+    TestTransactionMatchingContext.amex_token = response.json().get("api_key")
+    Endpoint.call(url, header, "POST", payload)
+
+
+def get_amex_matching_auth_json(mid):
+    get_amex_register_payment_json()
+    url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_CARD
+    headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
+    payload = TransactionMatchingPaymentFileDetails.get_amex_auth_data(mid)
+    logging.info(json.dumps(payload, indent=2))
+    response = Endpoint.call(url, headers, "POST", payload)
+    return response
+
+
+def get_amex_matching_settlement_json(mid):
+    get_amex_register_payment_json()
+    url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
+    headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
+    payload = TransactionMatchingPaymentFileDetails.get_amex_settlement_data(mid)
+    logging.info(json.dumps(payload, indent=2))
+    response = Endpoint.call(url, headers, "POST", payload)
+    return response
+
+
+def get_master_spotting_auth_file(mid):
+    get_data_to_import()
+    url = get_mastrcard_url()
+    header = TransactionMatchingEndpoint.request_header_mastercard()
+    payload = TransactionMatchingPaymentFileDetails.import_spotting_master_auth_payment_card(mid)
     response = Endpoint.call(url, header, "POST", payload)
     print(json.dumps(payload, indent=4))
     return response
@@ -102,28 +133,8 @@ def get_visa_spotting_merchant_refund_file_invalid_token(mid):
     return response
 
 
-def get_amex_register_payment_csv():
-    get_data_to_import()
-    url = get_amex_register_url()
-    header = TransactionMatchingEndpoint.request_register_amex()
-    payload = TransactionMatchingPaymentFileDetails.import_amex_auth_payment_card()
-    response = Endpoint.call(url, header, "POST", payload)
-    TestTransactionMatchingContext.amex_token = response.json().get("api_key")
-    Endpoint.call(url, header, "POST", payload)
-
-
-def get_amex_auth_csv(mid):
-    get_amex_register_payment_csv()
-    url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_CARD
-    headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
-    payload = TransactionMatchingPaymentFileDetails.get_amex_auth_data(mid)
-    logging.info(json.dumps(payload, indent=2))
-    response = Endpoint.call(url, headers, "POST", payload)
-    return response
-
-
 def get_amex_auth_spotting_file(mid):
-    get_amex_register_payment_csv()
+    get_amex_register_payment_json()
     url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_CARD
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
     payload = TransactionMatchingPaymentFileDetails.get_amex_auth_spotting_data(mid)
@@ -132,18 +143,8 @@ def get_amex_auth_spotting_file(mid):
     return response
 
 
-def get_amex_settlement_csv(mid):
-    get_amex_register_payment_csv()
-    url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
-    headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
-    payload = TransactionMatchingPaymentFileDetails.get_amex_settlement_data(mid)
-    logging.info(json.dumps(payload, indent=2))
-    response = Endpoint.call(url, headers, "POST", payload)
-    return response
-
-
 def get_amex_settlement_spotting_file(mid):
-    get_amex_register_payment_csv()
+    get_amex_register_payment_json()
     url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
     payload = TransactionMatchingPaymentFileDetails.get_amex_settlement_spotting_data(mid)
@@ -178,22 +179,19 @@ def import_payment_file_into_harmonia(transaction_type, mid):
     """This function will decide which way( API, Blob storage etc.,) the Payment Transaction needs to be
         imported into Harmonia"""
 
-    #         response = TransactionMatching.get_amex_auth_spotting_file(mid)
-
     match transaction_type:
         case "visa-auth-matching":
-            return get_visa_auth_csv(mid)
+            return get_visa_matching_auth_json(mid)
         case "visa-settlement-matching":
-            return get_visa_settlement_file(mid)
+            return get_visa_matching_settlement_json(mid)
         case "master-auth-matching":
-            return get_master_auth_csv(mid)
+            return get_master_matching_auth_json(mid)
         # case "master-settlement-matching":
         #     return create a function to uplaod the blob
         case "amex-auth-matching":
-            return get_amex_auth_csv(mid)
+            return get_amex_matching_auth_json(mid)
         case "amex-settlement-matching":
-            return get_amex_settlement_csv(mid)
-
+            return get_amex_matching_settlement_json(mid)
 
 # @staticmethod
 # def exported_transaction(transaction_type):

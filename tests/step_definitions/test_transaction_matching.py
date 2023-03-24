@@ -17,6 +17,7 @@ from azure.storage.blob import BlobServiceClient
 from tests.helpers.database.query_harmonia import QueryHarmonia
 import tests.step_definitions.test_payment_cards as test_payment_cards
 from settings import BLOB_STORAGE_DSN
+from tests.helpers.test_context import TestContext
 from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
 from tests.payload.payment_cards import transaction_matching_payment_file
 from tests.requests.transaction_matching_payment_cards import TransactionMatching
@@ -27,13 +28,15 @@ from tests.requests.transaction_matching_merchant_requests import upload_file_in
 scenarios("transaction_matching/")
 
 
-@when(parsers.parse('I send matching "{payment_card_transaction}" "{mid}" Authorisation_NEW'))
+@when(parsers.parse('I send matching {payment_card_transaction} {mid} Authorisation_NEW'))
 def import_payment_file(payment_card_transaction, mid):
+    TestTransactionMatchingContext.mid = mid
     response = import_payment_file_into_harmonia(payment_card_transaction, mid)
+    logging.info("Waiting for transaction to be exported")
     response_json = response.json()
     logging.info("The response of POST/import Payment File is: \n\n" + json.dumps(response_json, indent=4))
     assert response.status_code == 201 or 200, "Payment file import is not successful"
-    time.sleep(60)
+    time.sleep(30)
     return response_json
 
 
@@ -147,13 +150,39 @@ def import_payment_file_remove(payment_card_transaction, mid):
 
 
 @then(parsers.parse("I verify 1 reward transaction is exported"))
-def verify_into_database():
+def verify_exported_transaction():
     matched_count = QueryHarmonia.fetch_match_transaction_count(
-        TestTransactionMatchingContext.transaction_matching_id,
+        TestTransactionMatchingContext.retailer_transaction_id,
         (TestTransactionMatchingContext.transaction_matching_amount * 100),
     )
-    assert matched_count.count == 1, f"Transaction didnt match and the status is '{matched_count.count}'"
-    logging.info(f"The Transaction got matched : '{matched_count.count}'")
+    assert matched_count.count == 1, f"Transaction didnt match and '{matched_count.count}' records exported"
+    logging.info(f"The Transaction got matched is : '{matched_count.count}'")
+    matched_transaction = QueryHarmonia.fetch_transaction_details(
+        TestTransactionMatchingContext.retailer_transaction_id,
+        (TestTransactionMatchingContext.transaction_matching_amount * 100),
+    )
+
+    logging.info("Details of the recent transaction in export_transaction table:\n\n"
+                 f"provider slug           : {matched_transaction.provider_slug}"
+                 + f"\ntransaction_date        : {matched_transaction.transaction_date.__str__()}"
+                 + f"\nloyalty_id              : {matched_transaction.loyalty_id}"
+                 + f"\nmid                     : {matched_transaction.mid}"
+                 + f"\nscheme_account_id       : {matched_transaction.scheme_account_id}"
+                 + f"\nstatus                  : {matched_transaction.status}"
+                 + f"\npayment_card_account_id : {matched_transaction.payment_card_account_id}"
+                 + f"\nauth_code               : {matched_transaction.auth_code}"
+                 + f"\napproval_code           : {matched_transaction.approval_code}"
+                 + f"\npayment_provider_slug   : {matched_transaction.payment_provider_slug}"
+                 + f"\nprimary_identifier      : {matched_transaction.primary_identifier}"
+                 + f"\nexport_uid              : {matched_transaction.export_uid}"
+                 )
+
+    assert (
+            matched_transaction.status == "EXPORTED"
+            and matched_transaction.mid == TestTransactionMatchingContext.mid
+            and matched_transaction.scheme_account_id == TestContext.current_scheme_account_id
+            and matched_transaction.payment_card_account_id == TestContext.current_payment_card_id
+    ), "Transaction is present in transaction_export table, but is not successfully exported"
 
 
 @then(parsers.parse("I verify transaction is not matched and not exported"))
@@ -178,7 +207,6 @@ def verify_spotted_transaction():
 @then(parsers.parse('I verify "{payment_card_transaction}","{mid}" and "{auth_code}" is spotted and exported'))
 @then(parsers.parse('I verify {payment_card_transaction} using {mid} is spotted and exported'))
 def verify_spotted_mastercard_transaction(payment_card_transaction, mid):
-    # logging.info(auth_code+"auth_code")
     transaction_id = TestTransactionMatchingContext.third_party_id
     if payment_card_transaction == "master-auth-spotting":
         logging.info(f"Third_party_id: '{transaction_id}'")
@@ -290,8 +318,8 @@ def import_visa_auth_and_settlement_file(mid):
 
 @when(
     parsers.parse(
-        'I send merchant Tlog file with "{merchant_container}" '
-        '"{payment_card_provider}" "{mid}" "{card_identity}" and send to bink'
+        'I send Retailer Transaction File with {merchant_container} '
+        '{payment_card_provider} {mid} {card_identity} and send to bink'
     )
 )
 def import_merchant_file(merchant_container, payment_card_provider, mid, card_identity):

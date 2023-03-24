@@ -6,6 +6,7 @@ class TestTransactionMatchingContext:
 
     amex_token = ""
     transaction_matching_id = ""
+    retailer_transaction_id = ""
     transaction_matching_uuid = ""
     transaction_matching_auth_code = ""
     transaction_matching_amount = ""
@@ -21,6 +22,7 @@ class TestTransactionMatchingContext:
     third_party_id = ""
     current_time_stamp = ""
     transaction_auth_code = random.randint(100000, 999999)
+    mid = ""
 
     iceland_file_header = [
         "TransactionCardFirst6",
