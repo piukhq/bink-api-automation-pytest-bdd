@@ -32,6 +32,16 @@ Feature: Merchant Viator - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Viator"
     Then I perform DELETE request to delete the "Viator" membership card
 
+  @images @sanity
+  Scenario: Add Journey_Viator and verify images
+
+    Given I am a customer who is subscribing to Bink or I am Bink app user
+    When I perform POST request to add "Viator" membership card
+    And I perform GET request to verify the "Viator" membership card image details
+    Then verify the data stored in DB after "Add" journey for "Viator"
+    Then I perform DELETE request to delete the "Viator" membership card
+
+
   @enrol_add @sanity @sanity_bmb
   Scenario: Verify join Viator then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
 
