@@ -864,3 +864,17 @@ def add_membership_card_without_token(merchant, field_value):
     """ wrong token = 401 and empty_payload = 400 """
     assert response.status_code == 401 or 400, "Add Journey for " + merchant + " succeded"
     return response_json
+
+
+@when(parsers.parse('I perform GET request to verify the "{merchant}" membership card image details'))
+def verify_membership_card_images(merchant, env):
+    response = MembershipCards.get_scheme_account(TestContext.token, TestContext.current_scheme_account_id)
+    response_json = response.json()
+    logging.info("Response for" + " " + merchant + " " + "images details" + "\n" + json.dumps(response_json, indent=4))
+    with open(TestData.get_expected_membership_card_json(merchant, env)) as json_file:
+        expected_response = json.load(json_file)
+    logging.info("expected_images_response:" + "\n" + json.dumps(expected_response["images"], indent=4))
+    actual_response = response_json
+    logging.info("actual_images_response:" + "\n" + json.dumps(actual_response["images"], indent=4))
+    assert expected_response["images"] == actual_response["images"], "Image verification failed"
+    logging.info("Images verification is successful")

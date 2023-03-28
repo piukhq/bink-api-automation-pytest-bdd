@@ -45,6 +45,16 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then verify the data stored in DB after "Add" journey for "Trenette"
     Then I perform DELETE request to delete the "Trenette" membership card
 
+  @images @sanity
+  Scenario: Add Journey_Trenette and verify images
+
+    Given I am a customer who is subscribing to Bink or I am Bink app user
+    When I perform POST request to add "Trenette" membership card
+    And I perform GET request to verify the "Trenette" membership card image details
+    Then verify the data stored in DB after "Add" journey for "Trenette"
+    Then I perform DELETE request to delete the "Trenette" membership card
+
+
   @add_patch  @sanity
   Scenario:  PATCH membership card details_Trenette
 
