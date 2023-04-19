@@ -165,6 +165,7 @@ def verify_exported_transaction():
     logging.info("Details of the recent transaction in export_transaction table:\n\n"
                  f"provider slug           : {matched_transaction.provider_slug}"
                  + f"\ntransaction_date        : {matched_transaction.transaction_date.__str__()}"
+                 + f"\namount                  : {matched_transaction.spend_amount}"
                  + f"\nloyalty_id              : {matched_transaction.loyalty_id}"
                  + f"\nmid                     : {matched_transaction.mid}"
                  + f"\nscheme_account_id       : {matched_transaction.scheme_account_id}"

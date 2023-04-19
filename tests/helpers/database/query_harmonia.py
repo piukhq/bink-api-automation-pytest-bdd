@@ -14,6 +14,7 @@ class MatchedTransactionRecord:
 class MatchedTransactionRecordDetails:
     provider_slug: str
     transaction_date: datetime.datetime
+    spend_amount: int
     loyalty_id: str
     mid: str
     scheme_account_id: int
@@ -29,19 +30,23 @@ class MatchedTransactionRecordDetails:
     export_uid: str
 
 
+
+
+
 class QueryHarmonia:
     @staticmethod
     def fetch_match_transaction_count(transaction_id, amount):
         """Fetch the matched account details using matched_transaction_id and amount"""
         connection = db.connect_harmonia_db()
+        matched_transaction_record = ""
         try:
             query = get_matched_query(transaction_id, amount)
             logging.info(query)
+            logging.info("Waiting for transaction to get exported in export_transaction table")
             for i in range(1, 60):
                 record = db.execute_query_fetch_one(connection, query)
                 if record[0] == 0:
-                    time.sleep(i)
-                    logging.info("Waiting for transaction to get exported in export_transaction table")
+                    time.sleep(1)
                     continue
                 else:
                     matched_transaction_record = MatchedTransactionRecord(record[0])
@@ -57,11 +62,12 @@ class QueryHarmonia:
         connection = db.connect_harmonia_db()
         query = get_matched_query_details(transaction_id, amount)
         logging.info(query)
+        matched_transaction_details = ""
+        logging.info("Waiting for Transaction status change from PENDING to EXPORTED")
         try:
-            for i in range(1, 60):
+            for i in range(1, 90):
                 record = db.execute_query_fetch_one(connection, query)
-                logging.info("Transaction Status is " + record[5])
-                if record[5] == "PENDING":
+                if record[6] == "PENDING":
                     time.sleep(1)
                     continue
                 else:
@@ -71,7 +77,9 @@ class QueryHarmonia:
                                                                                   record[6], record[7], record[8],
                                                                                   record[9],
                                                                                   record[10], record[11],
-                                                                                  record[12], record[13], record[14])
+                                                                                  record[12], record[13], record[14],
+                                                                                  record[15])
+
                     break
         except Exception:
             raise Exception(f"Transaction with '{transaction_id}' is in PENDING status")
@@ -199,11 +207,13 @@ def get_matched_query(transaction_id, amount):
 
 def get_matched_query_details(transaction_id, amount):
     transaction_details_record = (
-        "SELECT provider_slug,transaction_date,loyalty_id,mid,scheme_account_id,status,location_id,"
+        "SELECT provider_slug,transaction_date,spend_amount,loyalty_id,mid,scheme_account_id,status,location_id,"
         "merchant_internal_id,"
         "payment_card_account_id,auth_code, approval_code, last_four, payment_provider_slug, primary_identifier,"
         "export_uid"
         " FROM harmonia.public.export_transaction WHERE transaction_id='{}' "
         "and spend_amount={}".format(transaction_id, amount)
+
+
     )
     return transaction_details_record

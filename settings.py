@@ -12,7 +12,7 @@ logger.setLevel(logging.DEBUG)
 
 LOCAL_CHANNELS = env_var("LOCAL_CHANNELS", False)
 LOCAL_SECRETS_PATH = env_var("LOCAL_SECRETS_PATH", "tests/helpers/vault/local_channels.json")
-VAULT_URL_STAGING = env_var("VAULT_URL", "https://bink-uksouth-staging-com.vault.azure.net")
+VAULT_URL_STAGING = env_var("VAULT_URL", "https://uksouth-staging-232w.vault.azure.net/")
 CHANNEL_SECRET_NAME = env_var("CHANNEL_SECRET_NAME", "channels")
 BLOB_STORAGE_DSN = env_var("BLOB_STORAGE_DSN")
 HERMES_DATABASE_URI = env_var("HERMES_DATABASE_URI")

@@ -18,11 +18,11 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
 
     Examples:
       | payment_card_provider | merchant_container | mid        | card_identity             | payment_card_transaction   |
-#      | visa                  | scheme/iceland/    | 10209723   | Visa                      | visa-auth-matching         |
-#      | visa                  | scheme/iceland/    | 10209723   | Visa                      | visa-settlement-matching   |
+      | visa                  | scheme/iceland/    | 10209723   | Visa                      | visa-auth-matching         |
+      | visa                  | scheme/iceland/    | 10209723   | Visa                      | visa-settlement-matching   |
 #      | master                | scheme/iceland/    | 22776952   | MasterCard/MasterCard One | master-settlement-matching |
-#      | master                | scheme/iceland/    | 22776952   | MasterCard/MasterCard One | master-auth-matching       |
-      | amex                  | scheme/iceland/    | 9421802109 | Amex                      | amex-settlement-matching   |
+      | master                | scheme/iceland/    | 22776952   | MasterCard/MasterCard One | master-auth-matching       |
+#      | amex                  | scheme/iceland/    | 9421802109 | Amex                      | amex-settlement-matching   |
 #      | amex                  | scheme/iceland/    | 9445909831 | Amex                      | amex-auth-matching         |
 
   @sanity @sanity_bmb
