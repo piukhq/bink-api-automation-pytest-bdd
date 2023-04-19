@@ -30,9 +30,6 @@ class MatchedTransactionRecordDetails:
     export_uid: str
 
 
-
-
-
 class QueryHarmonia:
     @staticmethod
     def fetch_match_transaction_count(transaction_id, amount):
@@ -213,7 +210,6 @@ def get_matched_query_details(transaction_id, amount):
         "export_uid"
         " FROM harmonia.public.export_transaction WHERE transaction_id='{}' "
         "and spend_amount={}".format(transaction_id, amount)
-
 
     )
     return transaction_details_record
