@@ -4,7 +4,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @transactionMatchingViator @bink_regression @sanity
+  @transactionMatchingViator  @sanity
     Scenario Outline: Verify transaction spotting for Viator
 
     Given I am a Bink user
@@ -26,7 +26,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     |          master      |  020150514    |master-settlement-spotting  |
     |          master      |  020150514    |master-refund-spotting      |
 
-    @transactionMatchingViator @bink_regression @sanity
+    @transactionMatchingViator  @sanity
     Scenario Outline: Verify transaction Spotting for viator negative scenario(invalid mid)
 
     Given I am a Bink user
@@ -46,7 +46,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     |          master      |  29047530     |master-settlement-spotting  |
     |          master      |  29047530     |master-refund-spotting      |
 
-  @transactionMatchingViator @bink_regression @sanity
+  @transactionMatchingViator  @sanity
     Scenario Outline: Verify transaction spotting for VIATOR negative scenario(invalid payment card token)
 
     Given I am a Bink user
@@ -61,7 +61,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     | payment_card_provider|     mid       |payment_card_transaction               |
     |          visa        |  020150514     |visa-auth-spotting_invalid_token      |
 
-  @transactionMatchingViator @bink_regression @sanity
+  @transactionMatchingViator  @sanity
     Scenario Outline: Verify End to End transaction spotting for Viator
 
     Given I am a Bink user
@@ -78,7 +78,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     |          visa        |  020150514    |
 
 
-  @transactionMatchingViator @bink_regression @sanity
+  @transactionMatchingViator  @sanity
     Scenario Outline: Verify that Viator AMEX auth transaction is not exported
 
     Given I am a Bink user

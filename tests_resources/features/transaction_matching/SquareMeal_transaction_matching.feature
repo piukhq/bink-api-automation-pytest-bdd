@@ -4,7 +4,7 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @transactionMatchingSquareMeal @bink_regression @sanity
+  @transactionMatchingSquareMeal  @sanity
     Scenario Outline: Verify transaction streaming for squareMeal
 
     Given I am a Bink user
@@ -27,7 +27,7 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
     |          amex        |  9449819796   |amex-settlement-spotting      |
     |          amex        |  9449819796   |amex-refund-spotting          |
 
-  @transactionMatchingSquareMeal @bink_regression @sanity
+  @transactionMatchingSquareMeal  @sanity
     Scenario Outline: Verify that Squaremeal AMEX auth transaction for streaming/spotting merchant is not exported
 
     Given I am a Bink user
@@ -44,7 +44,7 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
     |          amex        |  9449819796   |amex-auth-spotting            |
 
 
-  @transactionMatchingSquareMeal @bink_regression @sanity
+  @transactionMatchingSquareMeal  @sanity
     Scenario Outline: Verify transaction streaming for squaremeal negative scenario(invalid mid)
 
     Given I am a Bink user
@@ -61,7 +61,7 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
     |          visa        |  29047530     |visa-settlement-spotting |
     |          visa        |  29047530     |visa-refund-spotting     |
 
-  @transactionMatchingSquareMeal @bink_regression @sanity
+  @transactionMatchingSquareMeal  @sanity
     Scenario Outline: Verify transaction streaming for squaremeal negative scenario(invalid payment card token)
 
     Given I am a Bink user

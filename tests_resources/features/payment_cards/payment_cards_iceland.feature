@@ -6,7 +6,7 @@ Feature: Merchant Iceland - Ensure a customer can add their payment card & link 
   I want to utilise payment_cards endpoint
   So I can add my payment card and can link to Iceland membership card & check the details successfully
 
-  @bink_regression @bmb_regression
+   @add_link
   Scenario Outline: ADD & LINK Journey_Iceland
 
     Given I am a Bink user
@@ -21,7 +21,7 @@ Feature: Merchant Iceland - Ensure a customer can add their payment card & link 
     |          master      |
     |          visa        |
 
-  @bink_regression @bmb_regression @payment_test
+    @patch_mcard_pcard @payment_test
   Scenario: PLL Link by PATCH_(mcard_pcard)_Iceland
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -37,7 +37,7 @@ Feature: Merchant Iceland - Ensure a customer can add their payment card & link 
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
 
-  @bink_regression @bmb_regression
+   @patch_pcard_mcard
   Scenario: PLL Link by PATCH_(pcard_mcard)_Iceland
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -52,7 +52,7 @@ Feature: Merchant Iceland - Ensure a customer can add their payment card & link 
     And I perform GET/membership_card/id request to verify the payment card is unlinked from "Iceland" membership card
     And I perform GET/payment_card/id request to verify the membership card is unlinked
 
-  @enrol_new_paymentcard @bink_regression @bmb_regression
+  @enrol_new_paymentcard  
   Scenario Outline: Enrol new paymentcard and link to iceland
 
     Given I am a Bink user
@@ -69,7 +69,7 @@ Feature: Merchant Iceland - Ensure a customer can add their payment card & link 
     |          master      |
 
 #    Below visa paymentcard scenario run when staging is pointing to pelops only
-  @enrol_new_paymentcard @bink_regression @bmb_regression
+  @enrol_new_paymentcard  
   Scenario Outline: Enrol link and unlink the visa vop in pelops for iceland
 
     Given I am a Bink user

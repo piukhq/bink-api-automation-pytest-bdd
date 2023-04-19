@@ -4,7 +4,7 @@ Feature: Merchant Viator - Ensure a customer can add their membership card & vie
   I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider Viator & check its details successfully
 
-  @enrol @bink_regression @sanity @sanity_bmb
+  @enrol  @sanity @sanity_bmb
   Scenario: Join Journey_Viator
 
     Given I register with bink service as a new customer
@@ -14,7 +14,7 @@ Feature: Merchant Viator - Ensure a customer can add their membership card & vie
     Then I perform DELETE request to delete the "Viator" membership card
     And I perform DELETE request to delete the customer
 
-  @add @bink_regression @sanity @sanity_bmb
+  @add  @sanity @sanity_bmb
   Scenario: Add Journey_Viator
 
     Given I am a Bink user
@@ -23,7 +23,7 @@ Feature: Merchant Viator - Ensure a customer can add their membership card & vie
     Then verify the data stored in DB after "Add" journey for "Viator"
     And I perform DELETE request to delete the "Viator" membership card
 
-  @vouchers @bink_regression @bmb_regression
+  @vouchers  
   Scenario: Add Journey_Viator and verify vouchers
 
     Given I am a customer who is subscribing to Bink or I am Bink app user
@@ -31,6 +31,16 @@ Feature: Merchant Viator - Ensure a customer can add their membership card & vie
     And I perform GET request to verify the "Viator" membership card voucher details
     Then verify the data stored in DB after "Add" journey for "Viator"
     Then I perform DELETE request to delete the "Viator" membership card
+
+  @images @sanity
+  Scenario: Add Journey_Viator and verify images
+
+    Given I am a customer who is subscribing to Bink or I am Bink app user
+    When I perform POST request to add "Viator" membership card
+    And I perform GET request to verify the "Viator" membership card image details
+    Then verify the data stored in DB after "Add" journey for "Viator"
+    Then I perform DELETE request to delete the "Viator" membership card
+
 
   @enrol_add @sanity @sanity_bmb
   Scenario: Verify join Viator then delete membership_card from the wallet and Add membershipcard into the wallet again with enrol data
@@ -45,7 +55,7 @@ Feature: Merchant Viator - Ensure a customer can add their membership card & vie
     And I perform DELETE request to delete the customer
 
 
-  @add_patch @bink_regression @sanity @sanity_bmb
+  @add_patch  @sanity @sanity_bmb
   Scenario:  PATCH membership card details_Viator
 
     Given I am a Bink user

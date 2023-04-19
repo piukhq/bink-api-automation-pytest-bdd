@@ -5,7 +5,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
   So I can add my card, with the scheme provider Iceland & check its details successfully
 
 
-  @add @bink_regression @bmb_regression @sanity_bmb
+  @add   @sanity_bmb
   Scenario: Add Journey_Iceland
 
     Given I am a Bink user
@@ -15,7 +15,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the "Iceland" membership card
 
 #   Use below commented line for production execution once iceland test data with transactions is ready
-  @balances_transactions @bink_regression @bmb_regression @sanity_bmb
+  @balances_transactions   @sanity_bmb
   Scenario: Balances verification_Iceland
 
     Given I am a Bink user
@@ -28,7 +28,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the "Iceland" membership card
 
 
-  @add_patch @bink_regression @bmb_regression @sanity_bmb
+  @add_patch   @sanity_bmb
   Scenario: Add Journey_PATCH with Valid Credentials_Iceland
 
     Given I am a Bink user
@@ -39,7 +39,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then verify the data stored in DB after "Add" journey for "Iceland"
     And I perform DELETE request to delete the "Iceland" membership card
 
-  @add_patch @bink_regression @bmb_regression @sanity_bmb
+  @add_patch   @sanity_bmb
   Scenario: Add Journey_PATCH with InValid Credentials_Iceland
 
     Given I am a Bink user
@@ -50,7 +50,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then verify the data stored in DB after "Add" journey for "Iceland"
     And I perform DELETE request to delete the "Iceland" membership card
 
-  @add_and_link @staging @sanity_bmb
+  @add_and_link @sanity_bmb
   Scenario: ADD & LINK Journey_Iceland
 
     Given I am a Bink user
@@ -63,7 +63,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform DELETE request to delete the payment card
 
 
-  @bink_regression @bmb_regression
+   
   Scenario:  Add_Journey with Invalid Credentials_Iceland
 
     Given I am a Bink user
@@ -73,7 +73,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "Iceland" membership card
 
 
-  @enrol @bink_regression @bmb_regression
+  @enrol  
   Scenario: Join Journey_Iceland
 
     Given I register with bink service as a new customer
@@ -107,7 +107,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Then I perform DELETE request to delete the "Iceland" membership card
     And I perform DELETE request to delete the payment card
 
-  @ghost_journey @bink_regression @bmb_regression
+  @ghost_journey 
   Scenario: Ghost card Journey Iceland
 
     Given I am a Bink user
@@ -117,7 +117,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     And I perform GET request to verify the "Iceland" membership account is created
     Then I perform DELETE request to delete the "Iceland" membership card
 
-  @negative_scenario @loy1975_1 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_1 
   Scenario Outline: Negative test scenario for POST/membership_cards without account field_Iceland
     Given I am a Bink user
     When I perform POST request to add "Iceland" membership card without "account"
@@ -127,7 +127,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
       | error_message      |
       | Malformed request. |
 
-  @negative_scenario @loy1975_6 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_6 
   Scenario Outline: Negative test scenario for POST/membership_cards without plan field_Iceland
     Given I am a Bink user
     When I perform POST request to add "Iceland" membership card without "membership_plan"
@@ -137,7 +137,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
       | error_message                             |
       | required field membership_plan is missing |
 
-  @negative_scenario @loy1975_4 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_4 
   Scenario Outline: Negative test scenario for POST/membership_cards with key value lastname instead of Last name_Iceland
     Given I am a Bink user
     When I perform POST request to add "Iceland" membership card without "lastname"
@@ -147,7 +147,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
       | error_message      |
       | Malformed request. |
 
-  @negative_scenario @loy1975_4 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_4 
   Scenario Outline: Negative test scenario for POST/membership_cards with key value postcode instead of Postcode_Iceland
     Given I am a Bink user
     When I perform POST request to add "Iceland" membership card without "postcode"
@@ -157,7 +157,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
       | error_message      |
       | Malformed request. |
 
-  @negative_scenario @loy1975_8 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_8 
   Scenario Outline: Negative test scenario for POST/membership_cards without token_Iceland
     Given I am a Bink user
     When I perform POST request to add "Iceland" membership card without "token" header
@@ -167,7 +167,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
       | error_message                                  |
       | Invalid token header. No credentials provided. |
 
-  @negative_scenario @loy1975_9 @bink_regression @bmb_regression
+  @negative_scenario @loy1975_9 
   Scenario Outline: Negative test scenario for POST/membership_cards without payload_Iceland
     Given I am a Bink user
     When I perform POST request to add "Iceland" membership card without "payload" header
@@ -178,7 +178,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
       | required field membership_plan is missing |
 
 ## This scenario required to comment out once bug been resolve
-##  @negative_scenario @loy1975_2 @bink_regression @bmb_regression
+##  @negative_scenario @loy1975_2 
 ##  Scenario Outline: Negative test scenario for POST/membership_cards without authorise_fields field_Iceland
 ##    Given I am a Bink user
 ##    When I perform POST request to add "Iceland" membership card without "authorise_fields"
