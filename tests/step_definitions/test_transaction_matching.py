@@ -28,7 +28,7 @@ from tests.requests.transaction_matching_merchant_requests import upload_file_in
 scenarios("transaction_matching/")
 
 
-@when(parsers.parse('I send matching {payment_card_transaction} {mid} Authorisation_NEW'))
+@when(parsers.parse('I send Payment Transaction File with {payment_card_transaction} {mid}'))
 def import_payment_file(payment_card_transaction, mid):
     TestTransactionMatchingContext.mid = mid
     response = import_payment_file_into_harmonia(payment_card_transaction, mid)
@@ -149,7 +149,7 @@ def import_payment_file_remove(payment_card_transaction, mid):
     return response_json
 
 
-@then(parsers.parse("I verify 1 reward transaction is exported"))
+@then(parsers.parse("I verify the reward transaction is exported"))
 def verify_exported_transaction():
     matched_count = QueryHarmonia.fetch_match_transaction_count(
         TestTransactionMatchingContext.retailer_transaction_id,
@@ -186,14 +186,15 @@ def verify_exported_transaction():
     ), "Transaction is present in transaction_export table, but is not successfully exported"
 
 
-@then(parsers.parse("I verify transaction is not matched and not exported"))
+@then(parsers.parse("I verify transaction is not matched and exported"))
 def verify_transaction_not_matched():
     matched_count = QueryHarmonia.fetch_match_transaction_count(
         TestTransactionMatchingContext.transaction_matching_id,
         (TestTransactionMatchingContext.transaction_matching_amount * 100),
     )
-    assert matched_count.count == 0, f"Transaction didnt match and the status is '{matched_count.count}'"
-    logging.info(f" Transaction not matched and the status is not exported: '{matched_count.count}'")
+    assert matched_count.count == 0, f"Transaction didnt match and the exported transaction count" \
+                                     f" is '{matched_count.count}'"
+    logging.info(f" Transaction not matched and the exported transaction count is'{matched_count.count}'")
 
 
 @then(parsers.parse("I verify transaction is spotted and exported"))
@@ -320,7 +321,7 @@ def import_visa_auth_and_settlement_file(mid):
 @when(
     parsers.parse(
         'I send Retailer Transaction File with {merchant_container} '
-        '{payment_card_provider} {mid} {card_identity} and send to bink'
+        '{payment_card_provider} {mid} {card_identity}'
     )
 )
 def import_merchant_file(merchant_container, payment_card_provider, mid, card_identity):

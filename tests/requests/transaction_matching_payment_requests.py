@@ -188,6 +188,18 @@ def import_payment_file_into_harmonia(transaction_type, mid):
             return get_master_matching_auth_json(mid)
         # case "master-settlement-matching":
         #     return create a function to uplaod the blob
+        case ["amex-auth-streaming", "amex-auth-spotting"]:
+            return get_amex_matching_auth_json(mid)
+        case "amex-settlement-matching":
+            return get_amex_matching_settlement_json(mid)
+        case "visa-auth-matching":
+            return get_visa_matching_auth_json(mid)
+        case "visa-settlement-matching":
+            return get_visa_matching_settlement_json(mid)
+        case "master-auth-matching":
+            return get_master_matching_auth_json(mid)
+            # case "master-settlement-matching":
+            #     return create a function to uplaod the blob
         case "amex-auth-matching":
             return get_amex_matching_auth_json(mid)
         case "amex-settlement-matching":
