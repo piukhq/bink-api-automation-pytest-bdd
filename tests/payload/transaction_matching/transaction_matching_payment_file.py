@@ -32,10 +32,10 @@ def get_data_to_import():
 
 
 class TransactionMatchingPaymentFileDetails:
-    # @staticmethod
-    # def import_master_auth_payment_card(mid):
-    #     import_payment_file = TransactionMatchingPaymentFileDetails.get_mastercard_auth_data(mid)
-    #     return import_payment_file
+    @staticmethod
+    def import_master_auth_payment_card(mid):
+        import_payment_file = TransactionMatchingPaymentFileDetails.get_mastercard_auth_data(mid)
+        return import_payment_file
 
     @staticmethod
     def import_spotting_master_auth_payment_card(mid):
@@ -355,7 +355,7 @@ class TransactionMatchingPaymentFileDetails:
                 {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
                 {"Key": "Transaction.MerchantGroup.0.Name", "Value": "ICELAND-BONUS-CARD"},
                 {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Iceland"},
-                {"Key": "Transaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_matching_auth_code},
+                {"Key": "Transaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_matching_uuid},
                 {
                     "Key": "Transaction.PanLastFour",
                     "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS),
@@ -584,7 +584,7 @@ class TransactionMatchingPaymentFileDetails:
                 {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
                 {"Key": "Transaction.MerchantGroup.0.Name", "Value": "ICELAND-BONUS-CARD"},
                 {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Iceland"},
-                {"Key": "Transaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_matching_auth_code},
+                {"Key": "Transaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_matching_uuid},
                 {
                     "Key": "Transaction.PanLastFour",
                     "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS),

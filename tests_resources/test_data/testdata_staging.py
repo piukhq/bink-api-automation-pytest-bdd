@@ -37,13 +37,13 @@ amex_payment_card = {
 }
 
 master_payment_card = {
-    "first_six_digits": "555555",
-    "last_four_digits": "4444",
-    "token": "pytest4011",
+    "first_six_digits": "555589",
+    "last_four_digits": "4490",
+    "token": "pytest_auto_master",
     "name_on_card": "master_staging_test",
     "month": 1,
     "year": 2044,
-    "fingerprint": "pytest2002",
+    "fingerprint": "pytest_auto_master",
     "hash": "pytest4012",
     "status": "active",
     "active_link": True,

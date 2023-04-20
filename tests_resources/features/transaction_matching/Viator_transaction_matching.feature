@@ -13,7 +13,9 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     When I perform POST request to add & auto link "Viator" membership card
     Then I perform GET request to verify the "Viator" membershipcard is added & linked successfully in the wallet
     When I send matching "<payment_card_transaction>" "<mid>" Authorisation
-    Then I verify "<payment_card_transaction>","<mid>" and "auth_code" is spotted and exported
+#    Then I verify "<payment_card_transaction>","<mid>" and "auth_code" is spotted and exported
+    Then I verify <payment_card_transaction> using <mid> is spotted and exported
+
 
     Examples:
     | payment_card_provider|     mid       |payment_card_transaction    |
