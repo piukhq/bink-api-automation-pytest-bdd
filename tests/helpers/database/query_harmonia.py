@@ -35,7 +35,7 @@ class QueryHarmonia:
     def fetch_match_transaction_count(transaction_id, amount):
         """Fetch the matched account details using matched_transaction_id and amount"""
         connection = db.connect_harmonia_db()
-        matched_transaction_record = ""
+        matched_transaction_record = MatchedTransactionRecord(0)
         try:
             query = get_matched_query(transaction_id, amount)
             logging.info(query)
@@ -59,8 +59,8 @@ class QueryHarmonia:
         connection = db.connect_harmonia_db()
         query = get_matched_query_details(transaction_id, amount)
         logging.info(query)
-        matched_transaction_details = ""
-        logging.info("Waiting for Transaction status change from PENDING to EXPORTED")
+        # matched_transaction_details = MatchedTransactionRecordDetails(0)
+        logging.info("Waiting for Transaction status to change from PENDING to EXPORTED")
         try:
             for i in range(1, 90):
                 record = db.execute_query_fetch_one(connection, query)
