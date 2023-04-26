@@ -32,10 +32,70 @@ def get_data_to_import():
 
 
 class TransactionMatchingPaymentFileDetails:
+
     @staticmethod
-    def import_master_auth_payment_card(mid):
-        import_payment_file = TransactionMatchingPaymentFileDetails.get_mastercard_auth_data(mid)
-        return import_payment_file
+    def get_mastercard_auth_data(mid):
+        """Create Mastercard Auth json for Transaction Matching"""
+        return {
+            "amount": TestTransactionMatchingContext.transaction_matching_amount,
+            "currency_code": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CURRENCY),
+            "mid": mid,
+            "payment_card_token": PaymentCardTestData.get_data("master").get(constants.TOKEN),
+            "third_party_id": base64.b64encode(uuid.uuid4().bytes).decode()[:9],
+            "time": TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
+        }
+
+    @staticmethod
+    def get_master_settlement_txt_file(mid):
+        """Create Mastercard Settlement Text file for Transaction Matching"""
+
+        # get_data_to_import()
+        third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
+        now = pendulum.now()
+        auth_code = TestTransactionMatchingContext.transaction_matching_auth_code
+        mid = mid
+        payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
+        amount = str(TestTransactionMatchingContext.transaction_matching_amount * 100).zfill(12)
+        lines = [
+            join(
+                ("H", 1),
+                (now.format("YYYYMMDD"), 8),
+                (now.format("hhmmss"), 6),
+                (" ", 6),
+                ("mastercard-tgx2-settlement.txt", 9),
+                ("", 835),
+            ),
+            join(
+                ("D", 1),
+                ("", 20),
+                (payment_card_token, 30),
+                ("", 51),
+                (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
+                ("", 341),
+                (mid, 15),
+                ("", 52),
+                ((amount[:12]), 12),
+                ("", 33),
+                (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
+                (auth_code, 6),
+                ("", 188),
+                (third_part_id, 9),
+            ),
+            join(
+                ("T", 1),
+                (now.format("YYYYMMDD"), 8),
+                (now.format("hhmmss"), 6),
+                (" ", 6),
+                ("mastercard-tgx2-settlement.txt", 9),
+                ("", 835),
+            ),
+        ]
+        file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.transaction_matching_amount) + ".txt")
+        with open(file_name, "a+") as file_name:
+            for line in lines:
+                (file_name.write(str(line)))
+                file_name.write("\n")
+        return file_name
 
     @staticmethod
     def import_spotting_master_auth_payment_card(mid):
@@ -110,56 +170,6 @@ class TransactionMatchingPaymentFileDetails:
         return file_name
 
     @staticmethod
-    def get_master_settlement_txt_file(mid):
-        get_data_to_import()
-        third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
-        now = pendulum.now()
-        auth_code = TestTransactionMatchingContext.transaction_matching_uuid
-        mid = mid
-        payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
-        amount = str(TestTransactionMatchingContext.transaction_matching_amount * 100).zfill(12)
-        lines = [
-            join(
-                ("H", 1),
-                (now.format("YYYYMMDD"), 8),
-                (now.format("hhmmss"), 6),
-                (" ", 6),
-                ("mastercard-tgx2-settlement.txt", 9),
-                ("", 835),
-            ),
-            join(
-                ("D", 1),
-                ("", 20),
-                (payment_card_token, 30),
-                ("", 51),
-                (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
-                ("", 341),
-                (mid, 15),
-                ("", 52),
-                ((amount[:12]), 12),
-                ("", 33),
-                (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
-                (auth_code, 6),
-                ("", 188),
-                (third_part_id, 9),
-            ),
-            join(
-                ("T", 1),
-                (now.format("YYYYMMDD"), 8),
-                (now.format("hhmmss"), 6),
-                (" ", 6),
-                ("mastercard-tgx2-settlement.txt", 9),
-                ("", 835),
-            ),
-        ]
-        file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.transaction_matching_amount) + ".txt")
-        with open(file_name, "a+") as file_name:
-            for line in lines:
-                (file_name.write(str(line)))
-                file_name.write("\n")
-        return file_name
-
-    @staticmethod
     def get_master_refund_spotting_txt_file(mid):
         TestTransactionMatchingContext.created_at = now = pendulum.now()
         mid = mid
@@ -207,23 +217,12 @@ class TransactionMatchingPaymentFileDetails:
         return file_name
 
     @staticmethod
-    def get_mastercard_auth_data(mid):
-        return {
-            "amount": TestTransactionMatchingContext.transaction_matching_amount,
-            "currency_code": TestDataUtils.TEST_DATA.iceland_membership_card.get(constants.CURRENCY),
-            "mid": mid,
-            "payment_card_token": PaymentCardTestData.get_data("master").get(constants.TOKEN),
-            "third_party_id": base64.b64encode(uuid.uuid4().bytes).decode()[:9],
-            "time": TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
-        }
-
-    @staticmethod
     def import_amex_auth_payment_card():
-        import_amex_register_file = TransactionMatchingPaymentFileDetails.get_amex_auth_regirster_data()
+        import_amex_register_file = TransactionMatchingPaymentFileDetails.get_amex_auth_register_data()
         return import_amex_register_file
 
     @staticmethod
-    def get_amex_auth_regirster_data():
+    def get_amex_auth_register_data():
         return {
             "client_id": "8UXGKh7ihjAeqZldlIBqlcnmoljug5ZznluEDLd6z33s9W7ZXP",
             "client_secret": "w9IgmvHABKgvwGgsnAof66hFZQlvxvyiR82PR3ZOcnlHWFdHO9",
@@ -239,7 +238,25 @@ class TransactionMatchingPaymentFileDetails:
             "transaction_amount": str(TestTransactionMatchingContext.transaction_matching_amount),
             "transaction_currency": "UKL",
             "transaction_id": str(TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)),
-            "transaction_time": TestTransactionMatchingContext.transaction_matching_amexTimeStamp,
+            "transaction_time": datetime.now(timezone("MST")).strftime("%Y-%m-%d %H:%M:%S"),
+        }
+
+    @staticmethod
+    def get_amex_settlement_data(mid):
+        return {
+            "approvalCode": str(TestTransactionMatchingContext.transaction_matching_auth_code)[-6:],
+            "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
+            "currencyCode": "840",
+            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX"
+            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
+            "merchantNumber": mid,
+            "offerId": "0",
+            "partnerId": "AADP0050",
+            "recordId": f"{base64.b64encode(str(uuid.uuid4()).encode()).decode()}AADP00400",
+            "transactionAmount": str(TestTransactionMatchingContext.transaction_matching_amount),
+            "transactionDate": TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
+            # datetime.now(timezone("MST")).strftime("%Y-%m-%d %H:%M:%S"),
+            "transactionId": str(TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48))
         }
 
     @staticmethod
@@ -271,8 +288,8 @@ class TransactionMatchingPaymentFileDetails:
             "approvalCode": str(TestTransactionMatchingContext.approval_code),
             "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "currencyCode": "840",
-            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS)
-            + "XXXXX" + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
+            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX"
+            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
             "merchantNumber": mid,
             "offerId": "0",
             "partnerId": "AADP0050",
@@ -302,23 +319,6 @@ class TransactionMatchingPaymentFileDetails:
             "transactionAmount": str(-TestTransactionMatchingContext.spend_amount),
             "transactionDate": "2022-08-14 04:37:57",
             "transactionId": str(TestTransactionMatchingContext.transaction_id),
-        }
-
-    @staticmethod
-    def get_amex_settlement_data(mid):
-        return {
-            "approvalCode": str(TestTransactionMatchingContext.transaction_matching_uuid),
-            "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
-            "currencyCode": "840",
-            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX"
-            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
-            "merchantNumber": mid,
-            "offerId": "0",
-            "partnerId": "AADP0050",
-            "recordId": f"{base64.b64encode(str(uuid.uuid4()).encode()).decode()}AADP00400",
-            "transactionAmount": str(TestTransactionMatchingContext.transaction_matching_amount),
-            "transactionDate": TestTransactionMatchingContext.transaction_matching_currentTimeStamp,
-            "transactionId": str(TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)),
         }
 
     @staticmethod
@@ -355,7 +355,7 @@ class TransactionMatchingPaymentFileDetails:
                 {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
                 {"Key": "Transaction.MerchantGroup.0.Name", "Value": "ICELAND-BONUS-CARD"},
                 {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Iceland"},
-                {"Key": "Transaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_matching_uuid},
+                {"Key": "Transaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_matching_auth_code},
                 {
                     "Key": "Transaction.PanLastFour",
                     "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS),
@@ -584,7 +584,7 @@ class TransactionMatchingPaymentFileDetails:
                 {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
                 {"Key": "Transaction.MerchantGroup.0.Name", "Value": "ICELAND-BONUS-CARD"},
                 {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Iceland"},
-                {"Key": "Transaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_matching_uuid},
+                {"Key": "Transaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_matching_auth_code},
                 {
                     "Key": "Transaction.PanLastFour",
                     "Value": PaymentCardTestData.get_data("visa").get(constants.LAST_FOUR_DIGITS),

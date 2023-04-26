@@ -8,7 +8,7 @@ from tests.helpers.test_transaction_matching_context import TestTransactionMatch
 from tests.payload.transaction_matching.transaction_matching_merchant_file import create_iceland_merchant_file_csv
 
 
-def upload_file_into_blob(merchant_container, payment_card_provider, mid, card_identity):
+def upload_retailer_file_into_blob(merchant_container, payment_card_provider, mid, card_identity):
     """StringIO creates a text stream using an in-memory text buffer."""
     output = io.StringIO()
     """change below code when more merchants are there to follow blob route.
