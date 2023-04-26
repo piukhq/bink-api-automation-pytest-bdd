@@ -1,15 +1,20 @@
 import json
 import logging
+import os
 
+from azure.storage.blob import ContentSettings
+from azure.storage.blob import BlobServiceClient
 import tests.api as api
+from settings import BLOB_STORAGE_DSN
 from tests.api.transactionmatching_base import TransactionMatchingEndpoint
 from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
 from tests.api.base import Endpoint
-from tests.payload.payment_cards.transaction_matching_payment_file import TransactionMatchingPaymentFileDetails, \
+from tests.payload.transaction_matching.transaction_matching_payment_file import TransactionMatchingPaymentFileDetails,\
     get_data_to_import
 
 
-def get_visa_matching_auth_json(mid):
+def import_visa_matching_auth_json(mid):
+    """Import Visa Auth Matching Transactions"""
     get_data_to_import()
     url = get_visa_url()
     header = TransactionMatchingEndpoint.request_header_visa()
@@ -19,7 +24,9 @@ def get_visa_matching_auth_json(mid):
     return response
 
 
-def get_visa_matching_settlement_json(mid):
+def import_visa_matching_settlement_json(mid):
+    """Import Visa Settlement Matching Transactions"""
+
     get_data_to_import()
     url = get_visa_url()
     header = TransactionMatchingEndpoint.request_header_visa()
@@ -29,7 +36,9 @@ def get_visa_matching_settlement_json(mid):
     return response
 
 
-def get_master_matching_auth_json(mid):
+def import_master_matching_auth_json(mid):
+    """Import Master Auth Matching Transactions"""
+
     url = get_mastrcard_url()
     header = TransactionMatchingEndpoint.request_header_mastercard()
     payload = TransactionMatchingPaymentFileDetails.get_mastercard_auth_data(mid)
@@ -38,7 +47,36 @@ def get_master_matching_auth_json(mid):
     return response
 
 
+def import_master_matching_settlement_text(mid):
+    """Import Master Settlement Matching Transactions in the text file to Harmonia"""
+    merchant_container = "mastercard"
+    file_name = (
+        TransactionMatchingPaymentFileDetails.get_master_settlement_txt_file(mid)
+    )
+    logging.info(file_name)
+    f = open(file_name.name, 'r')
+    file_contents = f.read()
+    logging.info("The MasterCard Settlement Matching file is: \n" + file_contents)
+    upload_mastercard_settlement_file_into_blob(file_name, merchant_container, mid)
+
+
+def upload_mastercard_settlement_file_into_blob(file_name, merchant_container, mid):
+    """Upload master card settlement file (.csv) into blob storage"""
+    bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
+    blob_client = \
+        bbs.get_blob_client("harmonia-imports/test/mastercard-settlement", merchant_container + f"{file_name.name}")
+    with open(file_name.name, "rb") as settlement_file:
+        blob_client.upload_blob(settlement_file, content_settings=ContentSettings(content_type="text/plain"))
+        logging.info(
+            f"{file_name.name} has been uploaded to blob storage with spend_amount = "
+            f"{TestTransactionMatchingContext.spend_amount} and MID = {mid}"
+        )
+        os.remove(file_name.name)
+
+
 def get_amex_register_payment_json():
+    """Get Amex Tokens for Importing Transactions"""
+
     get_data_to_import()
     url = get_amex_register_url()
     header = TransactionMatchingEndpoint.request_register_amex()
@@ -48,7 +86,8 @@ def get_amex_register_payment_json():
     Endpoint.call(url, header, "POST", payload)
 
 
-def get_amex_matching_auth_json(mid):
+def import_amex_matching_auth_json(mid):
+    """Import Amex Auth Matching Transactions"""
     get_amex_register_payment_json()
     url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_CARD
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
@@ -58,7 +97,9 @@ def get_amex_matching_auth_json(mid):
     return response
 
 
-def get_amex_matching_settlement_json(mid):
+def import_amex_matching_settlement_json(mid):
+    """Import Amex Settlement Matching Transactions"""
+
     get_amex_register_payment_json()
     url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
@@ -181,29 +222,19 @@ def import_payment_file_into_harmonia(transaction_type, mid):
 
     match transaction_type:
         case "visa-auth-matching":
-            return get_visa_matching_auth_json(mid)
+            return import_visa_matching_auth_json(mid)
         case "visa-settlement-matching":
-            return get_visa_matching_settlement_json(mid)
+            return import_visa_matching_settlement_json(mid)
         case "master-auth-matching":
-            return get_master_matching_auth_json(mid)
-        # case "master-settlement-matching":
-        #     return create a function to uplaod the blob
-        case ["amex-auth-streaming", "amex-auth-spotting"]:
-            return get_amex_matching_auth_json(mid)
-        case "amex-settlement-matching":
-            return get_amex_matching_settlement_json(mid)
-        case "visa-auth-matching":
-            return get_visa_matching_auth_json(mid)
-        case "visa-settlement-matching":
-            return get_visa_matching_settlement_json(mid)
-        case "master-auth-matching":
-            return get_master_matching_auth_json(mid)
-            # case "master-settlement-matching":
-            #     return create a function to uplaod the blob
+            return import_master_matching_auth_json(mid)
+        case "master-settlement-matching":
+            return import_master_matching_settlement_text(mid)
         case "amex-auth-matching":
-            return get_amex_matching_auth_json(mid)
+            return import_amex_matching_auth_json(mid)
         case "amex-settlement-matching":
-            return get_amex_matching_settlement_json(mid)
+            return import_amex_matching_settlement_json(mid)
+        case ["amex-auth-streaming", "amex-auth-spotting"]:
+            return import_amex_matching_auth_json(mid)
 
 # @staticmethod
 # def exported_transaction(transaction_type):

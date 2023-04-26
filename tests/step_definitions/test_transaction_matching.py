@@ -23,7 +23,7 @@ from tests.payload.payment_cards import transaction_matching_payment_file
 from tests.requests.transaction_matching_payment_cards import TransactionMatching
 from tests.requests.transaction_matching_payment_requests import import_payment_file_into_harmonia
 from tests.step_definitions import test_membership_cards
-from tests.requests.transaction_matching_merchant_requests import upload_file_into_blob
+from tests.requests.transaction_matching_merchant_requests import upload_retailer_file_into_blob
 
 scenarios("transaction_matching/")
 
@@ -33,11 +33,17 @@ def import_payment_file(payment_card_transaction, mid):
     TestTransactionMatchingContext.mid = mid
     response = import_payment_file_into_harmonia(payment_card_transaction, mid)
     logging.info("Waiting for transaction to be exported")
-    response_json = response.json()
-    logging.info("The response of POST/import Payment File is: \n\n" + json.dumps(response_json, indent=4))
-    assert response.status_code == 201 or 200, "Payment file import is not successful"
-    time.sleep(30)
-    return response_json
+    try:
+        response_json = response.json()
+        logging.info("The response of POST/import Payment File is: \n\n" + json.dumps(response_json, indent=4))
+        assert response.status_code == 201 or 200, "Payment file import is not successful"
+        time.sleep(30)
+    except AttributeError:
+        if response is None:
+            logging.info("The Master Card Settlement Transaction Text file is uploaded to blob. "
+                         "Waiting for transaction to be exported")
+
+    # return response_json
 
 
 @when(parsers.parse('I send matching "{payment_card_transaction}" "{mid}" Authorisation'))
@@ -326,4 +332,4 @@ def import_visa_auth_and_settlement_file(mid):
 )
 def import_merchant_file(merchant_container, payment_card_provider, mid, card_identity):
     if merchant_container == "scheme/iceland/":
-        upload_file_into_blob(merchant_container, payment_card_provider, mid, card_identity)
+        upload_retailer_file_into_blob(merchant_container, payment_card_provider, mid, card_identity)
