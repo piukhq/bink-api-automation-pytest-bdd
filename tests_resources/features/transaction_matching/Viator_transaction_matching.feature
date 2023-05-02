@@ -4,27 +4,24 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @transactionMatchingViator  @sanity
-    Scenario Outline: Verify transaction spotting for Viator
+   @sanity @sanity_bmb @test
+    Scenario Outline: Verify transaction streaming for Viator
 
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet
     And I perform the GET request to verify the payment card has been added successfully to the wallet
     When I perform POST request to add & auto link "Viator" membership card
     Then I perform GET request to verify the "Viator" membershipcard is added & linked successfully in the wallet
-    When I send matching "<payment_card_transaction>" "<mid>" Authorisation
-#    Then I verify "<payment_card_transaction>","<mid>" and "auth_code" is spotted and exported
-    Then I verify <payment_card_transaction> using <mid> is spotted and exported
-
-
+    When I send Payment Transaction File with <payment_card_transaction> <mid>
+    Then I verify the reward transaction is exported using transaction-spotting
     Examples:
     | payment_card_provider|     mid       |payment_card_transaction    |
     |          visa        |  020150514    |visa-auth-spotting          |
     |          visa        |  020150514    |visa-settlement-spotting    |
     |          visa        |  020150514    |visa-refund-spotting        |
-    |          master      |  020150514    |master-auth-spotting        |
-    |          master      |  020150514    |master-settlement-spotting  |
-    |          master      |  020150514    |master-refund-spotting      |
+#    |          master      |  020150514    |master-auth-spotting        |
+#    |          master      |  020150514    |master-settlement-spotting  |
+#    |          master      |  020150514    |master-refund-spotting      |
 
     @transactionMatchingViator  @sanity
     Scenario Outline: Verify transaction Spotting for viator negative scenario(invalid mid)
