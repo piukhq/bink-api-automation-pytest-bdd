@@ -186,15 +186,26 @@ viator_invalid_data = {
 }
 
 wasabi_membership_card = {
-    "card_num": "1048172852",
-    "email": "binktestuser14@wasabi.com",
-    "points": 6,
+    "card_num": "1022169982",
+    "email": "qatest+donotusewasabi@bink.com",
+    "points": 5,
     "currency": "stamps",
     "description": "",
     "transactions": "",
     "transaction_status": "active",
     "transaction_currency": "stamps",
 }
+
+# wasabi_membership_card = {
+#     "card_num": "1048172852",
+#     "email": "binktestuser14@wasabi.com",
+#     "points": 6,
+#     "currency": "stamps",
+#     "description": "",
+#     "transactions": "",
+#     "transaction_status": "active",
+#     "transaction_currency": "stamps",
+# }
 
 wasabi_invalid_data = {
     "card_num": "",
