@@ -211,6 +211,25 @@ wasabi_invalid_data = {
     "card_num": "",
     "email": "fail@unknown.com",
 }
+
+
+the_works_membership_card = {
+    "card_num": "",
+    "email": "",
+    "points": 0,
+    "currency": "",
+    "description": "",
+    "transactions": "",
+    "transaction_status": "",
+    "transaction_currency": "",
+}
+
+the_works_invalid_data = {
+    "card_num": "",
+    "email": "fail@unknown.com",
+}
+
+
 # ----------------------------------------MEMBERSHIP PLAN IDs   ----------------------------------------------- #
 
 membership_plan_id = {
@@ -225,6 +244,7 @@ membership_plan_id = {
     "trenette": 284,
     "asos": 288,
     "viator": 292,
+    "the_works": 294
 }
 
 # ----------------------------------------PAYMENT CARD STATES  --------------------------------------------------- #
