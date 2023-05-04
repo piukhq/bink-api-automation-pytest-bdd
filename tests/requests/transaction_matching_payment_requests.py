@@ -245,7 +245,7 @@ def import_payment_file_into_harmonia(transaction_type, mid):
             return import_visa_matching_settlement_json(mid)
         case "master-auth-matching":
             return import_master_matching_auth_json(mid)
-        case "master-settlement-matching":
+        case "master-settlement-matching" | "master-settlement-streaming" | "master-settlement-spotting":
             return import_master_matching_settlement_text(mid)
         case "amex-auth-matching":
             return import_amex_matching_auth_json(mid)
@@ -257,6 +257,9 @@ def import_payment_file_into_harmonia(transaction_type, mid):
             return get_visa_spotting_streaming_settlement_json(mid)
         case "visa-refund-streaming" | "visa-refund-spotting":
             return get_visa_spotting_streaming_merchant_refund_json(mid)
+        case "master-auth-streaming" | "master-auth-spotting":
+            return get_master_spotting_streaming_auth_json(mid)
+
 
 
 def verify_matching_transactions():
