@@ -265,16 +265,12 @@ class TransactionMatchingPaymentFileDetails:
         }
 
     @staticmethod
-    def import_spotting_master_auth_payment_card(mid):
-        import_payment_file = TransactionMatchingPaymentFileDetails.get_mastercard_auth_spotting_data(mid)
-        return import_payment_file
-
-    @staticmethod
     def get_mastercard_auth_spotting_data(mid):
+        now = pendulum.now()
         TestTransactionMatchingContext.spend_amount = random.choice(range(1, 20))
-        TestTransactionMatchingContext.transaction_id = TransactionMatchingPaymentFileDetails. \
-            get_random_alphanumeric_string(48)
         TestTransactionMatchingContext.third_party_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
+        TestTransactionMatchingContext.transaction_id = \
+            TestTransactionMatchingContext.third_party_id+"_"+now.format("YYYYMMDD")
         TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
         TestTransactionMatchingContext.created_at = datetime.now(timezone('Europe/London')) \
             .strftime('%Y-%m-%d %H:%M:%S')
@@ -286,6 +282,24 @@ class TransactionMatchingPaymentFileDetails:
             "third_party_id": TestTransactionMatchingContext.third_party_id,
             "time": TestTransactionMatchingContext.created_at
         }
+
+    # @staticmethod
+    # def get_mastercard_auth_spotting_data(mid):
+    #     TestTransactionMatchingContext.spend_amount = random.choice(range(1, 20))
+    #     TestTransactionMatchingContext.transaction_id = TransactionMatchingPaymentFileDetails. \
+    #         get_random_alphanumeric_string(48)
+    #     TestTransactionMatchingContext.third_party_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
+    #     TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
+    #     TestTransactionMatchingContext.created_at = datetime.now(timezone('Europe/London')) \
+    #         .strftime('%Y-%m-%d %H:%M:%S')
+    #     return {
+    #         "amount": TestTransactionMatchingContext.spend_amount / 100,
+    #         "currency_code": "GBP",
+    #         "mid": mid,
+    #         "payment_card_token": PaymentCardTestData.get_data("master").get(constants.TOKEN),
+    #         "third_party_id": TestTransactionMatchingContext.third_party_id,
+    #         "time": TestTransactionMatchingContext.created_at
+    #     }
 
     @staticmethod
     def get_master_settlement_spotting_txt_file(mid):
@@ -493,7 +507,7 @@ class TransactionMatchingPaymentFileDetails:
         }
 
     @staticmethod
-    def get_visa_spotting_merchant_settlement_data(mid):
+    def get_visa_spotting_settlement_data(mid):
         return {
             "CardId": TestTransactionMatchingContext.transaction_id,
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
@@ -535,7 +549,7 @@ class TransactionMatchingPaymentFileDetails:
         }
 
     @staticmethod
-    def get_visa_spotting_merchant_refund_data(mid):
+    def get_visa_spotting_refund_data(mid):
         TestTransactionMatchingContext.spend_amount = random.choice(range(1, 20))
         TestTransactionMatchingContext.transaction_id = (
             TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)

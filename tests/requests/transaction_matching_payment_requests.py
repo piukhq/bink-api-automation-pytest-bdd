@@ -128,18 +128,18 @@ def get_visa_spotting_streaming_settlement_json(mid):
     get_data_to_import()
     url = get_visa_url()
     header = TransactionMatchingEndpoint.request_header_visa()
-    payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_settlement_data(mid)
+    payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_settlement_data(mid)
     response = Endpoint.call(url, header, "POST", payload)
     logging.info(json.dumps(payload, indent=4))
     return response
 
 
-def get_visa_spotting_streaming_merchant_refund_json(mid):
+def get_visa_spotting_streaming_refund_json(mid):
     """Import Visa Refund Streaming or Spotting Transactions"""
     get_data_to_import()
     url = get_visa_url()
     header = TransactionMatchingEndpoint.request_header_visa()
-    payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_refund_data(mid)
+    payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_refund_data(mid)
     response = Endpoint.call(url, header, "POST", payload)
     logging.info(json.dumps(payload, indent=4))
     return response
@@ -151,7 +151,7 @@ def get_master_spotting_streaming_auth_json(mid):
     get_data_to_import()
     url = get_mastrcard_url()
     header = TransactionMatchingEndpoint.request_header_mastercard()
-    payload = TransactionMatchingPaymentFileDetails.import_spotting_master_auth_payment_card(mid)
+    payload = TransactionMatchingPaymentFileDetails.get_mastercard_auth_spotting_data(mid)
     response = Endpoint.call(url, header, "POST", payload)
     logging.info(json.dumps(payload, indent=4))
     return response
@@ -256,7 +256,7 @@ def import_payment_file_into_harmonia(transaction_type, mid):
         case "visa-settlement-streaming" | "visa-settlement-spotting":
             return get_visa_spotting_streaming_settlement_json(mid)
         case "visa-refund-streaming" | "visa-refund-spotting":
-            return get_visa_spotting_streaming_merchant_refund_json(mid)
+            return get_visa_spotting_streaming_refund_json(mid)
         case "master-auth-streaming" | "master-auth-spotting":
             return get_master_spotting_streaming_auth_json(mid)
 
