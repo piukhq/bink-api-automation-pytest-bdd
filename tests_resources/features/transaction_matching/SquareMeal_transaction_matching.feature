@@ -4,7 +4,7 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @sanity @sanity_bmb @test
+  @sanity @sanity_bmb
     Scenario Outline: Verify transaction streaming for squareMeal
 
     Given I am a Bink user
@@ -17,12 +17,12 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
 
     Examples:
     | payment_card_provider|     mid       |payment_card_transaction      |
-    |          visa        |  29047531     |visa-auth-streaming          |
-    |          visa        |  29047531     |visa-settlement-streaming     |
-    |          visa        |  29047531     |visa-refund-streaming         |
+#    |          visa        |  29047531     |visa-auth-streaming          |
+#    |          visa        |  29047531     |visa-settlement-streaming     |
+#    |          visa        |  29047531     |visa-refund-streaming         |
 #    |          master      |  29047531     |master-auth-spotting          |
 #    |          master      |  29047531     |master-settlement-spotting    |
-#    |          master      |  29047531     |master-refund-spotting        |
+    |          master      |  29047531     |master-refund-spotting        |
 #    |          amex        |  9449819796   |amex-settlement-spotting      |
 #    |          amex        |  9449819796   |amex-refund-spotting          |
 

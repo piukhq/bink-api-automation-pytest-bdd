@@ -307,7 +307,7 @@ class TransactionMatchingPaymentFileDetails:
         third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
         TestTransactionMatchingContext.created_at = now = pendulum.now()
         mid = mid
-        TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
+        TestTransactionMatchingContext.transaction_id = uuid.uuid4()
         TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
         TestTransactionMatchingContext.spend_amount = random.choice(range(1, 10))
         payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)

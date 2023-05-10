@@ -156,6 +156,17 @@ def get_master_spotting_streaming_auth_json(mid):
     logging.info(json.dumps(payload, indent=4))
     return response
 
+def import_master_spotting_streaming_settlement_text(mid):
+    """Import Master Settlement Matching Transactions in the text file to Harmonia"""
+    merchant_container = "mastercard"
+    file_name = (
+        TransactionMatchingPaymentFileDetails.get_master_settlement_spotting_txt_file(mid)
+    )
+    logging.info(file_name)
+    f = open(file_name.name, 'r')
+    file_contents = f.read()
+    logging.info("The MasterCard Settlement Matching file is: \n" + file_contents)
+    upload_mastercard_settlement_file_into_blob(file_name, merchant_container, mid)
 
 def get_amex_spotting_streaming_auth_json(mid):
     get_data_to_import()
@@ -259,6 +270,8 @@ def import_payment_file_into_harmonia(transaction_type, mid):
             return get_visa_spotting_streaming_refund_json(mid)
         case "master-auth-streaming" | "master-auth-spotting":
             return get_master_spotting_streaming_auth_json(mid)
+        case "master-settlement-streaming" | "master-settlement-spotting":
+            return import_master_spotting_streaming_settlement_text(mid)
 
 
 
