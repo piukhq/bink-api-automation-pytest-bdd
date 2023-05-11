@@ -158,7 +158,6 @@ def import_payment_file_remove(payment_card_transaction, mid):
 
 @then(parsers.parse("I verify the reward transaction is exported using {transaction_matching_logic}"))
 def verify_exported_transactions(transaction_matching_logic):
-
     logging.info("Transaction Export:\n")
     matched_transaction = verify_exported_transaction(transaction_matching_logic)
 
@@ -188,6 +187,7 @@ def verify_exported_transactions(transaction_matching_logic):
     ), "Transaction is present in transaction_export table, but is not successfully exported"
 
 
+@then(parsers.parse("I verify transaction is not streamed/spotted and exported"))
 @then(parsers.parse("I verify transaction is not exported"))
 def verify_transaction_not_matched():
     matched_count = QueryHarmonia.fetch_match_transaction_count_invalid_mid(

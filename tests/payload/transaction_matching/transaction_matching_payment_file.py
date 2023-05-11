@@ -33,6 +33,8 @@ def get_data_to_import():
 
 class TransactionMatchingPaymentFileDetails:
 
+    # *************************Matching transactions*************************************************
+
     @staticmethod
     def get_visa_auth_data(mid):
         """create json for  Transaction Matching Visa Auth"""
@@ -254,7 +256,7 @@ class TransactionMatchingPaymentFileDetails:
             "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "currencyCode": "840",
             "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX"
-            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
+                    + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
             "merchantNumber": mid,
             "offerId": "0",
             "partnerId": "AADP0050",
@@ -264,13 +266,14 @@ class TransactionMatchingPaymentFileDetails:
             "transactionId": str(TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48))
         }
 
+    # *************************Streaming spotting transactions*************************************************
     @staticmethod
     def get_mastercard_auth_spotting_data(mid):
         now = pendulum.now()
         TestTransactionMatchingContext.spend_amount = random.choice(range(1, 20))
         TestTransactionMatchingContext.third_party_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
         TestTransactionMatchingContext.transaction_id = \
-            TestTransactionMatchingContext.third_party_id+"_"+now.format("YYYYMMDD")
+            TestTransactionMatchingContext.third_party_id + "_" + now.format("YYYYMMDD")
         TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
         TestTransactionMatchingContext.created_at = datetime.now(timezone('Europe/London')) \
             .strftime('%Y-%m-%d %H:%M:%S')
@@ -427,7 +430,7 @@ class TransactionMatchingPaymentFileDetails:
             "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "currencyCode": "840",
             "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX"
-            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
+                    + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
             "merchantNumber": mid,
             "offerId": "0",
             "partnerId": "AADP0050",
@@ -449,7 +452,7 @@ class TransactionMatchingPaymentFileDetails:
             "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "currencyCode": "840",
             "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX"
-            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
+                    + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
             "merchantNumber": mid,
             "offerId": "0",
             "partnerId": "AADP0050",

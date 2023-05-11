@@ -22,11 +22,11 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
 #    |          visa        |  29047531     |visa-refund-streaming         |
 #    |          master      |  29047531     |master-auth-spotting          |
 #    |          master      |  29047531     |master-settlement-spotting    |
-    |          master      |  29047531     |master-refund-spotting        |
-#    |          amex        |  9449819796   |amex-settlement-spotting      |
+#    |          master      |  29047531     |master-refund-spotting        |
+    |          amex        |  9449819796   |amex-settlement-spotting      |
 #    |          amex        |  9449819796   |amex-refund-spotting          |
 
-  @sanity @sanity_bmb
+  @sanity @sanity_bmb @test
     Scenario Outline: Verify that Squaremeal AMEX auth transaction for streaming/spotting merchant is not exported
 
     Given I am a Bink user
@@ -34,8 +34,9 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
     And I perform the GET request to verify the payment card has been added successfully to the wallet
     When I perform POST request to add & auto link "SquareMeal" membership card
     Then I perform GET request to verify the "SquareMeal" membershipcard is added & linked successfully in the wallet
-    When I send matching "<payment_card_transaction>" "<mid>" Authorisation
+    When I send Payment Transaction File with <payment_card_transaction> <mid>
     Then I verify transaction is imported into the import_transaction table
+#    Then I verify transaction is not exported
     Then I verify transaction is not streamed/spotted and exported
 
     Examples:

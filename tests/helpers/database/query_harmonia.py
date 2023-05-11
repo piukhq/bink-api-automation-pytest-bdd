@@ -117,17 +117,17 @@ class QueryHarmonia:
     #     db.clear_db(connection)
     #     return spotted_transaction_record
 
-    # @staticmethod
-    # def fetch_imported_transaction_count(transaction_id):
-    #     """Fetch the spotted account details using spotted_transaction_id and amount"""
-    #     connection = db.connect_harmonia_db()
-    #     record = db.execute_query_fetch_one(connection, get_imported_transaction(transaction_id))
-    #     if record is None:
-    #         raise Exception(f"'{transaction_id}' is an Invalid transaction_id")
-    #     else:
-    #         imported_transaction_record = MatchedTransactionRecord(record[0])
-    #     db.clear_db(connection)
-    #     return imported_transaction_record
+    @staticmethod
+    def fetch_imported_transaction_count(transaction_id):
+        """Fetch the spotted account details using spotted_transaction_id and amount"""
+        connection = db.connect_harmonia_db()
+        record = db.execute_query_fetch_one(connection, get_imported_transaction(transaction_id))
+        if record is None:
+            raise Exception(f"'{transaction_id}' is an Invalid transaction_id")
+        else:
+            imported_transaction_record = MatchedTransactionRecord(record[0])
+        db.clear_db(connection)
+        return imported_transaction_record
 
     # @staticmethod
     # def fetch_mastercard_spotted_transaction_count(spend_amount, created_at):
@@ -189,14 +189,14 @@ class QueryHarmonia:
 #     return spotted_transaction
 
 #
-# def get_imported_transaction(transaction_id):
-#     spotted_transaction = (
-#         "SELECT count(*) from harmonia.public.import_transaction "
-#         "WHERE transaction_id = '{}'".format(transaction_id)
-#     )
-#     logging.info(spotted_transaction)
-#     return spotted_transaction
-#
+def get_imported_transaction(transaction_id):
+    spotted_transaction = (
+        "SELECT count(*) from harmonia.public.import_transaction "
+        "WHERE transaction_id = '{}'".format(transaction_id)
+    )
+    logging.info(spotted_transaction)
+    return spotted_transaction
+
 #
 # def get_spotted_transaction(transaction_id):
 #     spotted_transaction = (
