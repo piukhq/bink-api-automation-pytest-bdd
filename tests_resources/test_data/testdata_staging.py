@@ -186,9 +186,9 @@ viator_invalid_data = {
 }
 
 wasabi_membership_card = {
-    "card_num": "1048172852",
-    "email": "binktestuser14@wasabi.com",
-    "points": 6,
+    "card_num": "1022169982",
+    "email": "qatest+donotusewasabi@bink.com",
+    "points": 5,
     "currency": "stamps",
     "description": "",
     "transactions": "",
@@ -196,10 +196,40 @@ wasabi_membership_card = {
     "transaction_currency": "stamps",
 }
 
+# wasabi_membership_card = {
+#     "card_num": "1048172852",
+#     "email": "binktestuser14@wasabi.com",
+#     "points": 6,
+#     "currency": "stamps",
+#     "description": "",
+#     "transactions": "",
+#     "transaction_status": "active",
+#     "transaction_currency": "stamps",
+# }
+
 wasabi_invalid_data = {
     "card_num": "",
     "email": "fail@unknown.com",
 }
+
+
+the_works_membership_card = {
+    "card_num": "",
+    "email": "",
+    "points": 0,
+    "currency": "",
+    "description": "",
+    "transactions": "",
+    "transaction_status": "",
+    "transaction_currency": "",
+}
+
+the_works_invalid_data = {
+    "card_num": "",
+    "email": "fail@unknown.com",
+}
+
+
 # ----------------------------------------MEMBERSHIP PLAN IDs   ----------------------------------------------- #
 
 membership_plan_id = {
@@ -214,6 +244,7 @@ membership_plan_id = {
     "trenette": 284,
     "asos": 288,
     "viator": 292,
+    "the_works": 294
 }
 
 # ----------------------------------------PAYMENT CARD STATES  --------------------------------------------------- #
