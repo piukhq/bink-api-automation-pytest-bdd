@@ -210,7 +210,7 @@ wasabi_membership_card = {
 wasabi_invalid_data = {
     "card_num": "",
     "email": "fail@unknown.com",
-    "invalid_lastname" : ""
+    "invalid_lastname": ""
 }
 
 
