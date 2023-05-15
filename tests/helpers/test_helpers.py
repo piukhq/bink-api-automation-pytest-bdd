@@ -5,6 +5,7 @@ from tests.payload.membership_cards.square_meal import SquareMealCard
 from tests.payload.membership_cards.wasabi import WasabiCard
 from tests.payload.membership_cards.trenette import TrenetteCard
 from tests.payload.membership_cards.viator import ViatorCard
+from tests.payload.membership_cards.theworks import TheWorksCard
 
 
 class Merchant:
@@ -24,6 +25,8 @@ class Merchant:
                 return TrenetteCard
             case "Viator":
                 return ViatorCard
+            case "TheWorks":
+                return TheWorksCard
 
     @staticmethod
     def get_scheme_cred_main_ans(merchant):
@@ -40,6 +43,8 @@ class Merchant:
                 return TestDataUtils.TEST_DATA.trenette_membership_card.get(constants.CARD_NUM)
             case "Viator":
                 return TestDataUtils.TEST_DATA.viator_membership_card.get(constants.CARD_NUM)
+            case "TheWorks":
+                return TestDataUtils.TEST_DATA.the_works_membership_card.get(constants.CARD_NUM)
 
 
 class TestData:
@@ -70,6 +75,8 @@ class TestData:
                 return TestDataUtils.TEST_DATA.trenette_membership_card
             case "Viator":
                 return TestDataUtils.TEST_DATA.viator_membership_card
+            case "TheWorks":
+                return TestDataUtils.TEST_DATA.the_works_membership_card
 
     """Below functions read test data as "data" from the test_data sheet
     ( instead of data_object in other functions)"""
@@ -131,6 +138,7 @@ class TestData:
             case "SquareMeal": return "square_meal"
             case "Trenette": return "trenette"
             case "Viator": return "viator"
+            case "TheWorks": return "the_works"
 
     @staticmethod
     def get_vop_status():

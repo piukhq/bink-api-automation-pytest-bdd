@@ -116,6 +116,22 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     Then I perform DELETE request to delete the "TheWorks" membership card
 
 
+     @enrol_failed @two
+  Scenario Outline: Join Journey_The Works enrol failed
+
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "TheWorks" membership account with "<invalid_lastname>" enrol credentials
+    And I perform GET request to verify the "TheWorks" membership account is created with invalid data
+    Then verify the data stored in DB after "Enrol" journey for "TheWorks"
+    Then I perform DELETE request to delete the "TheWorks" membership card
+    And I perform DELETE request to delete the customer
+
+    Examples:
+      | invalid_lastname |
+      | emailexists      |
+      | fail             |
+      | failhttperror    |
+
   Scenario Outline: Negative test scenario for POST/membership_cards wrong payload field values _ the Works
     Given I am a Bink user
     When I perform POST request to add "TheWorks" membership card without "<field_value>"
