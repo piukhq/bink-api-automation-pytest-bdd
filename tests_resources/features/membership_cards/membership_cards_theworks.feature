@@ -128,9 +128,10 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
 
     Examples:
       | invalid_lastname |
-      | emailexists      |
-      | fail             |
-      | failhttperror    |
+      |account_already_exists|
+      |join_failed           |
+      |join_http_failed      |
+
 
   Scenario Outline: Negative test scenario for POST/membership_cards wrong payload field values _ the Works
     Given I am a Bink user

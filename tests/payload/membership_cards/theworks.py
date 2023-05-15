@@ -17,11 +17,11 @@ class TheWorksCard:
         if not invalid_data:
             last_name = faker.name()
         else:
-            if invalid_data == "emailexists":
+            if invalid_data == "account_already_exists":
                 last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.JOIN_ACCOUNT_ALREADY_EXISTS)
-            elif invalid_data == "fail":
+            elif invalid_data == "join_failed":
                 last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.JOIN_FAILED)
-            elif invalid_data == "failhttperror":
+            elif invalid_data == "join_http_failed":
                 last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.JOIN_HTTP_FAILED)
 
         data_type = "Invalid data"
