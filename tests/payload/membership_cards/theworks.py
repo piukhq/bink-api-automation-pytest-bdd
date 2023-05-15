@@ -14,8 +14,6 @@ class TheWorksCard:
     @staticmethod
     def enrol_membership_scheme_payload(email, env=None, channel=None, invalid_data=None):
         faker = Faker()
-
-
         if not invalid_data:
             last_name = faker.name()
         else:
@@ -25,7 +23,6 @@ class TheWorksCard:
                 last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.JOIN_FAILED)
             elif invalid_data == "failhttperror":
                 last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.JOIN_HTTP_FAILED)
-
 
         data_type = "Invalid data"
         payload = {
