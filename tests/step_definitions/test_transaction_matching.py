@@ -31,7 +31,7 @@ scenarios("transaction_matching/")
 
 @when(parsers.parse('I send Payment Transaction File with {payment_card_transaction} {mid}'))
 def import_payment_file(payment_card_transaction, mid):
-    TestTransactionMatchingContext.mid = mid
+
     response = import_payment_file_into_harmonia(payment_card_transaction, mid)
     logging.info("Waiting for transaction to be imported")
     try:

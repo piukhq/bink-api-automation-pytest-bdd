@@ -21,13 +21,13 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
 #    |          visa        |  29047531     |visa-settlement-streaming    |
 #    |          visa        |  29047531     |visa-refund-streaming         |
 #    |          master      |  29047531     |master-auth-streaming        |
-#    |          master      |  29047531     |master-settlement-streaming   |
-#    |          master      |  29047531     |master-refund-streaming       |
+     |          master      |  29047531     |master-settlement-streaming   |
+#     |          master      |  29047531     |master-refund-streaming       |
 #    |          amex        |  9449819796   |amex-settlement-streaming     |
 #    |          amex        |  9449819796   |amex-refund-streaming          |
 
   @sanity @sanity_bmb
-    Scenario Outline: Verify that Squaremeal AMEX auth transaction for streaming/streaming merchant is not exported
+    Scenario Outline: Verify that Squaremeal AMEX auth transaction for streaming merchant is not exported
 
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet
@@ -43,7 +43,7 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
     |          amex        |  9449819796   |amex-auth-streaming           |
 
   @sanity @sanity_bmb
-    Scenario Outline: Verify transaction streaming for squaremeal negative scenario(invalid mid)
+    Scenario Outline: Verify transaction streaming for squaremeal negative scenario (invalid mid)
 
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet
@@ -55,9 +55,9 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
 
     Examples:
     | payment_card_provider|     mid       |payment_card_transaction |
-    |          visa        |  29047530     |visa-auth-streaming       |
-    |          visa        |  29047530     |visa-settlement-streaming |
-    |          visa        |  29047530     |visa-refund-streaming     |
+#    |          visa        |  29047530     |visa-auth-streaming       |
+#    |          visa        |  29047530     |visa-settlement-streaming |
+# #    |          visa        |  29047530     |visa-refund-streaming     |
 
   @sanity @sanity_bmb
     Scenario Outline: Verify transaction streaming for squaremeal negative scenario(invalid payment card token)

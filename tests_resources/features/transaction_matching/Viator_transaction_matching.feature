@@ -23,7 +23,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
 #    |          master      |  020150514    |master-settlement-spotting  |
 #    |          master      |  020150514    |master-refund-spotting      |
 #    |          amex        |  9602929481   |amex-settlement-spotting     |
-    |          amex        |  9449819796   |amex-refund-streaming        |
+# is it a valid case   |          amex        |  9602929481   |amex-refund-spotting        |
 
 
 

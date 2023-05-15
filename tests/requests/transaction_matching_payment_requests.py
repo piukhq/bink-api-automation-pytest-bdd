@@ -151,17 +151,17 @@ def get_master_spotting_streaming_auth_json(mid):
     logging.info(json.dumps(payload, indent=4))
     return response
 
-def import_master_spotting_streaming_settlement_text(mid):
-    """Import Master Settlement Matching Transactions in the text file to Harmonia"""
-    merchant_container = "mastercard"
-    file_name = (
-        TransactionMatchingPaymentFileDetails.get_master_settlement_spotting_txt_file(mid)
-    )
-    logging.info(file_name)
-    f = open(file_name.name, 'r')
-    file_contents = f.read()
-    logging.info("The MasterCard Settlement Matching file is: \n" + file_contents)
-    upload_mastercard_settlement_file_into_blob(file_name, merchant_container, mid)
+# def import_master_spotting_streaming_settlement_text(mid):
+#     """Import Master Settlement Matching Transactions in the text file to Harmonia"""
+#     merchant_container = "mastercard"
+#     file_name = (
+#         TransactionMatchingPaymentFileDetails.get_master_settlement_spotting_txt_file(mid)
+#     )
+#     logging.info(file_name)
+#     f = open(file_name.name, 'r')
+#     file_contents = f.read()
+#     logging.info("The MasterCard Settlement Matching file is: \n" + file_contents)
+#     upload_mastercard_settlement_file_into_blob(file_name, merchant_container, mid)
 
 def import_amex_spotting_streaming_auth_json(mid):
     # get_data_to_import()
@@ -172,16 +172,6 @@ def import_amex_spotting_streaming_auth_json(mid):
     logging.info(json.dumps(payload, indent=2))
     response = Endpoint.call(url, headers, "POST", payload)
     return response
-
-
-# def get_amex_spotting_streaming_settlement_json(mid):
-#     get_data_to_import()
-#     url = get_visa_url()
-#     header = TransactionMatchingEndpoint.request_header_visa()
-#     payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_settlement_data(mid)
-#     response = Endpoint.call(url, header, "POST", payload)
-#     print(json.dumps(payload, indent=4))
-#     return response
 
 def import_amex_spotting_streaming_settlement_json(mid):
     """Import Amex settlement spotting / streaming file"""
@@ -194,9 +184,8 @@ def import_amex_spotting_streaming_settlement_json(mid):
     return response
 
 
-
 def import_amex_spotting_streaming_refund_json(mid):
-    get_data_to_import()
+    get_amex_register_payment_json()
     url = get_amex_settle_url()
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
     payload = TransactionMatchingPaymentFileDetails.get_amex_refund_spotting_data(mid)
@@ -231,7 +220,7 @@ def get_visa_url():
 def import_payment_file_into_harmonia(transaction_type, mid):
     """This function will decide which way( API, Blob storage etc.,) the Payment Transaction needs to be
         imported into Harmonia"""
-
+    TestTransactionMatchingContext.mid = mid
     match transaction_type:
         case "visa-auth-matching":
             return import_visa_matching_auth_json(mid)
@@ -253,8 +242,8 @@ def import_payment_file_into_harmonia(transaction_type, mid):
             return get_visa_spotting_streaming_refund_json(mid)
         case "master-auth-streaming" | "master-auth-spotting":
             return get_master_spotting_streaming_auth_json(mid)
-        case "master-settlement-streaming" | "master-settlement-spotting":
-            return import_master_spotting_streaming_settlement_text(mid)
+        # case "master-refund-streaming" | "master-refund-spotting":
+        #     return get_visa_spotting_streaming_refund_json(mid)
         case "amex-auth-streaming" | "amex-auth-spotting":
             return import_amex_spotting_streaming_auth_json(mid)
         case "amex-settlement-streaming" | "amex-settlement-spotting":
