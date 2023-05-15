@@ -227,8 +227,10 @@ the_works_membership_card = {
 
 the_works_invalid_data = {
     "card_num": "",
-    # "last_name": "EmailExists",
-    "invalid_lastname": ""
+    "email_exists": "emailexists",
+    "join_failed": "fail",
+    "join_http_failed": "failhttperror"
+
 
 }
 

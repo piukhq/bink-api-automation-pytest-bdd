@@ -116,7 +116,7 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     Then I perform DELETE request to delete the "TheWorks" membership card
 
 
-     @enrol_failed @two
+     @enrol_failed
   Scenario Outline: Join Journey_The Works enrol failed
 
     Given I register with bink service as a new customer
