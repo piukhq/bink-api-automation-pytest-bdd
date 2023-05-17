@@ -97,7 +97,6 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_visa_settlement_data(mid):
-
         """create json for  Transaction Matching Visa Settlement"""
 
         return {
@@ -176,69 +175,15 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def get_master_settlement_txt_file(mid):
         """Create Mastercard Settlement Text file for Transaction Matching"""
-        if not TestTransactionMatchingContext.transaction_matching_amount:
-            TestTransactionMatchingContext.transaction_matching_amount = random.choice(range(1, 10))
-        auth_code = TestTransactionMatchingContext.transaction_matching_auth_code
-        if not auth_code:
-            auth_code = random.randint(100000, 999999)
-        third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
-        now = pendulum.now()
-        if not TestTransactionMatchingContext.retailer_transaction_id:
-            TestTransactionMatchingContext.transaction_id = third_part_id + "_" + now.format("YYYYMMDD")
-        else:
-            TestTransactionMatchingContext.transaction_id = TestTransactionMatchingContext.retailer_transaction_id
-        timestamp = TestTransactionMatchingContext.transaction_matching_currentTimeStamp
-        if not timestamp:
-            timestamp = datetime.now(timezone("Europe/London")).strftime("HHmm")
-        else:
-            timestamp = datetime.now(
-                timezone("Europe/London")
-            ).strftime("%Y-%m-%d %H:%M:%S")
-        # extract_time(timestamp)
-        mid = mid
         payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
-        amount = str(TestTransactionMatchingContext.transaction_matching_amount).zfill(12)
-
-        lines = [
-            join(
-                ("H", 1),
-                (now.format("YYYYMMDD"), 8),
-                (now.format("hhmmss"), 6),
-                (" ", 6),
-                ("mastercard-tgx2-settlement.txt", 9),
-                ("", 835),
-            ),
-            join(
-                ("D", 1),
-                ("", 20),
-                (payment_card_token, 30),
-                ("", 51),
-                (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
-                ("", 341),
-                (mid, 15),
-                ("", 52),
-                ((amount[:12]), 12),
-                ("", 33),
-                (extract_time(timestamp), 4),
-                (auth_code, 6),
-                ("", 188),
-                (third_part_id, 9),
-            ),
-            join(
-                ("T", 1),
-                (now.format("YYYYMMDD"), 8),
-                (now.format("hhmmss"), 6),
-                (" ", 6),
-                ("mastercard-tgx2-settlement.txt", 9),
-                ("", 835),
-            ),
-        ]
-        file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.transaction_matching_amount) + ".txt")
-        with open(file_name, "a+") as file_name:
-            for line in lines:
-                (file_name.write(str(line)))
-                file_name.write("\n")
-        return file_name
+        amount = str(TestTransactionMatchingContext.transaction_matching_amount * 100).zfill(12)
+        third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
+        return create_mastercard_settle_text_file(payment_card_token,
+                                                  mid,
+                                                  amount,
+                                                  TestTransactionMatchingContext.transaction_matching_auth_code,
+                                                  third_part_id
+                                                  )
 
     @staticmethod
     def get_amex_register_token():
@@ -437,54 +382,22 @@ class TransactionMatchingPaymentFileDetails:
             "time": TestTransactionMatchingContext.current_time_stamp
         }
 
-    # @staticmethod
-    # def get_master_settlement_spotting_txt_file(mid):
-    #     get_data_to_import()
-    #     third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
-    #     TestTransactionMatchingContext.created_at = now = pendulum.now()
-    #     mid = mid
-    #     TestTransactionMatchingContext.transaction_id = uuid.uuid4()
-    #     TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
-    #     TestTransactionMatchingContext.spend_amount = random.choice(range(1, 10))
-    #     payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
-    #     amount = (str(TestTransactionMatchingContext.spend_amount).zfill(12))
-    #     lines = [join(
-    #         ("H", 1),
-    #         (now.format("YYYYMMDD"), 8),
-    #         (now.format("hhmmss"), 6),
-    #         (" ", 6),
-    #         ("mastercard-tgx2-settlement.txt", 9),
-    #         ("", 835),
-    #
-    #     ), join(
-    #         ("D", 1),
-    #         ("", 20),
-    #         (payment_card_token, 30),
-    #         ("", 51),
-    #         (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
-    #         ("", 341),
-    #         (mid, 15),
-    #         ("", 52),
-    #         ((amount[:12]), 12),
-    #         ("", 33),
-    #         (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
-    #         (TestTransactionMatchingContext.auth_code, 6),
-    #         ("", 188),
-    #         (third_part_id, 9),
-    #     ), join(
-    #         ("T", 1),
-    #         (now.format("YYYYMMDD"), 8),
-    #         (now.format("hhmmss"), 6),
-    #         ("", 6),
-    #         ("mastercard-tgx2-settlement.txt", 9),
-    #         ("", 835),
-    #     )]
-    #     file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.spend_amount) + ".txt")
-    #     with open(file_name, "a+") as file_name:
-    #         for line in lines:
-    #             (file_name.write(str(line)))
-    #             file_name.write('\n')
-    #     return file_name
+    @staticmethod
+    def get_master_settlement_spotting_txt_file(mid):
+        """Pass below data to create master_settlement_spotting_txt_file"""
+        payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
+        TestTransactionMatchingContext.transaction_matching_amount = random.choice(range(1, 10))
+        amount = (str(TestTransactionMatchingContext.transaction_matching_amount).zfill(12))
+        auth_code = random.randint(100000, 999999)
+        third_party_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
+        TestTransactionMatchingContext.transaction_id = third_party_id + "_" + pendulum.now().format("YYYYMMDD")
+
+        return create_mastercard_settle_text_file(payment_card_token,
+                                                  mid,
+                                                  amount,
+                                                  auth_code,
+                                                  third_party_id
+                                                  )
 
     @staticmethod
     def get_master_refund_spotting_txt_file(mid):
@@ -635,6 +548,45 @@ def get_visa_spotting_refund_data(mid):
     }
 
 
-def extract_time(time_stamp) -> string:
-    logging.info(str(time_stamp[-8:-6]+time_stamp[-5:-3]))
-    return str(time_stamp[-8:-6]+time_stamp[-5:-3])
+def create_mastercard_settle_text_file(payment_card_token, mid, amount, auth_code, third_party_id):
+    now = pendulum.now()
+    lines = [
+        join(
+            ("H", 1),
+            (now.format("YYYYMMDD"), 8),
+            (now.format("hhmmss"), 6),
+            (" ", 6),
+            ("mastercard-tgx2-settlement.txt", 9),
+            ("", 835),
+        ),
+        join(
+            ("D", 1),
+            ("", 20),
+            (payment_card_token, 30),
+            ("", 51),
+            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
+            ("", 341),
+            (mid, 15),
+            ("", 52),
+            ((amount[:12]), 12),
+            ("", 33),
+            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
+            (auth_code, 6),
+            ("", 188),
+            (third_party_id, 9),
+        ),
+        join(
+            ("T", 1),
+            (now.format("YYYYMMDD"), 8),
+            (now.format("hhmmss"), 6),
+            (" ", 6),
+            ("mastercard-tgx2-settlement.txt", 9),
+            ("", 835),
+        ),
+    ]
+    file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.transaction_matching_amount) + ".txt")
+    with open(file_name, "a+") as file_name:
+        for line in lines:
+            (file_name.write(str(line)))
+            file_name.write("\n")
+    return file_name
