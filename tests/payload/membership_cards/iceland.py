@@ -135,7 +135,7 @@ class IcelandCard:
         return payload
 
     @staticmethod
-    def enrol_ghost_membership_scheme_payload(email, scheme_id, env, channel=None, scheme_status=None):
+    def update_ghost_membership_scheme_payload(email, scheme_account_id, env, channel=None, enrol_cred_status=None):
         faker = Faker()
         enrol_consent = "Consent 1"
         if channel == "barclays":
@@ -171,7 +171,7 @@ class IcelandCard:
         logging.info(
             "The Request for Register Ghost Journey with  :\n\n"
             + Endpoint.BASE_URL
-            + api.ENDPOINT_MEMBERSHIP_CARD.format(scheme_id)
+            + api.ENDPOINT_MEMBERSHIP_CARD.format(scheme_account_id)
             + "\n\n"
             + json.dumps(payload, indent=4)
         )

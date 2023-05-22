@@ -5,6 +5,62 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
   So I can add my card, with the scheme provider TheWorks & check its details successfully
 
 
+  @enrol
+  Scenario: Join Journey_The Works
+
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "TheWorks" membership account with enrol credentials
+    And I perform GET request to verify the "TheWorks" membership account is created
+    Then verify the data stored in DB after "Enrol" journey for "TheWorks"
+    Then I perform DELETE request to delete the "TheWorks" membership card
+    And I perform DELETE request to delete the customer
+
+  @enrol_put @join
+  Scenario: Join Journey_PUT_The Works
+
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "TheWorks" membership account with "join_failed" enrol credentials
+    And I perform GET request to verify the "TheWorks" membership account is created with invalid data
+    And I perform PUT request to replace information of the enrolled "TheWorks" membership card
+    And I perform GET request to verify the enrolled "TheWorks" membership card details got replaced after a successful PUT
+    Then verify the data stored in DB after "Enrol" journey for "TheWorks"
+    Then I perform DELETE request to delete the "TheWorks" membership card
+    And I perform DELETE request to delete the customer
+
+  @enrol_failed
+  Scenario Outline: Join Journey_The Works enrol failed
+
+    Given I register with bink service as a new customer
+    When I perform POST request to create a "TheWorks" membership account with "<invalid_lastname>" enrol credentials
+    And I perform GET request to verify the "TheWorks" membership account is created with invalid data
+    Then verify the data stored in DB after "Enrol" journey for "TheWorks"
+    Then I perform DELETE request to delete the "TheWorks" membership card
+    And I perform DELETE request to delete the customer
+
+    Examples:
+      | invalid_lastname       |
+      | account_already_exists |
+      | join_failed            |
+      | join_http_failed       |
+
+
+  @ghost_journey
+  Scenario Outline: Ghost card Journey_The Works Register failed
+
+    Given I am a Bink user
+    When I perform POST request to add "TheWorks" ghost membership card
+    And I perform GET request to verify the "TheWorks" ghost membership card is added to the wallet
+    When I perform PATCH request to update the "TheWorks" ghost membership account with <invalid_enrol> credentials
+    And I perform GET request to verify the "TheWorks" membership account is created
+    Then I perform DELETE request to delete the "TheWorks" membership card
+
+    Examples:
+      | invalid_enrol          |
+      | account_already_exists |
+      | card_num_exists        |
+      | join_failed            |
+      | join_http_failed       |
+
   @add
   Scenario: Add Journey_The Works
 
@@ -71,29 +127,6 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     Then I perform DELETE request to delete the "TheWorks" membership card
 
 
-  @enrol
-  Scenario: Join Journey_The Works
-
-    Given I register with bink service as a new customer
-    When I perform POST request to create a "TheWorks" membership account with enrol credentials
-    And I perform GET request to verify the "TheWorks" membership account is created
-    Then verify the data stored in DB after "Enrol" journey for "TheWorks"
-    Then I perform DELETE request to delete the "TheWorks" membership card
-    And I perform DELETE request to delete the customer
-
-
-  @enrol_put
-  Scenario: Join Journey_PUT_The Works
-
-    Given I register with bink service as a new customer
-    When I perform POST request to create a "TheWorks" membership account with "invalid" enrol credentials
-    And I perform GET request to verify the "TheWorks" membership account is created with invalid data
-    And I perform PUT request to replace information of the enrolled "TheWorks" membership card
-    And I perform GET request to verify the enrolled "TheWorks" membership card details got replaced after a successful PUT
-    Then verify the data stored in DB after "Enrol" journey for "TheWorks"
-    Then I perform DELETE request to delete the "TheWorks" membership card
-    And I perform DELETE request to delete the customer
-
   @add_always_link
   Scenario: Adding payments cards to always auto-link_The Works
 
@@ -104,33 +137,6 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     And I perform GET request to verify the "TheWorks" membership card is added & linked successfully in the wallet
     Then I perform DELETE request to delete the "TheWorks" membership card
     And I perform DELETE request to delete the payment card
-
-  @ghost_journey
-  Scenario: Ghost card Journey The Works
-
-    Given I am a Bink user
-    When I perform POST request to add "TheWorks" ghost membership card
-    And I perform GET request to verify the "TheWorks" ghost membership card is added to the wallet
-    When I perform PATCH request to create a "TheWorks" ghost membership account with enrol credentials
-    And I perform GET request to verify the "TheWorks" membership account is created
-    Then I perform DELETE request to delete the "TheWorks" membership card
-
-
-     @enrol_failed
-  Scenario Outline: Join Journey_The Works enrol failed
-
-    Given I register with bink service as a new customer
-    When I perform POST request to create a "TheWorks" membership account with "<invalid_lastname>" enrol credentials
-    And I perform GET request to verify the "TheWorks" membership account is created with invalid data
-    Then verify the data stored in DB after "Enrol" journey for "TheWorks"
-    Then I perform DELETE request to delete the "TheWorks" membership card
-    And I perform DELETE request to delete the customer
-
-    Examples:
-      | invalid_lastname |
-      |account_already_exists|
-      |join_failed           |
-      |join_http_failed      |
 
 
   Scenario Outline: Negative test scenario for POST/membership_cards wrong payload field values _ the Works

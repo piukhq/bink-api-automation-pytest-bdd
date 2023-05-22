@@ -170,11 +170,11 @@ class MembershipCards(Endpoint):
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
-    def register_ghost_card(token, merchant, email, scheme_account_id, env, channel, scheme_status=None):
+    def register_ghost_card(token, merchant, email, scheme_account_id, env, channel, enrol_cred_status=None):
         url = MembershipCards.get_url(scheme_account_id)
         header = Endpoint.request_header(token)
-        payload = Merchant.get_merchant(merchant).enrol_ghost_membership_scheme_payload(
-            email, scheme_account_id, env, channel, scheme_status
+        payload = Merchant.get_merchant(merchant).update_ghost_membership_scheme_payload(
+            email, scheme_account_id, env, channel, enrol_cred_status
         )
         return Endpoint.call(url, header, "PATCH", payload)
 

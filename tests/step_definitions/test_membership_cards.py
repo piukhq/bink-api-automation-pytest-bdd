@@ -210,10 +210,13 @@ def enrol_membership_account(merchant, test_email, env, channel):
 """Step Definations - Register ghost membership_card"""
 
 
-@when(parsers.parse('I perform PATCH request to create a "{merchant}" ghost membership account with enrol credentials'))
-def register_ghost_membership_account(merchant, test_email, env, channel):
+@when(parsers.parse('I perform PATCH request to update the "{merchant}" ghost membership account with '
+                    '{enrol_cred_type} credentials'))
+def register_ghost_membership_account(merchant, test_email, env, channel, enrol_cred_type):
     response = MembershipCards.register_ghost_card(
-        TestContext.token, merchant, test_email, TestContext.current_scheme_account_id, env, channel
+        TestContext.token, merchant, test_email,
+        TestContext.current_scheme_account_id,
+        env, channel, enrol_cred_type
     )
     response_json = response_to_json(response)
     TestContext.current_scheme_account_id = response_json.get("id")
@@ -342,7 +345,6 @@ def verify_membership_card_is_created(merchant):
 
     """commenting below two assertions temporarily"""
     TestContext.card_number = response_json["card"]["membership_id"]
-# TestContext.existing_card = response_json["card"]["membership_id"]
     logging.info(
         "The response of GET/MembershipCard after Register Ghost Journey is:\n\n"
         + Endpoint.BASE_URL

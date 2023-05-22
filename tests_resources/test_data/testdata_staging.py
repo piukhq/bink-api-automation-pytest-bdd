@@ -228,10 +228,21 @@ the_works_membership_card = {
 the_works_invalid_data = {
     "card_num": "",
     "email_exists": "emailexists",
-    "join_failed": "fail",
-    "join_http_failed": "failhttperror"
+    "join_failed": "opnotpermitted",
+    "join_http_failed": "failhttperror",
+    "card_num_exists": "cardnumberexists",
 
+}
 
+the_works_ghost_membership_card = {
+    "card_num": "633884762921000001234",
+    "barcode": "",
+    "points": 1480,
+    "currency": "",
+    "description": "",
+    "transactions": "",
+    "transaction_status": "",
+    "transaction_currency": "",
 }
 
 
