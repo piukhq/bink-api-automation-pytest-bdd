@@ -78,9 +78,9 @@ class TheWorksCard:
         """This payload will PATCH Ghost Card with valid / invalid enrol credentials"""
         faker = Faker()
         if enrol_cred_type == "account_already_exists":
-            last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.CARD_NUM_EXISTS)
+            last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.JOIN_ACCOUNT_ALREADY_EXISTS)
         elif enrol_cred_type == "card_num_exists":
-            last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.JOIN_HTTP_FAILED)
+            last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.CARD_NUM_EXISTS)
         elif enrol_cred_type == "join_failed":
             last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.JOIN_FAILED)
         elif enrol_cred_type == "join_http_failed":

@@ -113,7 +113,7 @@ Feature: Merchant Iceland - Ensure a customer can add their membership card & vi
     Given I am a Bink user
     When I perform POST request to add "Iceland" ghost membership card
     And I perform GET request to verify the "Iceland" ghost membership card is added to the wallet
-    When I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
+    When I perform PATCH request to update the "Iceland" ghost membership account with valid_enrol credentials
     And I perform GET request to verify the "Iceland" membership account is created
     Then I perform DELETE request to delete the "Iceland" membership card
 
