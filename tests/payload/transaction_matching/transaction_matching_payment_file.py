@@ -178,10 +178,12 @@ class TransactionMatchingPaymentFileDetails:
         payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
         amount = str(TestTransactionMatchingContext.transaction_matching_amount * 100).zfill(12)
         third_part_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
+        file_name = "mastercard-tgx2-settlement.txt"
         return create_mastercard_settle_text_file(payment_card_token,
                                                   mid,
                                                   amount,
                                                   TestTransactionMatchingContext.transaction_matching_auth_code,
+                                                  file_name,
                                                   third_part_id
                                                   )
 
@@ -391,29 +393,38 @@ class TransactionMatchingPaymentFileDetails:
         auth_code = random.randint(100000, 999999)
         third_party_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
         TestTransactionMatchingContext.transaction_id = third_party_id + "_" + pendulum.now().format("YYYYMMDD")
-
+        file_name = "mastercard-tgx2-settlement.txt"
         return create_mastercard_settle_text_file(payment_card_token,
                                                   mid,
                                                   amount,
                                                   auth_code,
+                                                  file_name,
                                                   third_party_id
                                                   )
 
     @staticmethod
     def get_master_refund_spotting_txt_file(mid):
-        TestTransactionMatchingContext.created_at = now = pendulum.now()
-        mid = mid
-        TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
+        """Pass below data to create master_refund_spotting_txt_file"""
+        # TestTransactionMatchingContext.created_at = now = pendulum.now()
+        # mid = mid
+        # TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
+        # TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
+        # TestTransactionMatchingContext.spend_amount = -(random.choice(range(1, 10)))
+        # payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
+        # amount = (str(-abs(TestTransactionMatchingContext.spend_amount)).zfill(12))
+
+        TestTransactionMatchingContext.transaction_matching_amount = -(random.choice(range(1, 10)))
+        amount = (str(-abs(TestTransactionMatchingContext.transaction_matching_amount)).zfill(12))
+        now = pendulum.now()
         TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
-        TestTransactionMatchingContext.spend_amount = -(random.choice(range(1, 10)))
         payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
-        amount = (str(-abs(TestTransactionMatchingContext.spend_amount)).zfill(12))
+
         lines = [join(
             ("H", 1),
             (now.format("YYYYMMDD"), 8),
             (now.format("hhmmss"), 6),
             (" ", 6),
-            ("mastercard-tgx2-settlement.txt", 9),
+            ("mastercard-tgx2-refund.txt", 9),
             ("", 835),
 
         ), join(
@@ -436,10 +447,10 @@ class TransactionMatchingPaymentFileDetails:
             (now.format("YYYYMMDD"), 8),
             (now.format("hhmmss"), 6),
             ("", 6),
-            ("mastercard-tgx2-settlement.txt", 9),
+            ("mastercard-tgx2-refund.txt", 9),
             ("", 835),
         )]
-        file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.spend_amount) + ".txt")
+        file_name = str("-tgx2-refund" + str(TestTransactionMatchingContext.transaction_matching_amount) + ".txt")
         with open(file_name, "a+") as file_name:
             for line in lines:
                 (file_name.write(str(line)))
@@ -515,40 +526,40 @@ class TransactionMatchingPaymentFileDetails:
         result_str = "".join((random.choice(letters_and_digits) for i in range(length)))
         return result_str
 
+    @staticmethod
+    def get_visa_spotting_refund_data(mid):
+        get_data_to_import()
+        return {
+            "CardId": TestTransactionMatchingContext.transaction_id,
+            "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
+            "MessageElementsCollection": [
+                {"Key": "ReturnTransaction.CardAcceptorIdCode", "Value": mid},
+                {"Key": "ReturnTransaction.AcquirerBIN", "Value": "3423432"},
+                {"Key": "ReturnTransaction.Amount", "Value": TestTransactionMatchingContext.spend_amount / 100},
+                {"Key": "ReturnTransaction.VipTransactionId", "Value": TestTransactionMatchingContext.transaction_id},
+                {"Key": "ReturnTransaction.SettlementId", "Value": TestTransactionMatchingContext.transaction_id},
+                {"Key": "ReturnTransaction.VisaMerchantName", "Value": ""},
+                {"Key": "ReturnTransaction.VisaMerchantId", "Value": ""},
+                {"Key": "ReturnTransaction.VisaStoreName", "Value": ""},
+                {"Key": "ReturnTransaction.VisaStoreId", "Value": ""},
+                {"Key": "ReturnTransaction.AcquirerAmount", "Value": TestTransactionMatchingContext.spend_amount / 100},
+                {"Key": "ReturnTransaction.AcquirerCurrencyCode", "Value": "840"},
+                {"Key": "ReturnTransaction.CurrencyCode", "Value": "840"},
+                {"Key": "ReturnTransaction.TransactionUSDAmount", "Value":
+                    TestTransactionMatchingContext.spend_amount / 100},
+                {"Key": "ReturnTransaction.DateTime", "Value": "1/19/2022 1:2:48 PM"},
+                {"Key": "ReturnTransaction.MerchantGroup.0.Name", "Value": "SPOTTING-MERCHANT"},
+                {"Key": "ReturnTransaction.MerchantGroupName.0.ExternalId", "Value": "Spotting Merchant"},
+                {"Key": "ReturnTransaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_auth_code},
+            ],
+            "MessageId": str(uuid.uuid4()),
+            "MessageName": "AuthMessageTest",
+            "UserDefinedFieldsCollection": [{"Key": "TransactionType", "Value": "return"}],
+            "UserProfileId": str(uuid.uuid4()),
+        }
 
-def get_visa_spotting_refund_data(mid):
-    get_data_to_import()
-    return {
-        "CardId": TestTransactionMatchingContext.transaction_id,
-        "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
-        "MessageElementsCollection": [
-            {"Key": "ReturnTransaction.CardAcceptorIdCode", "Value": mid},
-            {"Key": "ReturnTransaction.AcquirerBIN", "Value": "3423432"},
-            {"Key": "ReturnTransaction.Amount", "Value": TestTransactionMatchingContext.spend_amount / 100},
-            {"Key": "ReturnTransaction.VipTransactionId", "Value": TestTransactionMatchingContext.transaction_id},
-            {"Key": "ReturnTransaction.SettlementId", "Value": TestTransactionMatchingContext.transaction_id},
-            {"Key": "ReturnTransaction.VisaMerchantName", "Value": ""},
-            {"Key": "ReturnTransaction.VisaMerchantId", "Value": ""},
-            {"Key": "ReturnTransaction.VisaStoreName", "Value": ""},
-            {"Key": "ReturnTransaction.VisaStoreId", "Value": ""},
-            {"Key": "ReturnTransaction.AcquirerAmount", "Value": TestTransactionMatchingContext.spend_amount / 100},
-            {"Key": "ReturnTransaction.AcquirerCurrencyCode", "Value": "840"},
-            {"Key": "ReturnTransaction.CurrencyCode", "Value": "840"},
-            {"Key": "ReturnTransaction.TransactionUSDAmount", "Value":
-                TestTransactionMatchingContext.spend_amount / 100},
-            {"Key": "ReturnTransaction.DateTime", "Value": "1/19/2022 1:2:48 PM"},
-            {"Key": "ReturnTransaction.MerchantGroup.0.Name", "Value": "SPOTTING-MERCHANT"},
-            {"Key": "ReturnTransaction.MerchantGroupName.0.ExternalId", "Value": "Spotting Merchant"},
-            {"Key": "ReturnTransaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_auth_code},
-        ],
-        "MessageId": str(uuid.uuid4()),
-        "MessageName": "AuthMessageTest",
-        "UserDefinedFieldsCollection": [{"Key": "TransactionType", "Value": "return"}],
-        "UserProfileId": str(uuid.uuid4()),
-    }
 
-
-def create_mastercard_settle_text_file(payment_card_token, mid, amount, auth_code, third_party_id):
+def create_mastercard_settle_text_file(payment_card_token, mid, amount, auth_code, file_name, third_party_id):
     now = pendulum.now()
     lines = [
         join(
@@ -556,7 +567,7 @@ def create_mastercard_settle_text_file(payment_card_token, mid, amount, auth_cod
             (now.format("YYYYMMDD"), 8),
             (now.format("hhmmss"), 6),
             (" ", 6),
-            ("mastercard-tgx2-settlement.txt", 9),
+            (file_name, 9),
             ("", 835),
         ),
         join(
@@ -580,10 +591,14 @@ def create_mastercard_settle_text_file(payment_card_token, mid, amount, auth_cod
             (now.format("YYYYMMDD"), 8),
             (now.format("hhmmss"), 6),
             (" ", 6),
-            ("mastercard-tgx2-settlement.txt", 9),
+            (file_name, 9),
             ("", 835),
         ),
     ]
+
+    """By default the file name in html result will have the extension of settlement
+    even if it is a refund file"""
+
     file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.transaction_matching_amount) + ".txt")
     with open(file_name, "a+") as file_name:
         for line in lines:

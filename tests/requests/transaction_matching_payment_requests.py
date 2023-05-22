@@ -136,7 +136,7 @@ def get_visa_spotting_streaming_refund_json(mid):
     get_data_to_import()
     url = get_visa_url()
     header = TransactionMatchingEndpoint.request_header_visa()
-    payload = get_visa_spotting_refund_data(mid)
+    payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_refund_data(mid)
     response = Endpoint.call(url, header, "POST", payload)
     logging.info(json.dumps(payload, indent=4))
     return response
@@ -160,8 +160,15 @@ def import_master_spotting_streaming_settlement_text(mid):
     )
     upload_mastercard_settlement_file_into_blob(file_name, mid)
 
+def import_master_spotting_streaming_refund_text(mid):
+    """Import Master Settlement Matching Transactions in the text file to Harmonia"""
+    file_name = (
+        TransactionMatchingPaymentFileDetails.get_master_refund_spotting_txt_file(mid)
+    )
+    upload_mastercard_settlement_file_into_blob(file_name, mid)
+
 def import_amex_spotting_streaming_auth_json(mid):
-    # get_data_to_import()
+    """Import Amex Auth spotting / streaming file"""
     get_amex_register_payment_json()
     url = get_amex_auth_url()
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
@@ -196,6 +203,12 @@ def get_visa_spotting_merchant_refund_file_invalid_token(mid):
     response = Endpoint.call(url, header, "POST", payload)
     print(json.dumps(payload, indent=4))
     return response
+
+def verify_master_spotting_streaming_e2e(mid):
+
+    get_master_spotting_streaming_auth_json(mid)
+    # import_master_spotting_streaming_settlement_text(mid)
+    import_master_spotting_streaming_refund_text(mid)
 
 def get_mastrcard_url():
     return TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL + api.ENDPOINT_MASTER_CARD
@@ -241,15 +254,28 @@ def import_payment_file_into_harmonia(transaction_type, mid):
             return get_master_spotting_streaming_auth_json(mid)
         case "master-settlement-streaming" | "master-settlement-spotting":
             return import_master_spotting_streaming_settlement_text(mid)
-
-    # case "master-refund-streaming" | "master-refund-spotting":
-        #     return get_visa_spotting_streaming_refund_json(mid)
+        case "master-refund-streaming" | "master-refund-spotting":
+            return import_master_spotting_streaming_refund_text(mid)
         case "amex-auth-streaming" | "amex-auth-spotting":
             return import_amex_spotting_streaming_auth_json(mid)
         case "amex-settlement-streaming" | "amex-settlement-spotting":
             return import_amex_spotting_streaming_settlement_json(mid)
         case "amex-refund-streaming" | "amex-refund-spotting":
             return import_amex_spotting_streaming_refund_json(mid)
+        case "master-spotting-streaming-e2e":
+            return verify_master_spotting_streaming_e2e(mid)
+
+
+
+def verify_exported_transaction(transaction_type):
+    """This function will return the exported transactions"""
+    match transaction_type:
+        case "transaction_matching":
+            return verify_matching_transactions()
+        case "transaction-streaming" | "transaction-spotting":
+            return verify_streaming_spotting_transactions()
+        case "master-spotting-streaming-e2e":
+            return verify_master_streaming_spotting_e2e_transactions()
 
 
 def verify_matching_transactions():
@@ -279,10 +305,15 @@ def verify_streaming_spotting_transactions():
     return matched_transaction
 
 
-def verify_exported_transaction(transaction_type):
-    """This function will return the exported transactions"""
-    match transaction_type:
-        case "transaction_matching":
-            return verify_matching_transactions()
-        case "transaction-streaming" | "transaction-spotting":
-            return verify_streaming_spotting_transactions()
+def verify_master_streaming_spotting_e2e_transactions():
+    """Check harmonia and verify exported transactions after Transaction Streaming or Spotting"""
+    matched_count = QueryHarmonia.fetch_match_transaction_count(
+        TestTransactionMatchingContext.transaction_id
+
+    )
+    assert matched_count.count == 1, "Transaction not spotted and the status is not exported"
+    logging.info(f"No. of Transactions got spotted and exported : '{matched_count.count}'")
+    matched_transaction = QueryHarmonia.fetch_transaction_details(
+        TestTransactionMatchingContext.transaction_id
+    )
+    return matched_transaction
