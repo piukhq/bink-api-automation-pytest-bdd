@@ -412,8 +412,10 @@ class TransactionMatchingPaymentFileDetails:
         # payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
         # amount = (str(-abs(TestTransactionMatchingContext.spend_amount)).zfill(12))
 
-        TestTransactionMatchingContext.transaction_matching_amount = -(random.choice(range(1, 100)))
+        TestTransactionMatchingContext.transaction_matching_amount = -(random.choice(range(1, 10)))
         amount = (str(-abs(TestTransactionMatchingContext.transaction_matching_amount)).zfill(12))
+        TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
+
         # now = pendulum.now()
         TestTransactionMatchingContext.created_at = now = pendulum.now()
         TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
@@ -422,9 +424,9 @@ class TransactionMatchingPaymentFileDetails:
         lines = [join(
             ("H", 1),
             (now.format("YYYYMMDD"), 8),
-            (now.format("hhmmss"), 6),
+            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 6),
             (" ", 6),
-            ("mastercard-tgx2-settlement.txt", 9),
+            ("mastercard-tgx2-refund.txt", 9),
             ("", 835),
 
         ), join(
@@ -445,9 +447,9 @@ class TransactionMatchingPaymentFileDetails:
         ), join(
             ("T", 1),
             (now.format("YYYYMMDD"), 8),
-            (now.format("hhmm"), 6),
+            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 6),
             ("", 6),
-            ("mastercard-tgx2-settlement.txt", 9),
+            ("mastercard-tgx2-refund.txt", 9),
             ("", 835),
         )]
         file_name = str("-tgx2-refund" + str(TestTransactionMatchingContext.transaction_matching_amount) + ".txt")
