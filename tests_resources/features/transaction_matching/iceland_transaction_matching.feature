@@ -14,8 +14,7 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
     Then I perform GET request to verify the "Iceland" membershipcard is added & linked successfully in the wallet
     When I send Retailer Transaction File with <merchant_container> <payment_card_provider> <mid> <card_identity>
     And I send Payment Transaction File with <payment_card_transaction> <mid>
-    Then I verify the reward transaction is exported using transaction_matching
-
+    Then I verify the reward transaction is exported
 
     Examples:
       | payment_card_provider | merchant_container | mid        | card_identity             | payment_card_transaction   |
@@ -37,7 +36,7 @@ Feature: Merchant Iceland - Ensure a customer can use Bink's Transaction Matchin
     Then I perform GET request to verify the "Iceland" membershipcard is added & linked successfully in the wallet
     When I send Retailer Transaction File with <merchant_container> <payment_card_provider> <mid> <card_identity>
     And I send Payment Transaction File with <payment_card_transaction> <mid>
-    Then I verify transaction is not exported
+    Then I verify transaction is not matched and exported
 
     Examples:
       | payment_card_provider | merchant_container | mid        | card_identity              | payment_card_transaction   |

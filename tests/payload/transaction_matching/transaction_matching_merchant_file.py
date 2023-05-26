@@ -42,4 +42,7 @@ def get_new_filedata_import():
     TestTransactionMatchingContext.transaction_matching_currentTimeStamp = datetime.now(
         timezone("Europe/London")
     ).strftime("%Y-%m-%d %H:%M:%S")
+    # TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
+    #     "%Y-%m-%d %H:%M:%S"
+    # )
     TestTransactionMatchingContext.file_name = "iceland-bonus-card" + datetime.now().strftime("%Y%m%d-%H%M%S") + ".csv"

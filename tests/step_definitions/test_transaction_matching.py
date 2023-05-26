@@ -21,8 +21,7 @@ from tests.helpers.test_context import TestContext
 from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
 from tests.payload.payment_cards import transaction_matching_payment_file
 from tests.requests.transaction_matching_payment_cards import TransactionMatching
-from tests.requests.transaction_matching_payment_requests import import_payment_file_into_harmonia, \
-    verify_exported_transaction
+from tests.requests.transaction_matching_payment_requests import import_payment_file_into_harmonia
 from tests.step_definitions import test_membership_cards
 from tests.requests.transaction_matching_merchant_requests import upload_retailer_file_into_blob
 
@@ -31,9 +30,9 @@ scenarios("transaction_matching/")
 
 @when(parsers.parse('I send Payment Transaction File with {payment_card_transaction} {mid}'))
 def import_payment_file(payment_card_transaction, mid):
-
+    TestTransactionMatchingContext.mid = mid
     response = import_payment_file_into_harmonia(payment_card_transaction, mid)
-    logging.info("Waiting for transaction to be imported")
+    logging.info("Waiting for transaction to be exported")
     try:
         response_json = response.json()
         logging.info("The response of POST/import Payment File is: \n\n" + json.dumps(response_json, indent=4))
@@ -156,10 +155,18 @@ def import_payment_file_remove(payment_card_transaction, mid):
     return response_json
 
 
-@then(parsers.parse("I verify the reward transaction is exported using {transaction_matching_logic}"))
-def verify_exported_transactions(transaction_matching_logic):
-    logging.info("Transaction Export:\n")
-    matched_transaction = verify_exported_transaction(transaction_matching_logic)
+@then(parsers.parse("I verify the reward transaction is exported"))
+def verify_exported_transaction():
+    matched_count = QueryHarmonia.fetch_match_transaction_count(
+        TestTransactionMatchingContext.retailer_transaction_id,
+        (TestTransactionMatchingContext.transaction_matching_amount * 100),
+    )
+    assert matched_count.count == 1, f"Transaction didnt match and '{matched_count.count}' records exported"
+    logging.info(f"The Transaction got matched is : '{matched_count.count}'")
+    matched_transaction = QueryHarmonia.fetch_transaction_details(
+        TestTransactionMatchingContext.retailer_transaction_id,
+        (TestTransactionMatchingContext.transaction_matching_amount * 100),
+    )
 
     logging.info("Details of the recent transaction in export_transaction table:\n\n"
                  f"provider slug           : {matched_transaction.provider_slug}"
@@ -169,29 +176,25 @@ def verify_exported_transactions(transaction_matching_logic):
                  + f"\nmid                     : {matched_transaction.mid}"
                  + f"\nscheme_account_id       : {matched_transaction.scheme_account_id}"
                  + f"\nstatus                  : {matched_transaction.status}"
-                 + f"\nfeed_type               : {matched_transaction.feed_type}"
                  + f"\npayment_card_account_id : {matched_transaction.payment_card_account_id}"
                  + f"\nauth_code               : {matched_transaction.auth_code}"
                  + f"\napproval_code           : {matched_transaction.approval_code}"
                  + f"\npayment_provider_slug   : {matched_transaction.payment_provider_slug}"
                  + f"\nprimary_identifier      : {matched_transaction.primary_identifier}"
                  + f"\nexport_uid              : {matched_transaction.export_uid}"
-
                  )
 
     assert (
             matched_transaction.status == "EXPORTED"
             and matched_transaction.mid == TestTransactionMatchingContext.mid
             and matched_transaction.scheme_account_id == TestContext.current_scheme_account_id
-            # and matched_transaction.payment_card_account_id == TestContext.current_payment_card_id
+            and matched_transaction.payment_card_account_id == TestContext.current_payment_card_id
     ), "Transaction is present in transaction_export table, but is not successfully exported"
 
 
-@then(parsers.parse("I verify transaction is not streamed and exported"))
-@then(parsers.parse("I verify transaction is not spotted and exported"))
-@then(parsers.parse("I verify transaction is not exported"))
+@then(parsers.parse("I verify transaction is not matched and exported"))
 def verify_transaction_not_matched():
-    matched_count = QueryHarmonia.fetch_match_transaction_count_invalid_mid(
+    matched_count = QueryHarmonia.fetch_match_transaction_count(
         TestTransactionMatchingContext.transaction_matching_id,
         (TestTransactionMatchingContext.transaction_matching_amount * 100),
     )
@@ -250,14 +253,14 @@ def verify_spotted_mastercard_transaction(payment_card_transaction, mid):
         logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 
 
-# @then(parsers.parse("I verify transaction is not streamed/spotted and exported"))
-# def verify_transaction_not_spotted():
-#     spotted_transaction_count = QueryHarmonia.fetch_spotted_transaction_count(
-#         TestTransactionMatchingContext.transaction_id
-#     )
-#     assert spotted_transaction_count.count == 0, "The Transaction got spotted and exported"
-#     logging.info(f" Transaction not spotted and the status is not exported: '{spotted_transaction_count.count}'")
-#
+@then(parsers.parse("I verify transaction is not streamed/spotted and exported"))
+def verify_transaction_not_spotted():
+    spotted_transaction_count = QueryHarmonia.fetch_spotted_transaction_count(
+        TestTransactionMatchingContext.transaction_id
+    )
+    assert spotted_transaction_count.count == 0, "The Transaction got spotted and exported"
+    logging.info(f" Transaction not spotted and the status is not exported: '{spotted_transaction_count.count}'")
+
 
 @then(parsers.parse("I verify transaction is imported into the import_transaction table"))
 def verify_transaction_is_imported():
