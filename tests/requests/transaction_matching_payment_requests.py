@@ -91,7 +91,7 @@ def get_amex_register_payment_json():
 def import_amex_matching_auth_json(mid):
     """Import Amex Auth Matching Transactions"""
     get_amex_register_payment_json()
-    url = get_amex_auth_url()
+    url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_CARD
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
     payload = TransactionMatchingPaymentFileDetails.get_amex_auth_data(mid)
     logging.info(json.dumps(payload, indent=2))
@@ -102,7 +102,7 @@ def import_amex_matching_auth_json(mid):
 def import_amex_matching_settlement_json(mid):
     """Import Amex Settlement Matching Transactions"""
     get_amex_register_payment_json()
-    url = get_amex_settle_url()
+    url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
     payload = TransactionMatchingPaymentFileDetails.get_amex_settlement_data(mid)
     logging.info(json.dumps(payload, indent=2))
@@ -192,7 +192,7 @@ def import_master_spotting_streaming_refund_text(mid):
 def import_amex_spotting_streaming_auth_json(mid):
     """Import Amex Auth spotting / streaming file"""
     get_amex_register_payment_json()
-    url = get_amex_auth_url()
+    url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_CARD
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
     payload = TransactionMatchingPaymentFileDetails.get_amex_auth_spotting_data(mid)
     logging.info(json.dumps(payload, indent=2))
@@ -203,7 +203,7 @@ def import_amex_spotting_streaming_auth_json(mid):
 def import_amex_spotting_streaming_settlement_json(mid):
     """Import Amex settlement spotting / streaming file"""
     get_amex_register_payment_json()
-    url = get_amex_settle_url()
+    url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
     payload = TransactionMatchingPaymentFileDetails.get_amex_settlement_spotting_data(mid)
     logging.info(json.dumps(payload, indent=2))
@@ -213,7 +213,7 @@ def import_amex_spotting_streaming_settlement_json(mid):
 
 def import_amex_spotting_streaming_refund_json(mid):
     get_amex_register_payment_json()
-    url = get_amex_settle_url()
+    url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
     payload = TransactionMatchingPaymentFileDetails.get_amex_refund_spotting_data(mid)
     logging.info(json.dumps(payload, indent=2))
@@ -242,14 +242,6 @@ def get_mastrcard_url():
 
 def get_amex_register_url():
     return TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_CARD_REGISTER
-
-
-def get_amex_auth_url():
-    return TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL + api.ENDPOINT_AMEX_CARD
-
-
-def get_amex_settle_url():
-    return TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL + api.ENDPOINT_AMEX_SETTLEMENT_CARD
 
 
 def get_visa_url():
