@@ -221,9 +221,11 @@ def verify_exported_transactions(transaction_matching_logic):
     # ), "Transaction is present in transaction_export table, but is not successfully exported"
 
 
-@then(parsers.parse("I verify transaction is not matched and exported"))
+@then(parsers.parse("I verify transaction is not streamed and exported"))
+@then(parsers.parse("I verify transaction is not spotted and exported"))
+@then(parsers.parse("I verify transaction is not exported"))
 def verify_transaction_not_matched():
-    matched_count = QueryHarmonia.fetch_match_transaction_count(
+    matched_count = QueryHarmonia.fetch_match_transaction_count_invalid_mid(
         TestTransactionMatchingContext.transaction_matching_id,
         (TestTransactionMatchingContext.transaction_matching_amount * 100),
     )

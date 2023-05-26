@@ -30,7 +30,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
       | amex                  | 9602929481 | amex-settlement-spotting   |
       | amex                  | 9602929481 | amex-refund-spotting       |
 
-  @transactionMatchingViator  @sanity
+  @transactionMatchingViator  @sanity @test
   Scenario Outline: Verify transaction Spotting for viator negative scenario(invalid mid)
 
     Given I am a Bink user
@@ -58,8 +58,8 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     And I perform the GET request to verify the payment card has been added successfully to the wallet
     When I perform POST request to add & auto link "Viator" membership card
     Then I perform GET request to verify the "Viator" membershipcard is added & linked successfully in the wallet
-    When I send matching "<payment_card_transaction>" "<mid>" Authorisation
-    Then I verify transaction is not streamed/spotted and exported
+     When I send Payment Transaction File with <payment_card_transaction> <mid>
+    Then I verify transaction is not streamed and exported
 
     Examples:
       | payment_card_provider | mid       | payment_card_transaction         |
