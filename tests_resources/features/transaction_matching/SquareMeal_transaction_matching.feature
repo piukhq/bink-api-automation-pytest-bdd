@@ -17,11 +17,11 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
     Then I verify the reward transaction is exported using transaction-streaming
     Examples:
     | payment_card_provider|     mid       |payment_card_transaction      |
-#    |          visa        |  29047531     |visa-auth-streaming          |
-#    |          visa        |  29047531     |visa-settlement-streaming    |
-#    |          visa        |  29047531     |visa-refund-streaming         |
-#    |          master      |  29047531     |master-auth-streaming        |
-#     |          master      |  29047531     |master-settlement-streaming   |
+    |          visa        |  29047531     |visa-auth-streaming          |
+    |          visa        |  29047531     |visa-settlement-streaming    |
+    |          visa        |  29047531     |visa-refund-streaming         |
+    |          master      |  29047531     |master-auth-streaming        |
+     |          master      |  29047531     |master-settlement-streaming   |
 #     |          master      |  29047531     |master-refund-spotting       |
     |          amex        |  9449819796   |amex-settlement-streaming     |
     |          amex        |  9449819796   |amex-refund-streaming          |

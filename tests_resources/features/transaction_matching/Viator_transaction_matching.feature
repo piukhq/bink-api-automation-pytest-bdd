@@ -16,11 +16,11 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     Then I verify the reward transaction is exported using transaction-spotting
     Examples:
     | payment_card_provider|     mid       |payment_card_transaction    |
-#    |          visa        |  020150514    |visa-auth-spotting          |
-#    |          visa        |  020150514    |visa-settlement-spotting    |
-#    |          visa        |  020150514    |visa-refund-spotting        |
-#    |          master      |  020150514    |master-auth-spotting        |
-#    |          master      |  020150514    |master-settlement-spotting  |
+    |          visa        |  020150514    |visa-auth-spotting          |
+    |          visa        |  020150514    |visa-settlement-spotting    |
+    |          visa        |  020150514    |visa-refund-spotting        |
+    |          master      |  020150514    |master-auth-spotting        |
+    |          master      |  020150514    |master-settlement-spotting  |
 #    |          master      |  020150514    |master-refund-spotting      |
     |          amex        |  9602929481   |amex-settlement-spotting     |
     |          amex        |  9602929481   |amex-refund-spotting        |
