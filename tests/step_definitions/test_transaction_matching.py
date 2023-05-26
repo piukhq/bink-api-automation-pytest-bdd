@@ -38,7 +38,7 @@ def import_payment_file(payment_card_transaction, mid):
         response_json = response.json()
         logging.info("The response of POST/import Payment File is: \n\n" + json.dumps(response_json, indent=4))
         assert response.status_code == 201 or 200, "Payment file import is not successful"
-        time.sleep(30)
+        time.sleep(60)
     except AttributeError:
         if response is None:
             logging.info("The Master Card Settlement Transaction Text file is uploaded to blob. "
@@ -118,10 +118,15 @@ def import_payment_file_remove(payment_card_transaction, mid):
             )
             os.remove(file_name.name)
     elif payment_card_transaction == 'master-refund-spotting':
+        logging.info("hereeeeeeeeeeee")
         merchant_container = 'mastercard'
         file_name = \
             transaction_matching_payment_file.TransactionMatchingPaymentFileDetails.get_master_refund_spotting_txt_file(
                 mid)
+        f = open(file_name.name, 'r')
+        file_contents = f.read()
+        logging.info("The MasterCard Settlement Matching file is: \n" + file_contents)
+
         bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
         blob_client = \
             bbs.get_blob_client('harmonia-imports/test/mastercard-settlement', merchant_container + f"{file_name.name}")
