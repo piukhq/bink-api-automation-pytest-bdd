@@ -210,6 +210,7 @@ wasabi_membership_card = {
 wasabi_invalid_data = {
     "card_num": "",
     "email": "fail@unknown.com",
+    "invalid_lastname": ""
 }
 
 
@@ -226,7 +227,11 @@ the_works_membership_card = {
 
 the_works_invalid_data = {
     "card_num": "",
-    "email": "fail@unknown.com",
+    "email_exists": "emailexists",
+    "join_failed": "fail",
+    "join_http_failed": "failhttperror"
+
+
 }
 
 

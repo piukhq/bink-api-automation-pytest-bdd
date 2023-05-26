@@ -71,7 +71,7 @@ class TransactionMatching(Endpoint):
         header = TransactionMatchingEndpoint.request_header_visa()
         payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_settlement_data(mid)
         response = Endpoint.call(url, header, "POST", payload)
-        logging.info(json.dumps(payload, indent=4))
+        logging.info((json.dumps(payload, indent=4)))
         print(response)
 
     @staticmethod
@@ -81,7 +81,7 @@ class TransactionMatching(Endpoint):
         header = TransactionMatchingEndpoint.request_header_visa()
         payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_settlement_data(mid)
         response = Endpoint.call(url, header, "POST", payload)
-        logging.info(json.dumps(payload, indent=4))
+        print(json.dumps(payload, indent=4))
         return response
 
     @staticmethod
@@ -91,7 +91,7 @@ class TransactionMatching(Endpoint):
         header = TransactionMatchingEndpoint.request_header_visa()
         payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_refund_data(mid)
         response = Endpoint.call(url, header, "POST", payload)
-        logging.info(json.dumps(payload, indent=4))
+        print(json.dumps(payload, indent=4))
         return response
 
     @staticmethod
