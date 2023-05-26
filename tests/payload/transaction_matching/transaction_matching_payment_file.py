@@ -411,22 +411,19 @@ class TransactionMatchingPaymentFileDetails:
         # TestTransactionMatchingContext.spend_amount = -(random.choice(range(1, 10)))
         # payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
         # amount = (str(-abs(TestTransactionMatchingContext.spend_amount)).zfill(12))
-
-        TestTransactionMatchingContext.transaction_matching_amount = -(random.choice(range(1, 10)))
-        amount = (str(-abs(TestTransactionMatchingContext.transaction_matching_amount)).zfill(12))
-        TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
-
-        # now = pendulum.now()
         TestTransactionMatchingContext.created_at = now = pendulum.now()
+        mid = mid
+        TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
         TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
+        TestTransactionMatchingContext.spend_amount = -(random.choice(range(1, 10)))
         payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
-
+        amount = (str(-abs(TestTransactionMatchingContext.spend_amount)).zfill(12))
         lines = [join(
             ("H", 1),
             (now.format("YYYYMMDD"), 8),
-            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 6),
+            (now.format("hhmmss"), 6),
             (" ", 6),
-            ("mastercard-tgx2-refund.txt", 9),
+            ("mastercard-tgx2-settlement.txt", 9),
             ("", 835),
 
         ), join(
@@ -447,17 +444,63 @@ class TransactionMatchingPaymentFileDetails:
         ), join(
             ("T", 1),
             (now.format("YYYYMMDD"), 8),
-            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 6),
+            (now.format("hhmmss"), 6),
             ("", 6),
-            ("mastercard-tgx2-refund.txt", 9),
+            ("mastercard-tgx2-settlement.txt", 9),
             ("", 835),
         )]
-        file_name = str("-tgx2-refund" + str(TestTransactionMatchingContext.transaction_matching_amount) + ".txt")
+        file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.spend_amount) + ".txt")
         with open(file_name, "a+") as file_name:
             for line in lines:
                 (file_name.write(str(line)))
                 file_name.write('\n')
         return file_name
+        # TestTransactionMatchingContext.transaction_matching_amount = -(random.choice(range(1, 10)))
+        # amount = (str(-abs(TestTransactionMatchingContext.transaction_matching_amount)).zfill(12))
+        # TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
+        #
+        # # now = pendulum.now()
+        # TestTransactionMatchingContext.created_at = now = pendulum.now()
+        # TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
+        # payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
+        #
+        # lines = [join(
+        #     ("H", 1),
+        #     (now.format("YYYYMMDD"), 8),
+        #     (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 6),
+        #     (" ", 6),
+        #     ("mastercard-tgx2-refund.txt", 9),
+        #     ("", 835),
+        #
+        # ), join(
+        #     ("D", 1),
+        #     ("", 20),
+        #     (payment_card_token, 30),
+        #     ("", 51),
+        #     (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
+        #     ("", 341),
+        #     (mid, 15),
+        #     ("", 52),
+        #     ((amount[:12]), 12),
+        #     ("", 33),
+        #     (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
+        #     (TestTransactionMatchingContext.auth_code, 6),
+        #     ("", 188),
+        #     ("", 9),
+        # ), join(
+        #     ("T", 1),
+        #     (now.format("YYYYMMDD"), 8),
+        #     (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 6),
+        #     ("", 6),
+        #     ("mastercard-tgx2-refund.txt", 9),
+        #     ("", 835),
+        # )]
+        # file_name = str("-tgx2-refund" + str(TestTransactionMatchingContext.transaction_matching_amount) + ".txt")
+        # with open(file_name, "a+") as file_name:
+        #     for line in lines:
+        #         (file_name.write(str(line)))
+        #         file_name.write('\n')
+        # return file_name
 
     @staticmethod
     def get_amex_auth_spotting_data(mid):

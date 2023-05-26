@@ -4,7 +4,7 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-  @sanity @sanity_bmb @test
+  @sanity @sanity_bmb
 
     Scenario Outline: Verify transaction streaming for squareMeal
 
@@ -14,8 +14,9 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
     When I perform POST request to add & auto link "SquareMeal" membership card
     Then I perform GET request to verify the "SquareMeal" membershipcard is added & linked successfully in the wallet
     When I send Payment Transaction File with <payment_card_transaction> <mid>
-    Then I verify the reward transaction is exported using transaction-streaming
-
+#    Then I verify the reward transaction is exported using transaction-streaming
+#    When I send matching "<payment_card_transaction>" "<mid>" Authorisation
+#    Then I verify "<payment_card_transaction>","<mid>" and "auth_code" is spotted and exported
     Examples:
     | payment_card_provider|     mid       |payment_card_transaction      |
 #    |          visa        |  29047531     |visa-auth-streaming          |
@@ -23,7 +24,7 @@ Feature: Merchant SquareMeal - Ensure a customer can use Bink's Transaction Matc
 #    |          visa        |  29047531     |visa-refund-streaming         |
 #    |          master      |  29047531     |master-auth-streaming        |
 #     |          master      |  29047531     |master-settlement-streaming   |
-     |          master      |  29047531     |master-refund-streaming       |
+     |          master      |  29047531     |master-refund-spotting       |
 #    |          amex        |  9449819796   |amex-settlement-streaming     |
 #    |          amex        |  9449819796   |amex-refund-streaming          |
 

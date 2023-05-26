@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import time
 
 from azure.storage.blob import ContentSettings
 from azure.storage.blob import BlobServiceClient
@@ -72,6 +73,7 @@ def upload_mastercard_settlement_file_into_blob(file_name, mid):
             f"{file_name.name} has been uploaded to blob storage with spend_amount = "
             f"{TestTransactionMatchingContext.transaction_matching_amount} and MID = {mid}"
         )
+        time.sleep(60)
         os.remove(file_name.name)
 
 
@@ -169,6 +171,22 @@ def import_master_spotting_streaming_refund_text(mid):
         TransactionMatchingPaymentFileDetails.get_master_refund_spotting_txt_file(mid)
     )
     upload_mastercard_settlement_file_into_blob(file_name, mid)
+    # merchant_container = 'mastercard'
+    # f = open(file_name.name, 'r')
+    # file_contents = f.read()
+    # logging.info("The MasterCard Settlement Matching file is: \n" + file_contents)
+    #
+    # bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
+    # blob_client = \
+    #     bbs.get_blob_client('harmonia-imports/test/mastercard-settlement', merchant_container + f"{file_name.name}")
+    # with open(file_name.name, "rb") as settlement_file:
+    #     blob_client.upload_blob(settlement_file, content_settings=ContentSettings(content_type="text/plain"))
+    #     logging.info(f'{file_name.name} has been uploaded to blob storage with spend_amount = '
+    #                  f'{-abs(TestTransactionMatchingContext.spend_amount)},'
+    #                  f'auth_code = {TestTransactionMatchingContext.auth_code} and MID = {mid}')
+    #     time.sleep(60)
+    #
+    #     os.remove(file_name.name)
 
 
 def import_amex_spotting_streaming_auth_json(mid):
