@@ -5,8 +5,6 @@ from dataclasses import dataclass
 
 import tests.helpers.database.setupdb as db
 
-from tests.helpers.test_context import TestContext
-
 
 @dataclass
 class EventRecord:
@@ -24,7 +22,7 @@ class QuerySnowstorm:
         record = db.execute_query_fetch_one(connection, get_user_created_event(journey_type, ""))
 
         if record is None:
-            raise Exception(f"Record not found")
+            raise Exception("Record not found")
         else:
             event_record = EventRecord(record[0], record[1], record[2], record[3])
         db.clear_db(connection)
