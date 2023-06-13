@@ -114,3 +114,8 @@ MEMBERSHIP_CARD_OAT = "tests_resources/test_data/membership_card/membership_card
 """Channel User Details"""
 USER_ID = "uid"
 PWD = "pwd"
+
+"""Event Details"""
+ORIGIN = "origin"
+CHANNEL_BINK = "channel_bink"
+STATUS = "status"

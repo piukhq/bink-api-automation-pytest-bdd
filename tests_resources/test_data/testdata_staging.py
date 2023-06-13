@@ -291,3 +291,25 @@ barclays_user_accounts = {
     "uid": "pytest_automation_barclays@bink.com",
     "pwd": "Password01",
 }
+# ---------------------------------------------EVENT TYPE ---------------------------------------------------- #
+event_info = {
+    "origin": "channel",
+    "channel_bink": "com.bink.wallet",
+    "status": 1,
+}
+
+
+event_type = {
+    "user_created": "user.created",
+    "user_deleted": "user.deleted",
+    "lc_join_request": "lc.join.request",
+    "lc_status_change": "lc.statuschange",
+    "lc_join_success": "lc.join.success",
+    "lc_join_failed": "lc.join.failed",
+    "lc_auth_request": "lc.auth.request",
+    "lc_auth_success": "lc.auth.success",
+    "lc_add_auth_request": "lc.addandauth.request",
+    "lc_add_auth_success": "lc.addandauth.success",
+    "lc_add_auth_failed": "lc.addandauth.failed",
+    "CHANNEL_BINK": "com.bink.wallet"
+}

@@ -111,6 +111,7 @@ def test_email():
 @given(parsers.parse("I register with bink service in {channel}"))
 def register_user(test_email, channel, env):
     TestContext.channel_name = channel
+    TestContext.email =test_email
     if channel == config.BINK.channel_name:
         response = CustomerAccount.register_bink_user(test_email)
         if response is not None:
