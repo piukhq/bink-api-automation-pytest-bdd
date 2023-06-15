@@ -7,6 +7,7 @@ class TestContext:
     response = ""
     detail = ""
     email = ""
+    user_email = ""
     payment_card_hash = ""
     card_number = ""
     existing_card = ""

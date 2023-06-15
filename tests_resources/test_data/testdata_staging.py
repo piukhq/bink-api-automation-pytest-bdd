@@ -295,6 +295,7 @@ barclays_user_accounts = {
 event_info = {
     "origin": "channel",
     "channel_bink": "com.bink.wallet",
+    "channel_barclays": "com.barclays.bmb",
     "status": 1,
 }
 

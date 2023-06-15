@@ -5,7 +5,7 @@ Feature: Add and authorise a loyalty card
   I want to see an Event logged when a user is created
   so that this Business Event can be written to ClickHouse for validation
 
-  @user_created_event @sanity @event
+  @user_created_event @sanity
   Scenario: Verify event for user created
     Given I register with bink service in bink
     Then I verify that user_created event
