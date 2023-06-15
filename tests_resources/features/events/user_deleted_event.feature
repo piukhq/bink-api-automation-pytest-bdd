@@ -5,7 +5,7 @@ Feature: Add and authorise a loyalty card
   I want to see an Event logged when a user is deleted
   so that this Business Event can be written to ClickHouse for validation
 
-  @user_deleted_event @bink_regression_api2 @event
+  @user_deleted_event @sanity
   Scenario: Verify event for user deleted
     Given I register with bink service in bink
     Then I perform DELETE request to delete the customer
