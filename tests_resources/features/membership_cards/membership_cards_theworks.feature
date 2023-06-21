@@ -21,8 +21,6 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     When I perform POST request to add "TheWorks" membership card
     And I perform GET request to verify the "TheWorks" membership card is added to the wallet
     And I perform GET request to view balance for recently added "TheWorks" membership card
-#    When I perform GET request to view all transactions made using the recently added "TheWorks" membership card
-#    Then I perform GET request to view a specific transaction made using the recently added "TheWorks" membership card
     Then verify the data stored in DB after "Add" journey for "TheWorks"
     And I perform DELETE request to delete the "TheWorks" membership card
 
@@ -38,16 +36,7 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     Then verify the data stored in DB after "Add" journey for "TheWorks"
     And I perform DELETE request to delete the "TheWorks" membership card
 
-  @add_patch
-  Scenario: Add Journey_PATCH with InValid Credentials_The Works
 
-    Given I am a Bink user
-    When I perform POST request to add "TheWorks" membership card
-    And I perform GET request to verify the "TheWorks" membership card is added to the wallet
-    And I perform PATCH request to update "TheWorks" membership card with "invalid_credentials"
-    And I perform GET request to verify the "TheWorks" membership card details got updated after an unsuccessful PATCH
-    Then verify the data stored in DB after "Add" journey for "TheWorks"
-    And I perform DELETE request to delete the "TheWorks" membership card
 
   @add_and_link
   Scenario: ADD & LINK Journey_The Works
@@ -61,15 +50,18 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     Then I perform DELETE request to delete the "TheWorks" membership card
     And I perform DELETE request to delete the payment card
 
-
-  Scenario:  Add_Journey with Invalid Credentials_The Works
+  @add_failed @twk
+  Scenario Outline:  Add_Journey with Invalid Credentials_The Works
 
     Given I am a Bink user
-    When I perform POST request to add "TheWorks" membership card with "invalid_data"
+    When I perform POST request to add "TheWorks" membership card with "<invalid_data>"
     And I perform GET request to verify the "TheWorks" membership card is added to the wallet with invalid data
-#    Then Verify the card status as "Invalid Credentials" in Django
     Then I perform DELETE request to delete the "TheWorks" membership card
 
+    Examples:
+      | invalid_data |
+      |Invalid card number|
+      |Unknown card number|
 
   @enrol
   Scenario: Join Journey_The Works

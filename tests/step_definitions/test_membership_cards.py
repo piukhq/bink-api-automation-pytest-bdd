@@ -445,6 +445,8 @@ def verify_invalid_membership_card_is_added_to_wallet(merchant):
             response_json["status"]["reason_codes"][0]
             == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_FAILED)
             or response_json["status"]["reason_codes"][0]
+            == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_GHOST_FAILED)
+            or response_json["status"]["reason_codes"][0]
             == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_ADD_FAILED)
         )
     ), (

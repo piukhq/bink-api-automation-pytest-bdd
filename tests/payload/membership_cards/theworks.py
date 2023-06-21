@@ -72,3 +72,41 @@ class TheWorksCard:
             + json.dumps(payload, indent=4)
         )
         return payload
+
+    @staticmethod
+    def add_membership_card_payload(invalid_data=None):
+
+        if invalid_data == "Invalid card number":
+            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.ADD_INVALID_CARDNUMBER)
+            logging.info("Invalid data is: " + value)
+            data_type = "Invalid data"
+        elif invalid_data == "Unknown card number":
+            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.ADD_UNKNOWN_CARD_NUMBER)
+            data_type = "Invalid data"
+        else:
+            value = TestDataUtils.TEST_DATA.the_works_membership_card.get(constants.CARD_NUM)
+            data_type = "Valid data"
+
+        payload = {
+            "account": {
+                "add_fields": [
+                    {
+                        "column": "Loyalty card number",
+                        # "value": TestDataUtils.TEST_DATA.the_works_membership_card.get(constants.CARD_NUM),
+                        "value": value,
+                    }
+                ],
+            },
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("the_works"),
+        }
+
+        logging.info(
+            "The Request for Add Journey with "
+            + data_type
+            + " :\n\n"
+            + Endpoint.BASE_URL
+            + api.ENDPOINT_MEMBERSHIP_CARDS
+            + "\n\n"
+            + json.dumps(payload, indent=4)
+        )
+        return payload
