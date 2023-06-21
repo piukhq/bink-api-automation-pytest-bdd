@@ -215,18 +215,19 @@ wasabi_invalid_data = {
 
 
 the_works_membership_card = {
-    "card_num": "",
-    "email": "",
-    "points": 0,
-    "currency": "",
+    "card_num": "6338849749210000002622",
+    "points": 380,
+    "currency": "Points",
     "description": "",
-    "transactions": "",
-    "transaction_status": "",
+    "transactions": "5",
+    "transaction_status": "active",
     "transaction_currency": "",
 }
 
 the_works_invalid_data = {
     "card_num": "",
+    "invalid_card_number": "633884102938475600011",
+    "unknown_card_number": "633884564738291000022",
     "email_exists": "emailexists",
     "join_failed": "fail",
     "join_http_failed": "failhttperror"
