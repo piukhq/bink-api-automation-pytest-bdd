@@ -1,4 +1,4 @@
-@works @sanity @sanity_bmb
+@the_works @sanity @sanity_bmb
 Feature: Merchant The Works - Ensure a customer can add their membership card & view its details for merchant TheWorks
   As a customer
   I want to utilise membership_cards endpoint

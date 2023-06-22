@@ -101,12 +101,12 @@ class MembershipCards(Endpoint):
                     return response
                 else:
                     if not response_json["payment_cards"][0]["active_link"]:
-                        time.sleep(i)
+                        time.sleep(1)
                         continue
                     else:
                         break
             except IndexError:
-                time.sleep(i)
+                time.sleep(1)
                 logging.info("Wait for payment card to populate")
             except JSONDecodeError or Exception:
                 raise Exception(f"Empty response and the response Status Code is {str(response.status_code)}")
