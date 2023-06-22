@@ -10,19 +10,31 @@ from tests.helpers.test_context import TestContext
 
 
 class TheWorksCard:
-
     @staticmethod
-    def enrol_membership_scheme_payload(email, env=None, channel=None, invalid_data=None):
+    def enrol_membership_scheme_payload(
+        email, env=None, channel=None, invalid_data=None
+    ):
         faker = Faker()
+        last_name = faker.name()
         if not invalid_data:
             last_name = faker.name()
         else:
             if invalid_data == "account_already_exists":
-                last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.JOIN_ACCOUNT_ALREADY_EXISTS)
+                last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(
+                    constants.JOIN_ACCOUNT_ALREADY_EXISTS
+                )
             elif invalid_data == "join_failed":
-                last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.JOIN_FAILED)
+                last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(
+                    constants.JOIN_FAILED
+                )
             elif invalid_data == "join_http_failed":
-                last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.JOIN_HTTP_FAILED)
+                last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(
+                    constants.JOIN_HTTP_FAILED
+                )
+            else:
+                last_name = TestDataUtils.TEST_DATA.the_works_invalid_data.get(
+                    constants.JOIN_ACCOUNT_ALREADY_EXISTS
+                )
 
         data_type = "Invalid data"
         payload = {
@@ -34,7 +46,9 @@ class TheWorksCard:
                     {"column": "Consent 1", "value": constants.CONSENT},
                 ]
             },
-            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("the_works"),
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get(
+                "the_works"
+            ),
         }
         logging.info(
             "The Request for Enrol Journey with "
@@ -60,7 +74,9 @@ class TheWorksCard:
                 ],
                 "authorise_fields": [{"column": "Email", "value": email}],
             },
-            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("the_works"),
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get(
+                "the_works"
+            ),
         }
         logging.info(
             "The Request for Add Journey with "
@@ -75,16 +91,21 @@ class TheWorksCard:
 
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
-
         if invalid_data == "Invalid card number":
-            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.ADD_INVALID_CARDNUMBER)
+            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(
+                constants.ADD_INVALID_CARDNUMBER
+            )
             logging.info("Invalid data is: " + value)
             data_type = "Invalid data"
         elif invalid_data == "Unknown card number":
-            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.ADD_UNKNOWN_CARD_NUMBER)
+            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(
+                constants.ADD_UNKNOWN_CARD_NUMBER
+            )
             data_type = "Invalid data"
         else:
-            value = TestDataUtils.TEST_DATA.the_works_membership_card.get(constants.CARD_NUM)
+            value = TestDataUtils.TEST_DATA.the_works_membership_card.get(
+                constants.CARD_NUM
+            )
             data_type = "Valid data"
 
         payload = {
@@ -97,7 +118,9 @@ class TheWorksCard:
                     }
                 ],
             },
-            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("the_works"),
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get(
+                "the_works"
+            ),
         }
 
         logging.info(
