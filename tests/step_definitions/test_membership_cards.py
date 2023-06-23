@@ -20,6 +20,7 @@ from tests.requests.payment_cards import PaymentCards
 
 scenarios("membership_cards/")
 
+
 """Step definitions - Add Journey """
 
 

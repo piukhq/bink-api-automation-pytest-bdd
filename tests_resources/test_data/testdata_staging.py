@@ -298,6 +298,8 @@ event_info = {
     "channel_bink": "com.bink.wallet",
     "channel_barclays": "com.barclays.bmb",
     "status": 1,
+    "slug": "email_marketing",
+    "consents_response": True,
 }
 
 
@@ -313,5 +315,5 @@ event_type = {
     "lc_add_auth_request": "lc.addandauth.request",
     "lc_add_auth_success": "lc.addandauth.success",
     "lc_add_auth_failed": "lc.addandauth.failed",
-    "CHANNEL_BINK": "com.bink.wallet"
+    "CHANNEL_BINK": "com.bink.wallet",
 }
