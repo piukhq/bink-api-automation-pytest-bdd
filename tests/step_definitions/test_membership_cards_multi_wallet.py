@@ -19,6 +19,7 @@ from tests.requests.payment_cards import PaymentCards
 
 scenarios("membership_cards_multi_wallet/")
 
+
 """Step definitions - Multi-wallet"""
 
 """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
