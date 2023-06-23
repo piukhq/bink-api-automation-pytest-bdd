@@ -1,0 +1,181 @@
+{
+    "id": 294,
+    "plan_popularity": 5,
+    "status": "active",
+    "feature_set": {
+        "authorisation_required": false,
+        "transactions_available": true,
+        "digital_only": false,
+        "has_points": true,
+        "card_type": 2,
+        "linking_support": [
+            "ADD",
+            "REGISTRATION",
+            "ENROL"
+        ],
+        "apps": [
+            {
+                "app_type": 0
+            },
+            {
+                "app_type": 1
+            }
+        ],
+        "has_vouchers": false
+    },
+    "card": {
+        "barcode_type": 0,
+        "colour": "#fff200",
+        "scan_message": "Scanning not required"
+    },
+    "images": [
+        {
+            "id": 1414,
+            "type": 3,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/The_Works_Icon.png",
+            "description": "The Works Icon",
+            "encoding": "png"
+        },
+        {
+            "id": 1415,
+            "type": 0,
+            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/The_Works_Hero_jel2vZz.png",
+            "description": "The Works Hero",
+            "encoding": "png"
+        }
+    ],
+    "account": {
+        "plan_name": "Together Rewards",
+        "plan_name_card": "Card",
+        "plan_url": "https://www.theworks.co.uk/page/together-rewards.html",
+        "plan_summary": "Earn 5 points for every £1 spent in-store or online. Every three months we will convert your points into vouchers giving you 5p back for every full £1 spent! You can spend these vouchers on all your favourite things at The Works in-store or online.",
+        "plan_description": "Whether you are looking for an inspirational read, crafting a new masterpiece, or entertaining the kids with some good old-fashioned fun and games, get more from your shop by earning 5 points for every full £1 you spend in-store and online. To get going just share your name and email address. Shop and save in-store or online. What do points mean? Vouchers! The Works will convert your points into redeemable vouchers for you four times a year to spend on all your favourite things!",
+        "plan_documents": [
+            {
+                "name": "The Works privacy policy",
+                "description": "I have read the",
+                "url": "https://policies.staging.gb.bink.com/the_works/pp.html",
+                "display": [
+                    "ENROL",
+                    "REGISTRATION"
+                ],
+                "checkbox": false
+            },
+            {
+                "name": "Retailer terms & conditions",
+                "description": "I accept the",
+                "url": "https://policies.staging.gb.bink.com/the_works/tc.html",
+                "display": [
+                    "ENROL",
+                    "REGISTRATION"
+                ],
+                "checkbox": true
+            }
+        ],
+        "barcode_redeem_instructions": "At checkout, simply show this barcode as you normally would with your physical card to redeem vouchers.",
+        "plan_register_info": "You have added a temporary card. You’ll need to register it to enjoy the full benefits of the programme.",
+        "company_name": "The Works",
+        "company_url": "https://www.theworks.co.uk",
+        "category": "Household",
+        "tiers": [],
+        "add_fields": [
+            {
+                "column": "Loyalty card number",
+                "validation": "^(633884)[0-9]{16}$",
+                "description": "22 digit card number",
+                "common_name": "card_number",
+                "type": 0,
+                "choice": [],
+                "alternatives": [
+                    "Barcode"
+                ]
+            },
+            {
+                "column": "Barcode",
+                "validation": "^(633884)[0-9]{16}$",
+                "common_name": "barcode",
+                "type": 0,
+                "choice": [],
+                "alternatives": [
+                    "Loyalty card number"
+                ]
+            }
+        ],
+        "authorise_fields": [],
+        "registration_fields": [
+            {
+                "column": "First name",
+                "validation": "^(((?=.{1,100}$)[A-Za-z-\À-\ÿ'])+\\s*){1,4}$",
+                "description": "Enter first name",
+                "common_name": "first_name",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Last name",
+                "validation": "^(((?=.{1,100}$)[A-Za-z-\À-\ÿ'])+\\s*){1,4}$",
+                "description": "Enter last name",
+                "common_name": "last_name",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Email",
+                "validation": "^(?=.{1,250}$)(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
+                "description": "example@mydomain.com",
+                "common_name": "email",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Consent 1",
+                "description": "Tick this box to hear about the latest trend-setting arrivals and exciting offers from The Works - if you change your mind, you can opt out anytime via the retailer.",
+                "type": 3
+            }
+        ],
+        "enrol_fields": [
+            {
+                "column": "First name",
+                "validation": "^(((?=.{1,100}$)[A-Za-z-\À-\ÿ'])+\\s*){1,4}$",
+                "description": "Enter first name",
+                "common_name": "first_name",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Last name",
+                "validation": "^(((?=.{1,100}$)[A-Za-z-\À-\ÿ'])+\\s*){1,4}$",
+                "description": "Enter last name",
+                "common_name": "last_name",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Email",
+                "validation": "^(?=.{1,250}$)(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
+                "description": "example@mydomain.com",
+                "common_name": "email",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Consent 1",
+                "description": "Tick this box to hear about the latest trend-setting arrivals and exciting offers from The Works - if you change your mind, you can opt out anytime via the retailer.",
+                "type": 3
+            }
+        ],
+        "fees": []
+    },
+    "balances": [
+        {
+            "currency": "Points",
+            "suffix": "pts"
+        }
+    ],
+    "content": [
+        {
+            "column": "Enrol_Help_Text",
+            "value": "Please enter your details to register with the retailer. We won’t save or store any of the information you provide or edit."
+        }
+    ]
+}

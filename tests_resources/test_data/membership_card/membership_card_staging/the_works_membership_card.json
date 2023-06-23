@@ -1,0 +1,111 @@
+{
+        "id": 335337,
+        "membership_plan": 294,
+        "payment_cards": [],
+        "membership_transactions": [
+            {
+                "id": 730627,
+                "status": "active",
+                "amounts": [
+                    {
+                        "value": 25,
+                        "suffix": "pts",
+                        "currency": "Points"
+                    }
+                ],
+                "timestamp": 1687190168,
+                "description": "Available balance: £0.00"
+            },
+            {
+                "id": 730628,
+                "status": "active",
+                "amounts": [
+                    {
+                        "value": 5,
+                        "suffix": "pts",
+                        "currency": "Points"
+                    }
+                ],
+                "timestamp": 1687188672,
+                "description": "Available balance: £0.00"
+            },
+            {
+                "id": 730629,
+                "status": "active",
+                "amounts": [
+                    {
+                        "value": 15,
+                        "suffix": "pts",
+                        "currency": "Points"
+                    }
+                ],
+                "timestamp": 1687182362,
+                "description": "Available balance: £0.00"
+            },
+            {
+                "id": 730630,
+                "status": "active",
+                "amounts": [
+                    {
+                        "value": 10,
+                        "suffix": "pts",
+                        "currency": "Points"
+                    }
+                ],
+                "timestamp": 1687176061,
+                "description": "Available balance: £0.00"
+            },
+            {
+                "id": 730631,
+                "status": "active",
+                "amounts": [
+                    {
+                        "value": 5,
+                        "suffix": "pts",
+                        "currency": "Points"
+                    }
+                ],
+                "timestamp": 1687171741,
+                "description": "Available balance: £0.00"
+            }
+        ],
+        "status": {
+            "state": "authorised",
+            "reason_codes": [
+                "X300"
+            ]
+        },
+        "card": {
+            "barcode": "6338849749210000002622",
+            "membership_id": "6338849749210000002622",
+            "barcode_type": 0,
+            "colour": "#fff200"
+        },
+        "images": [
+            {
+                "id": 1415,
+                "type": 0,
+                "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/The_Works_Hero_jel2vZz.png",
+                "description": "The Works Hero",
+                "encoding": "png"
+            },
+            {
+                "id": 1414,
+                "type": 3,
+                "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/The_Works_Icon.png",
+                "description": "The Works Icon",
+                "encoding": "png"
+            }
+        ],
+        "account": {
+            "tier": 0
+        },
+        "balances": [
+            {
+                "value": 380,
+                "suffix": "pts",
+                "currency": "Points",
+                "updated_at": 1687448052
+            }
+        ]
+}

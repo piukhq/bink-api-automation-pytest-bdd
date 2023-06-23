@@ -76,12 +76,12 @@ class TheWorksCard:
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
 
-        if invalid_data == "Invalid card number":
-            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.ADD_INVALID_CARDNUMBER)
+        if invalid_data == "invalid_cardnumber":
+            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.INVALID_CARDNUMBER)
             logging.info("Invalid data is: " + value)
             data_type = "Invalid data"
-        elif invalid_data == "Unknown card number":
-            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.ADD_UNKNOWN_CARD_NUMBER)
+        elif invalid_data == "unknown_cardnumber":
+            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.UNKNOWN_CARD_NUMBER)
             data_type = "Invalid data"
         else:
             value = TestDataUtils.TEST_DATA.the_works_membership_card.get(constants.CARD_NUM)

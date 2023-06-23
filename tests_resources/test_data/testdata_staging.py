@@ -250,7 +250,7 @@ membership_plan_id = {
     "trenette": 284,
     "asos": 288,
     "viator": 292,
-    "the_works": 294
+    "the_works": 294,
 }
 
 # ----------------------------------------PAYMENT CARD STATES  --------------------------------------------------- #
