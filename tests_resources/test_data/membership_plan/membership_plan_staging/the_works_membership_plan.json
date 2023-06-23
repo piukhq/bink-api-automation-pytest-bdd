@@ -48,8 +48,8 @@
         "plan_name": "Together Rewards",
         "plan_name_card": "Card",
         "plan_url": "https://www.theworks.co.uk/page/together-rewards.html",
-        "plan_summary": "Earn 5 points for every £1 spent in-store or online. Every three months we will convert your points into vouchers giving you 5p back for every full £1 spent! You can spend these vouchers on all your favourite things at The Works in-store or online.",
-        "plan_description": "Whether you are looking for an inspirational read, crafting a new masterpiece, or entertaining the kids with some good old-fashioned fun and games, get more from your shop by earning 5 points for every full £1 you spend in-store and online. To get going just share your name and email address. Shop and save in-store or online. What do points mean? Vouchers! The Works will convert your points into redeemable vouchers for you four times a year to spend on all your favourite things!",
+        "plan_summary": "Earn 5 points for every \u00a31 spent in-store or online. Every three months we will convert your points into vouchers giving you 5p back for every full \u00a31 spent! You can spend these vouchers on all your favourite things at The Works in-store or online.",
+        "plan_description": "Whether you are looking for an inspirational read, crafting a new masterpiece, or entertaining the kids with some good old-fashioned fun and games, get more from your shop by earning 5 points for every full \u00a31 you spend in-store and online. To get going just share your name and email address. Shop and save in-store or online. What do points mean? Vouchers! The Works will convert your points into redeemable vouchers for you four times a year to spend on all your favourite things!",
         "plan_documents": [
             {
                 "name": "The Works privacy policy",
@@ -73,7 +73,7 @@
             }
         ],
         "barcode_redeem_instructions": "At checkout, simply show this barcode as you normally would with your physical card to redeem vouchers.",
-        "plan_register_info": "You have added a temporary card. You’ll need to register it to enjoy the full benefits of the programme.",
+        "plan_register_info": "You have added a temporary card. You\u2019ll need to register it to enjoy the full benefits of the programme.",
         "company_name": "The Works",
         "company_url": "https://www.theworks.co.uk",
         "category": "Household",
@@ -105,7 +105,7 @@
         "registration_fields": [
             {
                 "column": "First name",
-                "validation": "^(((?=.{1,100}$)[A-Za-z-\À-\ÿ'])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,100}$)[A-Za-z-\\u00C0-\\u00FF'])+\\s*){1,4}$",
                 "description": "Enter first name",
                 "common_name": "first_name",
                 "type": 0,
@@ -113,7 +113,7 @@
             },
             {
                 "column": "Last name",
-                "validation": "^(((?=.{1,100}$)[A-Za-z-\À-\ÿ'])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,100}$)[A-Za-z-\\u00C0-\\u00FF'])+\\s*){1,4}$",
                 "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
@@ -136,7 +136,7 @@
         "enrol_fields": [
             {
                 "column": "First name",
-                "validation": "^(((?=.{1,100}$)[A-Za-z-\À-\ÿ'])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,100}$)[A-Za-z-\\u00C0-\\u00FF'])+\\s*){1,4}$",
                 "description": "Enter first name",
                 "common_name": "first_name",
                 "type": 0,
@@ -144,7 +144,7 @@
             },
             {
                 "column": "Last name",
-                "validation": "^(((?=.{1,100}$)[A-Za-z-\À-\ÿ'])+\\s*){1,4}$",
+                "validation": "^(((?=.{1,100}$)[A-Za-z-\\u00C0-\\u00FF'])+\\s*){1,4}$",
                 "description": "Enter last name",
                 "common_name": "last_name",
                 "type": 0,
@@ -175,7 +175,7 @@
     "content": [
         {
             "column": "Enrol_Help_Text",
-            "value": "Please enter your details to register with the retailer. We won’t save or store any of the information you provide or edit."
+            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit."
         }
     ]
 }
