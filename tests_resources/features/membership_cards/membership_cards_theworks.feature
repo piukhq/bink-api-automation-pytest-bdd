@@ -50,7 +50,7 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     Then I perform DELETE request to delete the "TheWorks" membership card
     And I perform DELETE request to delete the payment card
 
-  @add_failed @twk
+  @add_failed
   Scenario Outline:  Add_Journey with Invalid Credentials_The Works
 
     Given I am a Bink user
