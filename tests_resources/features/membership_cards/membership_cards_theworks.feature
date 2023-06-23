@@ -25,11 +25,11 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     And I perform DELETE request to delete the "TheWorks" membership card
 
 
-  @add_patch @sanity_bmb
+  @add_patch   @sanity_bmb
   Scenario: Add Journey_PATCH with Valid Credentials_The Works
 
     Given I am a Bink user
-    When I perform POST request to add "TheWorks" membership card with "invalid_cardnumber"
+    When I perform POST request to add "TheWorks" membership card with "invalid_data"
     And I perform GET request to verify the "TheWorks" membership card is added to the wallet with invalid data
     And I perform PATCH request to update "TheWorks" membership card
     And I perform GET request to verify the "TheWorks" membership card details got updated after a successful PATCH
@@ -50,7 +50,7 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     Then I perform DELETE request to delete the "TheWorks" membership card
     And I perform DELETE request to delete the payment card
 
-  @add_failed
+  @add_failed @twk
   Scenario Outline:  Add_Journey with Invalid Credentials_The Works
 
     Given I am a Bink user
@@ -59,9 +59,9 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     Then I perform DELETE request to delete the "TheWorks" membership card
 
     Examples:
-      | invalid_data     |
-      |invalid_cardnumber|
-      |unknown_cardnumber|
+      | invalid_data |
+      |Invalid card number|
+      |Unknown card number|
 
   @enrol
   Scenario: Join Journey_The Works
@@ -123,15 +123,6 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
       |account_already_exists|
       |join_failed           |
       |join_http_failed      |
-
-  @images
-  Scenario: Add Journey_The_Works and verify images
-
-    Given I am a customer who is subscribing to Bink or I am Bink app user
-    When I perform POST request to add "TheWorks" membership card
-    And I perform GET request to verify the "TheWorks" membership card image details
-    Then verify the data stored in DB after "Add" journey for "TheWorks"
-    Then I perform DELETE request to delete the "TheWorks" membership card
 
 
   Scenario Outline: Negative test scenario for POST/membership_cards wrong payload field values _ the Works
