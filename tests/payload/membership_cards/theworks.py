@@ -90,21 +90,27 @@ class TheWorksCard:
         return payload
 
     @staticmethod
-    def add_membership_card_payload(invalid_data=None):
+    def add_membership_card_payload(invalid_data=None, txn_matching_testing=None):
+
+        data_type = "Invalid data"
+
         if invalid_data == "Invalid card number":
-            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(
+            card_num = TestDataUtils.TEST_DATA.the_works_invalid_data.get(
                 constants.ADD_INVALID_CARDNUMBER
             )
-            logging.info("Invalid data is: " + value)
-            data_type = "Invalid data"
         elif invalid_data == "Unknown card number":
-            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(
+            card_num = TestDataUtils.TEST_DATA.the_works_invalid_data.get(
                 constants.ADD_UNKNOWN_CARD_NUMBER
             )
-            data_type = "Invalid data"
         else:
-            value = TestDataUtils.TEST_DATA.the_works_membership_card.get(
+            card_num = TestDataUtils.TEST_DATA.the_works_membership_card.get(
                 constants.CARD_NUM
+            )
+            data_type = "Valid data"
+
+        if txn_matching_testing:
+            card_num = TestDataUtils.TEST_DATA.the_works_membership_card.get(
+                constants.CARD_NUM_TXN_MATCHING
             )
             data_type = "Valid data"
 
@@ -113,8 +119,7 @@ class TheWorksCard:
                 "add_fields": [
                     {
                         "column": "Loyalty card number",
-                        # "value": TestDataUtils.TEST_DATA.the_works_membership_card.get(constants.CARD_NUM),
-                        "value": value,
+                        "value": card_num,
                     }
                 ],
             },

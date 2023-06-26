@@ -23,6 +23,7 @@ class TestTransactionMatchingContext:
     current_time_stamp = ""
     transaction_auth_code = random.randint(100000, 999999)
     mid = ""
+    settlement_id = ""
 
     iceland_file_header = [
         "TransactionCardFirst6",

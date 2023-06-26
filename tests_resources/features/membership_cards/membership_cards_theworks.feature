@@ -65,16 +65,15 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     And I perform DELETE request to delete the "TheWorks" membership card
 
 
-  @add_patch  @chk
+  @add_patch
   Scenario: Add Journey_PATCH with Valid Credentials_The Works
 
     Given I am a Bink user
     When I perform POST request to add "TheWorks" membership card with "Invalid card number"
     And I perform GET request to verify the "TheWorks" membership card is added to the wallet with invalid data
     And I perform PATCH request to update "TheWorks" membership card
-#    And I perform GET request to verify the "Iceland" membership card details got updated after a successful PATCH
-#    And I perform GET request to verify the "TheWorks" membership card details got updated after a successful PATCH
-#    Then verify the data stored in DB after "Add" journey for "TheWorks"
+    And I perform GET request to verify the "TheWorks" membership card details got updated after a successful PATCH
+    Then verify the data stored in DB after "Add" journey for "TheWorks"
     And I perform DELETE request to delete the "TheWorks" membership card
 
    @add_failed

@@ -21,10 +21,13 @@ def join(*args: WidthField) -> str:
 
 
 def get_data_to_import():
-    TestTransactionMatchingContext.transaction_matching_amount = random.choice(range(1, 20)) / 100
-    TestTransactionMatchingContext.transaction_id = (
-        TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
-    )
+    if not TestTransactionMatchingContext.transaction_matching_amount:
+        TestTransactionMatchingContext.transaction_matching_amount = random.choice(range(1, 20)) / 100
+    if not TestTransactionMatchingContext.transaction_id:
+        TestTransactionMatchingContext.transaction_id = (
+            TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
+        )
+    TestTransactionMatchingContext.settlement_id = TestTransactionMatchingContext.transaction_id
     TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
     TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone("Europe/London")).strftime(
         "%Y-%m-%d %H:%M:%S"
@@ -218,7 +221,7 @@ class TransactionMatchingPaymentFileDetails:
             "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "currencyCode": "840",
             "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX"
-            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
+                    + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
             "merchantNumber": mid,
             "offerId": "0",
             "partnerId": "AADP0050",
@@ -404,13 +407,7 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def get_master_refund_spotting_txt_file(mid):
         """Pass below data to create master_refund_spotting_txt_file"""
-        # TestTransactionMatchingContext.created_at = now = pendulum.now()
-        # mid = mid
-        # TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
-        # TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
-        # TestTransactionMatchingContext.spend_amount = -(random.choice(range(1, 10)))
-        # payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
-        # amount = (str(-abs(TestTransactionMatchingContext.spend_amount)).zfill(12))
+
         TestTransactionMatchingContext.created_at = now = pendulum.now()
         mid = mid
         TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
@@ -506,7 +503,7 @@ class TransactionMatchingPaymentFileDetails:
     def get_amex_auth_spotting_data(mid):
         TestTransactionMatchingContext.approval_code = random.randint(100000, 999999)
         TestTransactionMatchingContext.transaction_id = base64.b64encode(str(uuid.uuid4()).encode()).decode()
-        TestTransactionMatchingContext.transaction_matching_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+        TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
         TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
             "%Y-%m-%d %H:%M:%S")
         return {
@@ -514,7 +511,7 @@ class TransactionMatchingPaymentFileDetails:
             "cm_alias": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "merchant_number": mid,
             "offer_id": "0",
-            "transaction_amount": str(TestTransactionMatchingContext.transaction_matching_amount),
+            "transaction_amount": str(TestTransactionMatchingContext.spend_amount),
             "transaction_currency": "UKL",
             "transaction_id": str(TestTransactionMatchingContext.transaction_id),
             "transaction_time": TestTransactionMatchingContext.transaction_matching_amexTimeStamp,
@@ -522,9 +519,13 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_amex_settlement_spotting_data(mid):
+
+        """For Amex E2E spotting tests approval code, amount should be same in
+        auth, settle & refund files"""
         TestTransactionMatchingContext.approval_code = random.randint(100000, 999999)
-        TestTransactionMatchingContext.transaction_id = base64.b64encode(str(uuid.uuid4()).encode()).decode()
         TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+
+        TestTransactionMatchingContext.transaction_id = base64.b64encode(str(uuid.uuid4()).encode()).decode()
         TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
             "%Y-%m-%d %H:%M:%S")
         return {
@@ -532,7 +533,7 @@ class TransactionMatchingPaymentFileDetails:
             "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "currencyCode": "840",
             "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX"
-            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
+                    + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
             "merchantNumber": mid,
             "offerId": "0",
             "partnerId": "AADP0050",
@@ -545,9 +546,15 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def get_amex_refund_spotting_data(mid):
         get_data_to_import()
-        TestTransactionMatchingContext.approval_code = random.randint(100000, 999999)
+        """For Amex E2E spotting tests approval code, amount should be same in
+               auth, settle & refund files"""
+        if not TestTransactionMatchingContext.approval_code:
+            TestTransactionMatchingContext.approval_code = random.randint(100000, 999999)
+        if not TestTransactionMatchingContext.spend_amount:
+            TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
+
+
         TestTransactionMatchingContext.transaction_id = base64.b64encode(str(uuid.uuid4()).encode()).decode()
-        TestTransactionMatchingContext.transaction_matching_amount = int(Decimal(str(random.choice(range(10, 1000)))))
         TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
             "%Y-%m-%d %H:%M:%S")
         return {
@@ -555,12 +562,12 @@ class TransactionMatchingPaymentFileDetails:
             "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "currencyCode": "840",
             "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX"
-            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
+                    + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
             "merchantNumber": mid,
             "offerId": "0",
             "partnerId": "AADP0050",
             "recordId": f"{TestTransactionMatchingContext.transaction_id}AADP00400",
-            "transactionAmount": str(-TestTransactionMatchingContext.transaction_matching_amount),
+            "transactionAmount": str(-TestTransactionMatchingContext.spend_amount),
             "transactionDate": "2022-08-14 04:37:57",
             "transactionId": str(TestTransactionMatchingContext.transaction_id),
         }
@@ -573,7 +580,15 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_visa_spotting_refund_data(mid):
+        """For E2E transactions saving Auth/ settlement transaction id
+        and passing it as ReturnTransaction.SettlementId"""
         get_data_to_import()
+        if TestTransactionMatchingContext.transaction_id:
+            TestTransactionMatchingContext.settlement_id = TestTransactionMatchingContext.transaction_id
+        """For E2E testing the Visa refund file should have a new Transaction Id"""
+        TestTransactionMatchingContext.transaction_id = (
+            TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
+        )
         return {
             "CardId": TestTransactionMatchingContext.transaction_id,
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
@@ -581,19 +596,19 @@ class TransactionMatchingPaymentFileDetails:
                 {"Key": "ReturnTransaction.CardAcceptorIdCode", "Value": mid},
                 {"Key": "ReturnTransaction.AcquirerBIN", "Value": "3423432"},
                 {"Key": "ReturnTransaction.Amount", "Value":
-                    TestTransactionMatchingContext.transaction_matching_amount / 100},
+                    TestTransactionMatchingContext.transaction_matching_amount},
                 {"Key": "ReturnTransaction.VipTransactionId", "Value": TestTransactionMatchingContext.transaction_id},
-                {"Key": "ReturnTransaction.SettlementId", "Value": TestTransactionMatchingContext.transaction_id},
+                {"Key": "ReturnTransaction.SettlementId", "Value": TestTransactionMatchingContext.settlement_id},
                 {"Key": "ReturnTransaction.VisaMerchantName", "Value": ""},
                 {"Key": "ReturnTransaction.VisaMerchantId", "Value": ""},
                 {"Key": "ReturnTransaction.VisaStoreName", "Value": ""},
                 {"Key": "ReturnTransaction.VisaStoreId", "Value": ""},
                 {"Key": "ReturnTransaction.AcquirerAmount", "Value":
-                    TestTransactionMatchingContext.transaction_matching_amount / 100},
+                    TestTransactionMatchingContext.transaction_matching_amount},
                 {"Key": "ReturnTransaction.AcquirerCurrencyCode", "Value": "840"},
                 {"Key": "ReturnTransaction.CurrencyCode", "Value": "840"},
                 {"Key": "ReturnTransaction.TransactionUSDAmount", "Value":
-                    TestTransactionMatchingContext.transaction_matching_amount / 100},
+                    TestTransactionMatchingContext.transaction_matching_amount},
                 {"Key": "ReturnTransaction.DateTime", "Value": "1/19/2022 1:2:48 PM"},
                 {"Key": "ReturnTransaction.MerchantGroup.0.Name", "Value": "SPOTTING-MERCHANT"},
                 {"Key": "ReturnTransaction.MerchantGroupName.0.ExternalId", "Value": "Spotting Merchant"},

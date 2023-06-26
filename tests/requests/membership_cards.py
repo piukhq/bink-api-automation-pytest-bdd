@@ -22,14 +22,11 @@ class MembershipCards(Endpoint):
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
-    def add_card_auto_link(token, merchant, card_2=None):
+    def add_card_auto_link(token, merchant, txn_matching_testing=None):
         url = Endpoint.BASE_URL + api.ENDPOINT_AUTO_LINK_PAYMENT_AND_MEMBERSHIP_CARD
         header = Endpoint.request_header(token)
-        if not card_2:
-            payload = Merchant.get_merchant(merchant).add_membership_card_payload()
+        payload = Merchant.get_merchant(merchant).add_membership_card_payload(None, txn_matching_testing)
 
-        if card_2:
-            payload = Merchant.get_merchant(merchant).add_membership_card_2_payload()
         return Endpoint.call(url, header, "POST", payload)
 
     @staticmethod
@@ -96,6 +93,7 @@ class MembershipCards(Endpoint):
             header = Endpoint.request_header(token)
             response = Endpoint.call(url, header, "GET")
             response_json = response.json()
+            time.sleep(5)
             try:
                 if is_autolink is not None:
                     return response

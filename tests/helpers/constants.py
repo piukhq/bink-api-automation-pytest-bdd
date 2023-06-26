@@ -10,6 +10,7 @@ CONSENT = "true"
 
 """ Constants for Add Journey"""
 CARD_NUM = "card_num"
+CARD_NUM_TXN_MATCHING = "card_num_txn_matching"
 REGISTER_FAILED_EMAIL = "register_failed_email"
 UNKNOWN_CARD = "unknown_card"
 UNKNOWN_LAST_NAME = "unknown_last_name"
