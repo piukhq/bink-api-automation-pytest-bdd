@@ -229,7 +229,7 @@ the_works_invalid_data = {
     "invalid_card_number": "633884102938475600011",
     "unknown_card_number": "633884564738291000022",
     "email_exists": "emailexists",
-    "join_failed": "fail",
+    "join_failed": "opnotpermitted",
     "join_http_failed": "failhttperror"
 
 

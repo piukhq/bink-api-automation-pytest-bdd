@@ -45,31 +45,6 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
       |join_failed           |
       |join_http_failed      |
 
-
-  @add_always_link
-  Scenario: Adding payments cards to always auto-link_The Works
-
-    Given I am a Bink user
-    When I perform POST request to add "TheWorks" membership card
-    And I perform POST request to add payment card to wallet
-    And I perform the GET request to verify the payment card has been added successfully
-    And I perform GET request to verify the "TheWorks" membership card is added & linked successfully in the wallet
-    Then I perform DELETE request to delete the "TheWorks" membership card
-    And I perform DELETE request to delete the payment card
-
-#
-#   due to the limitation of API reflector this can not be done
-#
-#  @ghost_journey
-#  Scenario: Ghost card Journey The Works
-#
-#    Given I am a Bink user
-#    When I perform POST request to add "TheWorks" ghost membership card
-#    And I perform GET request to verify the "TheWorks" ghost membership card is added to the wallet
-#    When I perform PATCH request to create a "TheWorks" ghost membership account with enrol credentials
-#    And I perform GET request to verify the "TheWorks" membership account is created
-#    Then I perform DELETE request to delete the "TheWorks" membership card
-
   @add
   Scenario: Add Journey_The Works
 
@@ -115,7 +90,7 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     Then I perform DELETE request to delete the "TheWorks" membership card
     And I perform DELETE request to delete the payment card
 
-  @add_failed @tst
+  @add_failed
   Scenario Outline:  Add_Journey with Invalid Credentials_The Works
 
     Given I am a Bink user
@@ -128,27 +103,27 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
       |invalid_cardnumber|
       |unknown_cardnumber|
 
+    @add_always_link
+  Scenario: Adding payments cards to always auto-link_The Works
 
-#  Scenario Outline: Negative test scenario for POST/membership_cards wrong payload field values _ the Works
+    Given I am a Bink user
+    When I perform POST request to add "TheWorks" membership card
+    And I perform POST request to add payment card to wallet
+    And I perform the GET request to verify the payment card has been added successfully
+    And I perform GET request to verify the "TheWorks" membership card is added & linked successfully in the wallet
+    Then I perform DELETE request to delete the "TheWorks" membership card
+    And I perform DELETE request to delete the payment card
+
+
+#
+#   due to the limitation of API reflector this can not be done
+#
+#  @ghost_journey
+#  Scenario: Ghost card Journey The Works
+#
 #    Given I am a Bink user
-#    When I perform POST request to add "TheWorks" membership card without "<field_value>"
-#    Then I should receive error message "<error_message>"
-#
-#    Examples:
-#      | error_message                             | field_value     |
-#      | required field membership_plan is missing | membership_plan |
-#      | Malformed request.                        | lastname        |
-#      | Malformed request.                        | postcode        |
-#      | Malformed request.                        | account         |
-#
-#
-#  @negative_scenario
-#  Scenario Outline: Negative test scenario for POST/membership_cards without token or Payload _ the Works
-#    Given I am a Bink user
-#    When I perform POST request to add "TheWorks" membership card without "<field_value>" header
-#    Then I should receive error message "<error_message>"
-#
-#    Examples:
-#      | error_message                                  | field_value |
-#      | Invalid token header. No credentials provided. | token       |
-#      | required field membership_plan is missing      | payload     |
+#    When I perform POST request to add "TheWorks" ghost membership card
+#    And I perform GET request to verify the "TheWorks" ghost membership card is added to the wallet
+#    When I perform PATCH request to create a "TheWorks" ghost membership account with enrol credentials
+#    And I perform GET request to verify the "TheWorks" membership account is created
+#    Then I perform DELETE request to delete the "TheWorks" membership card

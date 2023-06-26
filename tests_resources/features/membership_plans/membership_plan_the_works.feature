@@ -7,7 +7,7 @@ Feature: Merchant TheWorks - Ensure a customer can view Scheme plan details
   Verify a customer can use Banking API to view available Asos membership plans v1.2
 
 
-  @membership_plan @tst
+  @membership_plan
    Scenario: Membership plan TheWorks
     Given I am a Bink user
     Then I can ensure the "TheWorks" plan details match with expected data
