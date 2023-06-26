@@ -10,6 +10,7 @@ from tests.helpers.test_context import TestContext
 
 
 class TheWorksCard:
+
     @staticmethod
     def enrol_membership_scheme_payload(email, env=None, channel=None, invalid_data=None):
         faker = Faker()
@@ -36,7 +37,9 @@ class TheWorksCard:
                     {"column": "Consent 1", "value": constants.CONSENT},
                 ]
             },
-            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("the_works"),
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get(
+                "the_works"
+            ),
         }
         logging.info(
             "The Request for Enrol Journey with "
@@ -76,19 +79,17 @@ class TheWorksCard:
         return payload
 
     @staticmethod
-    def add_membership_card_payload(invalid_data=None, txn_matching_testing=None):
-        data_type = "Invalid data"
+    def add_membership_card_payload(invalid_data=None):
 
-        if invalid_data == "Invalid card number":
-            card_num = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.ADD_INVALID_CARDNUMBER)
-        elif invalid_data == "Unknown card number":
-            card_num = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.ADD_UNKNOWN_CARD_NUMBER)
+        if invalid_data == "invalid_cardnumber":
+            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.INVALID_CARDNUMBER)
+            logging.info("Invalid data is: " + value)
+            data_type = "Invalid data"
+        elif invalid_data == "unknown_cardnumber":
+            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.UNKNOWN_CARDNUMBER)
+            data_type = "Invalid data"
         else:
-            card_num = TestDataUtils.TEST_DATA.the_works_membership_card.get(constants.CARD_NUM)
-            data_type = "Valid data"
-
-        if txn_matching_testing:
-            card_num = TestDataUtils.TEST_DATA.the_works_membership_card.get(constants.CARD_NUM_TXN_MATCHING)
+            value = TestDataUtils.TEST_DATA.the_works_membership_card.get(constants.CARD_NUM)
             data_type = "Valid data"
 
         payload = {
@@ -96,7 +97,7 @@ class TheWorksCard:
                 "add_fields": [
                     {
                         "column": "Loyalty card number",
-                        "value": card_num,
+                        "value": value,
                     }
                 ],
             },

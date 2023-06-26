@@ -1,11 +1,11 @@
-@the_works @sanity @sanity_bmb
+@the_works @sanity
 Feature: Merchant The Works - Ensure a customer can add their membership card & view its details for merchant TheWorks
   As a customer
   I want to utilise membership_cards endpoint
   So I can add my card, with the scheme provider TheWorks & check its details successfully
 
 
-   @enrol
+  @enrol
   Scenario: Join Journey_The Works
 
     Given I register with bink service as a new customer
@@ -27,6 +27,7 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     Then verify the data stored in DB after "Enrol" journey for "TheWorks"
     Then I perform DELETE request to delete the "TheWorks" membership card
     And I perform DELETE request to delete the customer
+
 
   @enrol_failed
   Scenario Outline: Join Journey_The Works enrol failed
@@ -60,34 +61,22 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     When I perform POST request to add "TheWorks" membership card
     And I perform GET request to verify the "TheWorks" membership card is added to the wallet
     And I perform GET request to view balance for recently added "TheWorks" membership card
-#    add check for transactions
     Then verify the data stored in DB after "Add" journey for "TheWorks"
     And I perform DELETE request to delete the "TheWorks" membership card
 
 
-  @add_patch
-  Scenario: Add Journey_PATCH with Valid Credentials_The Works
+#   This is not applicable to Works as "a new scheme account id is created after a successful PATCH"
+#  @add_patch   @sanity_bmb
+#  Scenario: Add Journey_PATCH with Valid Credentials_The Works
 
-    Given I am a Bink user
-    When I perform POST request to add "TheWorks" membership card with "Invalid card number"
-    And I perform GET request to verify the "TheWorks" membership card is added to the wallet with invalid data
-    And I perform PATCH request to update "TheWorks" membership card
-    And I perform GET request to verify the "TheWorks" membership card details got updated after a successful PATCH
-    Then verify the data stored in DB after "Add" journey for "TheWorks"
-    And I perform DELETE request to delete the "TheWorks" membership card
+#    Given I am a Bink user
+#    When I perform POST request to add "TheWorks" membership card with "invalid_data"
+#    And I perform GET request to verify the "TheWorks" membership card is added to the wallet with invalid data
+#    And I perform PATCH request to update "TheWorks" membership card
+#    And I perform GET request to verify the "TheWorks" membership card details got updated after a successful PATCH
+#    Then verify the data stored in DB after "Add" journey for "TheWorks"
+#    And I perform DELETE request to delete the "TheWorks" membership card
 
-   @add_failed
-  Scenario Outline:  Add_Journey with Invalid Credentials_The Works
-
-    Given I am a Bink user
-    When I perform POST request to add "TheWorks" membership card with "<invalid_data>"
-    And I perform GET request to verify the "TheWorks" membership card is added to the wallet with invalid data
-    Then I perform DELETE request to delete the "TheWorks" membership card
-
-    Examples:
-      | invalid_data |
-      |Invalid card number|
-      |Unknown card number|
 
   @add_and_link
   Scenario: ADD & LINK Journey_The Works
@@ -101,7 +90,20 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     Then I perform DELETE request to delete the "TheWorks" membership card
     And I perform DELETE request to delete the payment card
 
-  @add_always_link
+  @add_failed
+  Scenario Outline:  Add_Journey with Invalid Credentials_The Works
+
+    Given I am a Bink user
+    When I perform POST request to add "TheWorks" membership card with "<invalid_data>"
+    And I perform GET request to verify the "TheWorks" membership card is added to the wallet with invalid data
+    Then I perform DELETE request to delete the "TheWorks" membership card
+
+    Examples:
+      | invalid_data |
+      |invalid_cardnumber|
+      |unknown_cardnumber|
+
+    @add_always_link
   Scenario: Adding payments cards to always auto-link_The Works
 
     Given I am a Bink user
@@ -113,9 +115,10 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     And I perform DELETE request to delete the payment card
 
 
-
-#  due to the limitation of API reflector this can not be done
-
+#
+#   due to the limitation of API reflector this can not be done
+#
+#  @ghost_journey
 #  Scenario: Ghost card Journey The Works
 #
 #    Given I am a Bink user
@@ -124,6 +127,3 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
 #    When I perform PATCH request to create a "TheWorks" ghost membership account with enrol credentials
 #    And I perform GET request to verify the "TheWorks" membership account is created
 #    Then I perform DELETE request to delete the "TheWorks" membership card
-
-
-
