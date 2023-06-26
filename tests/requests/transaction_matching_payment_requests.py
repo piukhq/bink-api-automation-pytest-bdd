@@ -11,9 +11,10 @@ from tests.api.transactionmatching_base import TransactionMatchingEndpoint
 from tests.helpers.database.query_harmonia import QueryHarmonia
 from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
 from tests.api.base import Endpoint
-from tests.payload.transaction_matching.transaction_matching_payment_file import \
-    TransactionMatchingPaymentFileDetails, \
-    get_data_to_import
+from tests.payload.transaction_matching.transaction_matching_payment_file import (
+    TransactionMatchingPaymentFileDetails,
+    get_data_to_import,
+)
 
 
 def import_visa_matching_auth_json(mid):
@@ -50,23 +51,22 @@ def import_master_matching_auth_json(mid):
 
 def import_master_matching_settlement_text(mid):
     """Import Master Settlement Matching Transactions in the text file to Harmonia"""
-    file_name = (
-        TransactionMatchingPaymentFileDetails.get_master_settlement_txt_file(mid)
-    )
+    file_name = TransactionMatchingPaymentFileDetails.get_master_settlement_txt_file(mid)
     upload_mastercard_settlement_file_into_blob(file_name, mid)
 
 
 def upload_mastercard_settlement_file_into_blob(file_name, mid):
     """Print the file content"""
-    f = open(file_name.name, 'r')
+    f = open(file_name.name, "r")
     file_contents = f.read()
     logging.info("The MasterCard Settlement Matching file is: \n" + file_contents)
 
     """Upload master card settlement file (.csv) into blob storage"""
     merchant_container = "mastercard"
     bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
-    blob_client = \
-        bbs.get_blob_client("harmonia-imports/test/mastercard-settlement", merchant_container + f"{file_name.name}")
+    blob_client = bbs.get_blob_client(
+        "harmonia-imports/test/mastercard-settlement", merchant_container + f"{file_name.name}"
+    )
     with open(file_name.name, "rb") as settlement_file:
         blob_client.upload_blob(settlement_file, content_settings=ContentSettings(content_type="text/plain"))
         logging.info(
@@ -111,6 +111,7 @@ def import_amex_matching_settlement_json(mid):
 
 
 # *************************Spotting Streaming transactions*************************************************
+
 
 def get_visa_spotting_streaming_auth_json(mid):
     """Import Visa Auth Streaming or Spotting Transactions"""
@@ -159,18 +160,15 @@ def get_master_spotting_streaming_auth_json(mid):
 
 def import_master_spotting_streaming_settlement_text(mid):
     """Import Master Settlement Matching Transactions in the text file to Harmonia"""
-    file_name = (
-        TransactionMatchingPaymentFileDetails.get_master_settlement_spotting_txt_file(mid)
-    )
+    file_name = TransactionMatchingPaymentFileDetails.get_master_settlement_spotting_txt_file(mid)
     upload_mastercard_settlement_file_into_blob(file_name, mid)
 
 
 def import_master_spotting_streaming_refund_text(mid):
     """Import Master Settlement Matching Transactions in the text file to Harmonia"""
-    file_name = (
-        TransactionMatchingPaymentFileDetails.get_master_refund_spotting_txt_file(mid)
-    )
+    file_name = TransactionMatchingPaymentFileDetails.get_master_refund_spotting_txt_file(mid)
     upload_mastercard_settlement_file_into_blob(file_name, mid)
+
 
 def import_amex_spotting_streaming_auth_json(mid):
     """Import Amex Auth spotting / streaming file"""
@@ -233,7 +231,7 @@ def get_visa_url():
 
 def import_payment_file_into_harmonia(transaction_type, mid):
     """This function will decide which way( API, Blob storage etc.,) the Payment Transaction needs to be
-        imported into Harmonia"""
+    imported into Harmonia"""
     TestTransactionMatchingContext.mid = mid
     match transaction_type:
         case "visa-auth-matching":
@@ -283,9 +281,7 @@ def verify_exported_transaction(transaction_type):
 
 def verify_matching_transactions():
     """Check harmonia and verify exported transactions after Transaction Matching"""
-    matched_count = QueryHarmonia.fetch_match_transaction_count(
-        TestTransactionMatchingContext.retailer_transaction_id
-    )
+    matched_count = QueryHarmonia.fetch_match_transaction_count(TestTransactionMatchingContext.retailer_transaction_id)
     assert matched_count.count == 1, f"Transaction didnt match and '{matched_count.count}' records exported"
     logging.info(f"No.of Transactions got matched is : '{matched_count.count}'")
     matched_transaction = QueryHarmonia.fetch_transaction_details(
@@ -296,27 +292,17 @@ def verify_matching_transactions():
 
 def verify_streaming_spotting_transactions():
     """Check harmonia and verify exported transactions after Transaction Streaming or Spotting"""
-    matched_count = QueryHarmonia.fetch_match_transaction_count(
-        TestTransactionMatchingContext.transaction_id
-
-    )
+    matched_count = QueryHarmonia.fetch_match_transaction_count(TestTransactionMatchingContext.transaction_id)
     assert matched_count.count == 1, "Transaction not spotted and the status is not exported"
     logging.info(f"No. of Transactions got spotted and exported : '{matched_count.count}'")
-    matched_transaction = QueryHarmonia.fetch_transaction_details(
-        TestTransactionMatchingContext.transaction_id
-    )
+    matched_transaction = QueryHarmonia.fetch_transaction_details(TestTransactionMatchingContext.transaction_id)
     return matched_transaction
 
 
 def verify_master_streaming_spotting_e2e_transactions():
     """Check harmonia and verify exported transactions after Transaction Streaming or Spotting"""
-    matched_count = QueryHarmonia.fetch_match_transaction_count(
-        TestTransactionMatchingContext.transaction_id
-
-    )
+    matched_count = QueryHarmonia.fetch_match_transaction_count(TestTransactionMatchingContext.transaction_id)
     assert matched_count.count == 1, "Transaction not spotted and the status is not exported"
     logging.info(f"No. of Transactions got spotted and exported : '{matched_count.count}'")
-    matched_transaction = QueryHarmonia.fetch_transaction_details(
-        TestTransactionMatchingContext.transaction_id
-    )
+    matched_transaction = QueryHarmonia.fetch_transaction_details(TestTransactionMatchingContext.transaction_id)
     return matched_transaction
