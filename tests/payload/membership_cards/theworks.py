@@ -10,6 +10,7 @@ from tests.helpers.test_context import TestContext
 
 
 class TheWorksCard:
+
     @staticmethod
     def enrol_membership_scheme_payload(
         email, env=None, channel=None, invalid_data=None
@@ -74,9 +75,7 @@ class TheWorksCard:
                 ],
                 "authorise_fields": [{"column": "Email", "value": email}],
             },
-            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get(
-                "the_works"
-            ),
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("the_works"),
         }
         logging.info(
             "The Request for Add Journey with "
@@ -91,21 +90,16 @@ class TheWorksCard:
 
     @staticmethod
     def add_membership_card_payload(invalid_data=None):
-        if invalid_data == "Invalid card number":
-            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(
-                constants.ADD_INVALID_CARDNUMBER
-            )
+
+        if invalid_data == "invalid_cardnumber":
+            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.INVALID_CARDNUMBER)
             logging.info("Invalid data is: " + value)
             data_type = "Invalid data"
-        elif invalid_data == "Unknown card number":
-            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(
-                constants.ADD_UNKNOWN_CARD_NUMBER
-            )
+        elif invalid_data == "unknown_cardnumber":
+            value = TestDataUtils.TEST_DATA.the_works_invalid_data.get(constants.UNKNOWN_CARDNUMBER)
             data_type = "Invalid data"
         else:
-            value = TestDataUtils.TEST_DATA.the_works_membership_card.get(
-                constants.CARD_NUM
-            )
+            value = TestDataUtils.TEST_DATA.the_works_membership_card.get(constants.CARD_NUM)
             data_type = "Valid data"
 
         payload = {
@@ -118,9 +112,7 @@ class TheWorksCard:
                     }
                 ],
             },
-            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get(
-                "the_works"
-            ),
+            "membership_plan": TestDataUtils.TEST_DATA.membership_plan_id.get("the_works"),
         }
 
         logging.info(

@@ -229,7 +229,7 @@ the_works_invalid_data = {
     "invalid_card_number": "633884102938475600011",
     "unknown_card_number": "633884564738291000022",
     "email_exists": "emailexists",
-    "join_failed": "fail",
+    "join_failed": "opnotpermitted",
     "join_http_failed": "failhttperror"
 
 
@@ -250,7 +250,7 @@ membership_plan_id = {
     "trenette": 284,
     "asos": 288,
     "viator": 292,
-    "the_works": 294
+    "the_works": 294,
 }
 
 # ----------------------------------------PAYMENT CARD STATES  --------------------------------------------------- #
