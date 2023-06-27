@@ -19,8 +19,9 @@ scenarios("events/")
 def verify_loyalty_card_into_event_database(journey_type):
     time.sleep(5)
     logging.info(TestDataUtils.TEST_DATA.event_type.get(journey_type))
-    event_record = QuerySnowstorm.fetch_event(TestDataUtils.TEST_DATA.event_type.get(journey_type),
-                                              email=TestContext.user_email)
+    event_record = QuerySnowstorm.fetch_event(
+        TestDataUtils.TEST_DATA.event_type.get(journey_type), email=TestContext.user_email
+    )
     logging.info(str(event_record))
     if TestContext.channel_name == "bink":
         assert event_record.json["channel"] == TestDataUtils.TEST_DATA.event_info.get(constants.CHANNEL_BINK)
@@ -38,26 +39,31 @@ def verify_loyalty_card_into_event_database(journey_type):
 def verify_scheme_into_event_database(journey_type, user):
     time.sleep(5)
     logging.info(TestDataUtils.TEST_DATA.event_type.get(journey_type))
-    event_record = QuerySnowstorm.fetch_event(TestDataUtils.TEST_DATA.event_type.get(journey_type),
-                                              email=TestContext.user_email)
+    event_record = QuerySnowstorm.fetch_event(
+        TestDataUtils.TEST_DATA.event_type.get(journey_type), email=TestContext.user_email
+    )
     logging.info(str(event_record))
     if user == "bink_user":
-        assert event_record.json["external_user_ref"] == "", 'external user ref didnt match'
-        assert event_record.json["channel"] == TestDataUtils.TEST_DATA.event_info.get(constants.CHANNEL_BINK),\
-            'channel didnt match'
+        assert event_record.json["external_user_ref"] == "", "external user ref didnt match"
+        assert event_record.json["channel"] == TestDataUtils.TEST_DATA.event_info.get(
+            constants.CHANNEL_BINK
+        ), "channel didnt match"
     elif user == "barclays_user":
-        assert event_record.json["external_user_ref"] == TestContext.user_email, 'external user ref didnt match'
-        assert event_record.json["channel"] == TestDataUtils.TEST_DATA.event_info.get(constants.CHANNEL_BARCLAYS),\
-            'channel didnt match'
-    assert event_record.event_type == TestDataUtils.TEST_DATA.event_type.get(journey_type), 'eventype didnt match'
-    assert event_record.json["email"] == TestContext.user_email, 'user email didnt match'
-    assert event_record.json["scheme_account_id"] == TestContext.current_scheme_account_id, 'scheme id didnt match'
+        assert event_record.json["external_user_ref"] == TestContext.user_email, "external user ref didnt match"
+        assert event_record.json["channel"] == TestDataUtils.TEST_DATA.event_info.get(
+            constants.CHANNEL_BARCLAYS
+        ), "channel didnt match"
+    assert event_record.event_type == TestDataUtils.TEST_DATA.event_type.get(journey_type), "eventype didnt match"
+    assert event_record.json["email"] == TestContext.user_email, "user email didnt match"
+    assert event_record.json["scheme_account_id"] == TestContext.current_scheme_account_id, "scheme id didnt match"
 
     if journey_type == "lc_join_success":
-        assert event_record.json["consents"][0]["slug"] == \
-               TestDataUtils.TEST_DATA.event_info.get(constants.SLUG), "consent slug didn't match"
-        assert event_record.json["consents"][0]["response"] == \
-               TestDataUtils.TEST_DATA.event_info.get(constants.RESPONSE), "consent response didn't match"
+        assert event_record.json["consents"][0]["slug"] == TestDataUtils.TEST_DATA.event_info.get(
+            constants.SLUG
+        ), "consent slug didn't match"
+        assert event_record.json["consents"][0]["response"] == TestDataUtils.TEST_DATA.event_info.get(
+            constants.RESPONSE
+        ), "consent response didn't match"
     return event_record
 
 

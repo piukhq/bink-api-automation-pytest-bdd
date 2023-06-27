@@ -45,19 +45,21 @@ class TransactionMatchingPaymentFileDetails:
     @staticmethod
     def get_mastercard_auth_spotting_data(mid):
         TestTransactionMatchingContext.spend_amount = random.choice(range(1, 20))
-        TestTransactionMatchingContext.transaction_id = TransactionMatchingPaymentFileDetails. \
-            get_random_alphanumeric_string(48)
+        TestTransactionMatchingContext.transaction_id = (
+            TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
+        )
         TestTransactionMatchingContext.third_party_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
         TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
-        TestTransactionMatchingContext.created_at = datetime.now(timezone('Europe/London')) \
-            .strftime('%Y-%m-%d %H:%M:%S')
+        TestTransactionMatchingContext.created_at = datetime.now(timezone("Europe/London")).strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
         return {
             "amount": TestTransactionMatchingContext.spend_amount / 100,
             "currency_code": "GBP",
             "mid": mid,
             "payment_card_token": PaymentCardTestData.get_data("master").get(constants.TOKEN),
             "third_party_id": TestTransactionMatchingContext.third_party_id,
-            "time": TestTransactionMatchingContext.created_at
+            "time": TestTransactionMatchingContext.created_at,
         }
 
     @staticmethod
@@ -70,43 +72,46 @@ class TransactionMatchingPaymentFileDetails:
         TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
         TestTransactionMatchingContext.spend_amount = random.choice(range(1, 10))
         payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
-        amount = (str(TestTransactionMatchingContext.spend_amount).zfill(12))
-        lines = [join(
-            ("H", 1),
-            (now.format("YYYYMMDD"), 8),
-            (now.format("hhmmss"), 6),
-            (" ", 6),
-            ("mastercard-tgx2-settlement.txt", 9),
-            ("", 835),
-
-        ), join(
-            ("D", 1),
-            ("", 20),
-            (payment_card_token, 30),
-            ("", 51),
-            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
-            ("", 341),
-            (mid, 15),
-            ("", 52),
-            ((amount[:12]), 12),
-            ("", 33),
-            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
-            (TestTransactionMatchingContext.auth_code, 6),
-            ("", 188),
-            (third_part_id, 9),
-        ), join(
-            ("T", 1),
-            (now.format("YYYYMMDD"), 8),
-            (now.format("hhmmss"), 6),
-            ("", 6),
-            ("mastercard-tgx2-settlement.txt", 9),
-            ("", 835),
-        )]
+        amount = str(TestTransactionMatchingContext.spend_amount).zfill(12)
+        lines = [
+            join(
+                ("H", 1),
+                (now.format("YYYYMMDD"), 8),
+                (now.format("hhmmss"), 6),
+                (" ", 6),
+                ("mastercard-tgx2-settlement.txt", 9),
+                ("", 835),
+            ),
+            join(
+                ("D", 1),
+                ("", 20),
+                (payment_card_token, 30),
+                ("", 51),
+                (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
+                ("", 341),
+                (mid, 15),
+                ("", 52),
+                ((amount[:12]), 12),
+                ("", 33),
+                (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
+                (TestTransactionMatchingContext.auth_code, 6),
+                ("", 188),
+                (third_part_id, 9),
+            ),
+            join(
+                ("T", 1),
+                (now.format("YYYYMMDD"), 8),
+                (now.format("hhmmss"), 6),
+                ("", 6),
+                ("mastercard-tgx2-settlement.txt", 9),
+                ("", 835),
+            ),
+        ]
         file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.spend_amount) + ".txt")
         with open(file_name, "a+") as file_name:
             for line in lines:
                 (file_name.write(str(line)))
-                file_name.write('\n')
+                file_name.write("\n")
         return file_name
 
     @staticmethod
@@ -167,43 +172,46 @@ class TransactionMatchingPaymentFileDetails:
         TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
         TestTransactionMatchingContext.spend_amount = -(random.choice(range(1, 10)))
         payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
-        amount = (str(-abs(TestTransactionMatchingContext.spend_amount)).zfill(12))
-        lines = [join(
-            ("H", 1),
-            (now.format("YYYYMMDD"), 8),
-            (now.format("hhmmss"), 6),
-            (" ", 6),
-            ("mastercard-tgx2-settlement.txt", 9),
-            ("", 835),
-
-        ), join(
-            ("D", 1),
-            ("", 20),
-            (payment_card_token, 30),
-            ("", 51),
-            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
-            ("", 341),
-            (mid, 15),
-            ("", 52),
-            ((amount[:12]), 12),
-            ("", 33),
-            (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
-            (TestTransactionMatchingContext.auth_code, 6),
-            ("", 188),
-            ("", 9),
-        ), join(
-            ("T", 1),
-            (now.format("YYYYMMDD"), 8),
-            (now.format("hhmmss"), 6),
-            ("", 6),
-            ("mastercard-tgx2-settlement.txt", 9),
-            ("", 835),
-        )]
+        amount = str(-abs(TestTransactionMatchingContext.spend_amount)).zfill(12)
+        lines = [
+            join(
+                ("H", 1),
+                (now.format("YYYYMMDD"), 8),
+                (now.format("hhmmss"), 6),
+                (" ", 6),
+                ("mastercard-tgx2-settlement.txt", 9),
+                ("", 835),
+            ),
+            join(
+                ("D", 1),
+                ("", 20),
+                (payment_card_token, 30),
+                ("", 51),
+                (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
+                ("", 341),
+                (mid, 15),
+                ("", 52),
+                ((amount[:12]), 12),
+                ("", 33),
+                (pendulum.instance(datetime.now()).in_tz("Europe/London").format("HHmm"), 4),
+                (TestTransactionMatchingContext.auth_code, 6),
+                ("", 188),
+                ("", 9),
+            ),
+            join(
+                ("T", 1),
+                (now.format("YYYYMMDD"), 8),
+                (now.format("hhmmss"), 6),
+                ("", 6),
+                ("mastercard-tgx2-settlement.txt", 9),
+                ("", 835),
+            ),
+        ]
         file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.spend_amount) + ".txt")
         with open(file_name, "a+") as file_name:
             for line in lines:
                 (file_name.write(str(line)))
-                file_name.write('\n')
+                file_name.write("\n")
         return file_name
 
     @staticmethod
@@ -248,7 +256,8 @@ class TransactionMatchingPaymentFileDetails:
         TestTransactionMatchingContext.transaction_id = base64.b64encode(str(uuid.uuid4()).encode()).decode()
         TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
         TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
-            "%Y-%m-%d %H:%M:%S")
+            "%Y-%m-%d %H:%M:%S"
+        )
         return {
             "approval_code": str(TestTransactionMatchingContext.approval_code),
             "cm_alias": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
@@ -266,13 +275,15 @@ class TransactionMatchingPaymentFileDetails:
         TestTransactionMatchingContext.transaction_id = base64.b64encode(str(uuid.uuid4()).encode()).decode()
         TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
         TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
-            "%Y-%m-%d %H:%M:%S")
+            "%Y-%m-%d %H:%M:%S"
+        )
         return {
             "approvalCode": str(TestTransactionMatchingContext.approval_code),
             "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "currencyCode": "840",
             "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS)
-            + "XXXXX" + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
+            + "XXXXX"
+            + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
             "merchantNumber": mid,
             "offerId": "0",
             "partnerId": "AADP0050",
@@ -288,12 +299,14 @@ class TransactionMatchingPaymentFileDetails:
         TestTransactionMatchingContext.transaction_id = base64.b64encode(str(uuid.uuid4()).encode()).decode()
         TestTransactionMatchingContext.spend_amount = int(Decimal(str(random.choice(range(10, 1000)))))
         TestTransactionMatchingContext.transaction_matching_amexTimeStamp = datetime.now(timezone("MST")).strftime(
-            "%Y-%m-%d %H:%M:%S")
+            "%Y-%m-%d %H:%M:%S"
+        )
         return {
             "approvalCode": str(TestTransactionMatchingContext.approval_code),
             "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "currencyCode": "840",
-            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX"
+            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS)
+            + "XXXXX"
             + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
             "merchantNumber": mid,
             "offerId": "0",
@@ -310,7 +323,8 @@ class TransactionMatchingPaymentFileDetails:
             "approvalCode": str(TestTransactionMatchingContext.transaction_matching_uuid),
             "cardToken": PaymentCardTestData.get_data("amex").get(constants.TOKEN),
             "currencyCode": "840",
-            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS) + "XXXXX"
+            "dpan": PaymentCardTestData.get_data("amex").get(constants.FIRST_SIX_DIGITS)
+            + "XXXXX"
             + PaymentCardTestData.get_data("amex").get(constants.LAST_FOUR_DIGITS),
             "merchantNumber": mid,
             "offerId": "0",
@@ -349,9 +363,10 @@ class TransactionMatchingPaymentFileDetails:
                 {"Key": "Transaction.VisaStoreId", "Value": ""},
                 {"Key": "Transaction.CurrencyCodeNumeric", "Value": "840"},
                 {"Key": "Transaction.BillingCurrencyCode", "Value": "840"},
-                {"Key": "Transaction.USDAmount",
-                 "Value": TestTransactionMatchingContext.transaction_matching_amount / 100
-                 },
+                {
+                    "Key": "Transaction.USDAmount",
+                    "Value": TestTransactionMatchingContext.transaction_matching_amount / 100,
+                },
                 {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
                 {"Key": "Transaction.MerchantGroup.0.Name", "Value": "ICELAND-BONUS-CARD"},
                 {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Iceland"},
@@ -457,8 +472,7 @@ class TransactionMatchingPaymentFileDetails:
                 {"Key": "Transaction.SettlementDate", "Value": TestTransactionMatchingContext.current_time_stamp},
                 {"Key": "Transaction.SettlementAmount", "Value": TestTransactionMatchingContext.spend_amount},
                 {"Key": "Transaction.SettlementCurrencyCodeNumeric", "Value": "826"},
-                {"Key": "Transaction.SettlementBillingAmount",
-                 "Value": TestTransactionMatchingContext.spend_amount},
+                {"Key": "Transaction.SettlementBillingAmount", "Value": TestTransactionMatchingContext.spend_amount},
                 {"Key": "Transaction.SettlementBillingCurrency", "Value": "826"},
                 {"Key": "Transaction.SettlementUSDAmount", "Value": TestTransactionMatchingContext.spend_amount},
             ],
@@ -494,8 +508,10 @@ class TransactionMatchingPaymentFileDetails:
                 {"Key": "ReturnTransaction.AcquirerAmount", "Value": TestTransactionMatchingContext.spend_amount / 100},
                 {"Key": "ReturnTransaction.AcquirerCurrencyCode", "Value": "840"},
                 {"Key": "ReturnTransaction.CurrencyCode", "Value": "840"},
-                {"Key": "ReturnTransaction.TransactionUSDAmount", "Value":
-                    TestTransactionMatchingContext.spend_amount / 100},
+                {
+                    "Key": "ReturnTransaction.TransactionUSDAmount",
+                    "Value": TestTransactionMatchingContext.spend_amount / 100,
+                },
                 {"Key": "ReturnTransaction.DateTime", "Value": "1/19/2022 1:2:48 PM"},
                 {"Key": "ReturnTransaction.MerchantGroup.0.Name", "Value": "SPOTTING-MERCHANT"},
                 {"Key": "ReturnTransaction.MerchantGroupName.0.ExternalId", "Value": "Spotting Merchant"},
@@ -579,8 +595,7 @@ class TransactionMatchingPaymentFileDetails:
                 {"Key": "Transaction.VisaStoreId", "Value": ""},
                 {"Key": "Transaction.CurrencyCodeNumeric", "Value": "840"},
                 {"Key": "Transaction.BillingCurrencyCode", "Value": "840"},
-                {"Key": "Transaction.USDAmount", "Value": TestTransactionMatchingContext.transaction_matching_amount
-                 },
+                {"Key": "Transaction.USDAmount", "Value": TestTransactionMatchingContext.transaction_matching_amount},
                 {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
                 {"Key": "Transaction.MerchantGroup.0.Name", "Value": "ICELAND-BONUS-CARD"},
                 {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Iceland"},
@@ -619,3 +634,8 @@ class TransactionMatchingPaymentFileDetails:
             "UserDefinedFieldsCollection": [{"Key": "TransactionType", "Value": "Settle"}],
             "UserProfileId": str(uuid.uuid4()),
         }
+
+
+#  Payload for teh works spotting with de-dupe
+"""Hard coded the transaction_date and spend_amount in this payload to geenrate duplicate transactions
+ aganist the transactions set-up """

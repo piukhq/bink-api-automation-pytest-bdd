@@ -606,7 +606,6 @@ def verify_db_details(journey_type, merchant, env):
         pass
 
     else:
-
         scheme_account = QueryHermes.fetch_scheme_account(journey_type, TestContext.current_scheme_account_id)
 
         assert scheme_account.status == 1, f"Scheme Account is not Active and the status is '{scheme_account.status}'"

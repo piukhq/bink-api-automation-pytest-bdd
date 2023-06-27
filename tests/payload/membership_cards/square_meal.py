@@ -17,7 +17,6 @@ from tests.helpers.vault.channel_vault import KeyType
 class SquareMealCard:
     @staticmethod
     def enrol_membership_scheme_payload(email, env=None, channel=None, invalid_data=None):
-
         faker = Faker()
 
         if invalid_data:
@@ -26,7 +25,6 @@ class SquareMealCard:
             password = "invalidauthorization"
             data_type = "Invalid data"
         else:
-
             email = email
             password = constants.PASSWORD_ENROL
             data_type = "Valid data"
