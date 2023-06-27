@@ -80,7 +80,7 @@
         "tiers": [],
         "add_fields": [
             {
-                "column": "Loyalty card number",
+                "column": "Rewards number",
                 "validation": "^(633884)[0-9]{16}$",
                 "description": "22 digit card number",
                 "common_name": "card_number",
@@ -97,7 +97,7 @@
                 "type": 0,
                 "choice": [],
                 "alternatives": [
-                    "Loyalty card number"
+                    "Rewards number"
                 ]
             }
         ],

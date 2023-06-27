@@ -95,7 +95,8 @@ class TheWorksCard:
             "account": {
                 "add_fields": [
                     {
-                        "column": "Loyalty card number",
+
+                        "column": "Rewards number",
                         "value": card_num,
                     }
                 ],

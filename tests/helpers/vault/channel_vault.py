@@ -35,10 +35,13 @@ def retry_get_secrets_from_vault():
     exception = RuntimeError("Failed to get secrets from Vault")
     for _ in range(retries):
         try:
-            client = SecretClient(vault_url=VAULT_URL_STAGING, credential=DefaultAzureCredential(
+            client = SecretClient(
+                vault_url=VAULT_URL_STAGING,
+                credential=DefaultAzureCredential(
                     additionally_allowed_tenants=["a6e2367a-92ea-4e5a-b565-723830bcc095"],
                     exclude_shared_token_cache_credential=True,
-                ))
+                ),
+            )
             # secret = client.get_secret(CHANNEL_SECRET_NAME)
             secrets = {}
             secrets_to_load = []

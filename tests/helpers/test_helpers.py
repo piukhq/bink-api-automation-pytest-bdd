@@ -63,7 +63,6 @@ class TestData:
 
     @staticmethod
     def get_data(merchant):
-
         match merchant:
             case "Iceland":
                 return TestDataUtils.TEST_DATA.iceland_membership_card
@@ -88,7 +87,6 @@ class TestData:
 
     @staticmethod
     def get_expected_membership_plan_json(merchant, env, channel=None):
-
         merchant_key = TestData.get_merchant_key(merchant)
         mem_plan_path = TestData.get_mem_plan_path(env)
 
@@ -113,7 +111,6 @@ class TestData:
 
     @staticmethod
     def get_expected_membership_card_json(merchant, env):
-
         merchant_key = TestData.get_merchant_key(merchant)
         membership_card_path = TestData.get_membership_card_path(env)
         return membership_card_path + "/" + merchant_key + "_membership_card.json"
@@ -123,9 +120,12 @@ class TestData:
         """return the base path of stored membership plan json
         for any merchant based on environment"""
         match env:
-            case "dev": return constants.MEMBERSHIP_CARD_DEV
-            case "staging": return constants.MEMBERSHIP_CARD_STAGING
-            case "prod": return constants.MEMBERSHIP_CARD_PROD
+            case "dev":
+                return constants.MEMBERSHIP_CARD_DEV
+            case "staging":
+                return constants.MEMBERSHIP_CARD_STAGING
+            case "prod":
+                return constants.MEMBERSHIP_CARD_PROD
 
     @staticmethod
     def get_merchant_key(merchant):
@@ -133,12 +133,18 @@ class TestData:
         merchant value from bdd feature file"""
 
         match merchant:
-            case "Iceland": return "iceland"
-            case "Wasabi": return "wasabi"
-            case "SquareMeal": return "square_meal"
-            case "Trenette": return "trenette"
-            case "Viator": return "viator"
-            case "TheWorks": return "the_works"
+            case "Iceland":
+                return "iceland"
+            case "Wasabi":
+                return "wasabi"
+            case "SquareMeal":
+                return "square_meal"
+            case "Trenette":
+                return "trenette"
+            case "Viator":
+                return "viator"
+            case "TheWorks":
+                return "the_works"
 
     @staticmethod
     def get_vop_status():
@@ -150,7 +156,6 @@ class PaymentCardTestData:
 
     @staticmethod
     def get_data(payment_card_provider="master"):
-
         match payment_card_provider:
             case "amex":
                 return TestDataUtils.TEST_DATA.amex_payment_card

@@ -12,7 +12,6 @@ class Endpoint:
 
     @staticmethod
     def request_header(token=None, version="1.2"):
-
         if version:
             accept = "application/json;v={}".format(version)
         else:

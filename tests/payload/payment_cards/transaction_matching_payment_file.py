@@ -634,3 +634,8 @@ class TransactionMatchingPaymentFileDetails:
             "UserDefinedFieldsCollection": [{"Key": "TransactionType", "Value": "Settle"}],
             "UserProfileId": str(uuid.uuid4()),
         }
+
+
+#  Payload for teh works spotting with de-dupe
+"""Hard coded the transaction_date and spend_amount in this payload to geenrate duplicate transactions
+ aganist the transactions set-up """
