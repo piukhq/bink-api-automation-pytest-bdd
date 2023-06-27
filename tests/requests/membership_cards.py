@@ -9,7 +9,6 @@ from tests.helpers.test_helpers import Merchant, TestData
 
 
 class MembershipCards(Endpoint):
-
     # ---------------------------------------- Add Journey---------------------------------------------------
     @staticmethod
     def add_card(token, merchant, invalid_data=None):
@@ -52,7 +51,6 @@ class MembershipCards(Endpoint):
 
     @staticmethod
     def put_enrol_customer(token, scheme_account_id, merchant, email, env=None, channel=None):
-
         url = MembershipCards.get_url(scheme_account_id)
         header = Endpoint.request_header(token)
         payload = Merchant.get_merchant(merchant).enrol_membership_scheme_payload(email, env, channel)

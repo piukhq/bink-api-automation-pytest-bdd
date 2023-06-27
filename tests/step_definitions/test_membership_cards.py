@@ -160,8 +160,9 @@ def patch_request_to_update_membership_card_details(merchant):
 
 @when(parsers.parse('I perform PATCH request to update "{merchant}" membership card with "{credentials}"'))
 def patch_request_to_update_membership_card_details_with_invalid_cred(merchant, credentials):
-    response = MembershipCards.patch_add_card(TestContext.token, TestContext.current_scheme_account_id, merchant,
-                                              credentials)
+    response = MembershipCards.patch_add_card(
+        TestContext.token, TestContext.current_scheme_account_id, merchant, credentials
+    )
     response_json = response_to_json(response)
     logging.info(
         "The response of Add Journey (PATCH) is:\n\n"
@@ -343,7 +344,7 @@ def verify_membership_card_is_created(merchant):
 
     """commenting below two assertions temporarily"""
     TestContext.card_number = response_json["card"]["membership_id"]
-# TestContext.existing_card = response_json["card"]["membership_id"]
+    # TestContext.existing_card = response_json["card"]["membership_id"]
     logging.info(
         "The response of GET/MembershipCard after Register Ghost Journey is:\n\n"
         + Endpoint.BASE_URL
@@ -420,7 +421,7 @@ def verify_add_and_link_membership_card(merchant):
 @when(
     parsers.parse(
         'I perform GET request to verify the "{merchant}" membership card details got updated after an unsuccessful'
-        ' PATCH'
+        " PATCH"
     )
 )
 @when(
@@ -470,7 +471,8 @@ def verify_invalid_membership_card_is_created(merchant):
         + json.dumps(response_json, indent=4)
     )
     assert (
-        response.status_code == 200 or 400
+        response.status_code == 200
+        or 400
         and response_json["id"] == TestContext.current_scheme_account_id
         and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.FAILED)
         and response_json["status"]["reason_codes"][0]
@@ -637,7 +639,6 @@ def verify_db_details(journey_type, merchant, env):
         pass
 
     else:
-
         scheme_account = QueryHermes.fetch_scheme_account(journey_type, TestContext.current_scheme_account_id)
 
         assert scheme_account.status == 1, f"Scheme Account is not Active and the status is '{scheme_account.status}'"

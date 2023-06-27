@@ -4,7 +4,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-   @sanity @sanity_bmb @chk2
+   @sanity @sanity_bmb
     Scenario Outline: Verify transaction spotting for Viator
 
     Given I am a Bink user
@@ -19,15 +19,15 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     |          visa        |  020150514    |visa-auth-spotting          |
     |          visa        |  020150514    |visa-settlement-spotting    |
     |          visa        |  020150514    |visa-refund-spotting        |
-#    |          master      |  020150514    |master-auth-spotting        |
-#    |          master      |  020150514    |master-settlement-spotting  |
+    |          master      |  020150514    |master-auth-spotting        |
+    |          master      |  020150514    |master-settlement-spotting  |
 #    |          master      |  020150514    |master-refund-spotting      |
     |          amex        |  9602929481   |amex-settlement-spotting     |
     |          amex        |  9602929481   |amex-refund-spotting        |
 
 
 
-  @sanity @sanity_bmb @test
+  @sanity @sanity_bmb
     Scenario Outline: Verify that viator AMEX auth transaction for spotting merchant is not exported
 
     Given I am a Bink user

@@ -21,12 +21,10 @@ def join(*args: WidthField) -> str:
 
 
 def get_data_to_import():
-    if not TestTransactionMatchingContext.transaction_matching_amount:
-        TestTransactionMatchingContext.transaction_matching_amount = random.choice(range(1, 20)) / 100
-    if not TestTransactionMatchingContext.transaction_id:
-        TestTransactionMatchingContext.transaction_id = (
-            TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
-        )
+    TestTransactionMatchingContext.transaction_matching_amount = random.choice(range(1, 20)) / 100
+    TestTransactionMatchingContext.transaction_id = (
+        TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
+    )
     TestTransactionMatchingContext.settlement_id = TestTransactionMatchingContext.transaction_id
     TestTransactionMatchingContext.transaction_auth_code = random.randint(100000, 999999)
     TestTransactionMatchingContext.current_time_stamp = datetime.now(timezone("Europe/London")).strftime(
@@ -36,6 +34,10 @@ def get_data_to_import():
 
 class TransactionMatchingPaymentFileDetails:
     # *************************Matching transactions*************************************************
+    """Global variables for saving the transaction_id
+    and amount for e2e transactions"""
+    transaction_id = ""
+    spend_amount = ""
 
     @staticmethod
     def get_visa_auth_data(mid):
@@ -234,8 +236,13 @@ class TransactionMatchingPaymentFileDetails:
 
     # *************************Streaming spotting transactions*************************************************
     @staticmethod
-    def get_visa_spotting_merchant_auth_data(mid):
+    def get_visa_spotting_merchant_auth_data(mid, e2e=None):
         get_data_to_import()
+        if e2e:
+            TransactionMatchingPaymentFileDetails.transaction_id = TestTransactionMatchingContext.transaction_id
+            TransactionMatchingPaymentFileDetails.spend_amount = (
+                TestTransactionMatchingContext.transaction_matching_amount
+            )
         return {
             "CardId": TestTransactionMatchingContext.transaction_id,
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
@@ -282,27 +289,36 @@ class TransactionMatchingPaymentFileDetails:
         }
 
     @staticmethod
-    def get_visa_spotting_settlement_data(mid):
+    def get_visa_spotting_settlement_data(mid, e2e=None):
         get_data_to_import()
+        if not e2e:
+            transaction_id = TestTransactionMatchingContext.transaction_id
+            spend_amount = TestTransactionMatchingContext.transaction_matching_amount
+        else:
+            transaction_id = TransactionMatchingPaymentFileDetails.transaction_id
+            spend_amount = TransactionMatchingPaymentFileDetails.spend_amount
+            """After visa e2e payment tests(auth &settle), Setting the transaction_id back to
+             TestTransactionMatchingContext.transaction_id for DB check """
+            TestTransactionMatchingContext.transaction_id = transaction_id
 
         return {
-            "CardId": TestTransactionMatchingContext.transaction_id,
+            "CardId": transaction_id,
             "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
             "MessageElementsCollection": [
                 {"Key": "Transaction.MerchantCardAcceptorId", "Value": mid},
                 {"Key": "Transaction.MerchantAcquirerBin", "Value": "3423432"},
                 {
                     "Key": "Transaction.TransactionAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount,
+                    "Value": spend_amount,
                 },
-                {"Key": "Transaction.VipTransactionId", "Value": TestTransactionMatchingContext.transaction_id},
+                {"Key": "Transaction.VipTransactionId", "Value": transaction_id},
                 {"Key": "Transaction.VisaMerchantName", "Value": ""},
                 {"Key": "Transaction.VisaMerchantId", "Value": ""},
                 {"Key": "Transaction.VisaStoreName", "Value": ""},
                 {"Key": "Transaction.VisaStoreId", "Value": ""},
                 {"Key": "Transaction.CurrencyCodeNumeric", "Value": "840"},
                 {"Key": "Transaction.BillingCurrencyCode", "Value": "840"},
-                {"Key": "Transaction.USDAmount", "Value": TestTransactionMatchingContext.transaction_matching_amount},
+                {"Key": "Transaction.USDAmount", "Value": spend_amount},
                 {"Key": "Transaction.MerchantLocalPurchaseDate", "Value": str(date.today())},
                 {"Key": "Transaction.MerchantGroup.0.Name", "Value": "SPOTTING-MERCHANT"},
                 {"Key": "Transaction.MerchantGroup.0.ExternalId", "Value": "Spotting Merchant"},
@@ -317,22 +333,70 @@ class TransactionMatchingPaymentFileDetails:
                 {"Key": "Transaction.SettlementDate", "Value": TestTransactionMatchingContext.current_time_stamp},
                 {
                     "Key": "Transaction.SettlementAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount,
+                    "Value": spend_amount,
                 },
                 {"Key": "Transaction.SettlementCurrencyCodeNumeric", "Value": "826"},
                 {
                     "Key": "Transaction.SettlementBillingAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount,
+                    "Value": spend_amount,
                 },
                 {"Key": "Transaction.SettlementBillingCurrency", "Value": "826"},
                 {
                     "Key": "Transaction.SettlementUSDAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount,
+                    "Value": spend_amount,
                 },
             ],
             "MessageId": str(uuid.uuid4()),
             "MessageName": "AuthMessageTest",
             "UserDefinedFieldsCollection": [{"Key": "TransactionType", "Value": "Settle"}],
+            "UserProfileId": str(uuid.uuid4()),
+        }
+
+    @staticmethod
+    def get_visa_spotting_refund_data(mid, e2e=None):
+        get_data_to_import()
+
+        if e2e:
+            spend_amount = TransactionMatchingPaymentFileDetails.spend_amount
+            TestTransactionMatchingContext.settlement_id = TransactionMatchingPaymentFileDetails.transaction_id
+
+        else:
+            spend_amount = TestTransactionMatchingContext.transaction_matching_amount
+
+        return {
+            "CardId": TestTransactionMatchingContext.transaction_id,
+            "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
+            "MessageElementsCollection": [
+                {"Key": "ReturnTransaction.CardAcceptorIdCode", "Value": mid},
+                {"Key": "ReturnTransaction.AcquirerBIN", "Value": "3423432"},
+                {
+                    "Key": "ReturnTransaction.Amount",
+                    "Value": spend_amount,
+                },
+                {"Key": "ReturnTransaction.VipTransactionId", "Value": TestTransactionMatchingContext.transaction_id},
+                {"Key": "ReturnTransaction.SettlementId", "Value": TestTransactionMatchingContext.settlement_id},
+                {"Key": "ReturnTransaction.VisaMerchantName", "Value": ""},
+                {"Key": "ReturnTransaction.VisaMerchantId", "Value": ""},
+                {"Key": "ReturnTransaction.VisaStoreName", "Value": ""},
+                {"Key": "ReturnTransaction.VisaStoreId", "Value": ""},
+                {
+                    "Key": "ReturnTransaction.AcquirerAmount",
+                    "Value": spend_amount,
+                },
+                {"Key": "ReturnTransaction.AcquirerCurrencyCode", "Value": "840"},
+                {"Key": "ReturnTransaction.CurrencyCode", "Value": "840"},
+                {
+                    "Key": "ReturnTransaction.TransactionUSDAmount",
+                    "Value": spend_amount,
+                },
+                {"Key": "ReturnTransaction.DateTime", "Value": "1/19/2022 1:2:48 PM"},
+                {"Key": "ReturnTransaction.MerchantGroup.0.Name", "Value": "SPOTTING-MERCHANT"},
+                {"Key": "ReturnTransaction.MerchantGroupName.0.ExternalId", "Value": "Spotting Merchant"},
+                {"Key": "ReturnTransaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_auth_code},
+            ],
+            "MessageId": str(uuid.uuid4()),
+            "MessageName": "AuthMessageTest",
+            "UserDefinedFieldsCollection": [{"Key": "TransactionType", "Value": "return"}],
             "UserProfileId": str(uuid.uuid4()),
         }
 
@@ -547,54 +611,6 @@ class TransactionMatchingPaymentFileDetails:
         letters_and_digits = string.ascii_letters + string.digits
         result_str = "".join((random.choice(letters_and_digits) for i in range(length)))
         return result_str
-
-    @staticmethod
-    def get_visa_spotting_refund_data(mid):
-        """For E2E transactions saving Auth/ settlement transaction id
-        and passing it as ReturnTransaction.SettlementId"""
-        get_data_to_import()
-        if TestTransactionMatchingContext.transaction_id:
-            TestTransactionMatchingContext.settlement_id = TestTransactionMatchingContext.transaction_id
-        """For E2E testing the Visa refund file should have a new Transaction Id"""
-        TestTransactionMatchingContext.transaction_id = (
-            TransactionMatchingPaymentFileDetails.get_random_alphanumeric_string(48)
-        )
-        return {
-            "CardId": TestTransactionMatchingContext.transaction_id,
-            "ExternalUserId": PaymentCardTestData.get_data("visa").get(constants.TOKEN),
-            "MessageElementsCollection": [
-                {"Key": "ReturnTransaction.CardAcceptorIdCode", "Value": mid},
-                {"Key": "ReturnTransaction.AcquirerBIN", "Value": "3423432"},
-                {
-                    "Key": "ReturnTransaction.Amount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount,
-                },
-                {"Key": "ReturnTransaction.VipTransactionId", "Value": TestTransactionMatchingContext.transaction_id},
-                {"Key": "ReturnTransaction.SettlementId", "Value": TestTransactionMatchingContext.settlement_id},
-                {"Key": "ReturnTransaction.VisaMerchantName", "Value": ""},
-                {"Key": "ReturnTransaction.VisaMerchantId", "Value": ""},
-                {"Key": "ReturnTransaction.VisaStoreName", "Value": ""},
-                {"Key": "ReturnTransaction.VisaStoreId", "Value": ""},
-                {
-                    "Key": "ReturnTransaction.AcquirerAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount,
-                },
-                {"Key": "ReturnTransaction.AcquirerCurrencyCode", "Value": "840"},
-                {"Key": "ReturnTransaction.CurrencyCode", "Value": "840"},
-                {
-                    "Key": "ReturnTransaction.TransactionUSDAmount",
-                    "Value": TestTransactionMatchingContext.transaction_matching_amount,
-                },
-                {"Key": "ReturnTransaction.DateTime", "Value": "1/19/2022 1:2:48 PM"},
-                {"Key": "ReturnTransaction.MerchantGroup.0.Name", "Value": "SPOTTING-MERCHANT"},
-                {"Key": "ReturnTransaction.MerchantGroupName.0.ExternalId", "Value": "Spotting Merchant"},
-                {"Key": "ReturnTransaction.AuthCode", "Value": TestTransactionMatchingContext.transaction_auth_code},
-            ],
-            "MessageId": str(uuid.uuid4()),
-            "MessageName": "AuthMessageTest",
-            "UserDefinedFieldsCollection": [{"Key": "TransactionType", "Value": "return"}],
-            "UserProfileId": str(uuid.uuid4()),
-        }
 
 
 def create_mastercard_settle_text_file(payment_card_token, mid, amount, auth_code, file_name, third_party_id):

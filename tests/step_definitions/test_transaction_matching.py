@@ -18,15 +18,17 @@ from tests.helpers.test_transaction_matching_context import TestTransactionMatch
 from tests.requests.membership_cards import MembershipCards
 from tests.step_definitions import test_membership_cards
 from tests.requests.transaction_matching_merchant_requests import upload_retailer_file_into_blob
-from tests.requests.transaction_matching_payment_requests import import_payment_file_into_harmonia, \
-    verify_exported_transaction
+from tests.requests.transaction_matching_payment_requests import (
+    import_payment_file_into_harmonia,
+    verify_exported_transaction,
+)
 from tests.step_definitions.test_membership_cards import response_to_json
 
 scenarios("transaction_matching/")
 
 
-@when(parsers.parse('I send Payment Transaction File with {payment_card_transaction} {mid}'))
-@when(parsers.parse('I send Payment Transaction File with {payment_card_transaction} and MID as {mid}'))
+@when(parsers.parse("I send Payment Transaction File with {payment_card_transaction} {mid}"))
+@when(parsers.parse("I send Payment Transaction File with {payment_card_transaction} and MID as {mid}"))
 def import_payment_file(payment_card_transaction, mid):
     TestTransactionMatchingContext.mid = mid
     response = import_payment_file_into_harmonia(payment_card_transaction, mid)
@@ -38,8 +40,10 @@ def import_payment_file(payment_card_transaction, mid):
         time.sleep(60)
     except AttributeError:
         if response is None:
-            logging.info("The Master Card Settlement Transaction Text file is uploaded to blob. "
-                         "Waiting for transaction to be exported")
+            logging.info(
+                "The Master Card Settlement Transaction Text file is uploaded to blob. "
+                "Waiting for transaction to be exported"
+            )
 
 
 @then(parsers.parse("I verify the reward transaction is exported using {transaction_matching_logic}"))
@@ -47,29 +51,34 @@ def verify_exported_transactions(transaction_matching_logic):
     logging.info("Transaction Export:\n")
     matched_transaction = verify_exported_transaction(transaction_matching_logic)
 
-    logging.info("Details of the recent transaction in export_transaction table:\n\n"
-                 f"provider slug           : {matched_transaction.provider_slug}"
-                 + f"\ntransaction_date        : {matched_transaction.transaction_date.__str__()}"
-                 + f"\namount                  : {matched_transaction.spend_amount}"
-                 + f"\nloyalty_id              : {matched_transaction.loyalty_id}"
-                 + f"\nmid                     : {matched_transaction.mid}"
-                 + f"\nscheme_account_id       : {matched_transaction.scheme_account_id}"
-                 + f"\nstatus                  : {matched_transaction.status}"
-                 + f"\nfeed_type               : {matched_transaction.feed_type}"
-                 + f"\npayment_card_account_id : {matched_transaction.payment_card_account_id}"
-                 + f"\nauth_code               : {matched_transaction.auth_code}"
-                 + f"\napproval_code           : {matched_transaction.approval_code}"
-                 + f"\npayment_provider_slug   : {matched_transaction.payment_provider_slug}"
-                 + f"\nprimary_identifier      : {matched_transaction.primary_identifier}"
-                 + f"\nexport_uid              : {matched_transaction.export_uid}"
-
-                 )
+    logging.info(
+        "Details of the recent transaction in export_transaction table:\n\n"
+        f"provider slug           : {matched_transaction.provider_slug}"
+        + f"\ntransaction_date        : {matched_transaction.transaction_date.__str__()}"
+        + f"\namount                  : {matched_transaction.spend_amount}"
+        + f"\nloyalty_id              : {matched_transaction.loyalty_id}"
+        + f"\nmid                     : {matched_transaction.mid}"
+        + f"\nscheme_account_id       : {matched_transaction.scheme_account_id}"
+        + f"\nstatus                  : {matched_transaction.status}"
+        + f"\nfeed_type               : {matched_transaction.feed_type}"
+        + f"\npayment_card_account_id : {matched_transaction.payment_card_account_id}"
+        + f"\nauth_code               : {matched_transaction.auth_code}"
+        + f"\napproval_code           : {matched_transaction.approval_code}"
+        + f"\npayment_provider_slug   : {matched_transaction.payment_provider_slug}"
+        + f"\nprimary_identifier      : {matched_transaction.primary_identifier}"
+        + f"\nexport_uid              : {matched_transaction.export_uid}"
+    )
 
     assert (
-            matched_transaction.status == "EXPORTED"
-            and matched_transaction.mid == TestTransactionMatchingContext.mid
-            and matched_transaction.scheme_account_id == TestContext.current_scheme_account_id
+        matched_transaction.status == "EXPORTED"
+        and matched_transaction.mid == TestTransactionMatchingContext.mid
+        and matched_transaction.scheme_account_id == TestContext.current_scheme_account_id
     ), "Transaction is present in transaction_export table, but is not successfully exported"
+
+
+"""clearing the values at the end of tests to support e2e tests"""
+TestTransactionMatchingContext.transaction_id = ""
+TestTransactionMatchingContext.spend_amount = " "
 
 
 @then(parsers.parse("I verify transaction is not streamed and exported"))
@@ -80,8 +89,9 @@ def verify_transaction_not_matched():
         TestTransactionMatchingContext.transaction_matching_id,
         (TestTransactionMatchingContext.transaction_matching_amount * 100),
     )
-    assert matched_count.count == 0, f"Transaction didnt match and the exported transaction count" \
-                                     f" is '{matched_count.count}'"
+    assert matched_count.count == 0, (
+        f"Transaction didnt match and the exported transaction count" f" is '{matched_count.count}'"
+    )
     logging.info(f" Transaction not matched and the exported transaction count is'{matched_count.count}'")
 
 
@@ -155,8 +165,7 @@ def get_transaction_matching_add_and_link(merchant):
 
 @when(
     parsers.parse(
-        'I send Retailer Transaction File with {merchant_container} '
-        '{payment_card_provider} {mid} {card_identity}'
+        "I send Retailer Transaction File with {merchant_container} " "{payment_card_provider} {mid} {card_identity}"
     )
 )
 def import_merchant_file(merchant_container, payment_card_provider, mid, card_identity):

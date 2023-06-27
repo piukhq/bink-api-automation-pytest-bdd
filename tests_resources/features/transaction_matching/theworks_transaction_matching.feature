@@ -11,7 +11,8 @@ Feature: Merchant The Work - Ensure a customer can use Bink's Transaction Matchi
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet
     And I perform the GET request to verify the payment card has been added successfully to the wallet
-    When I perform POST request to add & auto link "TheWorks" membership card
+#    When I perform POST request to add & auto link "TheWorks" membership card
+    When I perform POST request to add & auto link TheWorks membership card for Tx_spotting_dedupe_testing
     Then I perform GET request to verify the "TheWorks" membershipcard is added & linked successfully in the wallet
     When I send Payment Transaction File with <payment_card_transaction> <mid>
     Then I verify the reward transaction is exported using transaction-spotting
@@ -26,7 +27,7 @@ Feature: Merchant The Work - Ensure a customer can use Bink's Transaction Matchi
     |          amex        |  works0003   |amex-settlement-spotting     |
     |          amex        |  works0003   |amex-refund-spotting        |
 
-    @sanity @sanity_bmb @chk
+    @sanity @sanity_bmb
   Scenario: Verify transaction spotting for TheWorks using Visa E2E
 
     Given I am a Bink user
@@ -34,13 +35,13 @@ Feature: Merchant The Work - Ensure a customer can use Bink's Transaction Matchi
     And I perform the GET request to verify the payment card has been added successfully to the wallet
     When I perform POST request to add & auto link "TheWorks" membership card
     Then I perform GET request to verify the "TheWorks" membershipcard is added & linked successfully in the wallet
-    When I send Payment Transaction File with visa-auth-spotting and MID as works0001
-    When I send Payment Transaction File with visa-settlement-spotting and MID as works0001
+    When I send Payment Transaction File with visa-auth-spotting-e2e and MID as works0001
+    When I send Payment Transaction File with visa-settlement-spotting-e2e and MID as works0001
     Then I verify the reward transaction is exported using transaction-spotting
-    When I send Payment Transaction File with visa-refund-spotting and MID as works0001
+    When I send Payment Transaction File with visa-refund-spotting-e2e and MID as works0001
     Then I verify the reward transaction is exported using transaction-spotting
 
-   @sanity @sanity_bmb @chk
+   @sanity @sanity_bmb
   Scenario: Verify transaction spotting for TheWorks using Amex E2E
 
     Given I am a Bink user
@@ -58,7 +59,6 @@ Feature: Merchant The Work - Ensure a customer can use Bink's Transaction Matchi
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet
     And I perform the GET request to verify the payment card has been added successfully to the wallet
-    When I perform POST request to add & auto link TheWorks membership card for Tx_spotting_dedupe_testing
     Then I perform GET request to verify the "TheWorks" membershipcard is added & linked successfully in the wallet
     When I send Payment Transaction File with <payment_card_transaction> <mid>
     Then I verify the reward transaction is exported using transaction-spotting
