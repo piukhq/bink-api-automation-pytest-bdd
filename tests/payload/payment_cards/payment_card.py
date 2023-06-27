@@ -20,7 +20,6 @@ class PaymentCardDetails:
 
     @staticmethod
     def add_payment_card_payload_encrypted(card_provider):
-
         payment_card = PaymentCardDetails.get_card(card_provider)
         if TestContext.channel_name == config.BINK.channel_name:
             pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)
@@ -38,7 +37,6 @@ class PaymentCardDetails:
 
     @staticmethod
     def enrol_payment_card_payload_encrypted(card_provider):
-
         payment_card = PaymentCardDetails.enrol_payment_card_payload_unencrypted(card_provider)
         if TestContext.channel_name == config.BINK.channel_name:
             pub_key = channel_vault.get_key(config.BINK.bundle_id, KeyType.PUBLIC_KEY)

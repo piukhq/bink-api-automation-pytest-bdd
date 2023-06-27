@@ -90,14 +90,25 @@ class QueryHarmonia:
                     time.sleep(1)
                     continue
                 else:
-                    matched_transaction_details = MatchedTransactionRecordDetails(record[0], record[1], record[2],
-                                                                                  record[3],
-                                                                                  record[4], record[5],
-                                                                                  record[6], record[7], record[8],
-                                                                                  record[9],
-                                                                                  record[10], record[11],
-                                                                                  record[12], record[13], record[14],
-                                                                                  record[15], record[16])
+                    matched_transaction_details = MatchedTransactionRecordDetails(
+                        record[0],
+                        record[1],
+                        record[2],
+                        record[3],
+                        record[4],
+                        record[5],
+                        record[6],
+                        record[7],
+                        record[8],
+                        record[9],
+                        record[10],
+                        record[11],
+                        record[12],
+                        record[13],
+                        record[14],
+                        record[15],
+                        record[16],
+                    )
 
                     break
         except Exception:
@@ -120,8 +131,7 @@ class QueryHarmonia:
 
 def get_imported_transaction(transaction_id):
     spotted_transaction = (
-        "SELECT count(*) from harmonia.public.import_transaction "
-        "WHERE transaction_id = '{}'".format(transaction_id)
+        "SELECT count(*) from harmonia.public.import_transaction " "WHERE transaction_id = '{}'".format(transaction_id)
     )
     logging.info(spotted_transaction)
     return spotted_transaction
@@ -129,7 +139,6 @@ def get_imported_transaction(transaction_id):
 
 def get_matched_query(transaction_id):
     transaction_query_account = (
-
         "SELECT count(*) FROM harmonia.public.export_transaction WHERE transaction_id='{}' ".format(transaction_id)
     )
     return transaction_query_account
@@ -137,7 +146,7 @@ def get_matched_query(transaction_id):
 
 def get_matched_query_negative_cases(transaction_id, amount):
     """For negative tests adding amount along with transaction_id
-    as there is a row exists in Harmonia with transaction_id as null """
+    as there is a row exists in Harmonia with transaction_id as null"""
     transaction_query_account = (
         "SELECT count(*) FROM harmonia.public.export_transaction WHERE transaction_id='{}' "
         "and spend_amount={}".format(transaction_id, amount)
@@ -147,12 +156,10 @@ def get_matched_query_negative_cases(transaction_id, amount):
 
 def get_matched_query_details(transaction_id):
     transaction_details_record = (
-
         "SELECT provider_slug,transaction_date,spend_amount,loyalty_id,mid,scheme_account_id,status,location_id,"
         "merchant_internal_id,"
         "payment_card_account_id,auth_code, approval_code, last_four, payment_provider_slug, primary_identifier,"
         "export_uid,feed_type"
         " FROM harmonia.public.export_transaction WHERE transaction_id='{}'".format(transaction_id)
-
     )
     return transaction_details_record

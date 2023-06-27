@@ -1,4 +1,4 @@
-@the_works @sanity
+@the_works @sanity @sanity_bmb
 Feature: Merchant The Works - Ensure a customer can add their membership card & view its details for merchant TheWorks
   As a customer
   I want to utilise membership_cards endpoint
@@ -54,7 +54,7 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     Then verify the data stored in DB after "Add" journey for "TheWorks"
     And I perform DELETE request to delete the "TheWorks" membership card
 
-  @balances_transactions
+  @balances_transactions @chk2
   Scenario: Balances verification_The Works
 
     Given I am a Bink user

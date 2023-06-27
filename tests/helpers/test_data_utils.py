@@ -6,5 +6,4 @@ class TestDataUtils:
 
     @staticmethod
     def set_test_data(env):
-
         TestDataUtils.TEST_DATA = getattr(config, env.upper()).test_data

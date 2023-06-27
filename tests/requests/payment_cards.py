@@ -96,7 +96,6 @@ class PaymentCards(Endpoint):
 
     @staticmethod
     def patch_mcard_pcard(token, membership_card_id, payment_card_id):
-
         url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_MEMBERSHIP_PAYMENT.format(membership_card_id, payment_card_id)
         header = Endpoint.request_header(token)
         response = Endpoint.call(url, header, "PATCH")
@@ -104,7 +103,6 @@ class PaymentCards(Endpoint):
 
     @staticmethod
     def patch_pcard_mcard(token, payment_card_id, membership_card_id):
-
         url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_PAYMENT_MEMBERSHIP.format(payment_card_id, membership_card_id)
         header = Endpoint.request_header(token)
         response = Endpoint.call(url, header, "PATCH")
@@ -112,7 +110,6 @@ class PaymentCards(Endpoint):
 
     @staticmethod
     def delete_mcard_pcard(token, membership_card_id, payment_card_id):
-
         url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_MEMBERSHIP_PAYMENT.format(membership_card_id, payment_card_id)
         header = Endpoint.request_header(token)
         response = Endpoint.call(url, header, "DELETE")
@@ -120,7 +117,6 @@ class PaymentCards(Endpoint):
 
     @staticmethod
     def delete_pcard_mcard(token, payment_card_id, membership_card_id):
-
         url = Endpoint.BASE_URL + api.ENDPOINT_PATCH_PAYMENT_MEMBERSHIP.format(payment_card_id, membership_card_id)
         header = Endpoint.request_header(token)
         response = Endpoint.call(url, header, "DELETE")

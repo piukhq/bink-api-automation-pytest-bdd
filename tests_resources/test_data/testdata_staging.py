@@ -216,7 +216,7 @@ wasabi_invalid_data = {
 
 the_works_membership_card = {
     "card_num": "6338849749210000002622",
-    "points": 380,
+    "points": 300,
     "currency": "Points",
     "description": "",
     "transactions": "5",

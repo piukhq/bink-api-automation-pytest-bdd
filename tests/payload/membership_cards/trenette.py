@@ -11,7 +11,6 @@ from tests.helpers.test_context import TestContext
 class TrenetteCard:
     @staticmethod
     def enrol_membership_scheme_payload(email, env=None, channel=None, invalid_data=None):
-
         faker = Faker()
 
         if invalid_data:
