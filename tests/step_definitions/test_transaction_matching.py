@@ -18,11 +18,15 @@ from tests.helpers.database.query_harmonia import QueryHarmonia
 import tests.step_definitions.test_payment_cards as test_payment_cards
 from settings import BLOB_STORAGE_DSN
 from tests.helpers.test_context import TestContext
-from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
+from tests.helpers.test_transaction_matching_context import (
+    TestTransactionMatchingContext,
+)
 from tests.payload.payment_cards import transaction_matching_payment_file
 from tests.requests.transaction_matching_payment_cards import TransactionMatching
 from tests.step_definitions import test_membership_cards
-from tests.requests.transaction_matching_merchant_requests import upload_retailer_file_into_blob
+from tests.requests.transaction_matching_merchant_requests import (
+    upload_retailer_file_into_blob,
+)
 from tests.requests.transaction_matching_payment_requests import (
     import_payment_file_into_harmonia,
     verify_exported_transaction,
@@ -98,10 +102,14 @@ def import_payment_file_remove(payment_card_transaction, mid):
         )
         bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
         blob_client = bbs.get_blob_client(
-            "harmonia-imports/test/mastercard-settlement", merchant_container + f"{file_name.name}"
+            "harmonia-imports/test/mastercard-settlement",
+            merchant_container + f"{file_name.name}",
         )
         with open(file_name.name, "rb") as settlement_file:
-            blob_client.upload_blob(settlement_file, content_settings=ContentSettings(content_type="text/plain"))
+            blob_client.upload_blob(
+                settlement_file,
+                content_settings=ContentSettings(content_type="text/plain"),
+            )
             logging.info(
                 f"{file_name.name} has been uploaded to blob storage with auth_code = "
                 f"{TestTransactionMatchingContext.transaction_matching_uuid} and MID = {mid}"
@@ -109,22 +117,24 @@ def import_payment_file_remove(payment_card_transaction, mid):
             os.remove(file_name.name)
     elif payment_card_transaction == "master-settlement-spotting":
         merchant_container = "mastercard"
-        file_name = transaction_matching_payment_file.TransactionMatchingPaymentFileDetails.get_master_settlement_spotting_txt_file(
-            mid
-        )
+        file_name = transaction_matching_payment_file. \
+            TransactionMatchingPaymentFileDetails.get_master_settlement_spotting_txt_file(mid)
         bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
         blob_client = bbs.get_blob_client(
-            "harmonia-imports/test/mastercard-settlement", merchant_container + f"{file_name.name}"
+            "harmonia-imports/test/mastercard-settlement",
+            merchant_container + f"{file_name.name}",
         )
         with open(file_name.name, "rb") as settlement_file:
-            blob_client.upload_blob(settlement_file, content_settings=ContentSettings(content_type="text/plain"))
+            blob_client.upload_blob(
+                settlement_file,
+                content_settings=ContentSettings(content_type="text/plain"),
+            )
             logging.info(
                 f"{file_name.name} has been uploaded to blob storage with spend_amount = "
                 f"{TestTransactionMatchingContext.spend_amount} and MID = {mid}"
             )
             os.remove(file_name.name)
     elif payment_card_transaction == "master-refund-spotting":
-        logging.info("hereeeeeeeeeeee")
         merchant_container = "mastercard"
         file_name = (
             transaction_matching_payment_file.TransactionMatchingPaymentFileDetails.get_master_refund_spotting_txt_file(
@@ -137,10 +147,14 @@ def import_payment_file_remove(payment_card_transaction, mid):
 
         bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
         blob_client = bbs.get_blob_client(
-            "harmonia-imports/test/mastercard-settlement", merchant_container + f"{file_name.name}"
+            "harmonia-imports/test/mastercard-settlement",
+            merchant_container + f"{file_name.name}",
         )
         with open(file_name.name, "rb") as settlement_file:
-            blob_client.upload_blob(settlement_file, content_settings=ContentSettings(content_type="text/plain"))
+            blob_client.upload_blob(
+                settlement_file,
+                content_settings=ContentSettings(content_type="text/plain"),
+            )
             logging.info(
                 f"{file_name.name} has been uploaded to blob storage with spend_amount = "
                 f"{-abs(TestTransactionMatchingContext.spend_amount)},"
@@ -196,11 +210,10 @@ def verify_exported_transactions(transaction_matching_logic):
     )
 
     assert (
-        matched_transaction.status == "EXPORTED"
-        and matched_transaction.mid == TestTransactionMatchingContext.mid
-        and matched_transaction.scheme_account_id == TestContext.current_scheme_account_id
-        # and matched_transaction.payment_card_account_id == TestContext.current_payment_card_id
-    ), "Transaction is present in transaction_export table, but is not successfully exported"
+            matched_transaction.status == "EXPORTED"
+            and matched_transaction.mid == TestTransactionMatchingContext.mid
+            and matched_transaction.scheme_account_id == TestContext.current_scheme_account_id),\
+        "Transaction is present in transaction_export table, but is not successfully exported"
 
     # matched_count = QueryHarmonia.fetch_match_transaction_count(
     #     TestTransactionMatchingContext.retailer_transaction_id,
