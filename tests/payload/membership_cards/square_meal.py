@@ -58,7 +58,7 @@ class SquareMealCard:
         return payload
 
     @staticmethod
-    def add_membership_card_payload(invalid_data=None):
+    def add_membership_card_payload(invalid_data=None, txn_matching_testing=None):
         if invalid_data:
             invalid_email = TestDataUtils.TEST_DATA.square_meal_invalid_data.get(constants.ID)
             invalid_password = TestDataUtils.TEST_DATA.square_meal_invalid_data.get(constants.PASSWORD)

@@ -33,7 +33,7 @@ class ViatorCard:
         return payload
 
     @staticmethod
-    def add_membership_card_payload(invalid_data=None):
+    def add_membership_card_payload(invalid_data=None, txn_matching_testing=None):
         if invalid_data:
             value = TestDataUtils.TEST_DATA.viator_invalid_data.get(constants.EMAIL)
             logging.info("Invalid data is: " + value)

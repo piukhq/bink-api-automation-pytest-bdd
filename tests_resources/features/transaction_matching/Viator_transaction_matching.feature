@@ -4,8 +4,8 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
   I shopped at a Bink PLL partner that uses transaction matching
   So I can offer a near real time transaction matching service to merchants.
 
-   @sanity @sanity_bmb @test
-    Scenario Outline: Verify transaction streaming for Viator
+   @sanity @sanity_bmb
+    Scenario Outline: Verify transaction spotting for Viator
 
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet
@@ -27,7 +27,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
 
 
 
-  @sanity @sanity_bmb @test
+  @sanity @sanity_bmb
     Scenario Outline: Verify that viator AMEX auth transaction for spotting merchant is not exported
 
     Given I am a Bink user

@@ -120,7 +120,18 @@ def get_visa_spotting_streaming_auth_json(mid):
     header = TransactionMatchingEndpoint.request_header_visa()
     payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_auth_data(mid)
     response = Endpoint.call(url, header, "POST", payload)
-    logging.info(json.dumps(payload, indent=4))
+    logging.info("Visa Auth Streaming / Spotting json: \n\n" + json.dumps(payload, indent=4))
+    return response
+
+
+def verify_visa_spotting_streaming_auth_json_e2e(mid):
+    """Import Visa auth Streaming or Spotting Transactions for E2E testing"""
+
+    url = get_visa_url()
+    header = TransactionMatchingEndpoint.request_header_visa()
+    payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_merchant_auth_data(mid, "e2e")
+    response = Endpoint.call(url, header, "POST", payload)
+    logging.info("Visa Auth Streaming / Spotting json: \n\n" + json.dumps(payload, indent=4))
     return response
 
 
@@ -131,7 +142,19 @@ def get_visa_spotting_streaming_settlement_json(mid):
     header = TransactionMatchingEndpoint.request_header_visa()
     payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_settlement_data(mid)
     response = Endpoint.call(url, header, "POST", payload)
-    logging.info(json.dumps(payload, indent=4))
+    logging.info("Visa Settle Streaming / Spotting json: \n\n" + json.dumps(payload, indent=4))
+    return response
+
+
+def get_visa_spotting_streaming_settlement_json_e2e(mid):
+    """Import Visa settelemet Streaming or Spotting Transactions for E2E testing"""
+
+    get_data_to_import()
+    url = get_visa_url()
+    header = TransactionMatchingEndpoint.request_header_visa()
+    payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_settlement_data(mid, "e2e")
+    response = Endpoint.call(url, header, "POST", payload)
+    logging.info("Visa Settle Streaming / Spotting json: \n\n" + json.dumps(payload, indent=4))
     return response
 
 
@@ -142,7 +165,19 @@ def get_visa_spotting_streaming_refund_json(mid):
     header = TransactionMatchingEndpoint.request_header_visa()
     payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_refund_data(mid)
     response = Endpoint.call(url, header, "POST", payload)
-    logging.info(json.dumps(payload, indent=4))
+    logging.info("Visa Refund Streaming / Spotting json: \n\n" + json.dumps(payload, indent=4))
+    return response
+
+
+def get_visa_spotting_streaming_refund_json_e2e(mid):
+    """Import Visa Refund Streaming or Spotting Transactions for E2E testing"""
+
+    get_data_to_import()
+    url = get_visa_url()
+    header = TransactionMatchingEndpoint.request_header_visa()
+    payload = TransactionMatchingPaymentFileDetails.get_visa_spotting_refund_data(mid, "e2e")
+    response = Endpoint.call(url, header, "POST", payload)
+    logging.info("Visa Refund Streaming / Spotting json: \n\n" + json.dumps(payload, indent=4))
     return response
 
 
@@ -154,7 +189,7 @@ def get_master_spotting_streaming_auth_json(mid):
     header = TransactionMatchingEndpoint.request_header_mastercard()
     payload = TransactionMatchingPaymentFileDetails.get_mastercard_auth_spotting_data(mid)
     response = Endpoint.call(url, header, "POST", payload)
-    logging.info(json.dumps(payload, indent=4))
+    logging.info("Master Auth Streaming / Spotting json: \n\n" + json.dumps(payload, indent=4))
     return response
 
 
@@ -168,22 +203,6 @@ def import_master_spotting_streaming_refund_text(mid):
     """Import Master Settlement Matching Transactions in the text file to Harmonia"""
     file_name = TransactionMatchingPaymentFileDetails.get_master_refund_spotting_txt_file(mid)
     upload_mastercard_settlement_file_into_blob(file_name, mid)
-    # merchant_container = 'mastercard'
-    # f = open(file_name.name, 'r')
-    # file_contents = f.read()
-    # logging.info("The MasterCard Settlement Matching file is: \n" + file_contents)
-    #
-    # bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
-    # blob_client = \
-    #     bbs.get_blob_client('harmonia-imports/test/mastercard-settlement', merchant_container + f"{file_name.name}")
-    # with open(file_name.name, "rb") as settlement_file:
-    #     blob_client.upload_blob(settlement_file, content_settings=ContentSettings(content_type="text/plain"))
-    #     logging.info(f'{file_name.name} has been uploaded to blob storage with spend_amount = '
-    #                  f'{-abs(TestTransactionMatchingContext.spend_amount)},'
-    #                  f'auth_code = {TestTransactionMatchingContext.auth_code} and MID = {mid}')
-    #     time.sleep(60)
-    #
-    #     os.remove(file_name.name)
 
 
 def import_amex_spotting_streaming_auth_json(mid):
@@ -192,7 +211,7 @@ def import_amex_spotting_streaming_auth_json(mid):
     url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_CARD
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
     payload = TransactionMatchingPaymentFileDetails.get_amex_auth_spotting_data(mid)
-    logging.info(json.dumps(payload, indent=2))
+    logging.info("Amex Auth Streaming / Spotting json: \n\n" + json.dumps(payload, indent=4))
     response = Endpoint.call(url, headers, "POST", payload)
     return response
 
@@ -203,7 +222,7 @@ def import_amex_spotting_streaming_settlement_json(mid):
     url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
     payload = TransactionMatchingPaymentFileDetails.get_amex_settlement_spotting_data(mid)
-    logging.info(json.dumps(payload, indent=2))
+    logging.info("Amex Settle Streaming / Spotting json: \n\n" + json.dumps(payload, indent=4))
     response = Endpoint.call(url, headers, "POST", payload)
     return response
 
@@ -213,7 +232,7 @@ def import_amex_spotting_streaming_refund_json(mid):
     url = TransactionMatchingEndpoint.TRANSACTION_MATCHING_BASE_URL_ZEPHYRUS + api.ENDPOINT_AMEX_SETTLEMENT_CARD
     headers = TransactionMatchingEndpoint.request_header_amex(TestTransactionMatchingContext.amex_token)
     payload = TransactionMatchingPaymentFileDetails.get_amex_refund_spotting_data(mid)
-    logging.info(json.dumps(payload, indent=2))
+    logging.info("Amex Refund Streaming / Spotting json: \n\n" + json.dumps(payload, indent=4))
     response = Endpoint.call(url, headers, "POST", payload)
     return response
 
@@ -225,12 +244,6 @@ def get_visa_spotting_merchant_refund_file_invalid_token(mid):
     response = Endpoint.call(url, header, "POST", payload)
     print(json.dumps(payload, indent=4))
     return response
-
-
-def verify_master_spotting_streaming_e2e(mid):
-    get_master_spotting_streaming_auth_json(mid)
-    # import_master_spotting_streaming_settlement_text(mid)
-    import_master_spotting_streaming_refund_text(mid)
 
 
 def get_mastrcard_url():
@@ -280,8 +293,12 @@ def import_payment_file_into_harmonia(transaction_type, mid):
             return import_amex_spotting_streaming_settlement_json(mid)
         case "amex-refund-streaming" | "amex-refund-spotting":
             return import_amex_spotting_streaming_refund_json(mid)
-        case "master-spotting-streaming-e2e":
-            return verify_master_spotting_streaming_e2e(mid)
+        case "visa-auth-spotting-e2e":
+            return verify_visa_spotting_streaming_auth_json_e2e(mid)
+        case "visa-settlement-spotting-e2e":
+            return get_visa_spotting_streaming_settlement_json_e2e(mid)
+        case "visa-refund-spotting-e2e":
+            return get_visa_spotting_streaming_refund_json_e2e(mid)
 
 
 def verify_exported_transaction(transaction_type):
@@ -291,8 +308,6 @@ def verify_exported_transaction(transaction_type):
             return verify_matching_transactions()
         case "transaction-streaming" | "transaction-spotting":
             return verify_streaming_spotting_transactions()
-        case "master-spotting-streaming-e2e":
-            return verify_master_streaming_spotting_e2e_transactions()
 
 
 def verify_matching_transactions():

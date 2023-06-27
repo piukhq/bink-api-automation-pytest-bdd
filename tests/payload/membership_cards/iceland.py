@@ -12,7 +12,7 @@ from tests.helpers.test_data_utils import TestDataUtils
 
 class IcelandCard:
     @staticmethod
-    def add_membership_card_payload(invalid_data=None):
+    def add_membership_card_payload(invalid_data=None, txn_matching_testing=None):
         if invalid_data:
             value = TestDataUtils.TEST_DATA.iceland_invalid_data.get(constants.POSTCODE)
             logging.info("Invalid data is: " + value)
