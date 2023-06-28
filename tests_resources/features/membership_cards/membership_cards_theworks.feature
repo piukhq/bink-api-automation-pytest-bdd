@@ -54,7 +54,7 @@ Feature: Merchant The Works - Ensure a customer can add their membership card & 
     Then verify the data stored in DB after "Add" journey for "TheWorks"
     And I perform DELETE request to delete the "TheWorks" membership card
 
-  @balances_transactions @chk2
+  @balances_transactions
   Scenario: Balances verification_The Works
 
     Given I am a Bink user
