@@ -336,6 +336,8 @@ class IcelandCard:
         enrol_consent = "Enrol Consent 1"
         if enrol_status == "identical_enrol":
             test_email = TestDataUtils.TEST_DATA.iceland_invalid_data.get(constants.IDENTICAL_ENROL_EMAIL)
+        if enrol_status == "invalid_join":
+            test_email = "joininprogress@bink.com"
         if channel == "barclays":
             if env == "dev":
                 enrol_consent = "Consent 1"

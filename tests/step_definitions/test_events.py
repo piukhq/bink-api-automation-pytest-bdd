@@ -3,6 +3,7 @@ import time
 
 from pytest_bdd import parsers, scenarios, then, when
 
+from tests.conftest import test_email, env, channel
 from tests.helpers import constants
 
 from tests.helpers.database.query_snowstorm import QuerySnowstorm
@@ -39,9 +40,11 @@ def verify_loyalty_card_into_event_database(journey_type):
 def verify_scheme_into_event_database(journey_type, user):
     time.sleep(5)
     logging.info(TestDataUtils.TEST_DATA.event_type.get(journey_type))
-    event_record = QuerySnowstorm.fetch_event(
-        TestDataUtils.TEST_DATA.event_type.get(journey_type), email=TestContext.user_email
-    )
+
+    event_record = QuerySnowstorm.fetch_event(TestDataUtils.TEST_DATA.event_type.get(journey_type),
+                                              email=TestContext.user_email,
+                                              scheme_id=TestContext.current_scheme_account_id)
+
     logging.info(str(event_record))
     if user == "bink_user":
         assert event_record.json["external_user_ref"] == "", "external user ref didnt match"
@@ -97,3 +100,35 @@ def i_perform_post_enrol_membership_card(merchant, test_email, env, channel):
 @when(parsers.parse('I perform GET request to verify the "{merchant}" membershipcard account is created'))
 def i_perform_get_request(merchant):
     test_membership_cards.verify_membership_card_is_created(merchant)
+
+
+@when(parsers.parse('I perform POST request to add and auth for "{merchant}" membershipcard with "{invalid_data}"'))
+def post_request_to_add_invalid_membershipcard(merchant, invalid_data):
+    test_membership_cards_multi_wallet.add_auth_membership_card(merchant, invalid_data)
+
+
+@when(parsers.parse('For {user} I perform GET request to verify the "{merchant}" '
+                    'membershipcard is added to the wallet with invalid data'))
+def get_request_add_auth_invalid_data(user, merchant):
+    test_membership_cards_multi_wallet.invalid_membership_card_is_added_to_wallet(user, merchant)
+
+
+@when(parsers.parse('I perform POST request to create a "{merchant}" '
+                    'membership card with "{invalid}" enrol credentials'))
+def perform_join_with_invalid_credential(merchant, invalid):
+    test_membership_cards.enrol_membership_account_invalid_credentials(merchant, test_email, env, channel, invalid)
+
+
+@when(parsers.parse('I perform GET request to verify the "{merchant}" membership card is created with invalid data'))
+def get_join_with_invalid_credential(merchant):
+    test_membership_cards.verify_invalid_membership_card_is_created(merchant)
+
+
+@when(parsers.parse('I perform POST request to join "{merchant}" '
+                    'membershipcard with "{enrol_status}" enrol credentials'))
+def post_request_for_failed_register(merchant, enrol_status):
+    test_membership_cards_multi_wallet.enrol_membership_card_account(
+        enrol_status=enrol_status,
+        merchant=merchant,
+        test_email="pytest_multiple_wallet@bink.com",
+        env="staging", channel="barclays")
