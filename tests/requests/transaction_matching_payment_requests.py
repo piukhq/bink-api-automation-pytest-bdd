@@ -301,6 +301,48 @@ def import_payment_file_into_harmonia(transaction_type, mid):
             return get_visa_spotting_streaming_refund_json_e2e(mid)
 
 
+def import_payment_file_with_duplicate_txn(transaction_type, mid):
+    """Create a file with a transaction spend_amount and date same as a reflector transaction"""
+    TestTransactionMatchingContext.mid = mid
+    # match transaction_type:
+    #     case "visa-auth-matching":
+    #         # return import_visa_auth_matching_dedupe_json(mid)
+    #     case "visa-settle-matching":
+    #         return import_visa_settle_matching_dedupe_json(mid)
+    #     case "visa-refund-matching":
+    #         return import_visa_refund_matching_dedupe_json(mid)
+    #     case "master-settle-matching":
+    #         return import_master_settle_matching_dedupe_text_file(mid)
+    #     case "master-refund-matching":
+    #         return import_master_refund_matching_dedupe_text_file(mid)
+    #     case "amex-settle-matching":
+    #         return import_amex_settle_matching_dedupe_json(mid)
+    #     case "amex-refund-matching":
+    #         return import_amex_refund_matching_dedupe_json(mid)
+    #     case "visa-settle-spotting" | "visa-settle-streaming":
+    #         return import_visa_settle_spotting_streaming_dedupe_json(mid)
+    #     case "visa-refund-spotting" | "visa-refund-streaming":
+    #         return import_visa_refund_spotting_streaming_dedupe_json(mid)
+    #     case "master-settle-spotting" | "master-settle-streaming":
+    #         return import_master_settle_spotting_streaming_dedupe_text_file(mid)
+    #     case "master-refund-spotting" | "master-refund-streaming":
+    #         return import_master_refund_spotting_streaming_dedupe_text_file(mid)
+    #     case "amex-settle-spotting" | "amex-settle-streaming":
+    #         return import_amex_settle_spotting_streaming_dedupe_json(mid)
+    #     case "amex-refund-spotting" | "amex-refund-streaming":
+    #         return import_amex_refund_spotting_streaming_dedupe_json(mid)
+
+
+def import_visa_settle_matching_dedupe_json(mid):
+    """Import Visa Auth Matching duplicate Transactions"""
+    url = get_visa_url()
+    header = TransactionMatchingEndpoint.request_header_visa()
+    payload = TransactionMatchingPaymentFileDetails.get_visa_auth_data(mid)
+    response = Endpoint.call(url, header, "POST", payload)
+    logging.info(json.dumps(payload, indent=4))
+    return response
+
+
 def verify_exported_transaction(transaction_type):
     """This function will return the exported transactions"""
     match transaction_type:

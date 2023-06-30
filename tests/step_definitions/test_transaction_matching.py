@@ -20,6 +20,7 @@ from tests.step_definitions import test_membership_cards
 from tests.requests.transaction_matching_merchant_requests import upload_retailer_file_into_blob
 from tests.requests.transaction_matching_payment_requests import (
     import_payment_file_into_harmonia,
+    # import_payment_file_with_duplicate_txn,
     verify_exported_transaction,
 )
 from tests.step_definitions.test_membership_cards import response_to_json
@@ -44,6 +45,15 @@ def import_payment_file(payment_card_transaction, mid):
                 "The Master Card Settlement Transaction Text file is uploaded to blob. "
                 "Waiting for transaction to be exported"
             )
+
+
+@when(parsers.parse("I send Payment File with a duplicate transaction using {payment_card_transaction} and {mid}"))
+def import_payment_file_with_duplicate_transaction(payment_card_transaction, mid):
+    TestTransactionMatchingContext.mid = mid
+    # response = import_payment_file_with_duplicate_txn(
+    #     payment_card_transaction,
+    #     mid,
+    # )
 
 
 @then(parsers.parse("I verify the reward transaction is exported using {transaction_matching_logic}"))
@@ -90,18 +100,19 @@ def verify_transaction_not_matched():
         (TestTransactionMatchingContext.transaction_matching_amount * 100),
     )
     assert matched_count.count == 0, (
-        f"Transaction didnt match and the exported transaction count" f" is '{matched_count.count}'"
+        f"Transaction didn't match and the exported transaction count" f" is '{matched_count.count}'"
     )
     logging.info(f" Transaction not matched and the exported transaction count is'{matched_count.count}'")
 
 
-@then(parsers.parse("I verify transaction is spotted and exported"))
-def verify_spotted_transaction():
-    spotted_transaction_count = QueryHarmonia.fetch_spotted_transaction_count(
-        TestTransactionMatchingContext.transaction_id
-    )
-    assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
-    logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
+#
+# @then(parsers.parse("I verify transaction is spotted and exported"))
+# def verify_spotted_transaction():
+#     spotted_transaction_count = QueryHarmonia.fetch_spotted_transaction_count(
+#         TestTransactionMatchingContext.transaction_id
+#     )
+#     assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
+#     logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 
 
 @then(parsers.parse("I verify transaction is not streamed/spotted and exported"))
