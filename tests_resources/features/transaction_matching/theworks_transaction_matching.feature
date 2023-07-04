@@ -32,7 +32,7 @@ Feature: Merchant The Work - Ensure a customer can use Bink's Transaction Matchi
     When I send Payment Transaction File with amex-refund-spotting and MID as works0003
     Then I verify the reward transaction is exported using transaction-spotting
 
-  @chk2
+  @chk2  @sanity @sanity_bmb
   Scenario Outline: Verify transaction spotting for TheWorks _ dedupe
 
     Given I am a Bink user
