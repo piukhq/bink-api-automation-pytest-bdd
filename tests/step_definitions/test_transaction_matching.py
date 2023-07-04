@@ -21,7 +21,8 @@ from tests.requests.transaction_matching_merchant_requests import upload_retaile
 from tests.requests.transaction_matching_payment_requests import (
     import_payment_file_into_harmonia,
     import_payment_file_with_duplicate_txn,
-    verify_exported_transaction, verify_deduped_transaction,
+    verify_exported_transaction,
+    verify_deduped_transaction,
 )
 from tests.step_definitions.test_membership_cards import response_to_json
 
@@ -91,9 +92,9 @@ def verify_exported_transactions(transaction_matching_logic):
     )
 
     assert (
-            matched_transaction.status == "EXPORTED"
-            and matched_transaction.mid == TestTransactionMatchingContext.mid
-            and matched_transaction.scheme_account_id == TestContext.current_scheme_account_id
+        matched_transaction.status == "EXPORTED"
+        and matched_transaction.mid == TestTransactionMatchingContext.mid
+        and matched_transaction.scheme_account_id == TestContext.current_scheme_account_id
     ), "Transaction is present in transaction_export table, but is not successfully exported"
 
 
@@ -108,7 +109,7 @@ def verify_transaction_dedupe():
     deduped_transaction = verify_deduped_transaction()
     logging.info(
         "Details of the recent transaction in export_transaction table:\n\n"
-            f"\nstatus                  : {deduped_transaction.status}"
+        f"\nstatus                  : {deduped_transaction.status}"
         + f"\nprovider slug           : {deduped_transaction.provider_slug}"
         + f"\ntransaction_date        : {deduped_transaction.transaction_date.__str__()}"
         + f"\namount                  : {deduped_transaction.spend_amount}"
@@ -125,9 +126,9 @@ def verify_transaction_dedupe():
     )
 
     assert (
-            deduped_transaction.status == "PENDING"
-            and deduped_transaction.mid == TestTransactionMatchingContext.mid
-            and deduped_transaction.scheme_account_id == TestContext.current_scheme_account_id
+        deduped_transaction.status == "PENDING"
+        and deduped_transaction.mid == TestTransactionMatchingContext.mid
+        and deduped_transaction.scheme_account_id == TestContext.current_scheme_account_id
     ), "Transaction is present in transaction_export table, but is not successfully exported"
 
 

@@ -328,7 +328,17 @@ def import_visa_settle_spotting_streaming_dedupe_json(mid):
     header = TransactionMatchingEndpoint.request_header_visa()
     payload = dedupe_payment_file.import_visa_settle_matching_dedupe_json(mid)
     response = Endpoint.call(url, header, "POST", payload)
-    logging.info("Visa Auth Spotting-Dedupe json:"+json.dumps(payload, indent=4))
+    logging.info("Visa Auth Spotting-Dedupe json:" + json.dumps(payload, indent=4))
+    return response
+
+
+def import_visa_auth_spotting_streaming_dedupe_json(mid):
+    """Import Visa Auth spotting duplicate Transactions"""
+    url = get_visa_url()
+    header = TransactionMatchingEndpoint.request_header_visa()
+    payload = dedupe_payment_file.import_visa_settle_matching_dedupe_json(mid)
+    response = Endpoint.call(url, header, "POST", payload)
+    logging.info("Visa Auth Spotting-Dedupe json:" + json.dumps(payload, indent=4))
     return response
 
 
@@ -368,6 +378,8 @@ def verify_master_streaming_spotting_e2e_transactions():
     logging.info(f"No. of Transactions got spotted and exported : '{matched_count.count}'")
     matched_transaction = QueryHarmonia.fetch_transaction_details(TestTransactionMatchingContext.transaction_id)
     return matched_transaction
+
+
 def verify_deduped_transaction():
     """This function will return the exported transactions"""
     matched_count = QueryHarmonia.fetch_match_transaction_count(TestTransactionMatchingContext.transaction_id)
