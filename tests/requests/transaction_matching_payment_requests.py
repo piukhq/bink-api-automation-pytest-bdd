@@ -15,6 +15,7 @@ from tests.payload.transaction_matching.transaction_matching_payment_file import
     TransactionMatchingPaymentFileDetails,
     get_data_to_import,
 )
+import tests.payload.transaction_matching.transaction_matching_dedupe_payment_file as dedupe_payment_file
 
 
 def import_visa_matching_auth_json(mid):
@@ -304,23 +305,11 @@ def import_payment_file_into_harmonia(transaction_type, mid):
 def import_payment_file_with_duplicate_txn(transaction_type, mid):
     """Create a file with a transaction spend_amount and date same as a reflector transaction"""
     TestTransactionMatchingContext.mid = mid
-    # match transaction_type:
-    #     case "visa-auth-matching":
-    #         # return import_visa_auth_matching_dedupe_json(mid)
-    #     case "visa-settle-matching":
-    #         return import_visa_settle_matching_dedupe_json(mid)
-    #     case "visa-refund-matching":
-    #         return import_visa_refund_matching_dedupe_json(mid)
-    #     case "master-settle-matching":
-    #         return import_master_settle_matching_dedupe_text_file(mid)
-    #     case "master-refund-matching":
-    #         return import_master_refund_matching_dedupe_text_file(mid)
-    #     case "amex-settle-matching":
-    #         return import_amex_settle_matching_dedupe_json(mid)
-    #     case "amex-refund-matching":
-    #         return import_amex_refund_matching_dedupe_json(mid)
-    #     case "visa-settle-spotting" | "visa-settle-streaming":
-    #         return import_visa_settle_spotting_streaming_dedupe_json(mid)
+    match transaction_type:
+        case "visa-auth-spotting":
+            return import_visa_auth_spotting_streaming_dedupe_json(mid)
+        case "visa-settle-spotting":
+            return import_visa_settle_spotting_streaming_dedupe_json(mid)
     #     case "visa-refund-spotting" | "visa-refund-streaming":
     #         return import_visa_refund_spotting_streaming_dedupe_json(mid)
     #     case "master-settle-spotting" | "master-settle-streaming":
@@ -333,13 +322,23 @@ def import_payment_file_with_duplicate_txn(transaction_type, mid):
     #         return import_amex_refund_spotting_streaming_dedupe_json(mid)
 
 
-def import_visa_settle_matching_dedupe_json(mid):
-    """Import Visa Auth Matching duplicate Transactions"""
+def import_visa_settle_spotting_streaming_dedupe_json(mid):
+    """Import Visa Auth spotting duplicate Transactions"""
     url = get_visa_url()
     header = TransactionMatchingEndpoint.request_header_visa()
-    payload = TransactionMatchingPaymentFileDetails.get_visa_auth_data(mid)
+    payload = dedupe_payment_file.import_visa_settle_matching_dedupe_json(mid)
     response = Endpoint.call(url, header, "POST", payload)
-    logging.info(json.dumps(payload, indent=4))
+    logging.info("Visa Auth Spotting-Dedupe json:" + json.dumps(payload, indent=4))
+    return response
+
+
+def import_visa_auth_spotting_streaming_dedupe_json(mid):
+    """Import Visa Auth spotting duplicate Transactions"""
+    url = get_visa_url()
+    header = TransactionMatchingEndpoint.request_header_visa()
+    payload = dedupe_payment_file.import_visa_settle_matching_dedupe_json(mid)
+    response = Endpoint.call(url, header, "POST", payload)
+    logging.info("Visa Auth Spotting-Dedupe json:" + json.dumps(payload, indent=4))
     return response
 
 
@@ -379,3 +378,12 @@ def verify_master_streaming_spotting_e2e_transactions():
     logging.info(f"No. of Transactions got spotted and exported : '{matched_count.count}'")
     matched_transaction = QueryHarmonia.fetch_transaction_details(TestTransactionMatchingContext.transaction_id)
     return matched_transaction
+
+
+def verify_deduped_transaction():
+    """This function will return the exported transactions"""
+    matched_count = QueryHarmonia.fetch_match_transaction_count(TestTransactionMatchingContext.transaction_id)
+    assert matched_count.count == 1, "Transaction not spotted and the status is not exported"
+    logging.info(f"No. of Transactions : '{matched_count.count}'")
+    deduped_transaction = QueryHarmonia.fetch_dedupe_transaction_details(TestTransactionMatchingContext.transaction_id)
+    return deduped_transaction
