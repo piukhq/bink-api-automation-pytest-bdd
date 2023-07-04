@@ -20,8 +20,8 @@ from tests.step_definitions import test_membership_cards
 from tests.requests.transaction_matching_merchant_requests import upload_retailer_file_into_blob
 from tests.requests.transaction_matching_payment_requests import (
     import_payment_file_into_harmonia,
-    # import_payment_file_with_duplicate_txn,
-    verify_exported_transaction,
+    import_payment_file_with_duplicate_txn,
+    verify_exported_transaction, verify_deduped_transaction,
 )
 from tests.step_definitions.test_membership_cards import response_to_json
 
@@ -50,10 +50,21 @@ def import_payment_file(payment_card_transaction, mid):
 @when(parsers.parse("I send Payment File with a duplicate transaction using {payment_card_transaction} and {mid}"))
 def import_payment_file_with_duplicate_transaction(payment_card_transaction, mid):
     TestTransactionMatchingContext.mid = mid
-    # response = import_payment_file_with_duplicate_txn(
-    #     payment_card_transaction,
-    #     mid,
-    # )
+    response = import_payment_file_with_duplicate_txn(
+        payment_card_transaction,
+        mid,
+    )
+    try:
+        response_json = response.json()
+        logging.info("The response of POST/import Payment File is: \n\n" + json.dumps(response_json, indent=4))
+        assert response.status_code == 201 or 200, "Payment file import is not successful"
+        time.sleep(60)
+    except AttributeError:
+        if response is None:
+            logging.info(
+                "The Master Card Settlement Transaction Text file is uploaded to blob. "
+                "Waiting for transaction to be exported"
+            )
 
 
 @then(parsers.parse("I verify the reward transaction is exported using {transaction_matching_logic}"))
@@ -80,15 +91,44 @@ def verify_exported_transactions(transaction_matching_logic):
     )
 
     assert (
-        matched_transaction.status == "EXPORTED"
-        and matched_transaction.mid == TestTransactionMatchingContext.mid
-        and matched_transaction.scheme_account_id == TestContext.current_scheme_account_id
+            matched_transaction.status == "EXPORTED"
+            and matched_transaction.mid == TestTransactionMatchingContext.mid
+            and matched_transaction.scheme_account_id == TestContext.current_scheme_account_id
     ), "Transaction is present in transaction_export table, but is not successfully exported"
 
 
 """clearing the values at the end of tests to support e2e tests"""
 TestTransactionMatchingContext.transaction_id = ""
 TestTransactionMatchingContext.spend_amount = " "
+
+
+@then(parsers.parse("I verify the reward transaction is de-duplicated using dedupe and spotting"))
+def verify_transaction_dedupe():
+    logging.info("Transaction Export:\n")
+    deduped_transaction = verify_deduped_transaction()
+    logging.info(
+        "Details of the recent transaction in export_transaction table:\n\n"
+            f"\nstatus                  : {deduped_transaction.status}"
+        + f"\nprovider slug           : {deduped_transaction.provider_slug}"
+        + f"\ntransaction_date        : {deduped_transaction.transaction_date.__str__()}"
+        + f"\namount                  : {deduped_transaction.spend_amount}"
+        + f"\nloyalty_id              : {deduped_transaction.loyalty_id}"
+        + f"\nmid                     : {deduped_transaction.mid}"
+        + f"\nscheme_account_id       : {deduped_transaction.scheme_account_id}"
+        + f"\nfeed_type               : {deduped_transaction.feed_type}"
+        + f"\npayment_card_account_id : {deduped_transaction.payment_card_account_id}"
+        + f"\nauth_code               : {deduped_transaction.auth_code}"
+        + f"\napproval_code           : {deduped_transaction.approval_code}"
+        + f"\npayment_provider_slug   : {deduped_transaction.payment_provider_slug}"
+        + f"\nprimary_identifier      : {deduped_transaction.primary_identifier}"
+        + f"\nexport_uid              : {deduped_transaction.export_uid}"
+    )
+
+    assert (
+            deduped_transaction.status == "PENDING"
+            and deduped_transaction.mid == TestTransactionMatchingContext.mid
+            and deduped_transaction.scheme_account_id == TestContext.current_scheme_account_id
+    ), "Transaction is present in transaction_export table, but is not successfully exported"
 
 
 @then(parsers.parse("I verify transaction is not streamed and exported"))
@@ -103,16 +143,6 @@ def verify_transaction_not_matched():
         f"Transaction didn't match and the exported transaction count" f" is '{matched_count.count}'"
     )
     logging.info(f" Transaction not matched and the exported transaction count is'{matched_count.count}'")
-
-
-#
-# @then(parsers.parse("I verify transaction is spotted and exported"))
-# def verify_spotted_transaction():
-#     spotted_transaction_count = QueryHarmonia.fetch_spotted_transaction_count(
-#         TestTransactionMatchingContext.transaction_id
-#     )
-#     assert spotted_transaction_count.count == 1, "Transaction not spotted and the status is not exported"
-#     logging.info(f"The Transaction got spotted and exported : '{spotted_transaction_count.count}'")
 
 
 @then(parsers.parse("I verify transaction is not streamed/spotted and exported"))

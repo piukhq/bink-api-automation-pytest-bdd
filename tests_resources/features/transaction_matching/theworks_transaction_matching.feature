@@ -19,7 +19,7 @@ Feature: Merchant The Work - Ensure a customer can use Bink's Transaction Matchi
     When I send Payment Transaction File with visa-refund-spotting-e2e and MID as works0001
     Then I verify the reward transaction is exported using transaction-spotting
 
-   @sanity @sanity_bmb
+  @sanity @sanity_bmb
   Scenario: Verify transaction spotting for TheWorks using Amex E2E
 
     Given I am a Bink user
@@ -33,43 +33,25 @@ Feature: Merchant The Work - Ensure a customer can use Bink's Transaction Matchi
     Then I verify the reward transaction is exported using transaction-spotting
 
   @chk2
-     Scenario Outline: Verify transaction spotting for TheWorks _ dedupe
-
-    Given I am a Bink user
-#    When I perform POST request to add "<payment_card_provider>" payment card to wallet
-#    And I perform the GET request to verify the payment card has been added successfully to the wallet
-#    When I perform POST request to add & auto link TheWorks membership card for Tx_spotting_dedupe_testing
-#    Then I perform GET request to verify the "TheWorks" membershipcard is added & linked successfully in the wallet
-    When I send Payment File with a duplicate transaction using <payment_card_transaction> and <mid>
-    Then I verify the reward transaction is exported using transaction-spotting
-    Examples:
-      | mid       |payment_card_transaction    |
-   | works0001    |visa-settlement-spotting    |
-#    |          visa        |  works0001    |visa-refund-spotting        |
-#    |          master      |  works0002    |master-auth-spotting        |
-#    |          master      |  works0002    |master-settlement-spotting  |
-#    |          master      |  works0002    |master-refund-spotting      |
-#    |          amex        |  works0003   |amex-settlement-spotting     |
-#    |          amex        |  works0003   |amex-refund-spotting        |
-  Scenario Outline: Verify transaction spotting with de-dupe for TheWorks
+  Scenario Outline: Verify transaction spotting for TheWorks _ dedupe
 
     Given I am a Bink user
     When I perform POST request to add "<payment_card_provider>" payment card to wallet
     And I perform the GET request to verify the payment card has been added successfully to the wallet
+    When I perform POST request to add & auto link TheWorks membership card for Tx_spotting_dedupe_testing
     Then I perform GET request to verify the "TheWorks" membershipcard is added & linked successfully in the wallet
-    When I send Payment Transaction File with <payment_card_transaction> <mid>
-    Then I verify the reward transaction is exported using transaction-spotting
+    When I send Payment File with a duplicate transaction using <payment_card_transaction> and <mid>
+    Then I verify the reward transaction is de-duplicated using dedupe and spotting
     Examples:
-    | payment_card_provider|     mid       |payment_card_transaction    |
-    |          visa        |  works0001    |visa-auth-spotting          |
-#    |          visa        |  works0001    |visa-settlement-spotting    |
+
+      | payment_card_provider | mid       | payment_card_transaction |
+      | visa                  | works0001 | visa-settle-spotting     |
 #    |          visa        |  works0001    |visa-refund-spotting        |
 #    |          master      |  works0002    |master-auth-spotting        |
 #    |          master      |  works0002    |master-settlement-spotting  |
 #    |          master      |  works0002    |master-refund-spotting      |
 #    |          amex        |  works0003   |amex-settlement-spotting     |
 #    |          amex        |  works0003   |amex-refund-spotting        |
-
 
   Scenario Outline: Verify that viator AMEX auth transaction for spotting merchant is not exported
 
@@ -83,45 +65,8 @@ Feature: Merchant The Work - Ensure a customer can use Bink's Transaction Matchi
     Then I verify transaction is not spotted and exported
 
     Examples:
-    | payment_card_provider|     mid       |payment_card_transaction      |
-    |          amex        |  9602929481   |amex-auth-spotting            |
-
-
-
-
-  Scenario Outline: Verify transaction Spotting for viator negative scenario(invalid mid)
-
-    Given I am a Bink user
-    When I perform POST request to add "<payment_card_provider>" payment card to wallet
-    And I perform the GET request to verify the payment card has been added successfully to the wallet
-    When I perform POST request to add & auto link "TheWorks" membership card
-    Then I perform GET request to verify the "TheWorks" membershipcard is added & linked successfully in the wallet
-    When I send Payment Transaction File with <payment_card_transaction> <mid>
-    Then I verify transaction is not streamed and exported
-
-
-    Examples:
-    | payment_card_provider|     mid       |payment_card_transaction |
-    |          visa        |  29047530     |visa-auth-spotting       |
-    |          visa        |  29047530     |visa-settlement-spotting |
-    |          visa        |  29047530     |visa-refund-spotting     |
-    |          master      |  29047530     |master-auth-spotting        |
-    |          master      |  29047530     |master-settlement-spotting  |
-    |          master      |  29047530     |master-refund-spotting      |
-
-    Scenario Outline: Verify transaction spotting for TheWorks negative scenario(invalid payment card token)
-
-    Given I am a Bink user
-    When I perform POST request to add "<payment_card_provider>" payment card to wallet
-    And I perform the GET request to verify the payment card has been added successfully to the wallet
-    When I perform POST request to add & auto link "TheWorks" membership card
-    Then I perform GET request to verify the "TheWorks" membershipcard is added & linked successfully in the wallet
-    When I send matching "<payment_card_transaction>" "<mid>" Authorisation
-    Then I verify transaction is not spotted and exported
-
-    Examples:
-    | payment_card_provider|     mid       |payment_card_transaction               |
-    |          visa        |  020150514     |visa-auth-spotting_invalid_token      |
+      | payment_card_provider | mid        | payment_card_transaction |
+      | amex                  | 9602929481 | amex-auth-spotting       |
 
 
 

@@ -117,16 +117,55 @@ class QueryHarmonia:
         return matched_transaction_details
 
     @staticmethod
-    def fetch_imported_transaction_count(transaction_id):
-        """Fetch the spotted account details using spotted_transaction_id and amount"""
+    def fetch_dedupe_transaction_details(transaction_id):
+        """Fetch the dedupe account details using matched_transaction_id and amount"""
         connection = db.connect_harmonia_db()
-        record = db.execute_query_fetch_one(connection, get_imported_transaction(transaction_id))
-        if record is None:
-            raise Exception(f"'{transaction_id}' is an Invalid transaction_id")
-        else:
-            imported_transaction_record = MatchedTransactionRecord(record[0])
+        query = get_matched_query_details(transaction_id)
+        logging.info(query)
+        logging.info("Waiting for deduped Transactions")
+        try:
+            time.sleep(30)
+            record = db.execute_query_fetch_one(connection, query)
+            if record[6] == "PENDING":
+                dedupe_transaction_details = MatchedTransactionRecordDetails(
+                    record[0],
+                    record[1],
+                    record[2],
+                    record[3],
+                    record[4],
+                    record[5],
+                    record[6],
+                    record[7],
+                    record[8],
+                    record[9],
+                    record[10],
+                    record[11],
+                    record[12],
+                    record[13],
+                    record[14],
+                    record[15],
+                    record[16],
+                )
+            else:
+                raise Exception(f"Transaction with '{transaction_id}' is not successfully deduplicated")
+
+        except Exception:
+            raise Exception(f"Transaction with '{transaction_id}' is not successfully deduplicated")
         db.clear_db(connection)
-        return imported_transaction_record
+        return dedupe_transaction_details
+
+
+@staticmethod
+def fetch_imported_transaction_count(transaction_id):
+    """Fetch the spotted account details using spotted_transaction_id and amount"""
+    connection = db.connect_harmonia_db()
+    record = db.execute_query_fetch_one(connection, get_imported_transaction(transaction_id))
+    if record is None:
+        raise Exception(f"'{transaction_id}' is an Invalid transaction_id")
+    else:
+        imported_transaction_record = MatchedTransactionRecord(record[0])
+    db.clear_db(connection)
+    return imported_transaction_record
 
 
 def get_imported_transaction(transaction_id):
