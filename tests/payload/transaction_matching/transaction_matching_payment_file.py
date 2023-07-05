@@ -474,6 +474,9 @@ class TransactionMatchingPaymentFileDetails:
         amount = str(TestTransactionMatchingContext.transaction_matching_amount).zfill(12)
         auth_code = random.randint(100000, 999999)
         third_party_id = base64.b64encode(uuid.uuid4().bytes).decode()[:9]
+        """Saving third_party_id to reuse it in refund file
+        for the_works master_card e2e tests"""
+        TestTransactionMatchingContext.third_party_id = third_party_id
         TestTransactionMatchingContext.transaction_id = third_party_id + "_" + pendulum.now().format("YYYYMMDD")
         file_name = "mastercard-tgx2-settlement.txt"
         return create_mastercard_settle_text_file(payment_card_token, mid, amount, auth_code, file_name, third_party_id)
@@ -529,6 +532,21 @@ class TransactionMatchingPaymentFileDetails:
                 (file_name.write(str(line)))
                 file_name.write("\n")
         return file_name
+
+    @staticmethod
+    def get_master_refund_spotting_txt_file_the_works(mid):
+        """Pass below data to create master_refund_spotting_txt_file.
+        Unlike other merchant's master refund payment file for The-works master refund file contain
+        transaction_id of the corresponding settlement file"""
+        payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
+        amount = str(-abs(TestTransactionMatchingContext.transaction_matching_amount)).zfill(12)
+        auth_code = random.randint(100000, 999999)
+        third_party_id = TestTransactionMatchingContext.third_party_id
+        TestTransactionMatchingContext.transaction_matching_amount = str(
+            -abs(TestTransactionMatchingContext.transaction_matching_amount)
+        )
+        file_name = "mastercard-tgx2-refund.txt"
+        return create_mastercard_settle_text_file(payment_card_token, mid, amount, auth_code, file_name, third_party_id)
 
     @staticmethod
     def get_amex_auth_spotting_data(mid):

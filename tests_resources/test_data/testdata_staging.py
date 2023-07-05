@@ -213,7 +213,7 @@ wasabi_invalid_data = {"card_num": "", "email": "fail@unknown.com", "invalid_las
 the_works_membership_card = {
     "card_num": "6338849749210000002622",
     "card_num_txn_matching": "6338848557497430930233",
-    "points": 300,
+    "points": 60,
     "currency": "Points",
     "description": "",
     "transactions": "5",

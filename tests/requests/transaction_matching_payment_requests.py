@@ -15,6 +15,7 @@ from tests.payload.transaction_matching.transaction_matching_payment_file import
     TransactionMatchingPaymentFileDetails,
     get_data_to_import,
 )
+import tests.payload.transaction_matching.transaction_matching_dedupe_payment_file as dedupe_payment_file
 
 
 def import_visa_matching_auth_json(mid):
@@ -52,10 +53,12 @@ def import_master_matching_auth_json(mid):
 def import_master_matching_settlement_text(mid):
     """Import Master Settlement Matching Transactions in the text file to Harmonia"""
     file_name = TransactionMatchingPaymentFileDetails.get_master_settlement_txt_file(mid)
-    upload_mastercard_settlement_file_into_blob(file_name, mid)
+    upload_mastercard_settlement_file_into_blob(file_name, mid, "harmonia-imports/test/mastercard-settlement")
 
 
-def upload_mastercard_settlement_file_into_blob(file_name, mid):
+def upload_mastercard_settlement_file_into_blob(file_name, mid, path):
+    """Pass the path inside the Harmonia import container
+     for settlement and refund files to this function"""
     """Print the file content"""
     f = open(file_name.name, "r")
     file_contents = f.read()
@@ -65,7 +68,7 @@ def upload_mastercard_settlement_file_into_blob(file_name, mid):
     merchant_container = "mastercard"
     bbs = BlobServiceClient.from_connection_string(NFS_STORAGE_DSN)
     blob_client = bbs.get_blob_client(
-        "harmonia-imports/test/mastercard-settlement", merchant_container + f"{file_name.name}"
+        path, merchant_container + f"{file_name.name}"
     )
     with open(file_name.name, "rb") as settlement_file:
         blob_client.upload_blob(settlement_file, content_settings=ContentSettings(content_type="text/plain"))
@@ -194,15 +197,23 @@ def get_master_spotting_streaming_auth_json(mid):
 
 
 def import_master_spotting_streaming_settlement_text(mid):
-    """Import Master Settlement Matching Transactions in the text file to Harmonia"""
+    """Import Master Settlement/Spotting Settlement Transactions in the text file to Harmonia"""
     file_name = TransactionMatchingPaymentFileDetails.get_master_settlement_spotting_txt_file(mid)
-    upload_mastercard_settlement_file_into_blob(file_name, mid)
+    upload_mastercard_settlement_file_into_blob(file_name, mid, "harmonia-imports/test/mastercard-settlement")
 
 
 def import_master_spotting_streaming_refund_text(mid):
-    """Import Master Settlement Matching Transactions in the text file to Harmonia"""
+    """Import Master spotting/ streaming refund  Transactions in the text file to Harmonia"""
     file_name = TransactionMatchingPaymentFileDetails.get_master_refund_spotting_txt_file(mid)
-    upload_mastercard_settlement_file_into_blob(file_name, mid)
+    upload_mastercard_settlement_file_into_blob(file_name, mid, "harmonia-imports/test/mastercard-refund")
+
+
+def import_master_spotting_refund_the_works_text(mid):
+    """Import Master spotting refund  Transactions file for merchant the-woks
+    Unlike other merchant's master refund payment file, The-works master refund file contain
+    transaction_id"""
+    file_name = TransactionMatchingPaymentFileDetails.get_master_refund_spotting_txt_file_the_works(mid)
+    upload_mastercard_settlement_file_into_blob(file_name, mid, "harmonia-imports/test/mastercard-refund")
 
 
 def import_amex_spotting_streaming_auth_json(mid):
@@ -299,28 +310,18 @@ def import_payment_file_into_harmonia(transaction_type, mid):
             return get_visa_spotting_streaming_settlement_json_e2e(mid)
         case "visa-refund-spotting-e2e":
             return get_visa_spotting_streaming_refund_json_e2e(mid)
+        case "master-refund-spotting-the-works":
+            return import_master_spotting_refund_the_works_text(mid)
 
 
 def import_payment_file_with_duplicate_txn(transaction_type, mid):
     """Create a file with a transaction spend_amount and date same as a reflector transaction"""
     TestTransactionMatchingContext.mid = mid
-    # match transaction_type:
-    #     case "visa-auth-matching":
-    #         # return import_visa_auth_matching_dedupe_json(mid)
-    #     case "visa-settle-matching":
-    #         return import_visa_settle_matching_dedupe_json(mid)
-    #     case "visa-refund-matching":
-    #         return import_visa_refund_matching_dedupe_json(mid)
-    #     case "master-settle-matching":
-    #         return import_master_settle_matching_dedupe_text_file(mid)
-    #     case "master-refund-matching":
-    #         return import_master_refund_matching_dedupe_text_file(mid)
-    #     case "amex-settle-matching":
-    #         return import_amex_settle_matching_dedupe_json(mid)
-    #     case "amex-refund-matching":
-    #         return import_amex_refund_matching_dedupe_json(mid)
-    #     case "visa-settle-spotting" | "visa-settle-streaming":
-    #         return import_visa_settle_spotting_streaming_dedupe_json(mid)
+    match transaction_type:
+        case "visa-auth-spotting":
+            return import_visa_auth_spotting_streaming_dedupe_json(mid)
+        case "visa-settle-spotting":
+            return import_visa_settle_spotting_streaming_dedupe_json(mid)
     #     case "visa-refund-spotting" | "visa-refund-streaming":
     #         return import_visa_refund_spotting_streaming_dedupe_json(mid)
     #     case "master-settle-spotting" | "master-settle-streaming":
@@ -333,13 +334,23 @@ def import_payment_file_with_duplicate_txn(transaction_type, mid):
     #         return import_amex_refund_spotting_streaming_dedupe_json(mid)
 
 
-def import_visa_settle_matching_dedupe_json(mid):
-    """Import Visa Auth Matching duplicate Transactions"""
+def import_visa_settle_spotting_streaming_dedupe_json(mid):
+    """Import Visa Auth spotting duplicate Transactions"""
     url = get_visa_url()
     header = TransactionMatchingEndpoint.request_header_visa()
-    payload = TransactionMatchingPaymentFileDetails.get_visa_auth_data(mid)
+    payload = dedupe_payment_file.import_visa_settle_matching_dedupe_json(mid)
     response = Endpoint.call(url, header, "POST", payload)
-    logging.info(json.dumps(payload, indent=4))
+    logging.info("Visa Auth Spotting-Dedupe json:" + json.dumps(payload, indent=4))
+    return response
+
+
+def import_visa_auth_spotting_streaming_dedupe_json(mid):
+    """Import Visa Auth spotting duplicate Transactions"""
+    url = get_visa_url()
+    header = TransactionMatchingEndpoint.request_header_visa()
+    payload = dedupe_payment_file.import_visa_settle_matching_dedupe_json(mid)
+    response = Endpoint.call(url, header, "POST", payload)
+    logging.info("Visa Auth Spotting-Dedupe json:" + json.dumps(payload, indent=4))
     return response
 
 
@@ -350,6 +361,8 @@ def verify_exported_transaction(transaction_type):
             return verify_matching_transactions()
         case "transaction-streaming" | "transaction-spotting":
             return verify_streaming_spotting_transactions()
+        case "transaction-spotting-refund-the-works":
+            return verify_the_works_master_spotting_refund_transactions()
 
 
 def verify_matching_transactions():
@@ -372,6 +385,23 @@ def verify_streaming_spotting_transactions():
     return matched_transaction
 
 
+def verify_the_works_master_spotting_refund_transactions():
+    """Merchant the works has transaction_id in mastercard refund file,
+    which is same as transaction_id in settlement file. So need to fetch harmonia with
+     transaction id & refund amount to get the unique record """
+    matched_count = QueryHarmonia.fetch_match_transaction_count(
+        TestTransactionMatchingContext.transaction_id,
+        TestTransactionMatchingContext.transaction_matching_amount
+    )
+    assert matched_count.count == 1, "Transaction not spotted and the status is not exported"
+    logging.info(f"No. of The woks refund Transactions got spotted and exported : '{matched_count.count}'")
+    matched_transaction = QueryHarmonia.fetch_transaction_details(
+        TestTransactionMatchingContext.transaction_id,
+        TestTransactionMatchingContext.transaction_matching_amount
+    )
+    return matched_transaction
+
+
 def verify_master_streaming_spotting_e2e_transactions():
     """Check harmonia and verify exported transactions after Transaction Streaming or Spotting"""
     matched_count = QueryHarmonia.fetch_match_transaction_count(TestTransactionMatchingContext.transaction_id)
@@ -379,3 +409,12 @@ def verify_master_streaming_spotting_e2e_transactions():
     logging.info(f"No. of Transactions got spotted and exported : '{matched_count.count}'")
     matched_transaction = QueryHarmonia.fetch_transaction_details(TestTransactionMatchingContext.transaction_id)
     return matched_transaction
+
+
+def verify_deduped_transaction():
+    """This function will return the exported transactions"""
+    matched_count = QueryHarmonia.fetch_match_transaction_count(TestTransactionMatchingContext.transaction_id)
+    assert matched_count.count == 1, "Transaction not spotted and the status is not exported"
+    logging.info(f"No. of Transactions : '{matched_count.count}'")
+    deduped_transaction = QueryHarmonia.fetch_dedupe_transaction_details(TestTransactionMatchingContext.transaction_id)
+    return deduped_transaction
