@@ -1,4 +1,3 @@
-import datetime
 import json
 import logging
 import time
@@ -9,13 +8,13 @@ from pytest_bdd import parsers, scenarios, then, when
 import tests.api as api
 import tests.helpers.constants as constants
 from tests.api.base import Endpoint
-from tests.helpers.database.query_hermes import QueryHermes
 from tests.helpers.test_context import TestContext
 from tests.helpers.test_data_utils import TestDataUtils
-from tests.helpers.test_helpers import Merchant, PaymentCardTestData, TestData
+from tests.helpers.test_helpers import PaymentCardTestData, TestData
 from tests.requests.membership_cards import MembershipCards
 from tests.requests.membership_transactions import MembershipTransactions
 from tests.requests.payment_cards import PaymentCards
+from tests.step_definitions import test_membership_cards
 
 scenarios("membership_cards_multi_wallet/")
 
@@ -71,73 +70,6 @@ def add_only_membership_card(merchant, scheme_status):
     ), ("Add Ghost Journey for " + merchant + " failed")
 
 
-#
-# @when(
-#     parsers.parse(
-#         'I perform POST request to add "{merchant}" membership card with invalid "{email_address} and "{password}"'
-#     )
-# )
-# def add_membership_card_invalid_credentials(merchant, email_address, password):
-#     response = MembershipCards.add_card(TestContext.token, merchant)
-#     response_json = response_to_json(response)
-#     TestContext.current_scheme_account_id = response_json.get("id")
-#     logging.info(
-#         "The response of Add Journey (POST) with Invalid data is:\n \n"
-#         + Endpoint.BASE_URL
-#         + api.ENDPOINT_MEMBERSHIP_CARDS
-#         + "\n\n"
-#         + json.dumps(response_json, indent=4)
-#     )
-#
-#     assert (
-#         response.status_code == 201
-#         and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
-#         and response_json["status"]["reason_codes"][0]
-#         == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_PENDING_ADD)
-#     ), ("Add Journey with invalid details for " + merchant + " failed")
-#
-#
-# @when(parsers.parse('I perform POST request to add & auto link an existing "{merchant}" membership card'))
-# def add_and_link_membership_card(merchant):
-#     response = MembershipCards.add_card_auto_link(TestContext.token, merchant)
-#     response_json = response_to_json(response)
-#     TestContext.current_scheme_account_id = response_json.get("id")
-#     TestContext.response = response
-#     logging.info(
-#         "The response of Add&Link Journey (POST) is:\n\n"
-#         + Endpoint.BASE_URL
-#         + api.ENDPOINT_AUTO_LINK_PAYMENT_AND_MEMBERSHIP_CARD
-#         + "\n\n"
-#         + json.dumps(response_json, indent=4)
-#     )
-#
-#     assert (
-#         response.status_code == 201
-#         and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
-#         and response_json["status"]["reason_codes"][0]
-#         == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_PENDING_ADD)
-#     ), ("Add Journey for " + merchant + " failed")
-
-
-# @when(parsers.parse('I perform PATCH request to update "{merchant}" membership card'))
-# def patch_request_to_update_membership_card_details(merchant):
-#     response = MembershipCards.patch_add_card(TestContext.token, TestContext.current_scheme_account_id, merchant)
-#     response_json = response_to_json(response)
-#     logging.info(
-#         "The response of Add Journey (PATCH) is:\n\n"
-#         + Endpoint.BASE_URL
-#         + api.ENDPOINT_MEMBERSHIP_CARD.format(TestContext.current_scheme_account_id)
-#         + "\n\n"
-#         + json.dumps(response_json, indent=4)
-#     )
-#     assert (
-#         response.status_code == 200
-#         and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
-#         and response_json["status"]["reason_codes"][0]
-#         == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_PENDING_ADD)
-#     ), ("Add Journey -PATCH Request for " + merchant + " failed")
-
-
 """Step definitions - Enrol Journey - Copy of existing step defination in test_membership_cards.
 It is required in multi-wallet trusted channel scenarios"""
 
@@ -177,24 +109,7 @@ It is required in multi-wallet trusted channel scenarios"""
 
 @when(parsers.parse('I perform PATCH request to create a "{merchant}" ghost membership account with enrol credentials'))
 def register_ghost_membership_account(merchant, test_email, env, channel):
-    response = MembershipCards.register_ghost_card(
-        TestContext.token, merchant, test_email, TestContext.current_scheme_account_id, env, channel
-    )
-    response_json = response_to_json(response)
-    TestContext.current_scheme_account_id = response_json.get("id")
-    logging.info(
-        "The response of Register ghost Journey (PATCH) is:\n\n"
-        + Endpoint.BASE_URL
-        + api.ENDPOINT_MEMBERSHIP_CARDS.format(TestContext.current_scheme_account_id)
-        + "\n\n"
-        + json.dumps(response_json, indent=4)
-    )
-    assert (
-        response.status_code == 200
-        and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
-        and response_json["status"]["reason_codes"][0]
-        == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_PENDING_ENROL)
-    ), ("Enrol journey for " + merchant + " failed")
+    test_membership_cards.register_ghost_membership_account(merchant, test_email, env, channel)
 
 
 """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
@@ -222,27 +137,6 @@ def register_fail(merchant, test_email, env, channel, scheme_status):
         and response_json["status"]["reason_codes"][0]
         == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_PENDING_ENROL)
     ), ("Enrol journey for " + merchant + " failed")
-
-
-# @when(parsers.parse('I perform PUT request to replace information of the enrolled "{merchant}" membership card'))
-# def put_request_to_replace_enrolled_membership_card_details(merchant, test_email):
-#     response = MembershipCards.put_enrol_customer(
-#         TestContext.token, TestContext.current_scheme_account_id, merchant, test_email
-#     )
-#     response_json = response_to_json(response)
-#     logging.info(
-#         "The response of Enrol Journey (PUT) is:\n\n"
-#         + Endpoint.BASE_URL
-#         + api.ENDPOINT_MEMBERSHIP_CARD.format(TestContext.current_scheme_account_id)
-#         + "\n\n"
-#         + json.dumps(response_json, indent=4)
-#     )
-#     assert (
-#         response.status_code == 200
-#         and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.PENDING)
-#         and response_json["status"]["reason_codes"][0]
-#         == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_PENDING_ENROL)
-#     ), ("Enrol Journey PUT Request for " + merchant + "failed")
 
 
 """Step definitions - GET Scheme Account """
@@ -326,45 +220,6 @@ def get_membership_card(user, merchant, scheme_status):
         assert response_json["payment_cards"] == [], "pll link does not match"
 
     return response
-
-
-# @when(
-#     parsers.parse(
-#         'I perform GET request to verify the enrolled "{merchant}" membership card details got '
-#         "replaced after a successful PUT"
-#     )
-# )
-# @when(parsers.parse('I perform GET request to verify the "{merchant}" membership account is created'))
-# def verify_membership_card_is_created(merchant):
-#     time.sleep(3)
-#     response = MembershipCards.get_scheme_account(TestContext.token, TestContext.current_scheme_account_id)
-#     response_json = response_to_json(response)
-#     # logging.info(f"response_json:{response_json}")
-#     TestContext.card_number = response_json["card"]["membership_id"]
-#     TestContext.existing_card = response_json["card"]["membership_id"]
-#     logging.info(
-#         "The response of GET/MembershipCard after Register Ghost Journey is:\n\n"
-#         + Endpoint.BASE_URL
-#         + api.ENDPOINT_MEMBERSHIP_CARD.format(TestContext.current_scheme_account_id)
-#         + "\n\n"
-#         + json.dumps(response_json, indent=4)
-#     )
-#     assert (
-#         response.status_code == 200
-#         and response_json["id"] == TestContext.current_scheme_account_id
-#         and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
-#         and response_json["status"]["state"] == TestData.get_membership_card_status_states().get(constants.AUTHORIZED)
-#         and response_json["status"]["reason_codes"][0]
-#         == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_AUTHORIZED)
-#         and (
-#             (response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM))
-#             or (response_json["card"]["membership_id"] == TestContext.card_number)
-#         )
-#         and response_json["card"] is not None
-#         and response_json["images"] is not None
-#         and ((response_json["account"]["tier"] == 0) or (response_json["account"]["tier"] == 1))
-#         and response_json["balances"] is not None
-#     ), ("Validations in GET/membership_cards for " + merchant + " failed")
 
 
 """This step is created as part of Trusted channel work and will be used mainly for multi-wallet scenarios."""
@@ -601,65 +456,30 @@ def membership_card_single_transaction_detail(user, loyalty_card_status, merchan
 
 @then(parsers.parse('verify the data stored in DB after "{journey_type}" journey for "{merchant}"'))
 def verify_db_details(journey_type, merchant, env):
-    if env in ("dev", "staging", "prod"):
-        """There is no DB validation in production suite"""
-        pass
-
-    else:
-        scheme_account = QueryHermes.fetch_scheme_account(journey_type, TestContext.current_scheme_account_id)
-
-        assert scheme_account.status == 1, f"Scheme Account is not Active and the status is '{scheme_account.status}'"
-        logging.info(f"The scheme account is Active with status '{scheme_account.status}'")
-
-        assert (
-            scheme_account.id == TestContext.current_scheme_account_id
-            and scheme_account.scheme_id == TestData.get_membership_plan_id(merchant)
-            and scheme_account.link_or_join_date.date() == datetime.datetime.now().date()
-        ), f"Details of scheme account '{scheme_account.id}'in DB is not as expected"
-
-        """Below function call will display all Scheme account credential answers for Add & Enrol Journeys"""
-
-        cred_ans = QueryHermes.fetch_credential_ans(merchant, TestContext.current_scheme_account_id)
-
-        if journey_type == "Add":
-            logging.info(
-                f"The Link Date for scheme_account '{scheme_account.id}' is " f"{scheme_account.link_or_join_date}'"
-            )
-
-            assert scheme_account.main_answer == Merchant.get_scheme_cred_main_ans(
-                merchant
-            ), "The Main Scheme Account answer is not saved as expected "
-
-            """Verifying the request data is getting stored in DB after Add Journey """
-            verify_scheme_account_ans(cred_ans, merchant)
-
-        elif journey_type == "Enrol":
-            logging.info(
-                f"The Join Date for scheme_account '{scheme_account.id}' is " f"{scheme_account.link_or_join_date}'"
-            )
+    test_membership_cards.verify_db_details(journey_type, merchant, env)
 
 
-def verify_scheme_account_ans(cred_ans, merchant):
-    """For HN , BK, FF, WHsmith the  main scheme_account_ans is validated against
-    'main_answer' column in scheme_schemeaccount table
-
-    HN 'Password' scheme_account_ans is not validating as it has to remain as encrypted
-
-    The remaining columns in scheme_schemeaccountcredentialanswers table are already validated
-    as a part of the API response
-
-    This function validates Iceland's  last_name & post_code and Wasabi's  email field in the request."""
-    if merchant == "Iceland":
-        assert cred_ans.last_name == TestDataUtils.TEST_DATA.iceland_membership_card.get(
-            constants.LAST_NAME
-        ) and cred_ans.postcode == TestDataUtils.TEST_DATA.iceland_membership_card.get(
-            constants.POSTCODE
-        ), "Iceland scheme_account answers are not saved as expected"
-
-    elif merchant == "Wasabi":
-        assert cred_ans.email == TestDataUtils.TEST_DATA.wasabi_membership_card.get(
-            constants.EMAIL
-        ), "Wasabi scheme_account answers are not saved as expected"
+# def verify_scheme_account_ans(cred_ans, merchant):
+#     """For HN , BK, FF, WHsmith the  main scheme_account_ans is validated against
+#     'main_answer' column in scheme_schemeaccount table
+#
+#     HN 'Password' scheme_account_ans is not validating as it has to remain as encrypted
+#
+#     The remaining columns in scheme_schemeaccountcredentialanswers table are already validated
+#     as a part of the API response
+#
+#     This function validates Iceland's  last_name & post_code and Wasabi's  email field in the request."""
+#     if merchant == "Iceland":
+#         assert cred_ans.last_name == TestDataUtils.TEST_DATA.iceland_membership_card.get(
+#             constants.LAST_NAME
+#         ) and cred_ans.postcode == TestDataUtils.TEST_DATA.iceland_membership_card.get(
+#             constants.POSTCODE
+#         ), "Iceland scheme_account answers are not saved as expected"
+#
+#     elif merchant == "Wasabi":
+#         assert cred_ans.email == TestDataUtils.TEST_DATA.wasabi_membership_card.get(
+#             constants.EMAIL
+#         ), "Wasabi scheme_account answers are not saved as expected"
 
 
 """Call payment cards functions"""
@@ -679,24 +499,6 @@ def post_add_payment_card_always_autolink(card_type, payment_card_provider):
     )
     TestContext.current_payment_card_id = response_json.get("id")
     return TestContext.current_payment_card_id
-
-
-#
-# @when(parsers.parse('I perform POST request to add "{master}" payment card to wallet with autolink false'))
-# def add_payment_cards_autolink_false(login_user, master):
-#     TestContext.token = login_user
-#     response = PaymentCards.add_payment_card(TestContext.token, master)
-#     response_json = response.json()
-#     logging.info(
-#         "The response of POST/PaymentCard is: \n\n"
-#         + Endpoint.BASE_URL
-#         + api.ENDPOINT_AUTO_LINK_FALSE
-#         + "\n\n"
-#         + json.dumps(response_json, indent=4)
-#     )
-#     TestContext.current_payment_card_id = response_json.get("id")
-#     assert response.status_code == 201 or 200, "Payment card addition is not successful"
-#     return TestContext.current_payment_card_id
 
 
 def response_to_json(response):
