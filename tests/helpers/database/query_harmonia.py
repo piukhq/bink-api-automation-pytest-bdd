@@ -33,12 +33,12 @@ class MatchedTransactionRecordDetails:
 
 class QueryHarmonia:
     @staticmethod
-    def fetch_match_transaction_count(transaction_id):
+    def fetch_match_transaction_count(transaction_id, amount=None):
         """Fetch the matched account details using matched_transaction_id and amount"""
         connection = db.connect_harmonia_db()
         matched_transaction_record = MatchedTransactionRecord(0)
         try:
-            query = get_matched_query(transaction_id)
+            query = get_matched_query(transaction_id, amount)
             logging.info(query)
             logging.info("Waiting for transaction to get exported in export_transaction table")
             for i in range(1, 60):
@@ -77,10 +77,10 @@ class QueryHarmonia:
         return matched_transaction_record
 
     @staticmethod
-    def fetch_transaction_details(transaction_id):
-        """Fetch the matched account details using matched_transaction_id and amount"""
+    def fetch_transaction_details(transaction_id, amount=None):
+        """Fetch the matched account details using transaction_id and amount"""
         connection = db.connect_harmonia_db()
-        query = get_matched_query_details(transaction_id)
+        query = get_matched_query_details(transaction_id, amount)
         logging.info(query)
         logging.info("Waiting for Transaction status to change from PENDING to EXPORTED")
         try:
@@ -176,10 +176,16 @@ def get_imported_transaction(transaction_id):
     return spotted_transaction
 
 
-def get_matched_query(transaction_id):
-    transaction_query_account = (
-        "SELECT count(*) FROM harmonia.public.export_transaction WHERE transaction_id='{}' ".format(transaction_id)
-    )
+def get_matched_query(transaction_id, amount=None):
+    if not amount:
+        transaction_query_account = (
+            "SELECT count(*) FROM harmonia.public.export_transaction WHERE transaction_id='{}' ".format(transaction_id)
+        )
+    else:
+        transaction_query_account = (
+            "SELECT count(*) FROM harmonia.public.export_transaction WHERE transaction_id='{}'"
+            "and spend_amount = '{}' ".format(transaction_id, amount)
+        )
     return transaction_query_account
 
 
@@ -193,12 +199,24 @@ def get_matched_query_negative_cases(transaction_id, amount):
     return transaction_query_account
 
 
-def get_matched_query_details(transaction_id):
-    transaction_details_record = (
-        "SELECT provider_slug,transaction_date,spend_amount,loyalty_id,mid,scheme_account_id,status,location_id,"
-        "merchant_internal_id,"
-        "payment_card_account_id,auth_code, approval_code, last_four, payment_provider_slug, primary_identifier,"
-        "export_uid,feed_type"
-        " FROM harmonia.public.export_transaction WHERE transaction_id='{}'".format(transaction_id)
-    )
+def get_matched_query_details(transaction_id, amount=None):
+    """Certain cases where Transaction_id is same for Settlement & Refund files ( like the _works Master)
+    transaction id and amount is needed to get the unique transaction """
+    if not amount:
+        transaction_details_record = (
+            "SELECT provider_slug,transaction_date,spend_amount,loyalty_id,mid,scheme_account_id,status,location_id,"
+            "merchant_internal_id,"
+            "payment_card_account_id,auth_code, approval_code, last_four, payment_provider_slug, primary_identifier,"
+            "export_uid,feed_type"
+            " FROM harmonia.public.export_transaction WHERE transaction_id='{}'".format(transaction_id)
+        )
+    else:
+        transaction_details_record = (
+            "SELECT provider_slug,transaction_date,spend_amount,loyalty_id,mid,scheme_account_id,status,location_id,"
+            "merchant_internal_id,"
+            "payment_card_account_id,auth_code, approval_code, last_four, payment_provider_slug, primary_identifier,"
+            "export_uid,feed_type"
+            " FROM harmonia.public.export_transaction WHERE transaction_id='{}' and spend_amount='{}'".
+            format(transaction_id, amount)
+        )
     return transaction_details_record
