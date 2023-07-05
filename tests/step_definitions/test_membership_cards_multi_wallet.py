@@ -459,29 +459,6 @@ def verify_db_details(journey_type, merchant, env):
     test_membership_cards.verify_db_details(journey_type, merchant, env)
 
 
-# def verify_scheme_account_ans(cred_ans, merchant):
-#     """For HN , BK, FF, WHsmith the  main scheme_account_ans is validated against
-#     'main_answer' column in scheme_schemeaccount table
-#
-#     HN 'Password' scheme_account_ans is not validating as it has to remain as encrypted
-#
-#     The remaining columns in scheme_schemeaccountcredentialanswers table are already validated
-#     as a part of the API response
-#
-#     This function validates Iceland's  last_name & post_code and Wasabi's  email field in the request."""
-#     if merchant == "Iceland":
-#         assert cred_ans.last_name == TestDataUtils.TEST_DATA.iceland_membership_card.get(
-#             constants.LAST_NAME
-#         ) and cred_ans.postcode == TestDataUtils.TEST_DATA.iceland_membership_card.get(
-#             constants.POSTCODE
-#         ), "Iceland scheme_account answers are not saved as expected"
-#
-#     elif merchant == "Wasabi":
-#         assert cred_ans.email == TestDataUtils.TEST_DATA.wasabi_membership_card.get(
-#             constants.EMAIL
-#         ), "Wasabi scheme_account answers are not saved as expected"
-
-
 """Call payment cards functions"""
 
 
