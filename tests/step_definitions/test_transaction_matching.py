@@ -213,3 +213,5 @@ def get_transaction_matching_add_and_link(merchant):
 def import_merchant_file(merchant_container, payment_card_provider, mid, card_identity):
     if merchant_container == "scheme/iceland/":
         upload_retailer_file_into_blob(merchant_container, payment_card_provider, mid, card_identity)
+    elif merchant_container == "scheme/itsu/":
+        upload_retailer_file_into_blob(merchant_container, payment_card_provider, mid, card_identity)

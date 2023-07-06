@@ -40,3 +40,18 @@ class TestTransactionMatchingContext:
         "TransactionId",
         "TransactionAuthCode",
     ]
+
+    itsu_file_header = [
+        "transaction_id",
+        "payment_card_type",
+        "payment_card_first_six",
+        "payment_card_last_four",
+        "amount",
+        "currency_code",
+        "auth_code",
+        "date",
+        "merchant_identifier",
+        "retailer_location_id",
+        "transaction_data",
+        "customer_id",
+    ]
