@@ -38,6 +38,7 @@ deepdiff = "*"
 shared-config-storage = "*"
 pendulum = {version="*", index="pypi"}
 pytz = "*"
+black = "*"
 
 [requires]
 python_version = "3.10"
