@@ -20,8 +20,7 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
     |          visa        |  020150514    |visa-settlement-spotting    |
     |          visa        |  020150514    |visa-refund-spotting        |
     |          master      |  020150514    |master-auth-spotting        |
-    |          master      |  020150514    |master-settlement-spotting  |
-#    |          master      |  020150514    |master-refund-spotting      |
+#    |          master      |  020150514    |master-settlement-spotting  |
     |          amex        |  9602929481   |amex-settlement-spotting     |
     |          amex        |  9602929481   |amex-refund-spotting        |
 
@@ -69,6 +68,18 @@ Feature: Merchant VIATOR - Ensure a customer can use Bink's Transaction Matching
 
 
 
+    @sanity @sanity_bmb
+    Scenario: Verify transaction Viator MasterCard Transaction Spotting E2E(Settle, Refund)
+
+    Given I am a Bink user
+    When I perform POST request to add "master" payment card to wallet
+    And I perform the GET request to verify the payment card has been added successfully to the wallet
+    When I perform POST request to add & auto link "Viator" membership card
+    Then I perform GET request to verify the "Viator" membershipcard is added & linked successfully in the wallet
+    When I send Payment Transaction File with master-settlement-spotting and MID as 020150514
+    Then I verify the reward transaction is exported using transaction-spotting
+    When I send Payment Transaction File with master-refund-spotting and MID as 020150514
+    Then I verify the reward transaction is exported using transaction-spotting-refund
 
 
     Scenario Outline: Verify transaction spotting for VIATOR negative scenario(invalid payment card token)

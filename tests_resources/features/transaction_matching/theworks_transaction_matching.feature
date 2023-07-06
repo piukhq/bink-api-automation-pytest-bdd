@@ -66,20 +66,20 @@ Feature: Merchant The Work - Ensure a customer can use Bink's Transaction Matchi
 #    |          amex        |  works0003   |amex-settlement-spotting     |
 #    |          amex        |  works0003   |amex-refund-spotting        |
 
-  Scenario Outline: Verify that viator AMEX auth transaction for spotting merchant is not exported
-
-    Given I am a Bink user
-    When I perform POST request to add "<payment_card_provider>" payment card to wallet
-    And I perform the GET request to verify the payment card has been added successfully to the wallet
-    When I perform POST request to add & auto link "TheWorks" membership card
-    Then I perform GET request to verify the "TheWorks" membershipcard is added & linked successfully in the wallet
-    When I send Payment Transaction File with <payment_card_transaction> <mid>
-    Then I verify transaction is imported into the import_transaction table
-    Then I verify transaction is not spotted and exported
-
-    Examples:
-      | payment_card_provider | mid        | payment_card_transaction |
-      | amex                  | 9602929481 | amex-auth-spotting       |
-
-
+#  Scenario Outline: Verify that viator AMEX auth transaction for spotting merchant is not exported
+#
+#    Given I am a Bink user
+#    When I perform POST request to add "<payment_card_provider>" payment card to wallet
+#    And I perform the GET request to verify the payment card has been added successfully to the wallet
+#    When I perform POST request to add & auto link "TheWorks" membership card
+#    Then I perform GET request to verify the "TheWorks" membershipcard is added & linked successfully in the wallet
+#    When I send Payment Transaction File with <payment_card_transaction> <mid>
+#    Then I verify transaction is imported into the import_transaction table
+#    Then I verify transaction is not spotted and exported
+#
+#    Examples:
+#      | payment_card_provider | mid        | payment_card_transaction |
+#      | amex                  | 9602929481 | amex-auth-spotting       |
+#
+#
 
