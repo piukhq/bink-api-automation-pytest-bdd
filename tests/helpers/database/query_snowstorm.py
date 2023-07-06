@@ -60,4 +60,3 @@ def get_pll_status_change_event(journey_type, event_slug, email):
     AND json ->> 'slug' = '{event_slug}' ORDER BY event_date_time DESC"""
     logging.info(query_event_record)
     return query_event_record
-
