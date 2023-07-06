@@ -207,11 +207,7 @@ wasabi_membership_card = {
 #     "transaction_currency": "stamps",
 # }
 
-wasabi_invalid_data = {
-    "card_num": "",
-    "email": "fail@unknown.com",
-    "invalid_lastname": ""
-}
+wasabi_invalid_data = {"card_num": "", "email": "fail@unknown.com", "invalid_lastname": ""}
 
 
 the_works_membership_card = {
@@ -231,9 +227,7 @@ the_works_invalid_data = {
     "unknown_card_number": "633884564738291000022",
     "email_exists": "emailexists",
     "join_failed": "opnotpermitted",
-    "join_http_failed": "failhttperror"
-
-
+    "join_http_failed": "failhttperror",
 }
 
 
@@ -299,7 +293,8 @@ event_info = {
     "channel_bink": "com.bink.wallet",
     "channel_barclays": "com.barclays.bmb",
     "status": 1,
-    "slug": "email_marketing",
+    "TheWorks_slug": "email_marketing",
+    "iceland_slug": "marketing_opt_in",
     "consents_response": True,
 }
 
@@ -317,4 +312,7 @@ event_type = {
     "lc_add_auth_success": "lc.addandauth.success",
     "lc_add_auth_failed": "lc.addandauth.failed",
     "CHANNEL_BINK": "com.bink.wallet",
+    "lc_register_request": "lc.register.request",
+    "lc_register_failed": "lc.register.failed",
+    "lc_register_success": "lc.register.success",
 }
