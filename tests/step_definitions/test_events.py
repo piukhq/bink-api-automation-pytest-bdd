@@ -3,9 +3,8 @@ import time
 
 from pytest_bdd import parsers, scenarios, then, when
 
-from tests.conftest import test_email, env, channel
+from tests.conftest import channel, env, test_email
 from tests.helpers import constants
-
 from tests.helpers.database.query_snowstorm import QuerySnowstorm
 from tests.helpers.test_context import TestContext
 from tests.helpers.test_data_utils import TestDataUtils
@@ -41,9 +40,11 @@ def verify_scheme_into_event_database(journey_type, user):
     time.sleep(5)
     logging.info(TestDataUtils.TEST_DATA.event_type.get(journey_type))
 
-    event_record = QuerySnowstorm.fetch_event(TestDataUtils.TEST_DATA.event_type.get(journey_type),
-                                              email=TestContext.user_email,
-                                              scheme_id=TestContext.current_scheme_account_id)
+    event_record = QuerySnowstorm.fetch_event(
+        TestDataUtils.TEST_DATA.event_type.get(journey_type),
+        email=TestContext.user_email,
+        scheme_id=TestContext.current_scheme_account_id,
+    )
 
     logging.info(str(event_record))
     if user == "bink_user":
@@ -60,9 +61,10 @@ def verify_scheme_into_event_database(journey_type, user):
     assert event_record.json["email"] == TestContext.user_email, "user email didnt match"
     assert event_record.json["scheme_account_id"] == TestContext.current_scheme_account_id, "scheme id didnt match"
 
-    if journey_type == "lc_join_success":
-        assert event_record.json["consents"][0]["slug"] == TestDataUtils.TEST_DATA.event_info.get(
-            constants.SLUG
+    if journey_type in ["lc_join_success", "lc_register_success"]:
+        assert (
+            event_record.json["consents"][0]["slug"] == TestDataUtils.TEST_DATA.event_info["TheWorks_slug"]
+            or TestDataUtils.TEST_DATA.event_info["iceland_slug"]
         ), "consent slug didn't match"
         assert event_record.json["consents"][0]["response"] == TestDataUtils.TEST_DATA.event_info.get(
             constants.RESPONSE
@@ -107,14 +109,21 @@ def post_request_to_add_invalid_membershipcard(merchant, invalid_data):
     test_membership_cards_multi_wallet.add_auth_membership_card(merchant, invalid_data)
 
 
-@when(parsers.parse('For {user} I perform GET request to verify the "{merchant}" '
-                    'membershipcard is added to the wallet with invalid data'))
+@when(
+    parsers.parse(
+        'For {user} I perform GET request to verify the "{merchant}" '
+        "membershipcard is added to the wallet with invalid data"
+    )
+)
 def get_request_add_auth_invalid_data(user, merchant):
     test_membership_cards_multi_wallet.invalid_membership_card_is_added_to_wallet(user, merchant)
 
 
-@when(parsers.parse('I perform POST request to create a "{merchant}" '
-                    'membership card with "{invalid}" enrol credentials'))
+@when(
+    parsers.parse(
+        'I perform POST request to create a "{merchant}" membership card with "{invalid}" enrol credentials'
+    )
+)
 def perform_join_with_invalid_credential(merchant, invalid):
     test_membership_cards.enrol_membership_account_invalid_credentials(merchant, test_email, env, channel, invalid)
 
@@ -124,11 +133,52 @@ def get_join_with_invalid_credential(merchant):
     test_membership_cards.verify_invalid_membership_card_is_created(merchant)
 
 
-@when(parsers.parse('I perform POST request to join "{merchant}" '
-                    'membershipcard with "{enrol_status}" enrol credentials'))
+@when(
+    parsers.parse(
+        'I perform POST request to join "{merchant}" membershipcard with "{enrol_status}" enrol credentials'
+    )
+)
 def post_request_for_failed_register(merchant, enrol_status):
     test_membership_cards_multi_wallet.enrol_membership_card_account(
         enrol_status=enrol_status,
         merchant=merchant,
         test_email="pytest_multiple_wallet@bink.com",
-        env="staging", channel="barclays")
+        env="staging",
+        channel="barclays",
+    )
+
+
+@when(parsers.parse('I perform POST request to add "{merchant}" membership card for "{scheme_status}"'))
+def add_only_membership_card(merchant, scheme_status):
+    test_membership_cards_multi_wallet.add_only_membership_card(merchant, scheme_status)
+
+
+@when(parsers.parse('I perform PATCH request to create "{merchant}" "{scheme_status}"'))
+def register_fail(merchant, test_email, env, channel, scheme_status):
+    test_membership_cards_multi_wallet.register_fail(merchant, test_email, env, channel, scheme_status)
+
+
+@when(
+    parsers.parse(
+        "For {user} I perform GET request to verify the {merchant} "
+        "membership card is added to the wallet with "
+        "invalid data"
+    )
+)
+def invalid_membership_card_is_added_to_wallet(user, merchant):
+    test_membership_cards_multi_wallet.invalid_membership_card_is_added_to_wallet(user, merchant)
+
+
+@when(parsers.parse('I perform PATCH request to create a "{merchant}" ghost membership account with enrol credentials'))
+def register_ghost_membership_account(merchant, test_email, env, channel):
+    test_membership_cards.register_ghost_membership_account(merchant, test_email, env, channel)
+
+
+@when(
+    parsers.parse(
+        "For {user} I perform GET request to verify the {merchant} membership card is added to the wallet"
+        " after {scheme_status}"
+    )
+)
+def get_membership_card(user, merchant, scheme_status):
+    test_membership_cards_multi_wallet.get_membership_card(user, merchant, scheme_status)
