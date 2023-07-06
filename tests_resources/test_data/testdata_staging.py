@@ -292,6 +292,8 @@ event_info = {
     "origin": "channel",
     "channel_bink": "com.bink.wallet",
     "channel_barclays": "com.barclays.bmb",
+    "client_id_barclays": "lwhkGNn5FAXPCCcbIFrgZWk0i7Qolg5WBMFM4UYjZAbaOXQyq6",
+    "client_id_bink": "MKd3FfDGBi1CIUQwtahmPap64lneCa2R6GvVWKg6dNg4w9Jnpd",
     "status": 1,
     "TheWorks_slug": "email_marketing",
     "iceland_slug": "marketing_opt_in",
@@ -315,4 +317,5 @@ event_type = {
     "lc_register_request": "lc.register.request",
     "lc_register_failed": "lc.register.failed",
     "lc_register_success": "lc.register.success",
+    "pll_link_statuschange": "pll_link.statuschange",
 }

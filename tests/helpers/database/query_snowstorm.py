@@ -16,10 +16,13 @@ class EventRecord:
 
 class QuerySnowstorm:
     @staticmethod
-    def fetch_event(journey_type, email, scheme_id=None):
-        """Fetch the event using scheme account id"""
+    def fetch_event(journey_type, email, event_slug=None, scheme_id=None):
+        """Fetch the event using scheme account id or event_slug """
         connection = db.connect_snowstorm_db()
-        if scheme_id:
+        if event_slug or event_slug == '':
+            record = db.execute_query_fetch_one(connection,
+                                                get_pll_status_change_event(journey_type, event_slug, email))
+        elif scheme_id:
             record = db.execute_query_fetch_one(connection,
                                                 get_user_with_scheme_created_event(journey_type, email, scheme_id))
         else:
@@ -49,3 +52,12 @@ def get_user_with_scheme_created_event(journey_type, email, scheme_id):
     AND json ->> 'scheme_account_id' = '{scheme_id}' ORDER BY event_date_time DESC"""
     logging.info(f"scheme id is: {scheme_id}")
     return query_event_record
+
+
+def get_pll_status_change_event(journey_type, event_slug, email):
+    query_event_record = f"""SELECT id, event_date_time, event_type, json FROM snowstorm.public.events \
+    WHERE event_type = '{journey_type}' AND json ->> 'email' = '{email}' \
+    AND json ->> 'slug' = '{event_slug}' ORDER BY event_date_time DESC"""
+    logging.info(query_event_record)
+    return query_event_record
+
