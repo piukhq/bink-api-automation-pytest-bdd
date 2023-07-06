@@ -121,7 +121,7 @@ def get_request_add_auth_invalid_data(user, merchant):
 
 @when(
     parsers.parse(
-        'I perform POST request to create a "{merchant}" ' 'membership card with "{invalid}" enrol credentials'
+        'I perform POST request to create a "{merchant}" membership card with "{invalid}" enrol credentials'
     )
 )
 def perform_join_with_invalid_credential(merchant, invalid):
@@ -135,7 +135,7 @@ def get_join_with_invalid_credential(merchant):
 
 @when(
     parsers.parse(
-        'I perform POST request to join "{merchant}" ' 'membershipcard with "{enrol_status}" enrol credentials'
+        'I perform POST request to join "{merchant}" membershipcard with "{enrol_status}" enrol credentials'
     )
 )
 def post_request_for_failed_register(merchant, enrol_status):
