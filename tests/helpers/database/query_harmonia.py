@@ -40,25 +40,6 @@ class QueryHarmonia:
         logging.info("Waiting for transaction to get exported in export_transaction table")
         return return_transaction_count(query)
 
-        # connection = db.connect_harmonia_db()
-        # matched_transaction_record = MatchedTransactionRecord(0)
-        # try:
-        #     query = get_matched_query(transaction_id, amount)
-        #     logging.info(query)
-        #     logging.info("Waiting for transaction to get exported in export_transaction table")
-        #     for i in range(1, 60):
-        #         record = db.execute_query_fetch_one(connection, query)
-        #         if record[0] == 0:
-        #             time.sleep(1)
-        #             continue
-        #         else:
-        #             matched_transaction_record = MatchedTransactionRecord(record[0])
-        #             break
-        # except Exception:
-        #     raise Exception(f"Transaction with '{transaction_id}' is not exported")
-        # db.clear_db(connection)
-        # return matched_transaction_record
-
     @staticmethod
     def fetch_match_refund_transaction_count(amount, mid, date):
         """Fetch the matched account details using matched_transaction_id and amount"""
@@ -66,25 +47,6 @@ class QueryHarmonia:
         logging.info(query)
         logging.info("Waiting for transaction to get exported in export_transaction table")
         return return_transaction_count(query)
-        # connection = db.connect_harmonia_db()
-        # matched_transaction_record = MatchedTransactionRecord(0)
-        # try:
-        #     query = get_matched_query_refund(amount, mid, date)
-        #     logging.info(query)
-        #     logging.info("Waiting for transaction to get exported in export_transaction table")
-        #     for i in range(1, 60):
-        #         record = db.execute_query_fetch_one(connection, query)
-        #         if record[0] == 0:
-        #             time.sleep(1)
-        #             continue
-        #         else:
-        #             matched_transaction_record = MatchedTransactionRecord(record[0])
-        #             break
-        # except Exception:
-        #     raise Exception(f"The refund Transaction is not exported")
-        # db.clear_db(connection)
-        # return matched_transaction_record
-        #
 
     @staticmethod
     def fetch_match_transaction_count_invalid_mid(transaction_id, amount):
@@ -93,24 +55,6 @@ class QueryHarmonia:
         logging.info(query)
         logging.info("Waiting for transaction to get exported in export_transaction table")
         return return_transaction_count(query)
-        # connection = db.connect_harmonia_db()
-        # matched_transaction_record = MatchedTransactionRecord(0)
-        # try:
-        #     query = get_matched_query_negative_cases(transaction_id, amount)
-        #     logging.info(query)
-        #     logging.info("Waiting for transaction to get exported in export_transaction table")
-        #     for i in range(1, 60):
-        #         record = db.execute_query_fetch_one(connection, query)
-        #         if record[0] == 0:
-        #             time.sleep(1)
-        #             continue
-        #         else:
-        #             matched_transaction_record = MatchedTransactionRecord(record[0])
-        #             break
-        # except Exception:
-        #     raise Exception(f"Transaction with '{transaction_id}' is not exported")
-        # db.clear_db(connection)
-        # return matched_transaction_record
 
     @staticmethod
     def fetch_transaction_details(transaction_id, amount=None):
