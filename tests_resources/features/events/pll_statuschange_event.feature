@@ -1,5 +1,5 @@
 # Created by bularaghavan on 04/07/2024
-@pll_link_status_change_event @events @sanity @new
+@pll_link_status_change_event @events @new
 Feature: Verify event for pll status change
   As a Data Analyst, I want to see an Event logged whenever the state of the PLL link between a Payment Card and Loyalty Card changes,
   so that this Business Event can be written to ClickHouse for validation.
@@ -19,7 +19,7 @@ Feature: Verify event for pll status change
     When I perform POST request to add "master" payment card to wallet
     And I perform POST request to create a "Iceland" membership account with enrol credentials
     And I perform GET request to verify the "Iceland" membershipcard account is created
-    And I perform PATCH request to link membership card to payment card
+    And I perform PATCH request to link payment card to membership card
     Then I verify pll_link_statuschange pll event is created for barclays_user for status null to 1 and slug null
 
     @pll_link_status_register_success_event
