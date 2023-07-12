@@ -483,22 +483,25 @@ class TransactionMatchingPaymentFileDetails:
 
     @staticmethod
     def get_master_refund_spotting_txt_file(mid):
-        """Pass below data to create master_refund_spotting_txt_file"""
+        """Master card refund file do not have Third_party,
+        so can not reuse general function to create mastercard text files"""
 
         TestTransactionMatchingContext.created_at = now = pendulum.now()
         mid = mid
         TestTransactionMatchingContext.transaction_matching_id = uuid.uuid4()
         TestTransactionMatchingContext.auth_code = random.randint(100000, 999999)
-        TestTransactionMatchingContext.spend_amount = -(random.choice(range(1, 10)))
         payment_card_token = PaymentCardTestData.get_data("master").get(constants.TOKEN)
-        amount = str(-abs(TestTransactionMatchingContext.spend_amount)).zfill(12)
+        amount = str(-abs(TestTransactionMatchingContext.transaction_matching_amount)).zfill(12)
+        TestTransactionMatchingContext.transaction_matching_amount = str(
+            -abs(TestTransactionMatchingContext.transaction_matching_amount)
+        )
         lines = [
             join(
                 ("H", 1),
                 (now.format("YYYYMMDD"), 8),
                 (now.format("hhmmss"), 6),
                 (" ", 6),
-                ("mastercard-tgx2-settlement.txt", 9),
+                ("mastercard-tgx2-refund.txt", 9),
                 ("", 835),
             ),
             join(
@@ -507,6 +510,10 @@ class TransactionMatchingPaymentFileDetails:
                 (payment_card_token, 30),
                 ("", 51),
                 (pendulum.instance(datetime.now()).in_tz("Europe/London").format("YYYYMMDD"), 8),
+                # above format is one hr ahead of current time
+                # when tests run between 11pm and 12am next day's date is passing in the file
+                # to avoid this below time zone format can be used
+                # (pendulum.instance(datetime.now()).in_tz("GMT").format("YYYYMMDD"), 8),
                 ("", 341),
                 (mid, 15),
                 ("", 52),
@@ -526,7 +533,7 @@ class TransactionMatchingPaymentFileDetails:
                 ("", 835),
             ),
         ]
-        file_name = str("-tgx2-settlement" + str(TestTransactionMatchingContext.spend_amount) + ".txt")
+        file_name = str("-tgx2-refund" + str(TestTransactionMatchingContext.spend_amount) + ".txt")
         with open(file_name, "a+") as file_name:
             for line in lines:
                 (file_name.write(str(line)))

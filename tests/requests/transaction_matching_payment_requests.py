@@ -2,7 +2,10 @@ import json
 import logging
 import os
 import time
+from datetime import datetime
 
+
+import pytz
 from azure.storage.blob import ContentSettings
 from azure.storage.blob import BlobServiceClient
 import tests.api as api
@@ -363,6 +366,8 @@ def verify_exported_transaction(transaction_type):
             return verify_streaming_spotting_transactions()
         case "transaction-spotting-refund-the-works":
             return verify_the_works_master_spotting_refund_transactions()
+        case "transaction-spotting-refund" | "transaction-streaming-refund":
+            return verify_streaming_spotting_refund_transactions()
 
 
 def verify_matching_transactions():
@@ -382,6 +387,29 @@ def verify_streaming_spotting_transactions():
     assert matched_count.count == 1, "Transaction not spotted and the status is not exported"
     logging.info(f"No. of Transactions got spotted and exported : '{matched_count.count}'")
     matched_transaction = QueryHarmonia.fetch_transaction_details(TestTransactionMatchingContext.transaction_id)
+    return matched_transaction
+
+
+def verify_streaming_spotting_refund_transactions():
+    """Check harmonia and verify exported refund transactions after Transaction Streaming or Spotting.
+    Query harmonia using created date, amount and mid as transaction_id will be dynamically generated
+    for refund transactions"""
+    t = str(TestTransactionMatchingContext.created_at)
+    form = '%Y-%m-%dT%H:%M:%S.%f%z'
+    utc_time = datetime.strptime(t, form)
+    created_at = utc_time.astimezone(pytz.UTC)
+    matched_count = QueryHarmonia.fetch_match_refund_transaction_count(
+            TestTransactionMatchingContext.transaction_matching_amount,
+            TestTransactionMatchingContext.mid,
+            created_at
+    )
+    assert matched_count.count == 1, "Transaction not spotted and the status is not exported"
+    logging.info(f"No. of Refund Transactions got spotted and exported : '{matched_count.count}'")
+    matched_transaction = QueryHarmonia.fetch_refund_transaction_details(
+        TestTransactionMatchingContext.transaction_matching_amount,
+        TestTransactionMatchingContext.mid,
+        created_at
+    )
     return matched_transaction
 
 
