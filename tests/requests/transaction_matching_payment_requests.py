@@ -9,7 +9,7 @@ import pytz
 from azure.storage.blob import ContentSettings
 from azure.storage.blob import BlobServiceClient
 import tests.api as api
-from settings import NFS_STORAGE_DSN
+from settings import BLOB_STORAGE_DSN
 from tests.api.transactionmatching_base import TransactionMatchingEndpoint
 from tests.helpers.database.query_harmonia import QueryHarmonia
 from tests.helpers.test_transaction_matching_context import TestTransactionMatchingContext
@@ -69,7 +69,7 @@ def upload_mastercard_settlement_file_into_blob(file_name, mid, path):
 
     """Upload master card settlement file (.csv) into blob storage"""
     merchant_container = "mastercard"
-    bbs = BlobServiceClient.from_connection_string(NFS_STORAGE_DSN)
+    bbs = BlobServiceClient.from_connection_string(BLOB_STORAGE_DSN)
     blob_client = bbs.get_blob_client(
         path, merchant_container + f"{file_name.name}"
     )
