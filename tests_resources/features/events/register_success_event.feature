@@ -28,7 +28,7 @@ Feature: Verify event for register fail for loyalty card
     Given I register with bink service in barclays
     When I perform POST request to add "Iceland" membership card for "successful_register"
     And I perform PATCH request to create a "Iceland" ghost membership account with enrol credentials
-    And For bink I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
+    And For barclays I perform GET request to verify the Iceland membership card is added to the wallet after successful_register
     Then I verify lc_register_request loyalty scheme event is created for barclays_user
     And I verify lc_status_change loyalty scheme event is created for barclays_user
     And I verify lc_register_success loyalty scheme event is created for barclays_user

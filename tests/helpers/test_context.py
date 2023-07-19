@@ -16,6 +16,7 @@ class TestContext:
     name_on_payment_card = ""
     finger_print = ""
     payment_account_timestamp = ""
+    event_slug = ""
     """Below variables are used to ensure complete execution
      and deletion of membership& payment cards after ubiquity scenarios"""
 
