@@ -322,9 +322,9 @@ def import_payment_file_with_duplicate_txn(transaction_type, mid):
     TestTransactionMatchingContext.mid = mid
     match transaction_type:
         case "visa-auth-spotting":
-            return import_visa_auth_spotting_streaming_dedupe_json(mid)
+            return import_visa_auth_spotting_dedupe_json(mid)
         case "visa-settle-spotting":
-            return import_visa_settle_spotting_streaming_dedupe_json(mid)
+            return import_visa_settle_spotting_dedupe_json(mid)
     #     case "visa-refund-spotting" | "visa-refund-streaming":
     #         return import_visa_refund_spotting_streaming_dedupe_json(mid)
     #     case "master-settle-spotting" | "master-settle-streaming":
@@ -337,23 +337,23 @@ def import_payment_file_with_duplicate_txn(transaction_type, mid):
     #         return import_amex_refund_spotting_streaming_dedupe_json(mid)
 
 
-def import_visa_settle_spotting_streaming_dedupe_json(mid):
+def import_visa_auth_spotting_dedupe_json(mid):
     """Import Visa Auth spotting duplicate Transactions"""
     url = get_visa_url()
     header = TransactionMatchingEndpoint.request_header_visa()
-    payload = dedupe_payment_file.import_visa_settle_matching_dedupe_json(mid)
+    payload = dedupe_payment_file.import_visa_auth_spotting_dedupe_json(mid)
     response = Endpoint.call(url, header, "POST", payload)
     logging.info("Visa Auth Spotting-Dedupe json:" + json.dumps(payload, indent=4))
     return response
 
 
-def import_visa_auth_spotting_streaming_dedupe_json(mid):
-    """Import Visa Auth spotting duplicate Transactions"""
+def import_visa_settle_spotting_dedupe_json(mid):
+    """Import Visa Settlement spotting duplicate Transactions"""
     url = get_visa_url()
     header = TransactionMatchingEndpoint.request_header_visa()
-    payload = dedupe_payment_file.import_visa_settle_matching_dedupe_json(mid)
+    payload = dedupe_payment_file.import_visa_settle_spotting_dedupe_json(mid)
     response = Endpoint.call(url, header, "POST", payload)
-    logging.info("Visa Auth Spotting-Dedupe json:" + json.dumps(payload, indent=4))
+    logging.info("Visa Settlement Spotting-Dedupe json:" + json.dumps(payload, indent=4))
     return response
 
 
