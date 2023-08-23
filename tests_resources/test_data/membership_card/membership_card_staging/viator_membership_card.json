@@ -84,21 +84,21 @@
             "id": 1409,
             "type": 0,
             "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Loyalty_Card_V2_1312x800.png",
-            "description": "Viator Hero",
+            "description": "Viator Loyalty Card",
             "encoding": "png"
         },
         {
             "id": 1411,
             "type": 3,
             "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Logo1-280x280.png",
-            "description": "Viator icon",
+            "description": "Viator Logo",
             "encoding": "png"
         },
         {
             "id": 1410,
             "type": 9,
             "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/Alternative_Card2_1312x800.png",
-            "description": "Viator Alternative Hero",
+            "description": "Viator Alternative Card",
             "encoding": "png"
         }
     ],

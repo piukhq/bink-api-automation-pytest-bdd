@@ -45,7 +45,7 @@ Feature: Merchant Trenette - Ensure a customer can add their membership card & v
     Then verify the data stored in DB after "Add" journey for "Trenette"
     Then I perform DELETE request to delete the "Trenette" membership card
 
-  @images @sanity
+  @images
   Scenario: Add Journey_Trenette and verify images
 
     Given I am a customer who is subscribing to Bink or I am Bink app user

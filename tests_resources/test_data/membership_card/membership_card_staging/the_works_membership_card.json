@@ -86,14 +86,14 @@
                 "id": 1415,
                 "type": 0,
                 "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/The_Works_Hero_jel2vZz.png",
-                "description": "The Works Hero",
+                "description": "The Works Loyalty Card",
                 "encoding": "png"
             },
             {
                 "id": 1414,
                 "type": 3,
                 "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/The_Works_Icon.png",
-                "description": "The Works Icon",
+                "description": "The Works Logo",
                 "encoding": "png"
             }
         ],
