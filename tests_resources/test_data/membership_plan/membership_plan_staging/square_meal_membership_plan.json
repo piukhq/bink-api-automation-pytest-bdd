@@ -1,189 +1,189 @@
 {
-	"id": 286,
-	"status": "active",
-	"feature_set": {
-		"authorisation_required": true,
-		"transactions_available": true,
-		"digital_only": true,
-		"has_points": true,
-		"card_type": 2,
-		"linking_support": [
-			"ENROL",
-			"ADD"
-		],
-		"apps": [
-			{
-				"app_type": 0
-			},
-			{
-				"app_type": 1
-			}
-		],
-		"has_vouchers": false
-	},
-	"card": {
-		"barcode_type": 0,
-		"colour": "#465560",
-		"scan_message": "Scanning not required"
-	},
-	"images": [
-		{
-			"id": 1328,
-			"type": 3,
-			"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/SquareMeal_Icon.png",
-			"description": "SquareMeal Icon",
-			"encoding": "png"
-		},
-		{
-			"id": 1329,
-			"type": 9,
-			"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/SquareMeal_Alternative_Hero.png",
-			"description": "SquareMeal Alternative Hero",
-			"encoding": "png"
-		},
-		{
-			"id": 1330,
-			"type": 0,
-			"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/SquareMeal_Hero.png",
-			"description": "SquareMeal Hero",
-			"encoding": "png"
-		},
-		{
-			"id": 1332,
-			"type": 8,
-			"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/SquareMeal_Silver_Tier_2.png",
-			"description": "SquareMeal Silver Tier 2",
-			"encoding": "png"
-		},
-		{
-			"id": 1331,
-			"type": 8,
-			"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/SquareMeal_Bronze_Tier_1.png",
-			"description": "SquareMeal Bronze Tier 1",
-			"encoding": "png"
-		},
-		{
-			"id": 1333,
-			"type": 8,
-			"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/SquareMeal_Gold_Tier_3.png",
-			"description": "SquareMeal Gold Tier 3",
-			"encoding": "png"
-		}
-	],
-	"account": {
-		"plan_name": "SquareMeal Restaurant Rewards",
-		"plan_name_card": "Account",
-		"plan_url": "https://www.squaremeal.co.uk/rewards/",
-		"plan_summary": "With SquareMeal, you're rewarded for eating out. Go to our website, book selected restaurants, and you'll collect points every time you spend £20 or more. You can easily redeem points on our website for restaurant vouchers & luxury gifts.",
-		"plan_description": "Join SquareMeal Rewards today to make your next dinner even more rewarding. As a member, you'll earn points for booking tables, leaving restaurant reviews, and each time you spend £20 or more in one of our selected restaurants with your linked payment cards. 100 points = £1 spend on your choice of restaurant vouchers, luxury gifts, or charity donations. To book a table or redeem rewards, simply go to our website.",
-		"plan_documents": [
-			{
-				"name": "SquareMeal privacy policy",
-				"description": "I accept the",
-				"url": "https://policies.staging.gb.bink.com/squaremeal/pp.html",
-				"display": [
-					"ENROL"
-				],
-				"checkbox": false
-			},
-			{
-				"name": "Retailer terms and conditions",
-				"description": "I accept the",
-				"url": "https://policies.staging.gb.bink.com/squaremeal/tc.html",
-				"display": [
-					"ENROL"
-				],
-				"checkbox": true
-			}
-		],
-		"company_name": "SquareMeal",
-		"company_url": "https://www.squaremeal.co.uk/",
-		"category": "Food & Drink",
-		"tiers": [
-			{
-				"name": "Tier 1",
-				"description": "Bronze"
-			},
-			{
-				"name": "Tier 2",
-				"description": "Silver"
-			},
-			{
-				"name": "Tier 3",
-				"description": "Gold"
-			}
-		],
-		"add_fields": [],
-		"authorise_fields": [
-			{
-				"column": "Email",
-				"validation": "^(?=.{1,250}$)(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
-				"description": "example@mydomain.com",
-				"common_name": "email",
-				"type": 0,
-				"choice": []
-			},
-			{
-				"column": "Password",
-				"validation": "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,250}$",
-				"description": "Password (min 6 characters)",
-				"common_name": "password",
-				"type": 1,
-				"choice": []
-			}
-		],
-		"registration_fields": [],
-		"enrol_fields": [
-			{
-				"column": "First name",
-				"validation": "^.{1,250}$",
-				"description": "Enter first name",
-				"common_name": "first_name",
-				"type": 0,
-				"choice": []
-			},
-			{
-				"column": "Last name",
-				"validation": "^.{1,250}$",
-				"description": "Enter last name",
-				"common_name": "last_name",
-				"type": 0,
-				"choice": []
-			},
-			{
-				"column": "Email",
-				"validation": "^(?=.{1,250}$)(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
-				"description": "example@mydomain.com",
-				"common_name": "email",
-				"type": 0,
-				"choice": []
-			},
-			{
-				"column": "Password",
-				"validation": "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,250}$",
-				"description": "Password (min 6 characters)",
-				"common_name": "password",
-				"type": 1,
-				"choice": []
-			},
-			{
-				"column": "Consent 1",
-				"description": "Check this box to receive the latest news and offers from SquareMeal - if you change your mind, you can opt out anytime via the retailer.",
-				"type": 3
-			}
-		],
-		"fees": []
-	},
-	"balances": [
-		{
-			"currency": "Points",
-			"suffix": "pts"
-		}
-	],
-	"content": [
-		{
-			"column": "Enrol_Help_Text",
-			"value": "Please enter your details to register with the retailer. We won’t save or store any of the information you provide or edit."
-		}
-	]
+    "id": 286,
+    "status": "active",
+    "feature_set": {
+        "authorisation_required": true,
+        "transactions_available": true,
+        "digital_only": true,
+        "has_points": true,
+        "card_type": 2,
+        "linking_support": [
+            "ENROL",
+            "ADD"
+        ],
+        "apps": [
+            {
+                "app_type": 0
+            },
+            {
+                "app_type": 1
+            }
+        ],
+        "has_vouchers": false
+    },
+    "card": {
+        "barcode_type": 0,
+        "colour": "#465560",
+        "scan_message": "Scanning not required"
+    },
+    "images": [
+        {
+            "id": 1328,
+            "type": 3,
+            "url": "https://api.staging.gb.bink.com/content/hermes/schemes/SquareMeal_Icon.png",
+            "description": "SquareMeal Logo",
+            "encoding": "png"
+        },
+        {
+            "id": 1329,
+            "type": 9,
+            "url": "https://api.staging.gb.bink.com/content/hermes/schemes/SquareMeal_Alternative_Hero.png",
+            "description": "SquareMeal Alternative Card",
+            "encoding": "png"
+        },
+        {
+            "id": 1330,
+            "type": 0,
+            "url": "https://api.staging.gb.bink.com/content/hermes/schemes/SquareMeal_Hero.png",
+            "description": "SquareMeal Loyalty Card",
+            "encoding": "png"
+        },
+        {
+            "id": 1332,
+            "type": 8,
+            "url": "https://api.staging.gb.bink.com/content/hermes/schemes/SquareMeal_Silver_Tier_2.png",
+            "description": "SquareMeal Silver Tier Loyalty Card",
+            "encoding": "png"
+        },
+        {
+            "id": 1331,
+            "type": 8,
+            "url": "https://api.staging.gb.bink.com/content/hermes/schemes/SquareMeal_Bronze_Tier_1.png",
+            "description": "SquareMeal Bronze Tier Loyalty Card",
+            "encoding": "png"
+        },
+        {
+            "id": 1333,
+            "type": 8,
+            "url": "https://api.staging.gb.bink.com/content/hermes/schemes/SquareMeal_Gold_Tier_3.png",
+            "description": "SquareMeal Gold Tier Loyalty Card",
+            "encoding": "png"
+        }
+    ],
+    "account": {
+        "plan_name": "SquareMeal Restaurant Rewards",
+        "plan_name_card": "Account",
+        "plan_url": "https://www.squaremeal.co.uk/rewards/",
+        "plan_summary": "With SquareMeal, you're rewarded for eating out. Go to our website, book selected restaurants, and you'll collect points every time you spend \u00a320 or more. You can easily redeem points on our website for restaurant vouchers & luxury gifts.",
+        "plan_description": "Join SquareMeal Rewards today to make your next dinner even more rewarding. As a member, you'll earn points for booking tables, leaving restaurant reviews, and each time you spend \u00a320 or more in one of our selected restaurants with your linked payment cards. 100 points = \u00a31 spend on your choice of restaurant vouchers, luxury gifts, or charity donations. To book a table or redeem rewards, simply go to our website.",
+        "plan_documents": [
+            {
+                "name": "SquareMeal privacy policy",
+                "description": "I accept the",
+                "url": "https://policies.staging.gb.bink.com/squaremeal/pp.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": false
+            },
+            {
+                "name": "Retailer terms and conditions",
+                "description": "I accept the",
+                "url": "https://policies.staging.gb.bink.com/squaremeal/tc.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": true
+            }
+        ],
+        "company_name": "SquareMeal",
+        "company_url": "https://www.squaremeal.co.uk/",
+        "category": "Food & Drink",
+        "tiers": [
+            {
+                "name": "Tier 1",
+                "description": "Bronze"
+            },
+            {
+                "name": "Tier 2",
+                "description": "Silver"
+            },
+            {
+                "name": "Tier 3",
+                "description": "Gold"
+            }
+        ],
+        "add_fields": [],
+        "authorise_fields": [
+            {
+                "column": "Email",
+                "validation": "^(?=.{1,250}$)(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
+                "description": "example@mydomain.com",
+                "common_name": "email",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Password",
+                "validation": "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,250}$",
+                "description": "Password (min 6 characters)",
+                "common_name": "password",
+                "type": 1,
+                "choice": []
+            }
+        ],
+        "registration_fields": [],
+        "enrol_fields": [
+            {
+                "column": "First name",
+                "validation": "^.{1,250}$",
+                "description": "Enter first name",
+                "common_name": "first_name",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Last name",
+                "validation": "^.{1,250}$",
+                "description": "Enter last name",
+                "common_name": "last_name",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Email",
+                "validation": "^(?=.{1,250}$)(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
+                "description": "example@mydomain.com",
+                "common_name": "email",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Password",
+                "validation": "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,250}$",
+                "description": "Password (min 6 characters)",
+                "common_name": "password",
+                "type": 1,
+                "choice": []
+            },
+            {
+                "column": "Consent 1",
+                "description": "Check this box to receive the latest news and offers from SquareMeal - if you change your mind, you can opt out anytime via the retailer.",
+                "type": 3
+            }
+        ],
+        "fees": []
+    },
+    "balances": [
+        {
+            "currency": "Points",
+            "suffix": "pts"
+        }
+    ],
+    "content": [
+        {
+            "column": "Enrol_Help_Text",
+            "value": "Please enter your details to register with the retailer. We won\u2019t save or store any of the information you provide or edit."
+        }
+    ]
 }

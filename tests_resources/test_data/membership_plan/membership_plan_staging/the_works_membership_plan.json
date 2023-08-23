@@ -32,15 +32,15 @@
         {
             "id": 1414,
             "type": 3,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/The_Works_Icon.png",
-            "description": "The Works Icon",
+            "url": "https://api.staging.gb.bink.com/content/hermes/schemes/The_Works_Icon.png",
+            "description": "The Works Logo",
             "encoding": "png"
         },
         {
             "id": 1415,
             "type": 0,
-            "url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/The_Works_Hero_jel2vZz.png",
-            "description": "The Works Hero",
+            "url": "https://api.staging.gb.bink.com/content/hermes/schemes/The_Works_Hero_jel2vZz.png",
+            "description": "The Works Loyalty Card",
             "encoding": "png"
         }
     ],
@@ -52,16 +52,6 @@
         "plan_description": "Whether you are looking for an inspirational read, crafting a new masterpiece, or entertaining the kids with some good old-fashioned fun and games, get more from your shop by earning 5 points for every full \u00a31 you spend in-store and online. To get going just share your name and email address. Shop and save in-store or online. What do points mean? Vouchers! The Works will convert your points into redeemable vouchers for you four times a year to spend on all your favourite things!",
         "plan_documents": [
             {
-                "name": "The Works privacy policy",
-                "description": "I have read the",
-                "url": "https://policies.staging.gb.bink.com/the_works/pp.html",
-                "display": [
-                    "ENROL",
-                    "REGISTRATION"
-                ],
-                "checkbox": false
-            },
-            {
                 "name": "Retailer terms & conditions",
                 "description": "I accept the",
                 "url": "https://policies.staging.gb.bink.com/the_works/tc.html",
@@ -70,6 +60,16 @@
                     "REGISTRATION"
                 ],
                 "checkbox": true
+            },
+            {
+                "name": "The Works privacy policy",
+                "description": "I have read the",
+                "url": "https://policies.staging.gb.bink.com/the_works/pp.html",
+                "display": [
+                    "ENROL",
+                    "REGISTRATION"
+                ],
+                "checkbox": false
             }
         ],
         "barcode_redeem_instructions": "At checkout, simply show this barcode as you normally would with your physical card to redeem vouchers.",

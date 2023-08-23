@@ -1,151 +1,150 @@
 {
-	"id": 284,
-	"status": "active",
-	"feature_set": {
-		"authorisation_required": true,
-		"transactions_available": true,
-		"digital_only": true,
-		"has_points": true,
-		"card_type": 2,
-		"linking_support": [
-			"ENROL",
-			"ADD"
-		],
-		"apps": [
-			{
-				"app_type": 0
-			},
-			{
-				"app_type": 1
-			}
-		],
-		"has_vouchers": true
-	},
-	"card": {
-		"barcode_type": 0,
-		"colour": "#532f91",
-		"scan_message": "Scanning not required"
-	},
-	"images": [
-		{
-			"id": 1321,
-			"type": 0,
-			"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/binksweetshop-hero.png",
-			"description": "Bink Sweet Rewards Hero",
-			"encoding": "png"
-		},
-		{
-			"id": 1405,
-			"type": 9,
-			"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/binksweetshop-althero.png",
-			"description": "Bink Sweet Rewards Alternative Hero",
-			"encoding": "png"
-		},
-		{
-			"id": 1322,
-			"type": 3,
-			"url": "https://api.staging.gb.bink.com/content/media/hermes/schemes/binksweetshop-icon.png",
-			"description": "Bink Sweet Rewards Icon",
-			"encoding": "png"
-		}
-	],
-	"account": {
-		"plan_name": "Bink Sweet Rewards",
-		"plan_name_card": "Account",
-		"plan_url": "https://www.bink.com",
-		"plan_summary": "Bink Sweet Rewards gets you a free chocolate hamper for spending £100 in stores, even across multiple orders.",
-		"plan_description": "Please note that your vouchers are single-use and cannot be used twice. This voucher is non refundable and cannot be exchanged for cash in part or full and is valid for a single transaction only.",
-		"plan_documents": [
-			{
-				"name": "Retailer terms & conditions",
-				"description": "I accept the",
-				"url": "https://policies.gb.bink.com/trenette/tc.html",
-				"display": [
-					"ENROL"
-				],
-				"checkbox": true
-			},
-			{
-				"name": "Terms & conditions",
-				"url": "https://policies.gb.bink.com/trenette/tc.html",
-				"display": [
-					"VOUCHER"
-				],
-				"checkbox": false
-			},
-			{
-				"name": "Bink Sweet Shop privacy policy",
-				"description": "I have read the",
-				"url": "https://policies.gb.bink.com/trenette/pp.html",
-				"display": [
-					"ENROL"
-				],
-				"checkbox": false
-			}
-		],
-		"company_name": "Bink Sweet Shop",
-		"category": "Food & Drink",
-		"tiers": [],
-		"add_fields": [
-			{
-				"column": "Membership card number",
-				"validation": "^[A-Z]{2,6}[0-9]{8,10}$",
-				"description": "14 digit card number",
-				"common_name": "card_number",
-				"type": 0,
-				"choice": []
-			}
-		],
-		"authorise_fields": [
-			{
-				"column": "Email",
-				"validation": "^(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
-				"description": "example@mydomain.com",
-				"common_name": "email",
-				"type": 0,
-				"choice": []
-			}
-		],
-		"registration_fields": [],
-		"enrol_fields": [
-			{
-				"column": "First name",
-				"validation": "^(((?=.{1,100}$)[A-Za-z-\\u00C0-\\u00FF'])+\\s*){1,4}$",
-				"description": "Enter first name",
-				"common_name": "first_name",
-				"type": 0,
-				"choice": []
-			},
-			{
-				"column": "Last name",
-				"validation": "^(((?=.{1,100}$)[A-Za-z-\\u00C0-\\u00FF'])+\\s*){1,4}$",
-				"description": "Enter last name",
-				"common_name": "last_name",
-				"type": 0,
-				"choice": []
-			},
-			{
-				"column": "Email",
-				"validation": "^(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
-				"description": "example@mydomain.com",
-				"common_name": "email",
-				"type": 0,
-				"choice": []
-			},
-			{
-				"column": "Consent 1",
-				"description": "Check this box to receive the latest news and offers from Bink Sweet Shop - if you change your mind, you can opt out anytime via the retailer.",
-				"type": 3
-			}
-		],
-		"fees": []
-	},
-	"balances": [
-		{
-			"currency": "GBP",
-			"prefix": "£"
-		}
-	],
-	"content": []
+    "id": 284,
+    "status": "active",
+    "feature_set": {
+        "authorisation_required": true,
+        "transactions_available": true,
+        "digital_only": true,
+        "has_points": true,
+        "card_type": 2,
+        "linking_support": [
+            "ENROL",
+            "ADD"
+        ],
+        "apps": [
+            {
+                "app_type": 0
+            },
+            {
+                "app_type": 1
+            }
+        ],
+        "has_vouchers": true
+    },
+    "card": {
+        "barcode_type": 0,
+        "colour": "#532f91",
+        "scan_message": "Scanning not required"
+    },
+    "images": [
+        {
+            "id": 1321,
+            "type": 0,
+            "url": "https://api.staging.gb.bink.com/content/hermes/schemes/binksweetshop-hero.png",
+            "description": "Bink Sweet Rewards Hero",
+            "encoding": "png"
+        },
+        {
+            "id": 1405,
+            "type": 9,
+            "url": "https://api.staging.gb.bink.com/content/hermes/schemes/binksweetshop-althero.png",
+            "description": "Bink Sweet Rewards Alternative Hero",
+            "encoding": "png"
+        },
+        {
+            "id": 1322,
+            "type": 3,
+            "url": "https://api.staging.gb.bink.com/content/hermes/schemes/binksweetshop-icon.png",
+            "description": "Bink Sweet Rewards Icon",
+            "encoding": "png"
+        }
+    ],
+    "account": {
+        "plan_name": "Bink Sweet Rewards",
+        "plan_name_card": "Account",
+        "plan_url": "https://www.bink.com",
+        "plan_summary": "Bink Sweet Rewards gets you a free chocolate hamper for spending \u00a3100 in stores, even across multiple orders.",
+        "plan_description": "Please note that your vouchers are single-use and cannot be used twice. This voucher is non refundable and cannot be exchanged for cash in part or full and is valid for a single transaction only.",
+        "plan_documents": [
+            {
+                "name": "Retailer terms & conditions",
+                "description": "I accept the",
+                "url": "https://policies.gb.bink.com/trenette/tc.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": true
+            },
+            {
+                "name": "Terms & conditions",
+                "url": "https://policies.gb.bink.com/trenette/tc.html",
+                "display": [
+                    "VOUCHER"
+                ],
+                "checkbox": false
+            },
+            {
+                "name": "Bink Sweet Shop privacy policy",
+                "description": "I have read the",
+                "url": "https://policies.gb.bink.com/trenette/pp.html",
+                "display": [
+                    "ENROL"
+                ],
+                "checkbox": false
+            }
+        ],
+        "company_name": "Bink Sweet Shop",
+        "category": "Food & Drink",
+        "tiers": [],
+        "add_fields": [
+            {
+                "column": "Membership card number",
+                "validation": "^[A-Z]{2,6}[0-9]{8,10}$",
+                "description": "14 digit card number",
+                "common_name": "card_number",
+                "type": 0,
+                "choice": []
+            }
+        ],
+        "authorise_fields": [
+            {
+                "column": "Email",
+                "validation": "^(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
+                "description": "example@mydomain.com",
+                "common_name": "email",
+                "type": 0,
+                "choice": []
+            }
+        ],
+        "registration_fields": [],
+        "enrol_fields": [
+            {
+                "column": "First name",
+                "validation": "^(((?=.{1,100}$)[A-Za-z-\\u00C0-\\u00FF'])+\\s*){1,4}$",
+                "description": "Enter first name",
+                "common_name": "first_name",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Last name",
+                "validation": "^(((?=.{1,100}$)[A-Za-z-\\u00C0-\\u00FF'])+\\s*){1,4}$",
+                "description": "Enter last name",
+                "common_name": "last_name",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Email",
+                "validation": "^(?=[^@]{1,64}@)(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
+                "description": "example@mydomain.com",
+                "common_name": "email",
+                "type": 0,
+                "choice": []
+            },
+            {
+                "column": "Consent 1",
+                "description": "Check this box to receive the latest news and offers from Bink Sweet Shop - if you change your mind, you can opt out anytime via the retailer.",
+                "type": 3
+            }
+        ],
+        "fees": []
+    },
+    "balances": [
+        {
+            "currency": "GBP",
+            "prefix": "\u00a3"
+        }
+    ],
+    "content": []
 }
-
