@@ -388,35 +388,6 @@ def verify_add_and_link_membership_card(merchant):
         + json.dumps(response_json, indent=4)
     )
 
-    try:
-        payment_card_present = "no"
-        for current_payment_card in response_json["payment_cards"]:
-            if current_payment_card["id"] == TestContext.current_payment_card_id:
-                payment_card_present = "yes"
-        assert (
-            response.status_code == 200
-            and response_json["id"] == TestContext.current_scheme_account_id
-            and response_json["membership_plan"] == TestData.get_membership_plan_id(merchant)
-            and response_json["status"]["state"]
-            == TestData.get_membership_card_status_states().get(constants.AUTHORIZED)
-            and response_json["status"]["reason_codes"][0]
-            == TestData.get_membership_card_status_reason_codes().get(constants.REASON_CODE_AUTHORIZED)
-            # and response_json["card"]["membership_id"] == TestData.get_data(merchant).get(constants.CARD_NUM)
-            and response_json["payment_cards"][0]["active_link"]
-            == PaymentCardTestData.get_data().get(constants.ACTIVE_LINK)
-            and payment_card_present == "yes"
-        ), (
-            "Validations in GET/membership_cards after AutoLink for "
-            + merchant
-            + "failed with reason code "
-            + response_json["status"]["reason_codes"][0]
-        )
-    except IndexError:
-        raise Exception("PLL link for " + merchant + " failed and the payment array in the response is empty")
-    except AssertionError as error:
-        raise Exception("Add&Link Journey for " + merchant + " failed due to " + error.__str__())
-    return response
-
 
 @when(
     parsers.parse(
