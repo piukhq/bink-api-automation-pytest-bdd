@@ -13,7 +13,7 @@ from tests.api.base import Endpoint
 from tests.helpers.database.query_hermes import QueryHermes
 from tests.helpers.test_context import TestContext
 from tests.helpers.test_data_utils import TestDataUtils
-from tests.helpers.test_helpers import Merchant, PaymentCardTestData, TestData
+from tests.helpers.test_helpers import Merchant, TestData
 from tests.requests.membership_cards import MembershipCards
 from tests.requests.membership_transactions import MembershipTransactions
 from tests.requests.payment_cards import PaymentCards
